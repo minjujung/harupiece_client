@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+// consolelog logger
 import { consoleLogger } from "../redux/configureStore";
+// date picker
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+// modal
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Button } from "@material-ui/core";
+
+// icons
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 // date picker style
 const useStyles = makeStyles((theme) => ({
@@ -21,18 +33,33 @@ function ChallengeCreate() {
   // date picker style
   const classes = useStyles();
 
+  // modal state
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <h2>챌린지 개설</h2>
+
       <CreateContainer>
         <GuideLine>개설 가이드라인</GuideLine>
+
         <CreateContents>
           <Contents>
             <label style={{ width: "100%" }}>
               제목 <input placeholder="제목" />
             </label>
           </Contents>
+
           <ContentsContainer>
+            {/* 카테고리 */}
             <Contents>
               <label>카테고리</label>
               <select>
@@ -42,25 +69,53 @@ function ChallengeCreate() {
                 <option value="">다이어트</option>
                 <option value="">생활습관</option>
               </select>
-              <label>
+
+              {/* 대표 이미지 */}
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleClickOpen}
+              >
                 대표 이미지 업로드 / 선택{" "}
-                <div>
-                  <input type="file" />
-                </div>
-              </label>
+              </Button>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogContent>
+                  <div>이미지</div>
+                  <div>이미지</div>
+                  <div>이미지</div>
+                  <div>이미지</div>
+                  <div>이미지</div>
+                  <div>이미지</div>
+                </DialogContent>
+              </Dialog>
+
+              {/* 인증샷 예시 */}
               <Certification>
                 <div>인증샷 예시 등록</div>
                 <CertificationBox>
                   <Good>
-                    <input type="file" />
+                    <label for="ex_file">
+                      <PhotoCameraIcon />
+                    </label>
+                    <input id="ex_file" type="file" />
                   </Good>
                   <Bad>
-                    <input type="file" />
+                    <label for="ex_file">
+                      <PhotoCameraIcon />
+                    </label>
+                    <input id="ex_file" type="file" />
                   </Bad>
                 </CertificationBox>
               </Certification>
             </Contents>
+
             <Contents>
+              {/* date picker */}
               <div>
                 <form className={classes.container} noValidate>
                   <TextField
@@ -76,6 +131,7 @@ function ChallengeCreate() {
                 </form>
               </div>
 
+              {/* 모집형식 */}
               <label>모집형식</label>
               <select>
                 <option value="">카테고리</option>
@@ -83,11 +139,17 @@ function ChallengeCreate() {
                 <option value="">비공개</option>
               </select>
 
+              {/* 챌린지 설명 */}
               <label>
-                챌린지 설명 <input placeholder="챌린지를 설명해주세요." />
+                챌린지 설명
+                <div>
+                  <input placeholder="챌린지를 설명해주세요." />
+                </div>
               </label>
             </Contents>
           </ContentsContainer>
+
+          {/* 챌린지 개설 */}
           <button>챌린지 개설하기</button>
         </CreateContents>
       </CreateContainer>
@@ -146,8 +208,58 @@ const CertificationBox = styled.div`
   display: flex;
 `;
 
-const Good = styled.image``;
+const Good = styled.image`
+  label {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: 0.25em;
+  }
 
-const Bad = styled.image``;
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
+
+const Bad = styled.image`
+  label {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: 0.25em;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
 
 export default ChallengeCreate;
