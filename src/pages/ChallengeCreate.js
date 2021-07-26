@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as imageActions } from "../redux/modules/ch_create";
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
 // date picker
@@ -30,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ChallengeCreate() {
+  const dispatch = useDispatch();
+
   // date picker style
   const classes = useStyles();
 
@@ -42,6 +46,24 @@ function ChallengeCreate() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  // image preview
+  const preview = useSelector((state) => state.ch_create.preview);
+  const selectFile = (e) => {
+    consoleLogger(e.target.files);
+    consoleLogger(e.target.files[0]);
+    // consoleLogger(fileInput.current.files[0]);
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      consoleLogger(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
+    };
   };
 
   return (
@@ -102,6 +124,7 @@ function ChallengeCreate() {
                     <label for="ex_file">
                       <PhotoCameraIcon />
                     </label>
+                    <img src={preview ? preview : null} alt="" />
                     <input id="ex_file" type="file" />
                   </Good>
                   <Bad>
