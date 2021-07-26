@@ -20,6 +20,13 @@ if (env === "development") {
   middlewares.push(logger);
 }
 
+export const consoleLogger = (msg) => {
+  if (process.env.NODE_ENV === "production") {
+    return;
+  }
+  console.log(msg);
+};
+
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
