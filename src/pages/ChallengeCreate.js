@@ -2,40 +2,30 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/chCreate";
+import { actionCreators as createActions } from "../redux/modules/chCreate";
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
-// date picker
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+// date range picker
+import { enGB } from "date-fns/locale";
+import { DateRangePicker, START_DATE, END_DATE } from "react-nice-dates";
+import "react-nice-dates/build/style.css";
 // modal
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { Button } from "@material-ui/core";
 
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
-// date picker style
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
-
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
 
-  // date picker style
-  const classes = useStyles();
+  // title
+  const [title, setTitle] = useState("");
+
+  // date picker state
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   // modal state
   const [open, setOpen] = useState(false);
@@ -69,6 +59,26 @@ function ChallengeCreate(props) {
     };
   };
 
+  // challenge description
+  const [desc, setDesc] = useState("");
+
+  // create challenge
+  const createChallenge = () => {
+    // memberName: " ",
+    // challengeTitle: " ",
+    // challengeContent: " ",
+    // categoryName: " ",
+    // challengePassword: " ",
+    // challengeStartDate: " ",
+    // challengeEndDate: " ",
+    // challengeProgress: " ",
+    // challengeImgUrl: " ",
+    // challengeGood: " ",
+    // challengeBad: " ",
+    // challengeHoliday: " ",
+    dispatch(createActions.createChDB(title, desc));
+  };
+
   return (
     <>
       <h2>챌린지 개설</h2>
@@ -79,7 +89,14 @@ function ChallengeCreate(props) {
         <CreateContents>
           <Contents>
             <label style={{ width: "100%" }}>
-              제목 <input placeholder="제목" />
+              제목
+              <input
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  console.log(setTitle(e.target.value));
+                }}
+                placeholder="제목을 입력해주세요"
+              />
             </label>
           </Contents>
 
@@ -124,14 +141,14 @@ function ChallengeCreate(props) {
                 <div>인증샷 예시 등록</div>
                 <CertificationBox>
                   <Good>
-                    <label for="ex_file">
+                    <label htmlfor="ex_file">
                       <PhotoCameraIcon />
                     </label>
                     <img alt="" />
                     <input onChange={selectFile} id="ex_file" type="file" />
                   </Good>
                   <Bad>
-                    <label for="ex_file">
+                    <label htmlfor="ex_file">
                       <PhotoCameraIcon />
                     </label>
                     <input id="ex_file" type="file" />
@@ -143,18 +160,36 @@ function ChallengeCreate(props) {
             <Contents>
               {/* date picker */}
               <div>
-                <form className={classes.container} noValidate>
-                  <TextField
-                    id="date"
-                    label="기간"
-                    type="date"
-                    defaultValue="2021-01-01"
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </form>
+                <DateRangePicker
+                  startDate={startDate}
+                  endDate={endDate}
+                  onStartDateChange={setStartDate}
+                  onEndDateChange={setEndDate}
+                  minimumDate={new Date()}
+                  minimumLength={1}
+                  format="dd MMM yyyy"
+                  locale={enGB}
+                >
+                  {({ startDateInputProps, endDateInputProps, focus }) => (
+                    <div className="date-range">
+                      <input
+                        className={
+                          "input" + (focus === START_DATE ? " -focused" : "")
+                        }
+                        {...startDateInputProps}
+                        placeholder="Start date"
+                      />
+                      <span className="date-range_arrow" />
+                      <input
+                        className={
+                          "input" + (focus === END_DATE ? " -focused" : "")
+                        }
+                        {...endDateInputProps}
+                        placeholder="End date"
+                      />
+                    </div>
+                  )}
+                </DateRangePicker>
               </div>
 
               {/* 모집형식 */}
@@ -169,7 +204,13 @@ function ChallengeCreate(props) {
               <label>
                 챌린지 설명
                 <div>
-                  <input placeholder="챌린지를 설명해주세요." />
+                  <input
+                    onChange={(e) => {
+                      setDesc(e.target.value);
+                      console.log(setDesc(e.target.value));
+                    }}
+                    placeholder="챌린지를 설명해주세요."
+                  />
                 </div>
               </label>
             </Contents>

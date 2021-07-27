@@ -84,6 +84,7 @@ export default handleActions(
 
 const actionCreators = {
   setPreview,
+  createChDB,
 };
 
 export { actionCreators };
