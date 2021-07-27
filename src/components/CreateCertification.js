@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/chCreate";
+import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
 
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
@@ -11,10 +11,12 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 function CreateCertification() {
   const dispatch = useDispatch();
+
   // image preview
   const fileInput = React.useRef();
 
-  // const preview = useSelector((state) => state.chCreate.preview);
+  const preview = useSelector((state) => state.create.preview);
+  console.log(preview);
 
   const selectFile = (e) => {
     consoleLogger(e.target.files);
@@ -40,14 +42,25 @@ function CreateCertification() {
             <label for="ex_file">
               <PhotoCameraIcon />
             </label>
-            <img alt="" />
-            <input onChange={selectFile} id="ex_file" type="file" />
+            <img src={preview ? preview : null} alt="" />
+            <input
+              onChange={selectFile}
+              ref={fileInput}
+              id="ex_file"
+              type="file"
+            />
           </Good>
           <Bad>
             <label for="ex_file">
               <PhotoCameraIcon />
             </label>
-            <input id="ex_file" type="file" />
+            <img src={preview ? preview : null} alt="" />
+            <input
+              onChange={selectFile}
+              ref={fileInput}
+              id="ex_file"
+              type="file"
+            />
           </Bad>
         </CertificationBox>
       </Certification>

@@ -4,7 +4,7 @@ import CreateImgSelect from "../components/CreateImgSelect";
 import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as createActions } from "../redux/modules/chCreate";
+import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
@@ -19,6 +19,15 @@ function ChallengeCreate(props) {
 
   // title
   const [title, setTitle] = useState("");
+
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
+    console.log(setTitle());
+    console.log(e.target.value);
+  };
+
+  // 모집 형식 state
+  const [privates, setPrivates] = useState(false);
 
   // challenge description
   const [desc, setDesc] = useState("");
@@ -51,13 +60,7 @@ function ChallengeCreate(props) {
           <Contents>
             <label style={{ width: "100%" }}>
               제목
-              <input
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  console.log(setTitle(e.target.value));
-                }}
-                placeholder="제목을 입력해주세요"
-              />
+              <input onChange={changeTitle} placeholder="제목을 입력해주세요" />
             </label>
           </Contents>
 
