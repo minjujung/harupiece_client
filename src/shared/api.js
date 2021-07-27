@@ -17,7 +17,7 @@ instance.interceptors.request.use(function (config) {
 
 export const UserApis = {
   login: (email, pw) => instance.post('/member/login', {email: email, password: pw}),
-	signup: (email, nick, pw, pwc) => instance.post('/member/signup', {email: email, nickname: nick , password: pw, passwordCheck: pwc}),
+	signup: (email, nick, pw, pwc, profileImg) => instance.post('/member/signup', {email: email, nickname: nick , password: pw, passwordCheck: pwc ,profileImg: profileImg}),
 };
 
 

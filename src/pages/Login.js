@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect , useState } from "react";
 import styled from 'styled-components';
 import Header from '../components/Header';
 
+import { useDispatch , useSelector} from 'react-redux';
+import { userCreators } from '../redux/modules/user';
+
 const Login = (props) => {
+    const islogin = useSelector((store) => store.user.isLogin);
+    const dispatch = useDispatch();
+	const [email, setEmail] = useState('');
+	const [pw, setPw] = useState('');
+
+    useEffect(() => {
+		if (islogin) props.history.push('/');
+	});
+    const login =() => {
+        dispatch(userCreators.setLoginDB(email,pw));
+    }
+
     return(
         <React.Fragment>
             <Header/>
@@ -11,9 +26,14 @@ const Login = (props) => {
                         <h1>Login</h1>
                     </LoginC0>
                     <LoginC1>
-                        <input placeholder="아이디"></input>
-                        <input placeholder="비밀번호"></input>
-                        <button>로그인 하기</button>
+                        <input placeholder="아이디" onChange={(e) => {
+								setEmail(e.target.value);
+							}}></input>
+                        <input placeholder="비밀번호" onChange={(e) => {
+								setPw(e.target.value);
+							}}></input>
+                        <button onClick={login} 
+                            >회원가입 하기</button>
                         <button onClick={() => {
                                 props.history.push("/signup");
                             }} 
