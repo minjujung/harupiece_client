@@ -20,10 +20,12 @@ const initialState = {
     challengeStartDate: "2021-07-26",
     challengeEndDate: "2021-08-02",
     challengeProgress: "진행중",
-    challengeGood: "",
-    challengeBad: "",
+    challengeGood:
+      "https://user-images.githubusercontent.com/75834421/127076439-599fa607-9285-4ab6-aec6-54ba16567434.png",
+    challengeBad:
+      "https://user-images.githubusercontent.com/75834421/127076583-de2aadb3-2dd2-4778-a59e-e68f9dc3aded.png",
     challengeHollyday: " ",
-    member: [1, 2, 3, 4],
+    challengeMember: [1, 2, 3, 4],
   }, //챌린지에 참여한 유저아이디
 };
 
@@ -38,13 +40,13 @@ const getChallengeDetailDB =
         dispatch(getChallengeDetail(res.data));
       })
       .catch((error) => {
-        if (
-          window.confirm(
-            "챌린지 상세내용을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
-          )
-        ) {
-          history.push("/");
-        }
+        // if (
+        //   window.confirm(
+        //     "챌린지 상세내용을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+        //   )
+        // ) {
+        //   history.push("/");
+
         // } else {
         //   history.goback();
         // }

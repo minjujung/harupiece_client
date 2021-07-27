@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import _ from "lodash";
 
 const InfinityScroll = (props) => {
-  const { children, callNext, is_Next, loading } = props;
+  const { children, callNext, is_next, loading } = props;
 
   const _handleScroll = _.throttle(() => {
     //로딩중이면 callNext()를 안부르도록
@@ -32,14 +32,14 @@ const InfinityScroll = (props) => {
       return;
     }
 
-    if (is_Next) {
+    if (is_next) {
       window.addEventListener("scroll", handleScroll);
     } else {
       window.removeEventListener("scroll", handleScroll);
     }
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [is_Next, loading]);
+  }, [is_next, loading]);
 
   return (
     <>

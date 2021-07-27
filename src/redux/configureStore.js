@@ -5,11 +5,13 @@ import { connectRouter } from "connected-react-router";
 
 import Challenge from "./modules/challenge";
 import Post from "./modules/post";
+import Image from "./modules/image";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   post: Post,
+  image: Image,
   challenge: Challenge,
   router: connectRouter(history),
 });
