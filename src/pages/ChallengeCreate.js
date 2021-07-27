@@ -9,11 +9,6 @@ import { actionCreators as createActions } from "../redux/modules/challengeCreat
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
 
-// date range picker
-import { enGB } from "date-fns/locale";
-import { DateRangePicker, START_DATE, END_DATE } from "react-nice-dates";
-import "react-nice-dates/build/style.css";
-
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
 
@@ -27,6 +22,7 @@ function ChallengeCreate(props) {
   };
 
   // 모집 형식 state
+  // 비밀번호 형식..
   const [privates, setPrivates] = useState(false);
 
   // challenge description

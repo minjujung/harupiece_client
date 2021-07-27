@@ -13,6 +13,9 @@ function CreateCalendar() {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
+  // onStartDateChange, onEndDateChange 값 혹은
+  // startDateInputProps, startDateInputProps 값을 구해서 넘기면 될거같다.
+
   return (
     <>
       <DateRangePicker

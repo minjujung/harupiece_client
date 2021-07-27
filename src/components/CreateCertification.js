@@ -13,26 +13,37 @@ function CreateCertification() {
   const dispatch = useDispatch();
 
   // image preview
-  const fileInput = React.useRef();
+  const goodFileInput = React.useRef();
+  const badFileInput = React.useRef();
 
   const preview = useSelector((state) => state.create.preview);
   console.log(preview);
 
-  const selectFile = (e) => {
-    consoleLogger(e.target.files);
-    consoleLogger(e.target.files[0]);
-    consoleLogger(fileInput.current.files[0]);
-
+  const goodSelectFile = (e) => {
     const reader = new FileReader();
-    const file = e.target.files[0];
+    const goodFile = goodFileInput.current.files[0];
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(goodFile);
 
     reader.onloadend = () => {
-      consoleLogger(reader.result);
+      // consoleLogger(reader.result);
       dispatch(imageActions.setPreview(reader.result));
     };
   };
+
+  const badSelectFile = (e) => {
+    const reader = new FileReader();
+    const badFile = badFileInput.current.files[0];
+
+    reader.readAsDataURL(badFile);
+
+    reader.onloadend = () => {
+      // consoleLogger(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
+    };
+  };
+
+  // 프리뷰 2개로 만들기 + 이미지 aws로 업로드
   return (
     <>
       <Certification>
@@ -44,8 +55,8 @@ function CreateCertification() {
             </label>
             <img src={preview ? preview : null} alt="" />
             <input
-              onChange={selectFile}
-              ref={fileInput}
+              onChange={goodSelectFile}
+              ref={goodFileInput}
               id="ex_file"
               type="file"
             />
@@ -56,8 +67,8 @@ function CreateCertification() {
             </label>
             <img src={preview ? preview : null} alt="" />
             <input
-              onChange={selectFile}
-              ref={fileInput}
+              onChange={badSelectFile}
+              ref={badFileInput}
               id="ex_file"
               type="file"
             />

@@ -13,7 +13,19 @@ const initialState = {
   thumnailList: [
     {
       categoryName: "공부",
-      challengeImgUrl: "",
+      challengeImgUrl: [
+        "https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/773/59/773-59-101P/Lone-Penguin-Natural-Kingdom-Poster.jpg",
+
+        "https://storage.googleapis.com/oceanwide_web/media-dynamic/cache/widen_900/media/default/0001/02/f59f65c73e71f27058a84be06341468b472b82e5.jpeg",
+
+        "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/hero_small/2tcsbqkcyj_Medium_WW267491.jpg",
+
+        "https://i.ytimg.com/vi/Tcx6YyXvvRI/maxresdefault.jpg",
+
+        "https://static01.nyt.com/images/2020/10/20/science/30TB-PENGUINS04/30TB-PENGUINS04-mediumSquareAt3X.jpg",
+
+        "https://cms.bbcearth.com/sites/default/files/2020-12/2fkcp0000001000.jpg",
+      ],
     },
   ],
   preview: null,
