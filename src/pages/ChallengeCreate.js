@@ -1,63 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import CreateImgSelect from "../components/CreateImgSelect";
+import CreateCertification from "../components/CreateCertification";
+import CreateCalendar from "../components/CreateCalendar";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/chCreate";
 import { actionCreators as createActions } from "../redux/modules/chCreate";
+
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
+
 // date range picker
 import { enGB } from "date-fns/locale";
 import { DateRangePicker, START_DATE, END_DATE } from "react-nice-dates";
 import "react-nice-dates/build/style.css";
-// modal
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import { Button } from "@material-ui/core";
-
-// icons
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
 
   // title
   const [title, setTitle] = useState("");
-
-  // date picker state
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-
-  // modal state
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // image preview
-  const fileInput = React.useRef();
-
-  // const preview = useSelector((state) => state.chCreate.preview);
-
-  const selectFile = (e) => {
-    consoleLogger(e.target.files);
-    consoleLogger(e.target.files[0]);
-    consoleLogger(fileInput.current.files[0]);
-
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      consoleLogger(reader.result);
-      dispatch(imageActions.setPreview(reader.result));
-    };
-  };
 
   // challenge description
   const [desc, setDesc] = useState("");
@@ -101,8 +62,8 @@ function ChallengeCreate(props) {
           </Contents>
 
           <ContentsContainer>
-            {/* 카테고리 */}
             <Contents>
+              {/* 카테고리 */}
               <label>카테고리</label>
               <select>
                 <option value="">카테고리</option>
@@ -113,84 +74,14 @@ function ChallengeCreate(props) {
               </select>
 
               {/* 대표 이미지 */}
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleClickOpen}
-              >
-                대표 이미지 업로드 / 선택{" "}
-              </Button>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogContent>
-                  <div>이미지</div>
-                  <div>이미지</div>
-                  <div>이미지</div>
-                  <div>이미지</div>
-                  <div>이미지</div>
-                  <div>이미지</div>
-                </DialogContent>
-              </Dialog>
-
+              <CreateImgSelect />
               {/* 인증샷 예시 */}
-              <Certification>
-                <div>인증샷 예시 등록</div>
-                <CertificationBox>
-                  <Good>
-                    <label htmlfor="ex_file">
-                      <PhotoCameraIcon />
-                    </label>
-                    <img alt="" />
-                    <input onChange={selectFile} id="ex_file" type="file" />
-                  </Good>
-                  <Bad>
-                    <label htmlfor="ex_file">
-                      <PhotoCameraIcon />
-                    </label>
-                    <input id="ex_file" type="file" />
-                  </Bad>
-                </CertificationBox>
-              </Certification>
+              <CreateCertification />
             </Contents>
 
             <Contents>
               {/* date picker */}
-              <div>
-                <DateRangePicker
-                  startDate={startDate}
-                  endDate={endDate}
-                  onStartDateChange={setStartDate}
-                  onEndDateChange={setEndDate}
-                  minimumDate={new Date()}
-                  minimumLength={1}
-                  format="dd MMM yyyy"
-                  locale={enGB}
-                >
-                  {({ startDateInputProps, endDateInputProps, focus }) => (
-                    <div className="date-range">
-                      <input
-                        className={
-                          "input" + (focus === START_DATE ? " -focused" : "")
-                        }
-                        {...startDateInputProps}
-                        placeholder="Start date"
-                      />
-                      <span className="date-range_arrow" />
-                      <input
-                        className={
-                          "input" + (focus === END_DATE ? " -focused" : "")
-                        }
-                        {...endDateInputProps}
-                        placeholder="End date"
-                      />
-                    </div>
-                  )}
-                </DateRangePicker>
-              </div>
+              <CreateCalendar />
 
               {/* 모집형식 */}
               <label>모집형식</label>
@@ -262,71 +153,6 @@ const Contents = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-`;
-
-const Certification = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const CertificationBox = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-`;
-
-const Good = styled.image`
-  label {
-    display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 0.25em;
-  }
-
-  input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-`;
-
-const Bad = styled.image`
-  label {
-    display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 0.25em;
-  }
-
-  input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
 `;
 
 export default ChallengeCreate;
