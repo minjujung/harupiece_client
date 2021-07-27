@@ -21,6 +21,15 @@ const ChallengeDetail = (props) => {
     dispatch(postActions.getPostDB(challengeId));
   });
 
+  const start = challenge.challengeStartDate.split("-");
+  const date1 = new Date(start[0], start[1][1] - 1, start[2]);
+
+  const end = challenge.challengeEndDate.split("-");
+  const date2 = new Date(end[0], end[1][1] - 1, end[2]);
+
+  const totalSecond = date2.getTime() - date1.getTime();
+  const totalDay = totalSecond / 1000 / 60 / 60 / 24;
+
   return (
     <>
       <h1>{challenge.challengeTitle}</h1>
@@ -70,6 +79,7 @@ const ChallengeDetail = (props) => {
           <PostList
             list={list}
             totalNumber={challenge.challengeMember.length}
+            totalDay={totalDay}
           />
         </InfinityScroll>
       </section>

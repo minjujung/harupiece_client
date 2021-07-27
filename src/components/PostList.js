@@ -6,18 +6,19 @@ import PostEdit from "./PostEdit";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../redux/modules/image";
+import { actionCreator as postActions } from "../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
+  // const user_info = useSelector(state => state.user.userInfo)
 
-  const { list, totalNumber } = props;
+  const { list, totalNumber, totalDay } = props;
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);
 
   //인증샷 클릭시 인증샷 상세페이지 modal 열기
   const handleClickOpen = (id) => {
-    consoleLogger(id);
     setClicked(list.findIndex((l) => l.postingId === id));
     setOpen(true);
   };
@@ -31,14 +32,31 @@ const PostList = (props) => {
     setTimeout(() => dispatch(imageActions.setPreview(null)), 400);
   };
 
-  const check = () => {};
+  //인증 버튼 눌렀을 때
+  const check = () => {
+    dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
+    if ((list[clicked]?.postingCount / totalNumber) * 100 === 50) {
+      //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
+      // dispatch(userActions.editUserDB(totalDay * 50))
+      // window.alert(`${user_info.nickName}님의 인증으로 ${list[clicked]?.nickName}이 ${totalDay * 50}조각을 획득하셨어요!!`)
+    }
+  };
 
-  //modal안의 내용물만 편집형태로 바꾸기
+  //modal안의 component만 편집형태로 바꾸기
   const editPost = () => {
     if (list[clicked]?.postingModifyOk) {
       setEdit(true);
     } else {
       window.alert("인증샷 수정은 게시후 24시간 이내에만 가능합니다!");
+    }
+  };
+
+  //post 삭제
+  const deletePost = (postingId) => {
+    if (list[clicked]?.postingModifyOk) {
+      dispatch(postActions.deletePostDB(postingId));
+    } else {
+      window.alert("인증샷 삭제는 게시후 24시간 이내에만 가능합니다!");
     }
   };
 
@@ -85,13 +103,12 @@ const PostList = (props) => {
                   총 {(list[clicked]?.postingCount / totalNumber) * 100} %
                 </span>
               </div>
+              <button onClick={() => deletePost(list[clicked]?.postingId)}>
+                삭제하기
+              </button>
             </div>
             <p>{list[clicked]?.postingContent}</p>
-            <img
-              src={list[clicked]?.postingImg}
-              onClick={handleClickOpen}
-              alt="vegan_post"
-            />
+            <img src={list[clicked]?.postingImg} alt="vegan_post" />
             <div>
               <button onClick={check}>인증 확인</button>
               <button onClick={editPost}>인증샷 수정</button>
