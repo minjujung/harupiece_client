@@ -76,7 +76,7 @@ const ChallengeDetail = (props) => {
       <div>
         <button>챌린지 신청하기</button>
         <PostWrite />
-        <button>챌린지 신청하기</button>
+        <button>챌린지 신청 취소하기</button>
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../redux/modules/image";
 import { actionCreator as postActions } from "../redux/modules/post";
+import { consoleLogger } from "../redux/configureStore";
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
