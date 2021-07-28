@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 
 import InfinityScroll from "../shared/InfinityScroll";
 
@@ -32,20 +33,40 @@ const ChallengeDetail = (props) => {
 
   return (
     <>
-      <h1>{challenge.challengeTitle}</h1>
-      <h2>총 {challenge.challengeMember.length}명이 참여중입니다!</h2>
-      <nav>
-        <ul>
-          <li>
-            <a href="#intro">소개</a>
-          </li>
-          <li>
-            <a href="#shot_list">인증목록</a>
-          </li>
-        </ul>
-      </nav>
-      <section id="intro">
-        <h3>챌린지 소개</h3>
+      <ChallengeHeader>
+        <h1>{challenge.challengeTitle}</h1>
+        <h2>총 {challenge.challengeMember.length}명이 참여중입니다!</h2>
+        <nav>
+          <ul>
+            <li>
+              <a href="#intro">소개</a>
+            </li>
+            <li>
+              <a href="#shot_list">인증목록</a>
+            </li>
+          </ul>
+        </nav>
+      </ChallengeHeader>
+      <div style={{ height: "15em" }}></div>
+      <div style={{ position: "relative" }}>
+        <span
+          id="intro"
+          style={{ position: "absolute", left: "0", top: "-15em" }}
+        >
+          &nbsp;
+        </span>
+        <h3
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            margin: "0",
+          }}
+        >
+          챌린지 소개
+        </h3>
+      </div>
+      <section style={{ paddingTop: "1em", boxSizing: "border-box" }}>
         <p>{challenge.challengePassword}</p>
         <p>카테고리: {challenge.categoryName}</p>
         <p>
@@ -67,7 +88,25 @@ const ChallengeDetail = (props) => {
           <img src={challenge.challengeBad} alt="nonvegan_diet" />
         </article>
       </section>
-      <section id="shot_list">
+      <div style={{ position: "relative" }}>
+        <span
+          id="shot_list"
+          style={{ position: "absolute", left: "0", top: "-15em" }}
+        >
+          &nbsp;
+        </span>
+        <h3
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            margin: "0",
+          }}
+        >
+          인증 목록
+        </h3>
+      </div>
+      <section style={{ paddingTop: "2em", boxSizing: "border-box" }}>
         <InfinityScroll
           callNext={() => {
             dispatch(postActions.getPostDB(challengeId, paging.next));
@@ -75,21 +114,33 @@ const ChallengeDetail = (props) => {
           is_next={paging.next ? true : false}
           loading={is_loading}
         >
-          <h3>인증 목록</h3>
           <PostList
             list={list}
             totalNumber={challenge.challengeMember.length}
             totalDay={totalDay}
           />
         </InfinityScroll>
+        <div>
+          <button>챌린지 신청하기</button>
+          <PostWrite />
+          <button>챌린지 신청 취소하기</button>
+        </div>
       </section>
-      <div>
-        <button>챌린지 신청하기</button>
-        <PostWrite />
-        <button>챌린지 신청 취소하기</button>
-      </div>
+
+      {/* <a href="#challenge_title">
+          <button>맨위로 가기</button>
+        </a> */}
     </>
   );
 };
 
 export default ChallengeDetail;
+
+const ChallengeHeader = styled.div`
+  width: 100%;
+  background: lightblue;
+  position: fixed;
+  top: 0;
+  height: 15em;
+  opacity: 0.75;
+`;

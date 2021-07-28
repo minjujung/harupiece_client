@@ -207,6 +207,7 @@ const editPostDB =
     const post = { ..._post, postingContent: content.shotText };
 
     if (content.file === post.postingImg) {
+      dispatch(loading(true));
       //사진이 전과 같을 때는 업로드 x
       instance
         .put(`/api/posting/update/${post_id}`, post)

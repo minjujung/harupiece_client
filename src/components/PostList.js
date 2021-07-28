@@ -34,6 +34,9 @@ const PostList = (props) => {
 
   //인증 버튼 눌렀을 때
   const check = () => {
+    window.alert(
+      `한번 인증을 확인하시면 최소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
+    );
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
     if ((list[clicked]?.postingCount / totalNumber) * 100 === 50) {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
@@ -83,8 +86,9 @@ const PostList = (props) => {
           },
         }}
       >
+        <button onClick={handleClose}>모달창 닫기</button>
         {edit && list[clicked] ? (
-          <PostEdit {...list[clicked]} />
+          <PostEdit {...list[clicked]} handleClose={handleClose} />
         ) : (
           <>
             {" "}

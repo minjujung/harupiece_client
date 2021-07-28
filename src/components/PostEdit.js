@@ -17,6 +17,7 @@ const PostEdit = (props) => {
 
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
+  const loading = useSelector((state) => state.post.is_loading);
 
   const [shotText, setShotText] = useState("");
   const shotInput = useRef();
@@ -57,6 +58,10 @@ const PostEdit = (props) => {
       );
     } else {
       dispatch(postActions.editPostDB(postingId, { file, shotText }));
+    }
+
+    if (!loading) {
+      props.handleClose();
     }
   };
 
