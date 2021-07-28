@@ -27,8 +27,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setGoodPreview(reader.result));
+      // setChallengeInfo({ ...challengeInfo, challengeGood: img });
     };
   };
+  console.log(challengeInfo.challengeGood);
 
   const badSelectFile = (e) => {
     const reader = new FileReader();
@@ -38,9 +40,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setBadPreview(reader.result));
-      console.log(badFile);
+      // setChallengeInfo({ ...challengeInfo, challengeBad: img });
     };
   };
+  console.log(challengeInfo.challengeBad);
 
   return (
     <>
