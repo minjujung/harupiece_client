@@ -1,7 +1,13 @@
 import React from "react";
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { MainCreators } from '../redux/modules/main';
 
 const MainSlider = (props) => {
+    const dispatch = useDispatch();
+    const guestmain = useSelector((state) => state.main.guestmain); 
+    
     return (
         <React.Fragment>
             <Contain>
