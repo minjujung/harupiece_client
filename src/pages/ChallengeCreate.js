@@ -5,7 +5,6 @@ import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
-import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
 import { useForm } from "react-hook-form";
 
 // consolelog logger
@@ -32,19 +31,25 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengeTitle: e.target.value });
   };
 
-  // 대표이미지 설정
-  const select = useSelector((state) => state.create.thumnailList);
-  console.log(select);
-  const thumnail = () => {
-    dispatch(imageActions.getThumnailDb(select.thumnailList));
+  // 카테고리 설정
+
+  const chooseCategory = (e) => {
+    setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
   };
+
+  // 대표이미지 설정
 
   // 모집 형식 state
   // 비밀번호 형식..
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const [pwd, setPwd] = useState(false);
 
-  const savepassword = (e) => {
+  const choosePublic = (e) => {
+    if (e.target.value === "PRIVATE") {
+      setPwd(true);
+    }
+  };
+
+  const savePwd = (e) => {
     setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
   };
 
@@ -76,30 +81,19 @@ function ChallengeCreate(props) {
           <ContentsContainer>
             <Contents>
               {/* 카테고리 */}
-              {/* <label>카테고리</label>
-              <select>
-                <option value="category">카테고리</option>
-                <option value="money">돈 관리</option>
-                <option value="study">공부</option>
-                <option value="diet">다이어트</option>
-                <option value="livingHabits">생활습관</option>
-              </select> */}
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <select {...register("category")}>
-                  <option value="category">카테고리</option>
-                  <option value="diet">다이어트</option>
-                  <option value="livingHabits">생활습관</option>
-                  <option value="money">돈 관리</option>
-                  <option value="study">공부</option>
-                </select>
-                <input type="submit" />
-              </form>
+              <label htmlFor="category">카테고리</label>
+              <select id="category" onChange={chooseCategory}>
+                <option value="CATEGORY">카테고리</option>
+                <option value="MONEY">돈 관리</option>
+                <option value="STUDY">공부</option>
+                <option value="EXERCISE">운동</option>
+                <option value="LIVINGHABITS">생활습관</option>
+              </select>
 
               {/* 대표 이미지 */}
               <CreateImgSelect
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
-                onClick={thumnail}
               />
               {/* 인증샷 예시 */}
               <CreateCertification />
@@ -113,14 +107,19 @@ function ChallengeCreate(props) {
               />
 
               {/* 모집형식 */}
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <select {...register("public")}>
-                  <option value="public">공개</option>
-                  <option value="private">비공개</option>
-                </select>
-                <input onChange={savepassword} {...register("password")} />
-                <input type="submit" />
-              </form>
+              <label htmlFor="category">카테고리</label>
+              <select id="category" onChange={choosePublic}>
+                <option value="CATEGORY">카테고리</option>
+                <option value="PUBLICK">공개</option>
+                <option value="PRIVATE">비공개</option>
+              </select>
+              {pwd ? (
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  onChange={savePwd}
+                />
+              ) : null}
 
               {/* 챌린지 설명 */}
               <label>

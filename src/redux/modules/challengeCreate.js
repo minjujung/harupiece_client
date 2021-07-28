@@ -15,11 +15,12 @@ const initialState = {
 };
 
 // 대표이미지 가져오기
-const getThumnailDb = () => {
+const getThumnailDb = (category) => {
+  console.log(category);
   return function (dispatch, getState, { history }) {
     instance
-      .get(`/api/category-image/{categoryName}`)
-      .then((res) => dispatch(getThumnail(res)))
+      .get(`/api/category-image/${category}`)
+      .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))
       .catch((error) => {
         if (window.confirm("test")) {
           history.push("/");
@@ -71,7 +72,7 @@ export default handleActions(
       }),
     [GET_THUMNAIL]: (state, action) =>
       produce(state, (draft) => {
-        draft.thumnailList = action.payload.thumnailList;
+        draft.thumnailList = action.payload.list;
       }),
   },
   initialState

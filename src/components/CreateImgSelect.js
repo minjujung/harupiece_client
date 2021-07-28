@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -11,11 +11,14 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
 
   const select = useSelector((state) => state.create.thumnailList);
 
+  const [preview, setPreview] = useState("");
+
   // modal state
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+    dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
   };
 
   const handleClose = () => {
@@ -23,7 +26,12 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
   };
 
   // 대표이미지 선택
-  const selectImg = () => {};
+  const selectImg = (img) => {
+    setChallengeInfo({ ...challengeInfo, challengeImgUrl: img });
+    setPreview(img);
+    handleClose();
+  };
+
   return (
     <>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -39,12 +47,13 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
           {select.map((i, idx) => {
             return (
               <>
-                <img src={i.challengeImgUrl} onClick={selectImg} alt="" />
+                <img src={i} onClick={() => selectImg(i)} alt="" />
               </>
             );
           })}
         </DialogContent>
       </Dialog>
+      {preview ? <img src={preview} alt="preview" /> : null}
     </>
   );
 }
