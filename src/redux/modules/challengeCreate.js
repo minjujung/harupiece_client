@@ -3,15 +3,20 @@ import produce from "immer";
 import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
-const SET_PREVIEW = "SET_PREVIEW";
+const SET_GOODPREVIEW = "SET_GOODPREVIEW";
+const SET_BADPREVIEW = "SET_BADPREVIEW";
 const GET_THUMNAIL = "GET_THUMNAIL";
 
-const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
+const setGoodPreview = createAction(SET_GOODPREVIEW, (preview) => ({
+  preview,
+}));
+const setBadPreview = createAction(SET_BADPREVIEW, (preview) => ({ preview }));
 const getThumnail = createAction(GET_THUMNAIL, (list) => ({ list }));
 
 const initialState = {
   thumnailList: [],
-  preview: null,
+  goodPreview: null,
+  badPreview: null,
 };
 
 // 대표이미지 가져오기
@@ -66,9 +71,13 @@ const createChDB =
 
 export default handleActions(
   {
-    [SET_PREVIEW]: (state, action) =>
+    [SET_GOODPREVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.preview = action.payload.preview;
+        draft.goodPreview = action.payload.preview;
+      }),
+    [SET_BADPREVIEW]: (state, action) =>
+      produce(state, (draft) => {
+        draft.badPreview = action.payload.preview;
       }),
     [GET_THUMNAIL]: (state, action) =>
       produce(state, (draft) => {
@@ -79,7 +88,8 @@ export default handleActions(
 );
 
 const actionCreators = {
-  setPreview,
+  setGoodPreview,
+  setBadPreview,
   getThumnailDb,
   createChDB,
 };

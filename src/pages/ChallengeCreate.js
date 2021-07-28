@@ -96,7 +96,10 @@ function ChallengeCreate(props) {
                 setChallengeInfo={setChallengeInfo}
               />
               {/* 인증샷 예시 */}
-              <CreateCertification />
+              <CreateCertification
+                challengeInfo={challengeInfo}
+                setChallengeInfo={setChallengeInfo}
+              />
             </Contents>
 
             <Contents>

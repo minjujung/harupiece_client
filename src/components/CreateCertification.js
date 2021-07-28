@@ -9,14 +9,15 @@ import { consoleLogger } from "../redux/configureStore";
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
-function CreateCertification() {
+function CreateCertification({ challengeInfo, setChallengeInfo }) {
   const dispatch = useDispatch();
 
   // image preview
   const goodFileInput = React.useRef();
   const badFileInput = React.useRef();
 
-  const preview = useSelector((state) => state.create.preview);
+  const goodPreview = useSelector((state) => state.create.goodPreview);
+  const badPreview = useSelector((state) => state.create.badPreview);
 
   const goodSelectFile = (e) => {
     const reader = new FileReader();
@@ -25,8 +26,7 @@ function CreateCertification() {
     reader.readAsDataURL(goodFile);
 
     reader.onloadend = () => {
-      // consoleLogger(reader.result);
-      dispatch(imageActions.setPreview(reader.result));
+      dispatch(imageActions.setGoodPreview(reader.result));
     };
   };
 
@@ -37,22 +37,21 @@ function CreateCertification() {
     reader.readAsDataURL(badFile);
 
     reader.onloadend = () => {
-      // consoleLogger(reader.result);
-      dispatch(imageActions.setPreview(reader.result));
+      dispatch(imageActions.setBadPreview(reader.result));
+      console.log(badFile);
     };
   };
 
-  // 프리뷰 2개로 만들기 + 이미지 aws로 업로드
   return (
     <>
       <Certification>
         <div>인증샷 예시 등록</div>
         <CertificationBox>
           <Good>
-            <label for="ex_file">
+            <label htmlFor="ex_file">
               <PhotoCameraIcon />
             </label>
-            <img src={preview ? preview : null} alt="" />
+            <img src={goodPreview ? goodPreview : null} alt="" />
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
@@ -61,14 +60,14 @@ function CreateCertification() {
             />
           </Good>
           <Bad>
-            <label for="ex_file">
+            <label htmlFor="ex_files">
               <PhotoCameraIcon />
             </label>
-            <img src={preview ? preview : null} alt="" />
+            <img src={badPreview ? badPreview : null} alt="" />
             <input
               onChange={badSelectFile}
               ref={badFileInput}
-              id="ex_file"
+              id="ex_files"
               type="file"
             />
           </Bad>
