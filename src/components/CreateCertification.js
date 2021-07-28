@@ -17,7 +17,6 @@ function CreateCertification() {
   const badFileInput = React.useRef();
 
   const preview = useSelector((state) => state.create.preview);
-  console.log(preview);
 
   const goodSelectFile = (e) => {
     const reader = new FileReader();

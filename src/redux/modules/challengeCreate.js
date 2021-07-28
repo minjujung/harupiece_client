@@ -10,24 +10,7 @@ const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 const getThumnail = createAction(GET_THUMNAIL, (list) => ({ list }));
 
 const initialState = {
-  thumnailList: [
-    {
-      categoryName: "공부",
-      challengeImgUrl: [
-        "https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/773/59/773-59-101P/Lone-Penguin-Natural-Kingdom-Poster.jpg",
-
-        "https://storage.googleapis.com/oceanwide_web/media-dynamic/cache/widen_900/media/default/0001/02/f59f65c73e71f27058a84be06341468b472b82e5.jpeg",
-
-        "https://files.worldwildlife.org/wwfcmsprod/images/HERO_Penguins_Antarctica/hero_small/2tcsbqkcyj_Medium_WW267491.jpg",
-
-        "https://i.ytimg.com/vi/Tcx6YyXvvRI/maxresdefault.jpg",
-
-        "https://static01.nyt.com/images/2020/10/20/science/30TB-PENGUINS04/30TB-PENGUINS04-mediumSquareAt3X.jpg",
-
-        "https://cms.bbcearth.com/sites/default/files/2020-12/2fkcp0000001000.jpg",
-      ],
-    },
-  ],
+  thumnailList: [],
   preview: null,
 };
 
@@ -35,8 +18,8 @@ const initialState = {
 const getThumnailDb = () => {
   return function (dispatch, getState, { history }) {
     instance
-      .get()
-      .then((res) => console.log(res))
+      .get(`/api/category-image/{categoryName}`)
+      .then((res) => dispatch(getThumnail(res)))
       .catch((error) => {
         if (window.confirm("test")) {
           history.push("/");
@@ -50,15 +33,15 @@ const getThumnailDb = () => {
 
 // 챌린지 생성
 const createChDB =
-  () =>
+  (setChallengeInfo) =>
   async (dispatch, getState, { history }) => {
     await instance
-      .post(``, {
+      .post(`/api/member/challenge`, {
         memberName: " ",
-        challengeTitle: " ",
-        challengeContent: " ",
+        challengeTitle: setChallengeInfo.challengeTitle,
+        challengeContent: setChallengeInfo.challengeContent,
         categoryName: " ",
-        challengePassword: " ",
+        challengePassword: setChallengeInfo.challengePassword,
         challengeStartDate: " ",
         challengeEndDate: " ",
         challengeProgress: " ",
@@ -72,7 +55,7 @@ const createChDB =
       })
       .catch((error) => {
         if (window.confirm("blabal")) {
-          history.push("/");
+          history.push("/challenge");
         } else {
           history.goBack();
         }
@@ -96,6 +79,7 @@ export default handleActions(
 
 const actionCreators = {
   setPreview,
+  getThumnailDb,
   createChDB,
 };
 

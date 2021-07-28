@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Button } from "@material-ui/core";
 
-function CreateImgSelect() {
+function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
+  const dispatch = useDispatch();
+
   const select = useSelector((state) => state.create.thumnailList);
 
   // modal state

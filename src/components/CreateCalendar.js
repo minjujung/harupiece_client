@@ -1,49 +1,41 @@
 import React, { useState } from "react";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
+
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
 
-// date range picker
-import { enGB } from "date-fns/locale";
-import { DateRangePicker, START_DATE, END_DATE } from "react-nice-dates";
-import "react-nice-dates/build/style.css";
+function CreateCalendar({ challengeInfo, setChallengeInfo }) {
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+  // console.log(dateRange);
 
-function CreateCalendar() {
-  // date picker state
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const saveStartDate = (start) => {
+    setChallengeInfo({ ...challengeInfo, challengeStartDate: start });
+    console.log(challengeInfo);
+  };
 
-  // onStartDateChange, onEndDateChange 값 혹은
-  // startDateInputProps, startDateInputProps 값을 구해서 넘기면 될거같다.
+  const saveEndDate = (end) => {
+    setChallengeInfo({ ...challengeInfo, challengeEndDate: end });
+    console.log(challengeInfo);
+  };
 
   return (
     <>
-      <DateRangePicker
+      <DatePicker
+        locale={ko}
+        dateFormat="yyyy-MM-dd"
+        minDate={new Date()}
+        selectsRange={true}
         startDate={startDate}
         endDate={endDate}
-        onStartDateChange={setStartDate}
-        onEndDateChange={setEndDate}
-        minimumDate={new Date()}
-        minimumLength={1}
-        format="dd MMM yyyy"
-        locale={enGB}
-      >
-        {({ startDateInputProps, endDateInputProps, focus }) => (
-          <div className="date-range">
-            <input
-              className={"input" + (focus === START_DATE ? " -focused" : "")}
-              {...startDateInputProps}
-              placeholder="Start date"
-            />
-            <span className="date-range_arrow" />
-            <input
-              className={"input" + (focus === END_DATE ? " -focused" : "")}
-              {...endDateInputProps}
-              placeholder="End date"
-            />
-          </div>
-        )}
-      </DateRangePicker>
+        onChange={(update) => {
+          setDateRange(update);
+        }}
+        isClearable={true}
+      />
     </>
   );
 }

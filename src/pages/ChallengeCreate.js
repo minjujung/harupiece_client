@@ -5,6 +5,8 @@ import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
+import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
+import { useForm } from "react-hook-form";
 
 // consolelog logger
 import { consoleLogger } from "../redux/configureStore";
@@ -12,37 +14,48 @@ import { consoleLogger } from "../redux/configureStore";
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
 
-  // title
-  const [title, setTitle] = useState("");
+  const [challengeInfo, setChallengeInfo] = useState({
+    categoryName: "",
+    challengeContent: "",
+    challengeTitle: "",
+    challengeStartDate: "",
+    challengeEndDate: "",
+    challengeImgUrl: "",
+    challengePassword: "",
+    challengeGood: "",
+    challengeBad: "",
+    challengeHoliday: "",
+  });
 
-  const changeTitle = (e) => {
-    setTitle(e.target.value);
-    console.log(setTitle());
-    console.log(e.target.value);
+  // title
+  const saveTitle = (e) => {
+    setChallengeInfo({ ...challengeInfo, challengeTitle: e.target.value });
+  };
+
+  // 대표이미지 설정
+  const select = useSelector((state) => state.create.thumnailList);
+  console.log(select);
+  const thumnail = () => {
+    dispatch(imageActions.getThumnailDb(select.thumnailList));
   };
 
   // 모집 형식 state
   // 비밀번호 형식..
-  const [privates, setPrivates] = useState(false);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  const savepassword = (e) => {
+    setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
+  };
 
   // challenge description
-  const [desc, setDesc] = useState("");
+  const saveDesc = (e) => {
+    setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
+  };
 
   // create challenge
   const createChallenge = () => {
-    // memberName: " ",
-    // challengeTitle: " ",
-    // challengeContent: " ",
-    // categoryName: " ",
-    // challengePassword: " ",
-    // challengeStartDate: " ",
-    // challengeEndDate: " ",
-    // challengeProgress: " ",
-    // challengeImgUrl: " ",
-    // challengeGood: " ",
-    // challengeBad: " ",
-    // challengeHoliday: " ",
-    dispatch(createActions.createChDB(title, desc));
+    dispatch(createActions.createChDB(setChallengeInfo));
   };
 
   return (
@@ -56,49 +69,65 @@ function ChallengeCreate(props) {
           <Contents>
             <label style={{ width: "100%" }}>
               제목
-              <input onChange={changeTitle} placeholder="제목을 입력해주세요" />
+              <input onChange={saveTitle} placeholder="제목을 입력해주세요" />
             </label>
           </Contents>
 
           <ContentsContainer>
             <Contents>
               {/* 카테고리 */}
-              <label>카테고리</label>
+              {/* <label>카테고리</label>
               <select>
-                <option value="">카테고리</option>
-                <option value="">돈 관리</option>
-                <option value="">공부</option>
-                <option value="">다이어트</option>
-                <option value="">생활습관</option>
-              </select>
+                <option value="category">카테고리</option>
+                <option value="money">돈 관리</option>
+                <option value="study">공부</option>
+                <option value="diet">다이어트</option>
+                <option value="livingHabits">생활습관</option>
+              </select> */}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <select {...register("category")}>
+                  <option value="category">카테고리</option>
+                  <option value="diet">다이어트</option>
+                  <option value="livingHabits">생활습관</option>
+                  <option value="money">돈 관리</option>
+                  <option value="study">공부</option>
+                </select>
+                <input type="submit" />
+              </form>
 
               {/* 대표 이미지 */}
-              <CreateImgSelect />
+              <CreateImgSelect
+                challengeInfo={challengeInfo}
+                setChallengeInfo={setChallengeInfo}
+                onClick={thumnail}
+              />
               {/* 인증샷 예시 */}
               <CreateCertification />
             </Contents>
 
             <Contents>
               {/* date picker */}
-              <CreateCalendar />
+              <CreateCalendar
+                challengeInfo={challengeInfo}
+                setChallengeInfo={setChallengeInfo}
+              />
 
               {/* 모집형식 */}
-              <label>모집형식</label>
-              <select>
-                <option value="">카테고리</option>
-                <option value="">공개</option>
-                <option value="">비공개</option>
-              </select>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <select {...register("public")}>
+                  <option value="public">공개</option>
+                  <option value="private">비공개</option>
+                </select>
+                <input onChange={savepassword} {...register("password")} />
+                <input type="submit" />
+              </form>
 
               {/* 챌린지 설명 */}
               <label>
                 챌린지 설명
                 <div>
                   <input
-                    onChange={(e) => {
-                      setDesc(e.target.value);
-                      console.log(setDesc(e.target.value));
-                    }}
+                    onChange={saveDesc}
                     placeholder="챌린지를 설명해주세요."
                   />
                 </div>
@@ -107,7 +136,7 @@ function ChallengeCreate(props) {
           </ContentsContainer>
 
           {/* 챌린지 개설 */}
-          <button>챌린지 개설하기</button>
+          <button onClick={createChallenge}>챌린지 개설하기</button>
         </CreateContents>
       </CreateContainer>
     </>
