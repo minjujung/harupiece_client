@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import InfinityScroll from "../shared/InfinityScroll";
@@ -9,25 +9,27 @@ import { actionCreator as challengeDetailActions } from "../redux/modules/challe
 import { actionCreator as postActions } from "../redux/modules/post";
 import PostList from "../components/PostList";
 import PostWrite from "../components/PostWrite";
+import ConditionBtn from "../components/ConditionBtn";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
   const { list, paging, is_loading } = useSelector((state) => state.post);
 
+  console.log(list);
   const challengeId = props.match.params.id;
 
   // challenge상세 내용과 인증샷 목록 불러오기
   useEffect(() => {
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.getPostDB(challengeId));
-  });
+  }, []);
 
   //포인트 계산을 위한 challenge날짜수 계산
-  const start = challenge.challengeStartDate.split("-");
+  const start = challenge.challengeStartDate.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
 
-  const end = challenge.challengeEndDate.split("-");
+  const end = challenge.challengeEndDate.split("T")[0].split("-");
   const date2 = new Date(end[0], end[1][1] - 1, end[2]);
 
   const totalSecond = date2.getTime() - date1.getTime();
@@ -65,9 +67,21 @@ const ChallengeDetail = (props) => {
     if (today < challenge.challengeStartDate) {
       dispatch(challengeDetailActions.challengeDeleteDB(challenge.challengeId));
     } else {
-      window.alert("챌린지 시작 전에만 삭제가 가능합니다!");
+      window.alert(
+        "이미 챌린지가 진행중이에요🏃‍♀️🏃‍♂️ 챌린지 시작 전에만 삭제가 가능합니다!"
+      );
     }
   };
+
+  //챌린지 상태 문자로 표현 해주기
+  let status = "";
+  if (challenge.challengeProgress === 1) {
+    status = "진행 예정";
+  } else if (challenge.challengeProgress === 2) {
+    status = "진행 중";
+  } else {
+    status = "진행 종료";
+  }
 
   return (
     <>
@@ -110,17 +124,17 @@ const ChallengeDetail = (props) => {
         </h3>
       </div>
       <section style={{ paddingTop: "1em", boxSizing: "border-box" }}>
-        <p>{challenge.challengePassword}</p>
+        <p>{challenge.challengePassword === "" ? "공개" : "비공개"}</p>
         <p>카테고리: {challenge.categoryName}</p>
         <p>
-          인증기간: {challenge.challengeStartDate} ~{" "}
-          {challenge.challengeEndDate}
+          인증기간: {challenge.challengeStartDate.split("T")[0]} ~{" "}
+          {challenge.challengeEndDate.split("T")[0]}
         </p>
         <p>
           {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"}
         </p>
         <p>개시자: {challenge.memberName}</p>
-        <p>{challenge.challengeProgress}</p>
+        <p>{status}</p>
         <p>챌린지 설명: {challenge.challengeContent}</p>
         <article>
           <p>좋은 예시</p>
@@ -159,20 +173,15 @@ const ChallengeDetail = (props) => {
         >
           <PostList
             list={list}
+            challengeId={challenge.challengeId}
             totalNumber={challenge.challengeMember.length}
             totalDay={totalDay}
           />
         </InfinityScroll>
         <div>
-          <button>챌린지 신청하기</button>
-          <PostWrite />
-          <button>챌린지 신청 취소하기</button>
+          <ConditionBtn {...challenge} />
         </div>
       </section>
-
-      {/* <a href="#challenge_title">
-          <button>맨위로 가기</button>
-        </a> */}
     </>
   );
 };

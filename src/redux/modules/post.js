@@ -97,9 +97,9 @@ const getPostDB =
     }
 
     instance
-      .get(`/api/posting/${page}/${challengeId}`)
+      .get(`api/posting/${page}/${challengeId}`)
       .then((res) => {
-        consoleLogger(res);
+        consoleLogger("인증샷 불러올때 응답", res);
         let post_list = [];
 
         let paging = {
@@ -111,7 +111,7 @@ const getPostDB =
         };
 
         post_list.push(...res.data);
-        post_list.pop();
+        // post_list.pop();
         dispatch(setPost(post_list, paging));
       })
       .catch((error) => {
@@ -124,12 +124,12 @@ const getPostDB =
         // } else {
         //   history.goBack();
         // }
-        consoleLogger("인증샷 목록 불러올 때: " + error);
+        consoleLogger("인증샷 목록 불러올 때: ", error);
       });
   };
 
 const addPostDB =
-  (post) =>
+  (post, challengeId) =>
   (dispatch, getState, { history }) => {
     const date = new Date();
 
@@ -158,16 +158,15 @@ const addPostDB =
         let new_post = {
           postingImg: data.Location,
           postingContent: post.shotText,
-          postingCount: 0,
-          postingApproval: false,
-          postingModifyOk: true,
+          challengeId,
+          memberId: 4,
         };
 
         instance
-          .post("/api/posting", new_post)
+          .post("api/posting", new_post)
           .then((res) => {
-            consoleLogger(res);
-            dispatch(addPost({ ...new_post, postingId: res.postingId }));
+            consoleLogger("인증샷 추가 요청 이후 응답", res);
+            dispatch(addPost({ ...new_post, postingId: res.data }));
             dispatch(imageActions.setPreview(null));
           })
           .catch((error) => {
@@ -180,7 +179,7 @@ const addPostDB =
             } else {
               history.goBack();
             }
-            consoleLogger(error);
+            consoleLogger("인증샷 추가 요청했을 때: ", error);
           });
       })
       .catch((error) => {
@@ -193,24 +192,29 @@ const addPostDB =
         } else {
           history.goBack();
         }
-        consoleLogger("새로운 인증샷 추가할 때: " + error);
+        consoleLogger("새로운 인증샷 추가할 때: ", error);
       });
   };
 
 const editPostDB =
-  (post_id, content) =>
+  (post_id, content, challengeId) =>
   (dispatch, getState, { history }) => {
     const post_list = getState().post.list;
     const post_idx = post_list.findIndex((p) => p.postingId === post_id);
     const _post = post_list[post_idx];
 
-    const post = { ..._post, postingContent: content.shotText };
+    const post = {
+      challengeId,
+      memberId: 4, //로그인 유저 정보 생기면 수정 예정
+      postingContent: content.shotText,
+      postingImg: content.file,
+    };
 
-    if (content.file === post.postingImg) {
+    if (content.file === _post.postingImg) {
       dispatch(loading(true));
       //사진이 전과 같을 때는 업로드 x
       instance
-        .put(`/api/posting/update/${post_id}`, post)
+        .put(`api/posting/update/${post_id}`, post)
         .then((res) => {
           consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
           dispatch(editPost(post_id, post));
@@ -225,7 +229,7 @@ const editPostDB =
           } else {
             history.goBack();
           }
-          consoleLogger("사진은 그대로고 멘트만 수정 했을 때: " + error);
+          consoleLogger("사진은 그대로고 멘트만 수정 했을 때: ", error);
         });
     } else {
       // 사진이 전과 다를 때는 업로드
@@ -255,7 +259,7 @@ const editPostDB =
         const new_post = { ...post, postingImg: data.Location };
 
         instance
-          .put(`/api/posting/update/${post_id}`, new_post)
+          .put(`api/posting/update/${post_id}`, new_post)
           .then((res) => {
             consoleLogger("이미지 바꾼 수정 server에 전송후 응답: ", res);
             dispatch(editPost(post_id, new_post));
@@ -270,7 +274,7 @@ const editPostDB =
             } else {
               history.goBack();
             }
-            consoleLogger("사진 새로운 걸로 수정 했을 때: " + error);
+            consoleLogger("사진 새로운 걸로 수정 했을 때: ", error);
           });
       });
     }
@@ -279,8 +283,9 @@ const editPostDB =
 const deletePostDB =
   (post_id) =>
   (dispatch, getState, { history }) => {
+    console.log(post_id);
     instance
-      .delete(`/api/posting/delete/${post_id}`)
+      .put(`api/posting/delete/${post_id}`)
       .then((res) => {
         consoleLogger("삭제 요청 server에게 보낸 후 응답: ", res);
         dispatch(deletePost(post_id));
@@ -295,7 +300,7 @@ const deletePostDB =
         } else {
           history.goBack();
         }
-        consoleLogger("인증샷 삭제 했을 때: " + error);
+        consoleLogger("인증샷 삭제 했을 때: ", error);
       });
   };
 
@@ -303,6 +308,7 @@ const deletePostDB =
 const clickCheckDB =
   (post_id, totalNumber) =>
   (dispatch, getState, { history }) => {
+    // user module 확인하고 다시 작성!
     const user_info = getState().user.user;
 
     const check_info = {
@@ -310,7 +316,7 @@ const clickCheckDB =
       postingId: post_id,
       totalNumber,
     };
-    instance.post("/api/certification", check_info).then((res) => {
+    instance.post("api/certification", check_info).then((res) => {
       consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: " + res);
 
       const post_list = getState().post.list;
@@ -340,14 +346,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
 
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.id === cur.id) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-            return acc;
-          }
-        }, []);
+        // draft.list = draft.list.reduce((acc, cur) => {
+        //   if (acc.findIndex((a) => a.id === cur.id) === -1) {
+        //     return [...acc, cur];
+        //   } else {
+        //     acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+        //     return acc;
+        //   }
+        // }, []);
 
         if (action.payload.paging) {
           draft.paging = action.payload.paging;

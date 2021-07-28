@@ -7,7 +7,7 @@ import { actionCreator as imageActions } from "../redux/modules/image";
 import { actionCreator as postActions } from "../redux/modules/post";
 import { consoleLogger } from "../redux/configureStore";
 
-const PostWrite = (props) => {
+const PostWrite = ({ challengeId }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
 
@@ -52,8 +52,9 @@ const PostWrite = (props) => {
     if (!file) {
       return;
     }
-    dispatch(postActions.addPostDB({ file, shotText }));
+    dispatch(postActions.addPostDB({ file, shotText }, challengeId));
     setShotText("");
+    handleClose();
   };
 
   return (

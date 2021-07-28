@@ -27,11 +27,11 @@ if (env === "development") {
   middlewares.push(logger);
 }
 
-export const consoleLogger = (msg) => {
+export const consoleLogger = (name, msg) => {
   if (process.env.NODE_ENV === "production") {
     return;
   }
-  console.log(msg);
+  console.log(name, msg);
 };
 
 const composeEnhancers =

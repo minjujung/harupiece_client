@@ -4,14 +4,25 @@ import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
+const EDIT_CHALLENGE = "EDIT_CHALLENGE";
 const DELETE_CHALLENGE = "DELETE_CHALLENGE";
+const GIVEUP_CHALLENGE = "GIVEUP_CHALLENGE";
 
 const getChallengeDetail = createAction(GET_CHALLENGE_DETAIL, (challenge) => ({
   challenge,
 }));
-const deleteChallenge = createAction(DELETE_CHALLENGE, (challenge_id) => ({
-  challenge_id,
-}));
+const editChallengeDetail = createAction(
+  EDIT_CHALLENGE,
+  (challenge_detail) => ({
+    challenge_detail,
+  })
+);
+const deleteChallengeDetail = createAction(
+  DELETE_CHALLENGE,
+  (challenge_id) => ({
+    challenge_id,
+  })
+);
 
 const initialState = {
   detail: {
@@ -22,10 +33,10 @@ const initialState = {
     challengeContent:
       "건강도 챙기고 맛도 챙기는 비건, 하루에 한번씩 실천해 보야요 :)",
     categoryName: "생활습관",
-    challengePassword: "공개",
+    challengePassword: "1234", // 비공개면 비밀번호 들어감
     challengeStartDate: "2021-07-26",
     challengeEndDate: "2021-08-02",
-    challengeProgress: "진행중",
+    challengeProgress: "진행 예정",
     challengeGood:
       "https://user-images.githubusercontent.com/75834421/127076439-599fa607-9285-4ab6-aec6-54ba16567434.png",
     challengeBad:
@@ -40,22 +51,21 @@ const getChallengeDetailDB =
   (dispatch, getState, { history }) => {
     //챌린지 상세페이지에서 상세내용 불러오기
     instance
-      .get(`/api/memeber/challenge/${challenge_id}`)
+      .get(`api/member/challenge/${challenge_id}`)
       .then((res) => {
-        consoleLogger(res);
+        consoleLogger("챌린지 상세페이지 정보 불러오기 요청 후 응답: ", res);
         dispatch(getChallengeDetail(res.data));
       })
       .catch((error) => {
-        // if (
-        //   window.confirm(
-        //     "챌린지 상세내용을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
-        //   )
-        // ) {
-        //   history.push("/");
-
-        // } else {
-        //   history.goback();
-        // }
+        if (
+          window.confirm(
+            "챌린지 상세내용을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          )
+        ) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
         consoleLogger(error);
       });
   };
@@ -65,12 +75,12 @@ const adminChallengeDeleteDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
     instance
-      .delete(`/api/admin/challenge/${challenge_id}`)
+      .delete(`api/admin/challenge/${challenge_id}`)
       .then((res) => {
         consoleLogger("관리자권한 강제 삭제 요청 후 응답: " + res);
 
         //메인화면에서 불러오는 challenge_list 삭제하는 action 다른 모듈에서 가져오기 => 일단은 이 모듈에서 구현
-        dispatch(deleteChallenge(challenge_id));
+        dispatch(deleteChallengeDetail(challenge_id));
 
         window.alert("관리자 권한 챌린지 삭제 완료!");
         history.replace("/");
@@ -82,12 +92,12 @@ const challengeDeleteDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
     instance
-      .delete(`/api/member/challenge/${challenge_id}`)
+      .delete(`api/member/challenge/${challenge_id}`)
       .then((res) => {
         consoleLogger("챌린지 개설한 사용자가 삭제 요칭시 응답: " + res);
 
         if (window.confirm("정말 챌린지를 삭제하시겠어요?")) {
-          dispatch(deleteChallenge(challenge_id));
+          dispatch(deleteChallengeDetail(challenge_id));
           window.alert("챌린지 삭제 완료!");
           history.replace("/");
         }
@@ -108,12 +118,107 @@ const challengeDeleteDB =
       });
   };
 
+//사용자가 챌린지 포기 버튼 눌렀을 때
+const giveupChallengeDB =
+  (challenge_id) =>
+  (dispatch, getState, { history }) => {
+    instance
+      .delete(`api/member/challenge-give-up/${challenge_id}`)
+      .then((res) => {
+        consoleLogger("챌린지 포기 요청후 응답: " + res);
+        //user 정보 불러오는 부분은 고쳐야함
+        const user_info = getState().user.user;
+        const challenge_detail = getState().challengeDetail.detail;
+
+        const new_member_list = challenge_detail.challengeMember.filter(
+          (id) => id !== user_info.memberId
+        );
+
+        dispatch(
+          editChallengeDetail({
+            ...challenge_detail,
+            challengeMember: new_member_list,
+          })
+        );
+        window.alert("챌린지 참여취소가 완료되었습니다!");
+        history.replace("/mypage");
+      })
+      .catch((error) => {
+        if (
+          window.confirm(
+            "챌린지 참여 취소에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          )
+        ) {
+          history.push("/");
+        } else {
+          history.goback();
+        }
+        consoleLogger(
+          "참여중이던 사용자가 챌린지 포기 버튼 눌렀을 때: " + error
+        );
+      });
+  };
+
+//챌린지 신청하기
+const takeInPartChallengeDB =
+  (challenge_id, challengePwd = "") =>
+  (dispatch, getState, { history }) => {
+    const challengeInfo = {
+      challengeId: challenge_id,
+      challengePassword: challengePwd,
+    };
+    instance
+      .post(`api/member/challenge-request`, challengeInfo)
+      .then((res) => {
+        consoleLogger("챌린지 신청하기 요청 후 응답: " + res);
+
+        //user 정보 불러오는 부분은 고쳐야함
+        const user_info = getState().user.user;
+        const challenge_detail = getState().challengeDetail.detail;
+
+        const new_member_list = [
+          ...challenge_detail.challengeMember,
+          user_info.memberId,
+        ];
+
+        dispatch(
+          editChallengeDetail({
+            ...challenge_detail,
+            challengeMember: new_member_list,
+          })
+        );
+        window.alert(`${challenge_detail.challengeTitle} 챌린지 신청 완료!`);
+        history.push("/mypage");
+      })
+      .catch((error) => {
+        if (
+          window.confirm(
+            "챌린지 신청에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          )
+        ) {
+          history.push("/");
+        } else {
+          history.goback();
+        }
+        consoleLogger(
+          "참여신청 버튼이나 신청하기(비밀번호 있는 경우) 버튼 누른 경우: " +
+            error
+        );
+      });
+  };
+
 export default handleActions(
   {
     [GET_CHALLENGE_DETAIL]: (state, action) =>
       produce(state, (draft) => {
         draft.detail = action.payload.challenge;
       }),
+
+    [EDIT_CHALLENGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.detail = action.payload.challengeDetail;
+      }),
+
     [DELETE_CHALLENGE]: (state, action) =>
       produce(state, (draft) => {
         const idx = draft.list.findIndex(
@@ -129,6 +234,8 @@ const actionCreator = {
   getChallengeDetailDB,
   adminChallengeDeleteDB,
   challengeDeleteDB,
+  giveupChallengeDB,
+  takeInPartChallengeDB,
 };
 
 export { actionCreator };

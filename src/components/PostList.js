@@ -12,7 +12,7 @@ const PostList = (props) => {
   const dispatch = useDispatch();
   // const user_info = useSelector(state => state.user.userInfo)
 
-  const { list, totalNumber, totalDay } = props;
+  const { list, totalNumber, totalDay, challengeId } = props;
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);
@@ -46,8 +46,9 @@ const PostList = (props) => {
   };
 
   //modal안의 component만 편집형태로 바꾸기
+  //list[clicked]?.postingModifyOk
   const editPost = () => {
-    if (list[clicked]?.postingModifyOk) {
+    if (true) {
       setEdit(true);
     } else {
       window.alert("인증샷 수정은 게시후 24시간 이내에만 가능합니다!");
@@ -55,9 +56,10 @@ const PostList = (props) => {
   };
 
   //post 삭제
-  const deletePost = (postingId) => {
-    if (list[clicked]?.postingModifyOk) {
-      dispatch(postActions.deletePostDB(postingId));
+  //list[clicked]?.postingModifyOk
+  const deletePost = () => {
+    if (true) {
+      dispatch(postActions.deletePostDB(list[clicked]?.postingId));
     } else {
       window.alert("인증샷 삭제는 게시후 24시간 이내에만 가능합니다!");
     }
@@ -88,7 +90,11 @@ const PostList = (props) => {
       >
         <button onClick={handleClose}>모달창 닫기</button>
         {edit && list[clicked] ? (
-          <PostEdit {...list[clicked]} handleClose={handleClose} />
+          <PostEdit
+            {...list[clicked]}
+            handleClose={handleClose}
+            challengeId={challengeId}
+          />
         ) : (
           <>
             {" "}
@@ -107,9 +113,7 @@ const PostList = (props) => {
                   총 {(list[clicked]?.postingCount / totalNumber) * 100} %
                 </span>
               </div>
-              <button onClick={() => deletePost(list[clicked]?.postingId)}>
-                삭제하기
-              </button>
+              <button onClick={deletePost}>삭제하기</button>
             </div>
             <p>{list[clicked]?.postingContent}</p>
             <img src={list[clicked]?.postingImg} alt="vegan_post" />

@@ -7,6 +7,7 @@ import { actionCreator as postActions } from "../redux/modules/post";
 const PostEdit = (props) => {
   const {
     postingId,
+    challengeId,
     memberId,
     postingImg,
     postingContent,
@@ -54,10 +55,16 @@ const PostEdit = (props) => {
 
     if (!file) {
       dispatch(
-        postActions.editPostDB(postingId, { file: postingImg, shotText })
+        postActions.editPostDB(
+          postingId,
+          { file: postingImg, shotText },
+          challengeId
+        )
       );
     } else {
-      dispatch(postActions.editPostDB(postingId, { file, shotText }));
+      dispatch(
+        postActions.editPostDB(postingId, { file, shotText }, challengeId)
+      );
     }
 
     if (!loading) {
