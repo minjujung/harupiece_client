@@ -16,7 +16,7 @@ const Signup = (props) => {
 
     const pwd = React.useRef();
 	const pwdC = React.useRef();
-    const profileImg = "https://ifh.cc/g/q6A0zh.jpg";
+    const profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profieImg.png";
     
     
     useEffect(() => {

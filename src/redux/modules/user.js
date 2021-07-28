@@ -6,15 +6,21 @@ import { UserApis } from '../../shared/api';
 // action
 const LOGIN = 'user/LOGIN';
 const LOGOUT = 'user/LOGOUT';
+const SET_USER = "user/SET_USER";
 
 // action creator
 const setLogin = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
+const setUser = createAction(SET_USER, (userInfo) => ({userInfo}))
 
 const initialState = {
-	email: null,
 	isLogin: false,
-	profileImg : "",
+	userInfo :{
+		memberId: null,
+		nickname: null,
+		point: null,
+		profileImg: null,
+	}
 };
 
 // Thunk
@@ -23,7 +29,6 @@ const registerDB = (email, nick, pw, pwc ,profileImg) => {
 		UserApis
 		.signup(email, nick, pw, pwc ,profileImg)
 		.then((res) => {
-			console.log(res)
 			history.push('/login');
 		})
 		.catch((err) => {
@@ -32,17 +37,17 @@ const registerDB = (email, nick, pw, pwc ,profileImg) => {
 	};
 };
 
-const setLoginDB = (email, pwd) => {
+const setLoginDB = (email, pwd ) => {
 	return function (dispatch, getState, { history }) {
 		UserApis
 			.login(email, pwd)
 			.then((res) => {
-				setCookie('token', res.data[1].token, 7);
-				localStorage.setItem('email', res.data[0].email);
-				dispatch(setLogin({ email: email }));
+				setCookie('token', res.data.accessToken, 7);
+				dispatch(setUser(res.data.userInfo));
 				history.replace('/');
 			})
 			.catch((err) => {
+				console.log(err);
 				window.alert('회원정보가 없습니다 회원가입을 해주세요!');
 			});
 	};
@@ -51,7 +56,6 @@ const setLoginDB = (email, pwd) => {
 const logOutDB = () => {
 	return function (dispatch, getState, { history }) {
 		deleteCookie('token');
-		localStorage.removeItem('email');
 		dispatch(logOut());
 		history.replace('/login');
 	};
@@ -59,10 +63,9 @@ const logOutDB = () => {
 
 const loginCheckDB = () => {
 	return function (dispatch, getState, { history }) {
-		const userEmail = localStorage.getItem('email');
 		const tokenCheck = document.cookie;
 		if (tokenCheck) {
-			dispatch(setLogin({ email: userEmail }));
+			//인스턴스로 토큰 다시 보내기
 		} else {
 			dispatch(logOut());
 		}
@@ -73,13 +76,16 @@ const loginCheckDB = () => {
 export default handleActions(
 	{
 		[LOGIN]: (state, action) =>produce(state, (draft) => {
-			draft.user = action.payload.user;
 			draft.isLogin = true;
 		}),
 		[LOGOUT]: (state, action) => produce(state, (draft) => {
 			draft.user = null;
 			draft.isLogin = false;
 		}),
+		[SET_USER]: (state, action) =>produce(state, (draft) => {
+			draft.userInfo = action.payload.userInfo;
+		}),
+
 	},
 	initialState,
 );

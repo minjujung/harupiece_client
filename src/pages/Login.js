@@ -33,7 +33,7 @@ const Login = (props) => {
 								setPw(e.target.value);
 							}}></input>
                         <button onClick={login} 
-                            >회원가입 하기</button>
+                            >로그인 하기</button>
                         <button onClick={() => {
                                 props.history.push("/signup");
                             }} 
