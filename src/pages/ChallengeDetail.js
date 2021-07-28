@@ -5,23 +5,25 @@ import InfinityScroll from "../shared/InfinityScroll";
 
 import { consoleLogger } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as challengeActions } from "../redux/modules/challenge";
+import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
 import PostList from "../components/PostList";
 import PostWrite from "../components/PostWrite";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
-  const challenge = useSelector((state) => state.challenge.detail);
+  const challenge = useSelector((state) => state.challengeDetail.detail);
   const { list, paging, is_loading } = useSelector((state) => state.post);
 
   const challengeId = props.match.params.id;
 
+  // challenge상세 내용과 인증샷 목록 불러오기
   useEffect(() => {
-    dispatch(challengeActions.getChallengeDetailDB(challengeId));
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.getPostDB(challengeId));
   });
 
+  //포인트 계산을 위한 challenge날짜수 계산
   const start = challenge.challengeStartDate.split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
 
@@ -30,6 +32,42 @@ const ChallengeDetail = (props) => {
 
   const totalSecond = date2.getTime() - date1.getTime();
   const totalDay = totalSecond / 1000 / 60 / 60 / 24;
+
+  //관리자 권한 삭제
+  const adminDelete = () => {
+    dispatch(
+      challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
+    );
+  };
+
+  //오늘 날짜를 특정 날짜와 비교하기 위해 형태 변경해주는 함수
+  // 2021-07-06 이런 형태로 만들어줌
+  const leadingZeros = (n, digits) => {
+    let zero = "";
+    n = n.toString();
+
+    if (n.length < digits) {
+      for (let i = 0; i < digits - n.length; i++) zero += "0";
+    }
+    return zero + n;
+  };
+
+  let today = new Date();
+  today =
+    leadingZeros(today.getFullYear(), 4) +
+    "-" +
+    leadingZeros(today.getMonth() + 1, 2) +
+    "-" +
+    leadingZeros(today.getDate(), 2);
+
+  //사용자가 자기가 만든 챌린지 삭제 => 챌린지 시작전에만 삭제 가능
+  const deleteChallenge = () => {
+    if (today < challenge.challengeStartDate) {
+      dispatch(challengeDetailActions.challengeDeleteDB(challenge.challengeId));
+    } else {
+      window.alert("챌린지 시작 전에만 삭제가 가능합니다!");
+    }
+  };
 
   return (
     <>
@@ -46,6 +84,11 @@ const ChallengeDetail = (props) => {
             </li>
           </ul>
         </nav>
+        <button onClick={adminDelete}>관리자 권한 삭제</button>
+        {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
+        <button onClick={deleteChallenge}>
+          챌린지 없애기(챌린지 개설한 사용자)
+        </button>
       </ChallengeHeader>
       <div style={{ height: "15em" }}></div>
       <div style={{ position: "relative" }}>
