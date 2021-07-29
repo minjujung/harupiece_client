@@ -13,6 +13,7 @@ import main from "./modules/main";
 import ChallengeDetail from "./modules/challengeDetail";
 import Post from "./modules/post";
 import Image from "./modules/image";
+import Create from "./modules/challengeCreate";
 
 export const history = createBrowserHistory();
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   post: Post,
   image: Image,
   challengeDetail: ChallengeDetail,
+  create: Create,
   main,
   user,
   router: connectRouter(history),

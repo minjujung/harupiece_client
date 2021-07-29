@@ -25,6 +25,7 @@ export const UserApis = {
       passwordConfirm: pwc,
       profileImg: profileImg,
     }),
+  relaod: () => instance.get("api/member/reload"),
 };
 
 export const MainApis = {

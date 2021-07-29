@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
-import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -17,7 +15,7 @@ const Header = (props) => {
           <div>로고(하루조각)</div>
           <div>검색</div>
           <Container1>
-            <img width="10px" src={userInfo.profileImg} />
+            <img width="10px" src={userInfo.profileImg} alt="profile" />
             <p>{userInfo.nickname}</p>
             <p>포인트 : {userInfo.point}</p>
             <button
