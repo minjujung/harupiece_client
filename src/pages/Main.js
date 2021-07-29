@@ -7,15 +7,14 @@ import MainSlider from "../components/MainSlider";
 import Category from "../components/Category";
 import { MainCreators } from "../redux/modules/main";
 import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../shared/Cookie";
 
 const Main = (props) => {
-  // const userlogin = useSelector((state) => state.user.user);
-
-  const islogin = useSelector((state) => state.user.isLogin);
-
   const dispatch = useDispatch();
+  const challenge_list = useSelector((state) => state.main);
+
   useEffect(() => {
-    if (islogin) {
+    if (getCookie("token")) {
       dispatch(MainCreators.userLoadDB());
     } else {
       dispatch(MainCreators.guestLoadDB());

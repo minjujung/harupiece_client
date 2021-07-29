@@ -11,11 +11,14 @@ import Main from "./pages/Main";
 
 import { userCreators } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
+import { getCookie } from "./shared/Cookie";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userCreators.loginCheckDB());
+    if (getCookie("token")) {
+      dispatch(userCreators.loginCheckDB());
+    }
   }, []);
 
   return (

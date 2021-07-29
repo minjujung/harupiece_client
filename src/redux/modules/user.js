@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
 import { UserApis } from "../../shared/api";
+import { MainCreators } from "./main";
 
 // action
 const LOGIN = "user/LOGIN";
@@ -23,7 +24,7 @@ const initialState = {
   },
 };
 
-// Thunk
+// 회원가입
 const registerDB = (email, nick, pw, pwc, profileImg) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nick, pw, pwc, profileImg)
@@ -37,12 +38,14 @@ const registerDB = (email, nick, pw, pwc, profileImg) => {
   };
 };
 
+//로그인
 const setLoginDB = (email, pwd) => {
   return function (dispatch, getState, { history }) {
     UserApis.login(email, pwd)
       .then((res) => {
         setCookie("token", res.data.accessToken, 1, "/");
         dispatch(setUser(res.data.userInfo));
+        dispatch(MainCreators.userLoadDB());
         history.replace("/");
       })
       .catch((err) => {
@@ -52,17 +55,20 @@ const setLoginDB = (email, pwd) => {
   };
 };
 
+//로그아웃
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
     dispatch(logOut());
+    dispatch(MainCreators.guestLoadDB());
     history.replace("/");
   };
 };
 
+//새로고침시 로그인 유지
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    UserApis.relaod()
+    UserApis.reload()
       .then((res) => {
         dispatch(setUser(res.data.userInfo));
       })

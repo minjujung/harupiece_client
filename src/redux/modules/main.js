@@ -17,13 +17,13 @@ const initialState = {
   usermain: [],
 };
 
-// Thunk function
+//유저가 로그인 안했을 때 메인에서 불러와야하는 것
 const guestLoadDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.guestMain()
       .then((res) => {
-        console.log(res);
         dispatch(guestLoad(res.data));
+        dispatch(userLoad([]));
       })
       .catch((err) => {
         console.log(err);
@@ -31,12 +31,13 @@ const guestLoadDB = () => {
   };
 };
 
+//유저가 로그인 했을 때 메인에서 불러와야하는 것
 const userLoadDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.userMain()
       .then((res) => {
-        console.log(res);
         dispatch(userLoad(res.data));
+        dispatch(guestLoad([]));
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +64,8 @@ export default handleActions(
 const MainCreators = {
   guestLoadDB,
   userLoadDB,
+  userLoad,
+  guestLoad,
 };
 
 export { MainCreators };
