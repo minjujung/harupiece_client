@@ -5,10 +5,6 @@ import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
-import { useForm } from "react-hook-form";
-
-// consolelog logger
-import { consoleLogger } from "../redux/configureStore";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
