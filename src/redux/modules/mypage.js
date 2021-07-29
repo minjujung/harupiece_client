@@ -10,6 +10,36 @@ const editMyProfile = createAction(EDIT_MYPROFILE, () => ({}));
 
 const initialState = {};
 
+const getMyChallengeDB = () => {
+  return function (dispatch, getState, { history }) {
+    MypageApis.GetMyChallenge()
+      .then((res) => console.log(res))
+      .catch((error) => {
+        if (window.confirm("test")) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
+        console.log(error);
+      });
+  };
+};
+
+const editMyProfileDB = () => {
+  return function (dispatch, getState, { history }) {
+    MypageApis.EditProfile()
+      .then((res) => console.log(res))
+      .catch((error) => {
+        if (window.confirm("test")) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
+        console.log(error);
+      });
+  };
+};
+
 export default handleActions(
   {
     [GET_MYCHALLENGE]: (state, action) => produce(state, (draft) => {}),
