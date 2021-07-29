@@ -1,39 +1,38 @@
 import React from "react";
+import styled from "styled-components";
 
 function Mypage() {
   return (
     <>
-      <div>
-        <div>
-          <div>
-            <img alt="" />
-          </div>
+      <UserInfoContainer>
+        <UserInfoBox>
+          <UserImg>
+            <img src="" alt="" />
+          </UserImg>
 
-          <div>
-            <div>
-              <span>유저닉네임</span>
-              <span>챌린지를 열심히 참여하고 계시군요!</span>
-            </div>
-          </div>
-        </div>
+          <UserInfo>
+            <span>유저닉네임</span>
+            <span>챌린지를 열심히 참여하고 계시군요!</span>
+          </UserInfo>
+        </UserInfoBox>
 
-        <div>
+        <EditBox>
           <button>수정</button>
-        </div>
-      </div>
+        </EditBox>
+      </UserInfoContainer>
 
-      <div>
+      <ChallengeCategory>
         <div>진행중인 챌린지</div>
         <div>진행 예정 챌린지</div>
         <div>완료한 챌린지</div>
         <div>FAQ</div>
-      </div>
+      </ChallengeCategory>
 
-      <div>
-        <div>
-          <div>
+      <Section>
+        <ChallengeContent>
+          <ChallengeImg>
             <img alt="" />
-          </div>
+          </ChallengeImg>
           <div>
             <div>
               <span>7월 24일부터 시작했어요!</span>
@@ -50,10 +49,75 @@ function Mypage() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </ChallengeContent>
+      </Section>
     </>
   );
 }
+
+const UserInfoContainer = styled.div`
+  width: 100%;
+  height: 150px;
+  background-color: firebrick;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const UserInfoBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const UserImg = styled.div`
+  width: 50px;
+  height: 50px;
+  img {
+    background-color: blue;
+    width: 50px;
+    height: 50px;
+  }
+`;
+
+const UserInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const EditBox = styled.div``;
+
+const ChallengeCategory = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: blanchedalmond;
+`;
+
+const Section = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: chartreuse;
+  padding: 20px;
+`;
+
+const ChallengeContent = styled.div`
+  width: 100%;
+  height: 100px;
+  background-color: seashell;
+  display: flex;
+`;
+
+const ChallengeImg = styled.div`
+  width: 30%;
+  height: 100%;
+  img {
+    background-color: blue;
+    width: 63%;
+    height: 100%;
+  }
+`;
 
 export default Mypage;
