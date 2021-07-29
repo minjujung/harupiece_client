@@ -7,6 +7,32 @@ import { history } from "../redux/configureStore";
 const Header = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
+  const isToken = document.cookie;
+
+  if (isToken) {
+    return (
+      <React.Fragment>
+        <HeaderBox>
+          <Container>
+            <div>로고(하루조각)</div>
+            <div>검색</div>
+            <Container1>
+              <img width="10px" src={userInfo.profileImg} alt="profileImg" />
+              <p>{userInfo.nickname}</p>
+              <p>포인트 : {userInfo.point}</p>
+              <button
+                onClick={() => {
+                  dispatch(userCreators.logOutDB());
+                }}
+              >
+                로그아웃
+              </button>
+            </Container1>
+          </Container>
+        </HeaderBox>
+      </React.Fragment>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -15,16 +41,6 @@ const Header = (props) => {
           <div>로고(하루조각)</div>
           <div>검색</div>
           <Container1>
-            <img width="10px" src={userInfo.profileImg} alt="profile" />
-            <p>{userInfo.nickname}</p>
-            <p>포인트 : {userInfo.point}</p>
-            <button
-              onClick={() => {
-                dispatch(userCreators.logOutDB());
-              }}
-            >
-              로그아웃
-            </button>
             <button
               onClick={() => {
                 history.push("/login");

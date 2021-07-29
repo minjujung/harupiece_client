@@ -6,14 +6,20 @@ import Footer from "../components/Footer";
 import MainSlider from "../components/MainSlider";
 import Category from "../components/Category";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Main = (props) => {
   // const userlogin = useSelector((state) => state.user.user);
 
+  const islogin = useSelector((state) => state.user.isLogin);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(MainCreators.guestLoadDB());
+    if (islogin) {
+      dispatch(MainCreators.userLoadDB());
+    } else {
+      dispatch(MainCreators.guestLoadDB());
+    }
   }, []);
 
   return (
