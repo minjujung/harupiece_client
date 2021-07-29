@@ -60,7 +60,7 @@ function ChallengeCreate(props) {
 
   // create challenge
   const createChallenge = () => {
-    dispatch(createActions.createChDB(setChallengeInfo));
+    dispatch(createActions.createChDB(challengeInfo));
   };
 
   return (

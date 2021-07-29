@@ -39,23 +39,10 @@ const getThumnailDb = (category) => {
 
 // 챌린지 생성
 const createChDB =
-  (setChallengeInfo) =>
+  (challengeInfo) =>
   async (dispatch, getState, { history }) => {
     await instance
-      .post(`/api/member/challenge`, {
-        memberName: " ",
-        challengeTitle: setChallengeInfo.challengeTitle,
-        challengeContent: setChallengeInfo.challengeContent,
-        categoryName: " ",
-        challengePassword: setChallengeInfo.challengePassword,
-        challengeStartDate: " ",
-        challengeEndDate: " ",
-        challengeProgress: " ",
-        challengeImgUrl: " ",
-        challengeGood: " ",
-        challengeBad: " ",
-        challengeHoliday: " ",
-      })
+      .post(`/api/member/challenge`, challengeInfo)
       .then((res) => {
         consoleLogger(res);
       })

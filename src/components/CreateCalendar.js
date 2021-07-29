@@ -1,60 +1,53 @@
 import React, { useState } from "react";
-import { DateRangePickerCalendar, START_DATE } from "react-nice-dates";
-import "react-nice-dates/build/style.css";
 
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
-
-// consolelog logger
-import { consoleLogger } from "../redux/configureStore";
+import getDay from "date-fns/getDay";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo }) {
-  // const [dateRange, setDateRange] = useState([null, null]);
-  // const [startDate, endDate] = dateRange;
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+  const [checkWeek, setCheckWeek] = useState(false);
 
-  const saveStartDate = (start) => {
-    setChallengeInfo({ ...challengeInfo, challengeStartDate: start });
-    console.log(challengeInfo);
+  const checkedWeek = () => {
+    setCheckWeek(true);
   };
 
-  const saveEndDate = (end) => {
-    setChallengeInfo({ ...challengeInfo, challengeEndDate: end });
-    console.log(challengeInfo);
+  const isWeekday = (date) => {
+    if (checkWeek === true) {
+      const day = getDay(date);
+      return day !== 0 && day !== 6;
+    } else {
+      const day = getDay(date);
+      return day;
+    }
   };
 
-  // nice-date
+  console.log(challengeInfo);
 
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [focus, setFocus] = useState(START_DATE);
-
-  const handleFocusChange = (newFocus) => {
-    setFocus(newFocus || START_DATE);
+  const onChange = (update) => {
+    setDateRange(update);
+    setChallengeInfo({
+      ...challengeInfo,
+      challengeStartDate: update[0],
+      challengeEndDate: update[1],
+    });
   };
 
   return (
     <>
-      {/* <DatePicker
-        locale={ko}
-        dateFormat="yyyy-MM-dd"
-        minDate={new Date()}
+      <input type="checkbox" checkWeek={checkWeek} onClick={checkedWeek} />
+      <DatePicker
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
-        onChange={(update) => {
-          setDateRange(update);
-        }}
-        isClearable={true}
-      /> */}
-      <DateRangePickerCalendar
-        startDate={startDate}
-        endDate={endDate}
-        focus={focus}
-        onStartDateChange={setStartDate}
-        onEndDateChange={setEndDate}
-        onFocusChange={handleFocusChange}
+        onChange={onChange}
+        filterDate={isWeekday}
+        dateFormat="yyyy-MM-dd"
         locale={ko}
+        minDate={new Date()}
+        isClearable={true}
       />
     </>
   );

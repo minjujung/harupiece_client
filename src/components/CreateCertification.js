@@ -30,7 +30,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
       // setChallengeInfo({ ...challengeInfo, challengeGood: img });
     };
   };
-  console.log(challengeInfo.challengeGood);
+  // console.log(challengeInfo.challengeGood);
 
   const badSelectFile = (e) => {
     const reader = new FileReader();
@@ -43,7 +43,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
       // setChallengeInfo({ ...challengeInfo, challengeBad: img });
     };
   };
-  console.log(challengeInfo.challengeBad);
+  // console.log(challengeInfo.challengeBad);
 
   return (
     <>
