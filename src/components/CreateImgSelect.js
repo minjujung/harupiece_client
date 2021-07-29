@@ -47,7 +47,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
           {select.map((i, idx) => {
             return (
               <>
-                <img src={i} onClick={() => selectImg(i)} alt="" />
+                <img key={idx} src={i} onClick={() => selectImg(i)} alt="" />
               </>
             );
           })}

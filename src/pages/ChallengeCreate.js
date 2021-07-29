@@ -40,9 +40,15 @@ function ChallengeCreate(props) {
     if (e.target.value === "PRIVATE") {
       setPwd(true);
     }
+    if (e.target.value === "PUBLICK" || e.target.value === "CATEGORY") {
+      setPwd(false);
+    }
   };
 
   const savePwd = (e) => {
+    if (e.target.value === "") {
+      window.alert("asd");
+    }
     setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
   };
 
@@ -53,6 +59,38 @@ function ChallengeCreate(props) {
 
   // create challenge
   const createChallenge = () => {
+    if (challengeInfo.challengeTitle === "") {
+      window.alert("챌린지 이름을 입력해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeContent === "") {
+      window.alert("챌린지 설명을 입력해주세요.");
+      return;
+    }
+    if (challengeInfo.categoryName === "") {
+      window.alert("챌린지 카테고리를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeImgUrl === "") {
+      window.alert("챌린지 대표이미지를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeStartDate === "") {
+      window.alert("챌린지 시작날짜를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeEndDate === "") {
+      window.alert("챌린지 종료날짜를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeGood === "") {
+      window.alert("챌린지 인증 예시를 등록해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeBad === "") {
+      window.alert("챌린지 인증 예시를 등록해주세요.");
+      return;
+    }
     dispatch(createActions.createChDB(challengeInfo));
   };
 

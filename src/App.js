@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore";
@@ -8,15 +8,15 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
 
-import { userCreators } from './redux/modules/user';
-import { useDispatch } from 'react-redux';
+import { userCreators } from "./redux/modules/user";
+import { useDispatch } from "react-redux";
+import Mypage from "./pages/Mypage";
 
 function App() {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userCreators.loginCheckDB());
-  },[])
+  }, []);
 
   return (
     <div className="App">
@@ -26,6 +26,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge" component={ChallengeCreate} />
+        <Route exact path="/mypage" component={Mypage} />
       </ConnectedRouter>
     </div>
   );
