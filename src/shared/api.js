@@ -17,7 +17,7 @@ instance.interceptors.request.use(function (config) {
 export const UserApis = {
   login: (email, pw) => instance.post('api/member/login', {email: email, password: pw}),
 	signup: (email, nick, pw, pwc, profileImg) => instance.post('api/member/signup', {email: email, nickname: nick , password: pw, passwordConfirm: pwc ,profileImg: profileImg}),
-  relaod: () => instance.get('api/member/reload'),
+  reload: () => instance.get('api/member/reload'),
 };
 
 export const MainApis = {

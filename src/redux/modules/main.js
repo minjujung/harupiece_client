@@ -23,7 +23,6 @@ const guestLoadDB = () => {
         MainApis
         .guestMain()
         .then((res) => {
-            console.log(res);
             dispatch(guestLoad(res.data))
         }).catch((err) => {
             console.log(err)
@@ -36,7 +35,6 @@ const userLoadDB = () => {
         MainApis
         .userMain()
         .then((res) => {
-            console.log(res);
             dispatch(userLoad(res.data))
         }).catch((err) => {
             console.log(err)
@@ -58,6 +56,8 @@ export default handleActions({
 const MainCreators = {
     guestLoadDB,
     userLoadDB,
+    userLoad,
+    guestLoad,
 }
 
 export { MainCreators }

@@ -10,15 +10,16 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 const Main = (props) => {
-
     const islogin = useSelector((state) => state.user.isLogin);
-
     const dispatch = useDispatch();
+    
     useEffect(() => {
-        if (islogin === true) {
+        if (islogin) {
             dispatch(MainCreators.userLoadDB());
+            dispatch(MainCreators.userLoad(null));
+        }else{
+            dispatch(MainCreators.guestLoadDB());
         }
-        dispatch(MainCreators.guestLoadDB());
     },[])
 
     return(
