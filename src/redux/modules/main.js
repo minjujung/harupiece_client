@@ -36,6 +36,7 @@ const userLoadDB = () => {
         MainApis
         .userMain()
         .then((res) => {
+            console.log(res);
             dispatch(userLoad(res.data))
         }).catch((err) => {
             console.log(err)

@@ -58,7 +58,7 @@ const logOutDB = () => {
 	return function (dispatch, getState, { history }) {
 		deleteCookie('token');
 		dispatch(logOut());
-		history.replace('/login');
+		history.replace('/');
 	};
 };
 
@@ -69,6 +69,9 @@ const loginCheckDB = () => {
 		.then((res) =>{
 			dispatch(setUser(res.data.userInfo));
 		})
+		.catch((err) => {
+			console.log(err);
+		});
 	};
 };
 
@@ -79,7 +82,7 @@ export default handleActions(
 			draft.isLogin = true;
 		}),
 		[LOGOUT]: (state, action) => produce(state, (draft) => {
-			draft.user = null;
+			draft.userInfo = null;
 			draft.isLogin = false;
 		}),
 		[SET_USER]: (state, action) =>produce(state, (draft) => {

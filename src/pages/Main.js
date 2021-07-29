@@ -7,14 +7,17 @@ import MainSlider from '../components/MainSlider';
 import Category from '../components/Category';
 import { MainCreators } from '../redux/modules/main';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Main = (props) => {
 
-    // const userlogin = useSelector((state) => state.user.user);
-    
+    const islogin = useSelector((state) => state.user.isLogin);
+
     const dispatch = useDispatch();
     useEffect(() => {
-
+        if (islogin === true) {
+            dispatch(MainCreators.userLoadDB());
+        }
         dispatch(MainCreators.guestLoadDB());
     },[])
 
