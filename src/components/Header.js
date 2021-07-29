@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { userCreators } from '../redux/modules/user';
+import { history } from '../redux/configureStore';
 
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Header = (props) => {
                             dispatch(userCreators.logOutDB());
                             }} >로그아웃</button>
                         <button onClick={() => {
-                            props.history.push("/login");
+                            history.push("/login");
                             }} >로그인</button>
                     </Container1>
                 </Container>

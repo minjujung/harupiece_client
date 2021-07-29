@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
-import { deleteCookie, setCookie } from '../../shared/Cookie';
+import { deleteCookie, setCookie, getCookie} from '../../shared/Cookie';
 import { UserApis } from '../../shared/api';
 
 // action
@@ -29,6 +29,7 @@ const registerDB = (email, nick, pw, pwc ,profileImg) => {
 		UserApis
 		.signup(email, nick, pw, pwc ,profileImg)
 		.then((res) => {
+			window.alert("회원가입이 완료되었습니다!");
 			history.push('/login');
 		})
 		.catch((err) => {
@@ -42,13 +43,13 @@ const setLoginDB = (email, pwd ) => {
 		UserApis
 			.login(email, pwd)
 			.then((res) => {
-				setCookie('token', res.data.accessToken, 7);
+				setCookie('token', res.data.accessToken,1,"/");
 				dispatch(setUser(res.data.userInfo));
 				history.replace('/');
 			})
 			.catch((err) => {
 				console.log(err);
-				window.alert('회원정보가 없습니다 회원가입을 해주세요!');
+				window.alert('회원정보가 없거나 아이디 비밀번호가 일치 하지 않습니다');
 			});
 	};
 };
@@ -63,12 +64,11 @@ const logOutDB = () => {
 
 const loginCheckDB = () => {
 	return function (dispatch, getState, { history }) {
-		const tokenCheck = document.cookie;
-		if (tokenCheck) {
-			//인스턴스로 토큰 다시 보내기
-		} else {
-			dispatch(logOut());
-		}
+		UserApis
+		.relaod()
+		.then((res) =>{
+			dispatch(setUser(res.data.userInfo));
+		})
 	};
 };
 
@@ -84,6 +84,7 @@ export default handleActions(
 		}),
 		[SET_USER]: (state, action) =>produce(state, (draft) => {
 			draft.userInfo = action.payload.userInfo;
+			draft.isLogin = true;
 		}),
 
 	},

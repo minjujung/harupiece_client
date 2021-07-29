@@ -9,8 +9,12 @@ import { MainCreators } from '../redux/modules/main';
 import { useDispatch } from 'react-redux';
 
 const Main = (props) => {
+
+    // const userlogin = useSelector((state) => state.user.user);
+    
     const dispatch = useDispatch();
     useEffect(() => {
+
         dispatch(MainCreators.guestLoadDB());
     },[])
 
@@ -19,9 +23,6 @@ const Main = (props) => {
             <Header/>
                 <Container>
                     <MainSlider/>
-                    <Category/>
-                    <Category/>
-                    <Category/>
                     <Category/>
                 </Container>
             <Footer/>
