@@ -22,7 +22,6 @@ const initialState = {
 
 // 대표이미지 가져오기
 const getThumnailDb = (category) => {
-  console.log(category);
   return function (dispatch, getState, { history }) {
     ChallengeCreateApis.GetThumnail(category)
       .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))

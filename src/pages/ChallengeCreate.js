@@ -33,8 +33,6 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
   };
 
-  // 대표이미지 설정
-
   // 모집 형식
   const [pwd, setPwd] = useState(false);
 
