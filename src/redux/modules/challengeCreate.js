@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
+import { ChallengeCreateApis } from "../../shared/api";
 
 const SET_GOODPREVIEW = "SET_GOODPREVIEW";
 const SET_BADPREVIEW = "SET_BADPREVIEW";
@@ -23,8 +24,7 @@ const initialState = {
 const getThumnailDb = (category) => {
   console.log(category);
   return function (dispatch, getState, { history }) {
-    instance
-      .get(`/api/category-image/${category}`)
+    ChallengeCreateApis.GetThumnail(category)
       .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))
       .catch((error) => {
         if (window.confirm("test")) {
@@ -41,8 +41,7 @@ const getThumnailDb = (category) => {
 const createChDB =
   (challengeInfo) =>
   async (dispatch, getState, { history }) => {
-    await instance
-      .post(`/api/member/challenge`, challengeInfo)
+    await ChallengeCreateApis.CreateChallenge(challengeInfo)
       .then((res) => {
         consoleLogger(res);
       })
