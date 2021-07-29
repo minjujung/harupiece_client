@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
 
-// consolelog logger
-import { consoleLogger } from "../redux/configureStore";
-
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
@@ -27,10 +24,9 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setGoodPreview(reader.result));
-      // setChallengeInfo({ ...challengeInfo, challengeGood: img });
+      setChallengeInfo({ ...challengeInfo, challengeGood: e.target.value });
     };
   };
-  // console.log(challengeInfo.challengeGood);
 
   const badSelectFile = (e) => {
     const reader = new FileReader();
@@ -40,10 +36,9 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setBadPreview(reader.result));
-      // setChallengeInfo({ ...challengeInfo, challengeBad: img });
+      setChallengeInfo({ ...challengeInfo, challengeBad: e.target.value });
     };
   };
-  // console.log(challengeInfo.challengeBad);
 
   return (
     <>
@@ -91,7 +86,7 @@ const CertificationBox = styled.div`
   display: flex;
 `;
 
-const Good = styled.image`
+const Good = styled.div`
   label {
     display: inline-block;
     padding: 0.5em 0.75em;
@@ -118,7 +113,7 @@ const Good = styled.image`
   }
 `;
 
-const Bad = styled.image`
+const Bad = styled.div`
   label {
     display: inline-block;
     padding: 0.5em 0.75em;

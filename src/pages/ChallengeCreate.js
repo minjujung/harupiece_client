@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CreateImgSelect from "../components/CreateImgSelect";
 import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 
 function ChallengeCreate(props) {
@@ -11,23 +11,23 @@ function ChallengeCreate(props) {
 
   const [challengeInfo, setChallengeInfo] = useState({
     categoryName: "",
+    challengeBad: "",
     challengeContent: "",
-    challengeTitle: "",
-    challengeStartDate: "",
     challengeEndDate: "",
+    challengeGood: "",
+    challengeTitle: "",
+    challengeHoliday: "",
+    challengeStartDate: "",
     challengeImgUrl: "",
     challengePassword: "",
-    challengeGood: "",
-    challengeBad: "",
-    challengeHoliday: "",
   });
 
-  // title
+  // 챌린지 이름
   const saveTitle = (e) => {
     setChallengeInfo({ ...challengeInfo, challengeTitle: e.target.value });
   };
 
-  // 카테고리 설정
+  // 챌린지 카테고리 설정
 
   const chooseCategory = (e) => {
     setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
@@ -35,8 +35,7 @@ function ChallengeCreate(props) {
 
   // 대표이미지 설정
 
-  // 모집 형식 state
-  // 비밀번호 형식..
+  // 모집 형식
   const [pwd, setPwd] = useState(false);
 
   const choosePublic = (e) => {
@@ -49,7 +48,7 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
   };
 
-  // challenge description
+  // 챌린지 설명
   const saveDesc = (e) => {
     setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
   };

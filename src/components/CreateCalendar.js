@@ -8,36 +8,87 @@ import getDay from "date-fns/getDay";
 function CreateCalendar({ challengeInfo, setChallengeInfo }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
-  const [checkWeek, setCheckWeek] = useState(false);
+  const [checkweek, setCheckweek] = useState(false);
+
+  const findCheck = (e) => {
+    if (e.target.checked) {
+      setChallengeInfo({
+        ...challengeInfo,
+        challengeHoliday: "0,6",
+      });
+    } else {
+      setChallengeInfo({
+        ...challengeInfo,
+        challengeHoliday: "",
+      });
+    }
+  };
+
+  const leadingZeros = (n, digits) => {
+    let zero = "";
+    n = n.toString();
+
+    if (n.length < digits) {
+      for (let i = 0; i < digits - n.length; i++) zero += "0";
+    }
+    return zero + n;
+  };
 
   const checkedWeek = () => {
-    setCheckWeek(true);
+    setCheckweek(!checkweek);
   };
 
   const isWeekday = (date) => {
-    if (checkWeek === true) {
+    if (checkweek === true) {
       const day = getDay(date);
       return day !== 0 && day !== 6;
     } else {
       const day = getDay(date);
-      return day;
+      return (
+        day === 0 ||
+        day === 1 ||
+        day === 2 ||
+        day === 3 ||
+        day === 4 ||
+        day === 5 ||
+        day === 6
+      );
     }
   };
 
-  console.log(challengeInfo);
+  const changeForm = (date) => {
+    if (date) {
+      return (
+        (date =
+          leadingZeros(date.getFullYear(), 4) +
+          "-" +
+          leadingZeros(date.getMonth() + 1, 2) +
+          "-" +
+          leadingZeros(date.getDate(), 2)) + "T00:00:00.000"
+      );
+    }
+  };
 
   const onChange = (update) => {
     setDateRange(update);
+    let start = update[0];
+    let end = update[1];
     setChallengeInfo({
       ...challengeInfo,
-      challengeStartDate: update[0],
-      challengeEndDate: update[1],
+      challengeStartDate: changeForm(start),
+      challengeEndDate: changeForm(end),
     });
   };
 
   return (
     <>
-      <input type="checkbox" checkWeek={checkWeek} onClick={checkedWeek} />
+      <label htmlFor="checkweek">주말 체크</label>
+      <input
+        id="checkweek"
+        type="checkbox"
+        onClick={checkedWeek}
+        onChange={findCheck}
+      />
       <DatePicker
         selectsRange={true}
         startDate={startDate}
