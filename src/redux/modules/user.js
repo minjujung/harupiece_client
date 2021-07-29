@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 import { deleteCookie, setCookie, getCookie} from '../../shared/Cookie';
 import { UserApis } from '../../shared/api';
+import { MainCreators } from './main';
 
 // action
 const LOGIN = 'user/LOGIN';
@@ -45,6 +46,7 @@ const setLoginDB = (email, pwd ) => {
 			.then((res) => {
 				setCookie('token', res.data.accessToken,1,"/");
 				dispatch(setUser(res.data.userInfo));
+				dispatch(MainCreators.guestLoad(null));
 				history.replace('/');
 			})
 			.catch((err) => {
@@ -58,6 +60,7 @@ const logOutDB = () => {
 	return function (dispatch, getState, { history }) {
 		deleteCookie('token');
 		dispatch(logOut());
+		dispatch(MainCreators.userLoad(null));
 		history.replace('/');
 	};
 };
@@ -65,7 +68,7 @@ const logOutDB = () => {
 const loginCheckDB = () => {
 	return function (dispatch, getState, { history }) {
 		UserApis
-		.relaod()
+		.reload()
 		.then((res) =>{
 			dispatch(setUser(res.data.userInfo));
 		})
