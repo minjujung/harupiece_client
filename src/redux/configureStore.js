@@ -11,10 +11,12 @@ import main from "./modules/main";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
+import Create from "./modules/challengeCreate";
+
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-// 리듀서 에 경로 추가 하고 추가해주세욥
+  create: Create,
   main,
   user,
   router: connectRouter(history),

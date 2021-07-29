@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'http://54.180.141.39/',
+  baseURL: "http://54.180.141.39/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -9,9 +9,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(function (config) {
-	const accessToken = document.cookie.split('=')[1];
-	config.headers.common['Authorization'] = ` Bearer ${accessToken}`;
-	return config;
+  const accessToken = document.cookie.split("=")[1];
+  config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
+  return config;
 });
 
 export const UserApis = {
@@ -20,10 +20,15 @@ export const UserApis = {
   reload: () => instance.get('api/member/reload'),
 };
 
-export const MainApis = {
-  guestMain : () => instance.get(`api/guest/main`),
-  userMain : () => instance.get(`api/member/main`),
+export const ChallengeCreateApis = {
+  GetThumnail: (category) => instance.get(`/api/category-image/${category}`),
+  CreateChallenge: (challengeInfo) =>
+    instance.post(`/api/member/challenge`, challengeInfo),
 };
 
+export const MainApis = {
+  guestMain: () => instance.get(`api/guest/main`),
+  userMain: () => instance.get(`api/member/main`),
+};
 
 export default instance;
