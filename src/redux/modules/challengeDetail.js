@@ -1,12 +1,11 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import instance, { ChallengeDetailApis } from "../../shared/api";
+import { ChallengeDetailApis } from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
 const DELETE_CHALLENGE = "DELETE_CHALLENGE";
-const GIVEUP_CHALLENGE = "GIVEUP_CHALLENGE";
 
 const getChallengeDetail = createAction(GET_CHALLENGE_DETAIL, (challenge) => ({
   challenge,

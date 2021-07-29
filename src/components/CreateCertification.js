@@ -24,7 +24,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setGoodPreview(reader.result));
-      setChallengeInfo({ ...challengeInfo, challengeGood: e.target.value });
+      setChallengeInfo({ ...challengeInfo, challengeGood: goodFile });
     };
   };
 
@@ -36,7 +36,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
 
     reader.onloadend = () => {
       dispatch(imageActions.setBadPreview(reader.result));
-      setChallengeInfo({ ...challengeInfo, challengeBad: e.target.value });
+      setChallengeInfo({ ...challengeInfo, challengeBad: badFile });
     };
   };
 

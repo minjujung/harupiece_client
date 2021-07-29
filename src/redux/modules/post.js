@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
-import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 import { actionCreator as imageActions } from "./image";
 import { PostApis } from "../../shared/api";
@@ -100,10 +99,12 @@ const getPostDB =
       });
   };
 
+//인증샷 올리기
 const addPostDB =
   (post, challengeId) =>
   (dispatch, getState, { history }) => {
     const date = new Date();
+    const user_info = getState().user.userInfo;
 
     AWS.config.update({
       region: "ap-northeast-2",
@@ -117,7 +118,7 @@ const addPostDB =
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "onedaypiece-shot-image",
-        Key: post.file.name + date + ".jpg",
+        Key: post.file.name + `${user_info.nickname}` + date + ".jpg",
         Body: post.file,
       },
     });

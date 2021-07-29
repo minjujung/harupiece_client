@@ -28,12 +28,9 @@ function ChallengeCreate(props) {
   };
 
   // 챌린지 카테고리 설정
-
   const chooseCategory = (e) => {
     setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
   };
-
-  // 대표이미지 설정
 
   // 모집 형식
   const [pwd, setPwd] = useState(false);
@@ -44,6 +41,7 @@ function ChallengeCreate(props) {
     }
   };
 
+  //모집형식이 비공개일때 비밀번호 설정
   const savePwd = (e) => {
     setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
   };
@@ -53,7 +51,7 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
   };
 
-  // create challenge
+  // 챌린지 개설
   const createChallenge = () => {
     dispatch(createActions.createChDB(challengeInfo));
   };
