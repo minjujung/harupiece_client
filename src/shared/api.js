@@ -28,6 +28,12 @@ export const UserApis = {
   relaod: () => instance.get("api/member/reload"),
 };
 
+export const ChallengeCreateApis = {
+  GetThumnail: (category) => instance.get(`/api/category-image/${category}`),
+  CreateChallenge: (challengeInfo) =>
+    instance.post(`/api/member/challenge`, challengeInfo),
+};
+
 export const MainApis = {
   guestMain: () => instance.get(`api/guest/main`),
   userMain: () => instance.get(`api/member/main`),
