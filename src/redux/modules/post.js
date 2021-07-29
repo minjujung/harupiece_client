@@ -4,6 +4,7 @@ import produce from "immer";
 import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 import { actionCreator as imageActions } from "./image";
+import { PostApis } from "../../shared/api";
 
 import AWS from "aws-sdk";
 
@@ -39,35 +40,7 @@ const initialState = {
         "https://user-images.githubusercontent.com/75834421/127076481-90fdc5d8-7461-4d87-83ef-608697e4f2eb.png",
       postingContent: "처음으로 해봤는 데 나름 괜찮았음",
       postingCount: 3,
-      memberResponseDto: [1, 2, 3],
-      postingApproval: true,
-      postingModifyOk: true,
-    },
-    {
-      postingId: 2,
-      memberId: 2,
-      nickName: "비건린이",
-      profileImg:
-        "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
-      postingImg:
-        "https://user-images.githubusercontent.com/75834421/127076499-50a96a41-7b5f-45fb-84ea-5166666bde3e.png",
-      postingContent: "난 이게 체질이 맞는 것 같아요!",
-      postingCount: 2,
-      memberResponseDto: [1, 2],
-      postingApproval: true,
-      postingModifyOk: true,
-    },
-    {
-      postingId: 3,
-      memberId: 3,
-      nickName: "구슬을 모을테야",
-      profileImg:
-        "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
-      postingImg:
-        "https://user-images.githubusercontent.com/75834421/127076537-33e58cc5-5fcf-4203-ad0e-a49b9027c07a.png",
-      postingContent: "힘드네요...그래도 계속 해야지",
-      postingCount: 1,
-      memberResponseDto: [3],
+      memberResponseDto: [],
       postingApproval: true,
       postingModifyOk: true,
     },
@@ -96,8 +69,7 @@ const getPostDB =
       page = page + 1;
     }
 
-    instance
-      .get(`api/posting/${page}/${challengeId}`)
+    PostApis.getPost(page, challengeId)
       .then((res) => {
         consoleLogger("인증샷 불러올때 응답", res);
         let post_list = [];
@@ -159,11 +131,9 @@ const addPostDB =
           postingImg: data.Location,
           postingContent: post.shotText,
           challengeId,
-          memberId: 4,
         };
 
-        instance
-          .post("api/posting", new_post)
+        PostApis.addPost(new_post)
           .then((res) => {
             consoleLogger("인증샷 추가 요청 이후 응답", res);
             dispatch(addPost({ ...new_post, postingId: res.data }));
@@ -204,8 +174,6 @@ const editPostDB =
     const _post = post_list[post_idx];
 
     const post = {
-      challengeId,
-      memberId: 4, //로그인 유저 정보 생기면 수정 예정
       postingContent: content.shotText,
       postingImg: content.file,
     };
@@ -213,11 +181,15 @@ const editPostDB =
     if (content.file === _post.postingImg) {
       dispatch(loading(true));
       //사진이 전과 같을 때는 업로드 x
-      instance
-        .put(`api/posting/update/${post_id}`, post)
+      PostApis.editPost(post_id, post)
         .then((res) => {
           consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
-          dispatch(editPost(post_id, post));
+          const new_post = {
+            ..._post,
+            postingContent: content.shotText,
+            postingImg: content.file,
+          };
+          dispatch(editPost(post_id, new_post));
         })
         .catch((error) => {
           if (
@@ -258,11 +230,11 @@ const editPostDB =
 
         const new_post = { ...post, postingImg: data.Location };
 
-        instance
-          .put(`api/posting/update/${post_id}`, new_post)
+        PostApis.editPost(post_id, new_post)
           .then((res) => {
             consoleLogger("이미지 바꾼 수정 server에 전송후 응답: ", res);
-            dispatch(editPost(post_id, new_post));
+            const _new_post = { ..._post, ...new_post };
+            dispatch(editPost(post_id, _new_post));
           })
           .catch((error) => {
             if (
@@ -284,8 +256,7 @@ const deletePostDB =
   (post_id) =>
   (dispatch, getState, { history }) => {
     console.log(post_id);
-    instance
-      .put(`api/posting/delete/${post_id}`)
+    PostApis.deletePost(post_id)
       .then((res) => {
         consoleLogger("삭제 요청 server에게 보낸 후 응답: ", res);
         dispatch(deletePost(post_id));
@@ -309,15 +280,15 @@ const clickCheckDB =
   (post_id, totalNumber) =>
   (dispatch, getState, { history }) => {
     // user module 확인하고 다시 작성!
-    const user_info = getState().user.user;
+    const user_info = getState().user.userInfo;
 
     const check_info = {
-      memberId: user_info.memberId,
+      // memberId: user_info.memberId,
       postingId: post_id,
       totalNumber,
     };
-    instance.post("api/certification", check_info).then((res) => {
-      consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: " + res);
+    PostApis.clickCheck(check_info).then((res) => {
+      consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: ", res);
 
       const post_list = getState().post.list;
       const idx = post_list.findIndex((l) => l.postingId === post_id);

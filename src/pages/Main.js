@@ -1,18 +1,42 @@
-// import React from "react";
-// import { history } from '../redux/configureStore';
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
-// const Main = (props) => {
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import MainSlider from "../components/MainSlider";
+import Category from "../components/Category";
+import { MainCreators } from "../redux/modules/main";
+import { useDispatch } from "react-redux";
 
-//     // get 해오는 challenge목록들 main에 그려주고 하나 클릭했을 때
-//     // 해당 id에 해당하는 challenge의 상세페이지로 이동
-//   const goToDetail = (id) => {
-//       history.push(`/challenge/${id}`)
-//   };
-//   return (
-//     <div onClick={goToDetail(challenge.challengeId)}>
-//       <p>slidecard</p>{" "}
-//     </div>
-//   );
-// };
+const Main = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(MainCreators.guestLoadDB());
+  }, []);
 
-// export default Main;
+  return (
+    <React.Fragment>
+      <Header />
+      <Container>
+        <MainSlider />
+        <Category />
+        <Category />
+        <Category />
+        <Category />
+      </Container>
+      <Footer />
+    </React.Fragment>
+  );
+};
+
+export default Main;
+
+const Container = styled.div`
+  max-width: 43.75em;
+  margin: 0 auto;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 6em;
+  transform: translateX(-50%);
+`;

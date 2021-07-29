@@ -46,9 +46,8 @@ const PostList = (props) => {
   };
 
   //modal안의 component만 편집형태로 바꾸기
-  //list[clicked]?.postingModifyOk
   const editPost = () => {
-    if (true) {
+    if (list[clicked]?.postingModifyOk) {
       setEdit(true);
     } else {
       window.alert("인증샷 수정은 게시후 24시간 이내에만 가능합니다!");
@@ -56,10 +55,10 @@ const PostList = (props) => {
   };
 
   //post 삭제
-  //list[clicked]?.postingModifyOk
   const deletePost = () => {
-    if (true) {
+    if (list[clicked]?.postingModifyOk) {
       dispatch(postActions.deletePostDB(list[clicked]?.postingId));
+      setOpen(false);
     } else {
       window.alert("인증샷 삭제는 게시후 24시간 이내에만 가능합니다!");
     }

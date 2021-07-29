@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import instance from "../../shared/api";
+import instance, { ChallengeDetailApis } from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
@@ -50,8 +50,7 @@ const getChallengeDetailDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
     //챌린지 상세페이지에서 상세내용 불러오기
-    instance
-      .get(`api/member/challenge/${challenge_id}`)
+    ChallengeDetailApis.getDetail(challenge_id)
       .then((res) => {
         consoleLogger("챌린지 상세페이지 정보 불러오기 요청 후 응답: ", res);
         dispatch(getChallengeDetail(res.data));
@@ -74,8 +73,7 @@ const getChallengeDetailDB =
 const adminChallengeDeleteDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
-    instance
-      .delete(`api/admin/challenge/${challenge_id}`)
+    ChallengeDetailApis.adminDeleteDetail(challenge_id)
       .then((res) => {
         consoleLogger("관리자권한 강제 삭제 요청 후 응답: " + res);
 
@@ -91,10 +89,9 @@ const adminChallengeDeleteDB =
 const challengeDeleteDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
-    instance
-      .delete(`api/member/challenge/${challenge_id}`)
+    ChallengeDetailApis.deleteDetail(challenge_id)
       .then((res) => {
-        consoleLogger("챌린지 개설한 사용자가 삭제 요칭시 응답: " + res);
+        consoleLogger("챌린지 개설한 사용자가 삭제 요청시 응답: " + res);
 
         if (window.confirm("정말 챌린지를 삭제하시겠어요?")) {
           dispatch(deleteChallengeDetail(challenge_id));
@@ -122,8 +119,7 @@ const challengeDeleteDB =
 const giveupChallengeDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
-    instance
-      .delete(`api/member/challenge-give-up/${challenge_id}`)
+    ChallengeDetailApis.giveupChallenge(challenge_id)
       .then((res) => {
         consoleLogger("챌린지 포기 요청후 응답: " + res);
         //user 정보 불러오는 부분은 고쳐야함
@@ -167,8 +163,7 @@ const takeInPartChallengeDB =
       challengeId: challenge_id,
       challengePassword: challengePwd,
     };
-    instance
-      .post(`api/member/challenge-request`, challengeInfo)
+    ChallengeDetailApis.takeInPartChallenge(challengeInfo)
       .then((res) => {
         consoleLogger("챌린지 신청하기 요청 후 응답: " + res);
 

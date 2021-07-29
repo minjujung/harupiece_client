@@ -1,8 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+
+// middleware
 import thunk from "redux-thunk";
+
+// redux router
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
+// reducers
+import user from "./modules/user";
+import main from "./modules/main";
 import ChallengeDetail from "./modules/challengeDetail";
 import Post from "./modules/post";
 import Image from "./modules/image";
@@ -13,6 +20,8 @@ const rootReducer = combineReducers({
   post: Post,
   image: Image,
   challengeDetail: ChallengeDetail,
+  main,
+  user,
   router: connectRouter(history),
 });
 
