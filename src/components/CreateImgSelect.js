@@ -46,9 +46,9 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
         <DialogContent>
           {select.map((i, idx) => {
             return (
-              <>
+              <div key={idx}>
                 <img src={i} onClick={() => selectImg(i)} alt="" />
-              </>
+              </div>
             );
           })}
         </DialogContent>

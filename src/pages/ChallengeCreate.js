@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CreateImgSelect from "../components/CreateImgSelect";
 import CreateCertification from "../components/CreateCertification";
@@ -21,6 +21,11 @@ function ChallengeCreate(props) {
       window.alert("챌린지 정보가 없어요!");
       history.goBack();
     }
+
+    if (!edit_mode) {
+      return;
+    }
+
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
   }, []);
 
@@ -48,16 +53,25 @@ function ChallengeCreate(props) {
   };
 
   // 모집 형식
-  const [pwd, setPwd] = useState(false);
+  const [pwdCheck, setPwdCheck] = useState(false);
+  const [pwd, setPwd] = useState("");
+  const publicInput = useRef();
 
   const choosePublic = (e) => {
+    console.log(e.target.value);
     if (e.target.value === "PRIVATE") {
-      setPwd(true);
+      setPwdCheck(true);
+    } else if (e.target.value === "PUBLIC") {
+      setPwdCheck(false);
+      setPwd("PUBLIC");
+    } else {
+      setPwdCheck(false);
     }
   };
 
   //모집형식이 비공개일때 비밀번호 설정
   const savePwd = (e) => {
+    setPwd(e.target.value);
     setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
   };
 
@@ -68,7 +82,52 @@ function ChallengeCreate(props) {
 
   // 챌린지 개설
   const createChallenge = () => {
+    if (challengeInfo.challengeTitle === "") {
+      window.alert("챌린지 이름을 입력해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeContent === "") {
+      window.alert("챌린지 설명을 입력해주세요.");
+      return;
+    }
+    if (challengeInfo.categoryName === "") {
+      window.alert("챌린지 카테고리를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeImgUrl === "") {
+      window.alert("챌린지 대표이미지를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeStartDate === "") {
+      window.alert("챌린지 시작날짜를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeEndDate === undefined) {
+      window.alert("챌린지 종료날짜를 선택해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeGood === "") {
+      window.alert("챌린지 인증 예시를 등록해주세요.");
+      return;
+    }
+    if (challengeInfo.challengeBad === "") {
+      window.alert("챌린지 인증 예시를 등록해주세요.");
+      return;
+    }
+
+    if (!pwdCheck && pwd !== "PUBLIC") {
+      window.alert("공개 / 비공개 설정을 등록해주세요.");
+      return;
+    }
+
+    if (pwdCheck && pwd === "") {
+      window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
+      return;
+    }
     dispatch(createActions.createChDB(challengeInfo));
+    window.alert("챌린지 개설 완료!");
+    dispatch(createActions.setGoodPreview(""));
+    dispatch(createActions.setBadPreview(""));
     history.push("/");
   };
 
@@ -135,12 +194,12 @@ function ChallengeCreate(props) {
 
               {/* 모집형식 */}
               <label htmlFor="category">카테고리</label>
-              <select id="category" onChange={choosePublic}>
+              <select id="category" ref={publicInput} onChange={choosePublic}>
                 <option value="CATEGORY">카테고리</option>
-                <option value="PUBLICK">공개</option>
+                <option value="PUBLIC">공개</option>
                 <option value="PRIVATE">비공개</option>
               </select>
-              {pwd ? (
+              {pwdCheck ? (
                 <input
                   type="password"
                   placeholder="비밀번호를 입력해주세요."

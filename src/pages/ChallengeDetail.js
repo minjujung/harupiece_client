@@ -22,6 +22,9 @@ const ChallengeDetail = (props) => {
 
   // challenge상세 내용과 인증샷 목록 불러오기
   useEffect(() => {
+    if (!challengeId) {
+      return;
+    }
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.getPostDB(challengeId));
   }, []);
@@ -98,6 +101,7 @@ const ChallengeDetail = (props) => {
             </li>
           </ul>
         </nav>
+        <button onClick={() => history.push("/")}>홈으로 가기</button>
         <button onClick={adminDelete}>관리자 권한 삭제</button>
         {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
         {user_info.memberId === challenge.memberId &&

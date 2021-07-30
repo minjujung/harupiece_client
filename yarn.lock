@@ -9591,12 +9591,15 @@ react-fit@^1.0.3:
     detect-element-overflow "^1.2.0"
     prop-types "^15.6.0"
 
+<<<<<<< HEAD
 react-hook-form@^7.12.1:
   version "7.12.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.12.1.tgz#dc6adbbd78a3c8817129672a6367d45479e9ca3e"
   integrity sha512-JBu5TZK3IXzDKw9SuNFwyQFdIx5uGZSmN9QTDsNsDSYdccU/O+43jBUh0zKG4jDc4hiNYYgDw34lLt7qLSeusA==
 
 >>>>>>> c6875442a4886150214fcf3ab7c52370c7ff82e4
+=======
+>>>>>>> 5c1df40de02ddb2ef924b5e9bea4743882fc9d54
 react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -9613,6 +9616,7 @@ react-is@^17.0.1:
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 react-nice-dates@^3.1.0:
   version "3.1.0"
@@ -9622,6 +9626,8 @@ react-nice-dates@^3.1.0:
     classnames "^2.2.6"
 
 >>>>>>> c6875442a4886150214fcf3ab7c52370c7ff82e4
+=======
+>>>>>>> 5c1df40de02ddb2ef924b5e9bea4743882fc9d54
 react-onclickoutside@^6.10.0:
   version "6.11.2"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.11.2.tgz#790e2100b9a3589eefca1404ecbf0476b81b7928"
