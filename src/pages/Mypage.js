@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as myInfo } from "../redux/modules/mypage";
@@ -15,10 +15,32 @@ function Mypage() {
   React.useEffect(() => {
     dispatch(myInfo.getMyInfoDB());
   }, []);
-  
+
   // 수정 완료 버튼
   const editProfile = () => {
     dispatch(myInfo.editMyProfileDB());
+  };
+
+  const [inProgress, setInprogress] = useState(true);
+  const [upComing, setUpComing] = useState(false);
+  const [completed, setCompleted] = useState(false);
+
+  const changeInProgress = () => {
+    setInprogress(true);
+    setUpComing(false);
+    setCompleted(false);
+  };
+
+  const changeUpComing = () => {
+    setUpComing(true);
+    setInprogress(false);
+    setCompleted(false);
+  };
+
+  const changeCompleted = () => {
+    setInprogress(false);
+    setUpComing(false);
+    setCompleted(true);
   };
 
   return (
@@ -41,15 +63,20 @@ function Mypage() {
       </UserInfoContainer>
 
       <ChallengeCategory>
-        <button>진행중인 챌린지</button>
-        <button>진행 예정 챌린지</button>
-        <button>완료한 챌린지</button>
+        <button onClick={changeInProgress}>진행중인 챌린지</button>
+        <button onClick={changeUpComing}>진행 예정 챌린지</button>
+        <button onClick={changeCompleted}>완료한 챌린지</button>
         <button>FAQ</button>
       </ChallengeCategory>
       <Section>
-        <ChallengesInProgress />
-        <UpcomingChallenge />
-        <CompletedChallenge />
+        <div>
+          {inProgress === true && <ChallengesInProgress />}
+          {inProgress === false && null}
+          {upComing === true && <UpcomingChallenge />}
+          {upComing === false && null}
+          {completed === true && <CompletedChallenge />}
+          {completed === false && null}
+        </div>
       </Section>
     </>
   );

@@ -17,7 +17,7 @@ function CompletedChallenge() {
               </ChallengeImg>
               <div>
                 <div>
-                  <span>7월 24일부터 시작했어요!</span>
+                  <span>완료!</span>
                 </div>
                 <div>
                   <span>{list.challengeTitle}</span>

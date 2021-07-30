@@ -17,7 +17,7 @@ function UpcomingChallenge() {
               </ChallengeImg>
               <div>
                 <div>
-                  <span>7월 24일부터 시작했어요!</span>
+                  <span>7월 24일부터 시작합니다!</span>
                 </div>
                 <div>
                   <span>{list.challengeTitle}</span>
