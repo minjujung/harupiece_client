@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { userCreators } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
+import { getCookie } from "../shared/Cookie";
+
 
 const Header = (props) => {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.user.userInfo);
-    const isToken =  document.cookie;
 
-    if(isToken) {
+    if(getCookie("token")) {
         return (
             <React.Fragment>
                 <HeaderBox>
