@@ -45,7 +45,7 @@ const createChDB =
         consoleLogger(res);
       })
       .catch((error) => {
-        if (window.confirm("blabal")) {
+        if (window.confirm(`${error}`)) {
           history.push("/challenge");
         } else {
           history.goBack();

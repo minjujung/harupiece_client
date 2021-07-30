@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore";
@@ -7,10 +7,11 @@ import ChallengeCreate from "./pages/ChallengeCreate";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
+import Mypage from "./pages/Mypage";
 
-import { userCreators } from './redux/modules/user';
-import { useDispatch } from 'react-redux';
-import {getCookie} from './shared/Cookie';
+import { userCreators } from "./redux/modules/user";
+import { useDispatch } from "react-redux";
+import { getCookie } from "./shared/Cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function App() {
     if (getCookie("token")) {
       dispatch(userCreators.loginCheckDB());
     }
-  },[])
+  }, []);
 
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge" component={ChallengeCreate} />
+        <Route exact path="/mypage" component={Mypage} />
       </ConnectedRouter>
     </div>
   );
