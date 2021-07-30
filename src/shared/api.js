@@ -37,7 +37,7 @@ export const MainApis = {
 // 마이 페이지
 export const MypageApis = {
   EditProfile: () => instance.put(`/api/member/mypage`),
-  GetMyChallenge: () => instance.get(`api/member/mypage`),
+  GetMyInfo: () => instance.get(`api/member/mypage`),
 };
 
 export default instance;

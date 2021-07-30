@@ -1,23 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { actionCreators as myChallenge } from "../redux/modules/mypage";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as myInfo } from "../redux/modules/mypage";
+import ChallengesInProgress from "../components/ChallengesInProgress";
+import UpcomingChallenge from "../components/UpcomingChallenge";
+import CompletedChallenge from "../components/CompletedChallenge";
 
 function Mypage() {
   const dispatch = useDispatch();
+
+  const myInfoList = useSelector((state) => state.mypage.myInfo);
+
+  // 유저의 챌린지들 가져오기
   React.useEffect(() => {
-    dispatch(myChallenge.getMyChallenge());
-  });
+    dispatch(myInfo.getMyInfoDB());
+  }, []);
+  
+  // 수정 완료 버튼
+  const editProfile = () => {
+    dispatch(myInfo.editMyProfileDB());
+  };
+
   return (
     <>
       <UserInfoContainer>
         <UserInfoBox>
           <UserImg>
-            <img src="" alt="" />
+            <img src={myInfoList.profileImg} alt="" />
           </UserImg>
 
           <UserInfo>
-            <span>유저닉네임</span>
+            <span>{myInfoList.nickname}</span>
             <span>챌린지를 열심히 참여하고 계시군요!</span>
           </UserInfo>
         </UserInfoBox>
@@ -28,34 +41,15 @@ function Mypage() {
       </UserInfoContainer>
 
       <ChallengeCategory>
-        <div>진행중인 챌린지</div>
-        <div>진행 예정 챌린지</div>
-        <div>완료한 챌린지</div>
-        <div>FAQ</div>
+        <button>진행중인 챌린지</button>
+        <button>진행 예정 챌린지</button>
+        <button>완료한 챌린지</button>
+        <button>FAQ</button>
       </ChallengeCategory>
-
       <Section>
-        <ChallengeContent>
-          <ChallengeImg>
-            <img alt="" />
-          </ChallengeImg>
-          <div>
-            <div>
-              <span>7월 24일부터 시작했어요!</span>
-            </div>
-            <div>
-              <span>주 2회 물 마시기</span>
-            </div>
-            <div>
-              <div>
-                <img alt="" />
-              </div>
-              <div>
-                <span>ㅇㅇㅇ님 외 ㅇㅇ명이 함께 도전 중이에요!</span>
-              </div>
-            </div>
-          </div>
-        </ChallengeContent>
+        <ChallengesInProgress />
+        <UpcomingChallenge />
+        <CompletedChallenge />
       </Section>
     </>
   );
@@ -107,23 +101,6 @@ const Section = styled.div`
   height: 100vh;
   background-color: chartreuse;
   padding: 20px;
-`;
-
-const ChallengeContent = styled.div`
-  width: 100%;
-  height: 100px;
-  background-color: seashell;
-  display: flex;
-`;
-
-const ChallengeImg = styled.div`
-  width: 30%;
-  height: 100%;
-  img {
-    background-color: blue;
-    width: 63%;
-    height: 100%;
-  }
 `;
 
 export default Mypage;

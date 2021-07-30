@@ -6,12 +6,12 @@ import thunk from "redux-thunk";
 // reducers
 import user from "./modules/user";
 import main from "./modules/main";
+import Create from "./modules/challengeCreate";
+import mypage from "./modules/mypage";
 
 // redux router
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-
-import Create from "./modules/challengeCreate";
 
 export const history = createBrowserHistory();
 
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   create: Create,
   main,
   user,
+  mypage,
   router: connectRouter(history),
 });
 
