@@ -45,7 +45,7 @@ const setLoginDB = (email, pwd) => {
       .then((res) => {
         setCookie("token", res.data.accessToken, 1, "/");
         dispatch(setUser(res.data.userInfo));
-        dispatch(MainCreators.userLoadDB());
+        dispatch(MainCreators.guestLoad(null));
         history.replace("/");
       })
       .catch((err) => {

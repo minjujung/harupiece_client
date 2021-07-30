@@ -15,9 +15,17 @@ instance.interceptors.request.use(function (config) {
 });
 
 export const UserApis = {
-  login: (email, pw) => instance.post('api/member/login', {email: email, password: pw}),
-	signup: (email, nick, pw, pwc, profileImg) => instance.post('api/member/signup', {email: email, nickname: nick , password: pw, passwordConfirm: pwc ,profileImg: profileImg}),
-  reload: () => instance.get('api/member/reload'),
+  login: (email, pw) =>
+    instance.post("api/member/login", { email: email, password: pw }),
+  signup: (email, nick, pw, pwc, profileImg) =>
+    instance.post("api/member/signup", {
+      email: email,
+      nickname: nick,
+      password: pw,
+      passwordConfirm: pwc,
+      profileImg: profileImg,
+    }),
+  reload: () => instance.get("api/member/reload"),
 };
 
 export const ChallengeCreateApis = {
@@ -44,6 +52,8 @@ export const PostApis = {
 export const ChallengeDetailApis = {
   getDetail: (challenge_id) =>
     instance.get(`api/member/challenge/${challenge_id}`),
+  editDetail: (challengeInfo) =>
+    instance.put(`api/member/challenge`, challengeInfo),
   adminDeleteDetail: (challenge_id) =>
     instance.delete(`api/admin/challenge/${challenge_id}`),
   deleteDetail: (challenge_id) =>

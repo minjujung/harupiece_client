@@ -100,7 +100,7 @@ const createChDB =
                   error.response.data.message ===
                   "이미 해당 카테고리에 챌린지를 생성한 유저입니다."
                 ) {
-                  window.alert("한 사람당 하나씩만 챌리지 생성이 가능해요!!");
+                  window.alert("한 사람당 하나씩만 챌린지 생성이 가능해요!!");
                 }
                 consoleLogger(error.response.data.message);
               });

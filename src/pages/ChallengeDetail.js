@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import InfinityScroll from "../shared/InfinityScroll";
+import PostList from "../components/PostList";
+import ConditionBtn from "../components/ConditionBtn";
 
 import { consoleLogger } from "../redux/configureStore";
+import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
-import PostList from "../components/PostList";
-import PostWrite from "../components/PostWrite";
-import ConditionBtn from "../components/ConditionBtn";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
+  const user_info = useSelector((state) => state.user.userInfo);
   const { list, paging, is_loading } = useSelector((state) => state.post);
 
   console.log(list);
@@ -62,15 +63,13 @@ const ChallengeDetail = (props) => {
     "-" +
     leadingZeros(today.getDate(), 2);
 
+  //사용자가 자기가 만든 챌린지 수정 => 챌린지 시작전에만 수정 가능
+  const editChallenge = () => {
+    history.push(`/challenge/${challenge.challengeId}/edit`);
+  };
   //사용자가 자기가 만든 챌린지 삭제 => 챌린지 시작전에만 삭제 가능
   const deleteChallenge = () => {
-    if (today < challenge.challengeStartDate) {
-      dispatch(challengeDetailActions.challengeDeleteDB(challenge.challengeId));
-    } else {
-      window.alert(
-        "이미 챌린지가 진행중이에요🏃‍♀️🏃‍♂️ 챌린지 시작 전에만 삭제가 가능합니다!"
-      );
-    }
+    dispatch(challengeDetailActions.challengeDeleteDB(challenge.challengeId));
   };
 
   //챌린지 상태 문자로 표현 해주기
@@ -100,9 +99,15 @@ const ChallengeDetail = (props) => {
         </nav>
         <button onClick={adminDelete}>관리자 권한 삭제</button>
         {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
-        <button onClick={deleteChallenge}>
-          챌린지 없애기(챌린지 개설한 사용자)
-        </button>
+        {user_info.memberId === challenge.memberId &&
+        today < challenge.challengeStartDate ? (
+          <>
+            <button onClick={editChallenge}>챌린지 수정하기</button>
+            <button onClick={deleteChallenge}>
+              챌린지 없애기(챌린지 개설한 사용자)
+            </button>
+          </>
+        ) : null}
       </ChallengeHeader>
       <div style={{ height: "15em" }}></div>
       <div style={{ position: "relative" }}>

@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CreateImgSelect from "../components/CreateImgSelect";
 import CreateCertification from "../components/CreateCertification";
 import CreateCalendar from "../components/CreateCalendar";
-import { useDispatch } from "react-redux";
+
+import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
+import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
+  const challenge_info = useSelector((state) => state.challengeDetail.detail);
+
+  const challengeId = props.match.params.id;
+  const edit_mode = challengeId ? true : false;
+
+  useEffect(() => {
+    if (edit_mode && !challenge_info) {
+      window.alert("챌린지 정보가 없어요!");
+      history.goBack();
+    }
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
+  }, []);
 
   const [challengeInfo, setChallengeInfo] = useState({
     categoryName: "",
@@ -54,11 +69,20 @@ function ChallengeCreate(props) {
   // 챌린지 개설
   const createChallenge = () => {
     dispatch(createActions.createChDB(challengeInfo));
+    history.push("/");
+  };
+
+  // 챌린지 수정
+  const editChallenge = () => {
+    dispatch(
+      challengeDetailActions.editChallengeDB(challengeId, challengeInfo)
+    );
+    history.push(`/challenge/${challenge_info.challengeId}`);
   };
 
   return (
     <>
-      <h2>챌린지 개설</h2>
+      {edit_mode ? <h2>챌린지 수정</h2> : <h2>챌린지 개설</h2>}
 
       <CreateContainer>
         <GuideLine>개설 가이드라인</GuideLine>
@@ -67,7 +91,14 @@ function ChallengeCreate(props) {
           <Contents>
             <label style={{ width: "100%" }}>
               제목
-              <input onChange={saveTitle} placeholder="제목을 입력해주세요" />
+              <input
+                onChange={saveTitle}
+                placeholder={
+                  edit_mode
+                    ? challenge_info.challengeTitle
+                    : "제목을 입력해주세요"
+                }
+              />
             </label>
           </Contents>
 
@@ -123,15 +154,25 @@ function ChallengeCreate(props) {
                 <div>
                   <input
                     onChange={saveDesc}
-                    placeholder="챌린지를 설명해주세요."
+                    placeholder={
+                      edit_mode
+                        ? challenge_info.challengeContent
+                        : "챌린지를 설명해주세요."
+                    }
                   />
                 </div>
               </label>
             </Contents>
           </ContentsContainer>
 
-          {/* 챌린지 개설 */}
-          <button onClick={createChallenge}>챌린지 개설하기</button>
+          {edit_mode ? (
+            <>
+              <button onClick={editChallenge}>챌린지 수정하기</button>
+              <button onClick={() => history.goBack()}>챌린지 수정취소</button>
+            </>
+          ) : (
+            <button onClick={createChallenge}>챌린지 개설하기</button>
+          )}
         </CreateContents>
       </CreateContainer>
     </>

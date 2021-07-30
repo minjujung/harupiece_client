@@ -23,7 +23,6 @@ const guestLoadDB = () => {
     MainApis.guestMain()
       .then((res) => {
         dispatch(guestLoad(res.data));
-        dispatch(userLoad([]));
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +36,6 @@ const userLoadDB = () => {
     MainApis.userMain()
       .then((res) => {
         dispatch(userLoad(res.data));
-        dispatch(guestLoad([]));
       })
       .catch((err) => {
         console.log(err);
@@ -52,10 +50,12 @@ export default handleActions(
     [G_LOAD]: (state, action) =>
       produce(state, (draft) => {
         draft.guestmain = action.payload.guestmain;
+        draft.usermain = [];
       }),
     [M_LOAD]: (state, action) =>
       produce(state, (draft) => {
         draft.usermain = action.payload.usermain;
+        draft.guestmain = [];
       }),
   },
   initialState

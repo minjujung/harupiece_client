@@ -3,9 +3,12 @@ import produce from "immer";
 import { ChallengeDetailApis } from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
+import AWS from "aws-sdk";
+
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
 const DELETE_CHALLENGE = "DELETE_CHALLENGE";
+const LOADING = "LOADING";
 
 const getChallengeDetail = createAction(GET_CHALLENGE_DETAIL, (challenge) => ({
   challenge,
@@ -22,6 +25,7 @@ const deleteChallengeDetail = createAction(
     challenge_id,
   })
 );
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   detail: {
@@ -43,6 +47,7 @@ const initialState = {
     challengeHollyday: " ",
     challengeMember: [1, 2, 3, 4], //챌린지에 참여한 유저아이디
   },
+  is_loading: false,
 };
 
 const getChallengeDetailDB =
@@ -66,6 +71,90 @@ const getChallengeDetailDB =
         }
         consoleLogger(error);
       });
+  };
+
+// 챌린지 개설한 유저가 챌린지 전체 내용 수정할 때
+const editChallengeDB =
+  (challenge_id, challengeInfo) =>
+  (dispatch, getState, { history }) => {
+    const date = new Date();
+    const user_info = getState().user.userInfo;
+
+    AWS.config.update({
+      region: "ap-northeast-2",
+      credentials: new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: `${process.env.REACT_APP_AWS_KEY}`,
+      }),
+    });
+
+    dispatch(loading(true));
+
+    const upload1 = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "onedaypiece-shot-image",
+        Key:
+          challengeInfo.challengeGood.name +
+          `${user_info.nickname}` +
+          date +
+          ".jpg",
+        Body: challengeInfo.challengeGood,
+      },
+    });
+    const upload2 = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "onedaypiece-shot-image",
+        Key:
+          challengeInfo.challengeBad.name +
+          `${user_info.nickname}` +
+          date +
+          ".jpg",
+        Body: challengeInfo.challengeBad,
+      },
+    });
+
+    const promise1 = upload1.promise();
+    const promise2 = upload2.promise();
+
+    promise1.then((data) => {
+      challengeInfo = { ...challengeInfo, challengeGood: data.Location };
+      promise2
+        .then((data) => {
+          consoleLogger("두번째 이미지 업로드", data);
+          challengeInfo = {
+            ...challengeInfo,
+            challengeBad: data.Location,
+            challengeId: challenge_id,
+          };
+          consoleLogger("db로 보내기전 challengeInfo", challengeInfo);
+
+          ChallengeDetailApis.editDetail(challengeInfo)
+            .then((res) => {
+              consoleLogger("챌린지 수정 요청 후 응답", res);
+              dispatch(editChallengeDetail(challengeInfo));
+            })
+            .catch((error) => {
+              if (
+                window.confirm(
+                  "챌린지 수정에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+                )
+              ) {
+                history.push("/");
+              } else {
+                history.goBack();
+              }
+              consoleLogger(
+                "챌린지 개설한 사용자가 수정페이지에서 수정 버튼 눌렀을 때 오류: " +
+                  error
+              );
+            })
+            .catch((error) => {
+              consoleLogger("나쁜 예시 이미지 에러", error);
+            });
+        })
+        .catch((error) => {
+          consoleLogger("좋은 예시 이미지 에러", error);
+        });
+    });
   };
 
 // 관리자 권한으로 DB에 있는 어떤 챌린지든 제약 없이 삭제 하는 함수
@@ -210,7 +299,8 @@ export default handleActions(
 
     [EDIT_CHALLENGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.detail = action.payload.challengeDetail;
+        draft.detail = action.payload.challenge_detail;
+        draft.is_loading = false;
       }),
 
     [DELETE_CHALLENGE]: (state, action) =>
@@ -219,6 +309,11 @@ export default handleActions(
           (l) => l.challlengId === action.payload.challenge_id
         );
         draft.list.splice(idx, 1);
+      }),
+
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState
@@ -230,6 +325,7 @@ const actionCreator = {
   challengeDeleteDB,
   giveupChallengeDB,
   takeInPartChallengeDB,
+  editChallengeDB,
 };
 
 export { actionCreator };
