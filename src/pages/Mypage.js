@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as myChallenge } from "../redux/modules/mypage";
 
 function Mypage() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(myChallenge.getMyChallenge());
+  });
   return (
     <>
       <UserInfoContainer>
