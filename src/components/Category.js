@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -6,8 +6,8 @@ import { MainCreators } from '../redux/modules/main';
 
 const Category = (props) => {
     const dispatch = useDispatch();
-    const guestmain = useSelector((state) => state.main.guestmain);
-    console.log(guestmain.study);
+    
+    
     return (
         <React.Fragment>
             <PContain>카테고리 이름<span>전체보기</span></PContain>

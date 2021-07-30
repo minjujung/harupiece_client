@@ -7,15 +7,18 @@ import ChallengeCreate from "./pages/ChallengeCreate";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
+import Mypage from "./pages/Mypage";
 
 import { userCreators } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
-import Mypage from "./pages/Mypage";
+import { getCookie } from "./shared/Cookie";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userCreators.loginCheckDB());
+    if (getCookie("token")) {
+      dispatch(userCreators.loginCheckDB());
+    }
   }, []);
 
   return (
