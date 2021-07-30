@@ -1,31 +1,99 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { MainCreators } from '../redux/modules/main';
+import { getCookie } from "../shared/Cookie";
 
 const Category = (props) => {
-    const dispatch = useDispatch();
     
-    
+    const main_list = useSelector((state) => state.main)
+
     return (
         <React.Fragment>
-            <PContain>카테고리 이름<span>전체보기</span></PContain>
+            <PContain>EXERCISE<span>전체보기</span></PContain>
             <Contain>
+                {getCookie("token") ? (main_list.usermain.exercise?.map((l,idx)=>
                 <div>
-                    asdffs
-                </div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div> 
+                )) : (main_list.guestmain.exercise?.map((l,idx)=> 
                 <div>
-                    zxcvd
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
                 </div>
-                <div>
-                    asdf
-                </div>
-                <div>
-                    asdf
-                </div>
+                ))  }
+                
             </Contain>
-        </React.Fragment>
+            <PContain>STUDY<span>전체보기</span></PContain>
+            <Contain>
+                {getCookie("token") ? (main_list.usermain.study?.map((l,idx)=>
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div> 
+                )) : (main_list.guestmain.study?.map((l,idx)=> 
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div>
+                ))  }
+                
+            </Contain>
+            <PContain>LIVINGHABITS<span>전체보기</span></PContain>
+            <Contain>
+                {getCookie("token") ? (main_list.usermain.livingHabits?.map((l,idx)=>
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div> 
+                )) : (main_list.guestmain.livingHabits?.map((l,idx)=> 
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div>
+                ))  }
+                
+            </Contain>
+            <PContain>MONEY<span>전체보기</span></PContain>
+            <Contain>
+                {getCookie("token") ? (main_list.usermain.money?.map((l,idx)=>
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div> 
+                )) : (main_list.guestmain.money?.map((l,idx)=> 
+                <div>
+                    배경이미지 : {l.challengeImgUrl}
+                    챌린지 이름 : {l.challengeTitle}
+                    참여 인원 : {l.challengeMember.length}
+                    시작 날짜 : {l.challengeStartDate}
+                    끝 날짜 : {l.challengeEndDate}
+                </div>
+                ))  }
+                
+            </Contain>
+            </React.Fragment>
     ) 
 };
 
@@ -46,7 +114,9 @@ const Contain = styled.div`
 const PContain = styled.p`
         display : flex;
         justify-content : space-between;
+        margin : 0px;
     & > span {
+        vertical-align: middle;
         padding-right : 1em;
     }
 `;

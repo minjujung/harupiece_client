@@ -21,11 +21,12 @@ const Main = (props) => {
     }
   }, []);
 
+
   return (
     <React.Fragment>
       <Header />
       <Container>
-        <MainSlider />
+        <MainSlider/>
         <Category />
       </Container>
       <Footer />
