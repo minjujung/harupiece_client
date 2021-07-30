@@ -39,7 +39,7 @@ const initialState = {
     challengePassword: "1234", // 비공개면 비밀번호 들어감
     challengeStartDate: "2021-07-26",
     challengeEndDate: "2021-08-02",
-    challengeProgress: "진행 예정",
+    challengeProgress: 1,
     challengeGood:
       "https://user-images.githubusercontent.com/75834421/127076439-599fa607-9285-4ab6-aec6-54ba16567434.png",
     challengeBad:

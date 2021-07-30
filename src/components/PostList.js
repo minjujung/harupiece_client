@@ -12,7 +12,7 @@ const PostList = (props) => {
   const dispatch = useDispatch();
   // const user_info = useSelector(state => state.user.userInfo)
 
-  const { list, totalNumber, totalDay, challengeId } = props;
+  const { list, totalNumber, totalDay, challengeId, challengeStatus } = props;
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);
@@ -49,8 +49,6 @@ const PostList = (props) => {
   const editPost = () => {
     if (list[clicked]?.postingModifyOk) {
       setEdit(true);
-    } else {
-      window.alert("인증샷 수정은 게시후 24시간 이내에만 가능합니다!");
     }
   };
 
@@ -59,8 +57,6 @@ const PostList = (props) => {
     if (list[clicked]?.postingModifyOk) {
       dispatch(postActions.deletePostDB(list[clicked]?.postingId));
       setOpen(false);
-    } else {
-      window.alert("인증샷 삭제는 게시후 24시간 이내에만 가능합니다!");
     }
   };
 
@@ -100,25 +96,33 @@ const PostList = (props) => {
             <div>
               <Profile src={list[clicked]?.profileImg} alt="profile" />{" "}
               {list[clicked]?.nickName}
-              <div>
-                <StatusBar>
-                  <Status
-                    width={`${
-                      (list[clicked]?.postingCount / totalNumber) * 100
-                    }%`}
-                  />
-                </StatusBar>
-                <span>
-                  총 {(list[clicked]?.postingCount / totalNumber) * 100} %
-                </span>
-              </div>
-              <button onClick={deletePost}>삭제하기</button>
+              {challengeStatus === 2 ? (
+                <div>
+                  <StatusBar>
+                    <Status
+                      width={`${
+                        (list[clicked]?.postingCount / totalNumber) * 100
+                      }%`}
+                    />
+                  </StatusBar>
+                  <span>
+                    총 {(list[clicked]?.postingCount / totalNumber) * 100} %
+                  </span>
+                </div>
+              ) : null}
+              {list[clicked]?.postingModifyOk ? (
+                <button onClick={deletePost}>삭제하기</button>
+              ) : null}
             </div>
             <p>{list[clicked]?.postingContent}</p>
             <img src={list[clicked]?.postingImg} alt="vegan_post" />
             <div>
-              <button onClick={check}>인증 확인</button>
-              <button onClick={editPost}>인증샷 수정</button>
+              {list[clicked]?.postingModifyOk ? (
+                <button onClick={editPost}>인증샷 수정</button>
+              ) : null}
+              {challengeStatus === 2 ? (
+                <button onClick={check}>인증 확인</button>
+              ) : null}
             </div>
           </>
         )}

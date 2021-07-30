@@ -56,6 +56,7 @@ const ChallengeDetail = (props) => {
   };
 
   let today = new Date();
+  console.log(today);
   today =
     leadingZeros(today.getFullYear(), 4) +
     "-" +
@@ -178,6 +179,7 @@ const ChallengeDetail = (props) => {
         >
           <PostList
             list={list}
+            challengeStatus={challenge.challengeProgress}
             challengeId={challenge.challengeId}
             totalNumber={challenge.challengeMember.length}
             totalDay={totalDay}
