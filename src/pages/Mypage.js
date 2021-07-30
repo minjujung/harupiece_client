@@ -36,6 +36,37 @@ function Mypage() {
     convertEditMode();
   };
 
+  const fileInput = React.useRef();
+
+  const selectFile = () => {
+    const reader = new FileReader();
+    const file = fileInput.current.files[0];
+    if (!file) {
+      return;
+    }
+
+    reader.readAsDataURL(file);
+
+    // reader.onloadend = () => {
+    //   dispatch();
+    // };
+  };
+
+  // 수정 완료 버튼
+  const editProfile = () => {
+    const file = fileInput.current.files[0];
+    if (newNickName === nickName) {
+      setNewNickName(nickName);
+    }
+    if (!file) {
+      dispatch(
+        myInfo.editMyProfileDB(newNickName, { file: myInfoList.profileImg })
+      );
+    }
+    dispatch(myInfo.editMyProfileDB(newNickName, file));
+    convertEditMode();
+  };
+
   const [inProgress, setInprogress] = useState(true);
   const [upComing, setUpComing] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -69,33 +100,6 @@ function Mypage() {
     setPiece(true);
   };
 
-  const fileInput = React.useRef();
-
-  const selectFile = () => {
-    const reader = new FileReader();
-    const file = fileInput.current.files[0];
-    if (!file) {
-      return;
-    }
-
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      dispatch();
-    };
-  };
-
-  // 수정 완료 버튼
-  const editProfile = (profileImg) => {
-    const file = fileInput.current.files[0];
-    if (newNickName === nickName) {
-      setNewNickName(nickName)
-    }
-    if(!file) {
-      dispatch(myInfo.editMyProfileDB(newNickName))
-    } dispatch(myInfo.editMyProfileDB(newNickName, profileImg));
-  };
-
   if (editMode) {
     return (
       <>
@@ -125,7 +129,7 @@ function Mypage() {
           </UserInfoBox>
 
           <EditBox>
-            <button onClick={editComment}>완료</button>
+            <button onClick={editProfile}>완료</button>
           </EditBox>
         </UserInfoContainer>
 
@@ -134,6 +138,7 @@ function Mypage() {
           <button onClick={changeUpComing}>진행 예정 챌린지</button>
           <button onClick={changeCompleted}>완료한 챌린지</button>
           <button onClick={changePiece}>조각 모음</button>
+          <button>비밀번호 변경</button>
         </ChallengeCategory>
         <Section>
           <div>
@@ -173,7 +178,7 @@ function Mypage() {
         <button onClick={changeUpComing}>진행 예정 챌린지</button>
         <button onClick={changeCompleted}>완료한 챌린지</button>
         <button onClick={changeCompleted}>조각 모음</button>
-        <button>FAQ</button>
+        <button>비밀번호 변경</button>
       </ChallengeCategory>
       <Section>
         <div>

@@ -1,6 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import instance from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 import { ChallengeCreateApis } from "../../shared/api";
 
