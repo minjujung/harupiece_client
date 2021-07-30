@@ -9,7 +9,10 @@ const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
   myInfo,
   myChallenge,
 }));
-const editMyProfile = createAction(EDIT_MYPROFILE, () => ({}));
+const editMyProfile = createAction(EDIT_MYPROFILE, (nickname, profileImg) => ({
+  nickname,
+  profileImg,
+}));
 
 const initialState = {
   myInfo: {},
@@ -30,10 +33,12 @@ const getMyInfoDB = () => {
   };
 };
 
-const editMyProfileDB = () => {
+const editMyProfileDB = (newNickName, profileImg) => {
   return function (dispatch, getState, { history }) {
+    const myProfile = getState().mypage.myInfo;
+
     MypageApis.EditProfile()
-      .then((res) => console.log(res))
+      .then((res) => dispatch(editMyProfile(newNickName, profileImg)))
       .catch((error) => {
         if (window.confirm("test")) {
           history.push("/");
