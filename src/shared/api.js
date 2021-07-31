@@ -16,9 +16,17 @@ instance.interceptors.request.use(function (config) {
 
 // 유저 정보
 export const UserApis = {
-  login: (email, pw) => instance.post('api/member/login', {email: email, password: pw}),
-	signup: (email, nick, pw, pwc, profileImg) => instance.post('api/member/signup', {email: email, nickname: nick , password: pw, passwordConfirm: pwc ,profileImg: profileImg}),
-  reload: () => instance.get('api/member/reload'),
+  login: (email, pw) =>
+    instance.post("api/member/login", { email: email, password: pw }),
+  signup: (email, nick, pw, pwc, profileImg) =>
+    instance.post("api/member/signup", {
+      email: email,
+      nickname: nick,
+      password: pw,
+      passwordConfirm: pwc,
+      profileImg: profileImg,
+    }),
+  reload: () => instance.get("api/member/reload"),
 };
 
 // 챌린지 생성
@@ -36,8 +44,10 @@ export const MainApis = {
 
 // 마이 페이지
 export const MypageApis = {
-  EditProfile: () => instance.put(`/api/member/mypage`),
-  GetMyChallenge: () => instance.get(`api/member/mypage`),
+  EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
+  GetMyInfo: () => instance.get(`api/member/mypage`),
+  ChangePassword: (password) =>
+    instance.put(`/api/member/mypage/password`, password),
 };
 
 export default instance;
