@@ -36,6 +36,36 @@ const getMyInfoDB = () => {
   };
 };
 
+const getProceedDB = () => {
+  return function (dispatch, getState, { history }) {
+    MypageApis.GetProceed()
+      .then((res) => dispatch(getInfo(res.data)))
+      .catch((error) => {
+        if (window.confirm("사용자 정보를 받아올수없습니다.")) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
+        console.log(error);
+      });
+  };
+};
+
+const getEndDB = () => {
+  return function (dispatch, getState, { history }) {
+    MypageApis.GetEnd()
+      .then((res) => dispatch(getInfo(res.data)))
+      .catch((error) => {
+        if (window.confirm("사용자 정보를 받아올수없습니다.")) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
+        console.log(error);
+      });
+  };
+};
+
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
     const myProfile = getState().mypage.myInfo.memberId;
@@ -116,7 +146,7 @@ const editMyProfileDB = (content) => {
 const changePasswordDB = (password) => {
   return function (dispatch, getState, { history }) {
     const passwordList = {
-      currentPassword: password.password,
+      currentPassword: password.oldPassword,
       newPassword: password.newPassword,
       newPasswordCheck: password.newPasswordConfirm,
     };
@@ -124,9 +154,9 @@ const changePasswordDB = (password) => {
       .then((res) => console.log(res))
       .catch((error) => {
         if (window.confirm("test")) {
-          // history.push("/");
+          history.push("/");
         } else {
-          // history.goBack();
+          history.goBack();
         }
         console.log(error);
       });
@@ -158,6 +188,8 @@ const actionCreators = {
   editMyProfileDB,
   changePasswordDB,
   setPreview,
+  getProceedDB,
+  getEndDB,
 };
 
 export { actionCreators };

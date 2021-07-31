@@ -1,8 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as myInfo } from "../redux/modules/mypage";
 
 function UpcomingChallenge() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(myInfo.getProceedDB());
+  }, []);
+
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.challengeList
   );
