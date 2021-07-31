@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
+import { MainCreators as searchActions } from "../redux/modules/main";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
+
+  const [q, setQ] = useState("");
+
+  const search = () => {
+    dispatch(searchActions.searchDB(q));
+    history.push(`/search/1/${q}`);
+  };
 
   if (getCookie("token")) {
     return (
@@ -16,7 +24,18 @@ const Header = (props) => {
         <HeaderBox>
           <Container>
             <div>로고(하루조각)</div>
-            <div>검색</div>
+            <form>
+              <label htmlFor="search-form">
+                <input
+                  type="search"
+                  id="search-form"
+                  placeholder="Search for..."
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                />
+              </label>
+              <input type="submit" onClick={search} />
+            </form>
             <Container1>
               <img width="10px" src={userInfo.profileImg} alt="" />
               <p>{userInfo.nickname}</p>

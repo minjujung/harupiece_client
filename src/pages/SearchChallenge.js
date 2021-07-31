@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { MainCreators as searchActions } from "../redux/modules/main";
+
 
 function SearchChallenge() {
   const dispatch = useDispatch();
@@ -9,14 +9,10 @@ function SearchChallenge() {
   //   const [isLoaded, setIsloaded] = useState(false);
   //   const [items, setItems] = useState([]);
 
-  React.useEffect(() => {
-    dispatch(searchActions.searchDB(q));
-  }, []);
-
   const searchList = useSelector((state) => state.main.usermain.slider);
   console.log(searchList);
 
-  const [q, setQ] = useState("고슴도치");
+  const [q, setQ] = useState("");
   const [searchParam] = useState(["categoryName", "challengeTitle"]);
   const [filterParam, setFilterParam] = useState(["All"]);
 

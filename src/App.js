@@ -31,7 +31,11 @@ function App() {
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge" component={ChallengeCreate} />
         <Route exact path="/mypage" component={Mypage} />
-        <Route exact path="/search/{page}/{searchWords}" component={SearchChallenge} />
+        <Route
+          exact
+          path="/search/1/:searchWords"
+          component={SearchChallenge}
+        />
       </ConnectedRouter>
     </div>
   );
