@@ -1,8 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as myInfo } from "../redux/modules/mypage";
 
 function CompletedChallenge() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(myInfo.getEndDB());
+  }, []);
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.challengeList
   );
