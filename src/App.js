@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
 import Mypage from "./pages/Mypage";
+import SearchChallenge from "./pages/SearchChallenge";
 
 import { userCreators } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge" component={ChallengeCreate} />
         <Route exact path="/mypage" component={Mypage} />
+        <Route exact path="/search/{page}/{searchWords}" component={SearchChallenge} />
       </ConnectedRouter>
     </div>
   );
