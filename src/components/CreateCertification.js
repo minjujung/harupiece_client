@@ -6,7 +6,7 @@ import { actionCreators as imageActions } from "../redux/modules/challengeCreate
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
-function CreateCertification({ challengeInfo, setChallengeInfo }) {
+function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
 
   // image preview
@@ -49,7 +49,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
             <label htmlFor="ex_file">
               <PhotoCameraIcon />
             </label>
-            <img src={goodPreview ? goodPreview : null} alt="" />
+            {goodPreview ? <img src={goodPreview} alt="goodPreview" /> : null}
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
@@ -61,7 +61,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo }) {
             <label htmlFor="ex_files">
               <PhotoCameraIcon />
             </label>
-            <img src={badPreview ? badPreview : null} alt="" />
+            {badPreview ? <img src={badPreview} alt="badPreveiew" /> : null}
             <input
               onChange={badSelectFile}
               ref={badFileInput}

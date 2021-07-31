@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import PostWrite from "./PostWrite";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import PwdModal from "./PwdModal";
 
 const ConditionBtn = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.userInfo);
 
   const {
     challengeProgress,
@@ -28,11 +29,17 @@ const ConditionBtn = (props) => {
   };
 
   if (challengeProgress === 1) {
-    return <PwdModal {...props} />;
-  } else if (challengeProgress === 2) {
+    if (challengeMember.includes(user_info.memberId)) {
+      return <button onClick={giveupChallenge}>챌린지 포기하기</button>;
+    } else {
+      return <PwdModal challengeMember={challengeMember} {...props} />;
+    }
+  } else if (
+    challengeProgress === 2 &&
+    challengeMember.includes(user_info.memberId)
+  ) {
     return (
       <>
-        {/* 로그인한 유저가 참여하고 있는 챌린지인 경우 이 버튼들 띄우기, 이후에 이처럼 유저에 관한 조건 추가*/}
         <PostWrite challengeId={challengeId} />
         <button onClick={giveupChallenge}>챌린지 포기하기</button>
       </>

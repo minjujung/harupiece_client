@@ -86,6 +86,12 @@ const ChallengeDetail = (props) => {
     status = "진행 종료";
   }
 
+  console.log(
+    today,
+    challenge.challengeStartDate,
+    today < challenge.challengeStartDate.split("T")[0]
+  );
+
   return (
     <>
       <ChallengeHeader>
@@ -104,8 +110,8 @@ const ChallengeDetail = (props) => {
         <button onClick={() => history.push("/")}>홈으로 가기</button>
         <button onClick={adminDelete}>관리자 권한 삭제</button>
         {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
-        {user_info.memberId === challenge.memberId &&
-        today < challenge.challengeStartDate ? (
+        {user_info?.memberId === challenge.memberId &&
+        today < challenge.challengeStartDate.split("T")[0] ? (
           <>
             <button onClick={editChallenge}>챌린지 수정하기</button>
             <button onClick={deleteChallenge}>

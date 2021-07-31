@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { consoleLogger } from "../configureStore";
 import { ChallengeCreateApis } from "../../shared/api";
+import { MainCreators } from "./main";
 
 import AWS from "aws-sdk";
 
@@ -94,6 +95,15 @@ const createChDB =
             ChallengeCreateApis.CreateChallenge(challengeInfo)
               .then((res) => {
                 consoleLogger("챌린지 개설 요청 후 응답", res);
+
+                const user_info = getState().user.userInfo;
+
+                const new_challenge = {
+                  ...challengeInfo,
+                  challengeId: res.data,
+                  challengeMember: [user_info.memberId],
+                };
+                dispatch(MainCreators.addUserLoad(new_challenge));
               })
               .catch((error) => {
                 if (

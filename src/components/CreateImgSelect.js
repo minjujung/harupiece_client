@@ -6,10 +6,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Button } from "@material-ui/core";
 
-function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
+function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
-
   const select = useSelector((state) => state.create.thumnailList);
+  const challenge_info = useSelector((state) => state.challengeDetail.detail);
 
   const [preview, setPreview] = useState("");
 
@@ -18,7 +18,11 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
+    if (id) {
+      dispatch(imageActions.getThumnailDb(challenge_info.categoryName));
+    } else {
+      dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
+    }
   };
 
   const handleClose = () => {
@@ -27,7 +31,11 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
 
   // 대표이미지 선택
   const selectImg = (img) => {
-    setChallengeInfo({ ...challengeInfo, challengeImgUrl: img });
+    setChallengeInfo({
+      ...challengeInfo,
+      challengeImgUrl: img,
+    });
+
     setPreview(img);
     handleClose();
   };
@@ -53,9 +61,19 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo }) {
           })}
         </DialogContent>
       </Dialog>
-      {preview ? <img src={preview} alt="preview" /> : null}
+      <Preview id={id} preview={preview} challenge_info={challenge_info} />
     </>
   );
 }
+
+const Preview = ({ id, preview, challenge_info }) => {
+  if (id && !preview) {
+    return <img src={challenge_info.challengeImgUrl} alt="thumbnail" />;
+  } else if (!id && !preview) {
+    return null;
+  } else {
+    return <img src={preview} alt="thumbnail_preview" />;
+  }
+};
 
 export default CreateImgSelect;

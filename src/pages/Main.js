@@ -31,7 +31,7 @@ const Main = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ height: "auto" }}>
       <Header />
       <Container>
         <MainSlider />
@@ -39,7 +39,7 @@ const Main = (props) => {
         <button onClick={goToCreate}>챌린지 개설하기</button>
       </Container>
       <Footer />
-    </React.Fragment>
+    </div>
   );
 };
 
@@ -49,6 +49,8 @@ const Container = styled.div`
   max-width: 43.75em;
   margin: 0 auto;
   width: 100%;
+  height: 75vh;
+  overflow-y: scroll;
   position: absolute;
   left: 50%;
   top: 6em;

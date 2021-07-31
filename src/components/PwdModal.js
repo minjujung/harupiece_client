@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
 const PwdModal = (props) => {
-  const { challengeTitle, challengePassword, challengeId } = props;
+  const { challengeTitle, challengePassword, challengeId, challengeMember } =
+    props;
 
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.userInfo);
 
   const [open, setOpen] = useState(false);
   const pwdInput = useRef();
@@ -38,6 +40,16 @@ const PwdModal = (props) => {
 
   //챌린지 신청히기, 비공개의 경우 비밀번호 모달창 띄우기
   const takePartIn = () => {
+    if (!user_info) {
+      window.alert("로그인이 필요한 서비스 입니다!");
+      return;
+    }
+
+    if (challengeMember.includes(user_info.memberId)) {
+      window.alert("이미 참여중인 챌린지 입니다!");
+      return;
+    }
+
     if (challengePassword) {
       setOpen(true);
     } else {

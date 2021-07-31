@@ -5,6 +5,7 @@ import { history } from "./redux/configureStore";
 
 import ChallengeDetail from "./pages/ChallengeDetail";
 import ChallengeCreate from "./pages/ChallengeCreate";
+import ChallengeEdit from "./pages/ChallengeEdit";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
@@ -30,7 +31,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/challenge" component={ChallengeCreate} />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
-        <Route exact path="/challenge/:id/edit" component={ChallengeCreate} />
+        <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
         <Route exact path="/mypage" component={Mypage} />
       </ConnectedRouter>
     </div>

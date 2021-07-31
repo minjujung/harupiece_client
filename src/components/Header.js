@@ -1,53 +1,50 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
+import { getCookie } from "../shared/Cookie";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
-  const isToken = document.cookie;
-
-  if (isToken) {
-    return (
-      <React.Fragment>
-        <HeaderBox>
-          <Container>
-            <div>로고(하루조각)</div>
-            <div>검색</div>
-            <Container1>
-              <img width="10px" src={userInfo.profileImg} alt="profileImg" />
-              <p>{userInfo.nickname}</p>
-              <p>포인트 : {userInfo.point}</p>
-              <button
-                onClick={() => {
-                  dispatch(userCreators.logOutDB());
-                }}
-              >
-                로그아웃
-              </button>
-            </Container1>
-          </Container>
-        </HeaderBox>
-      </React.Fragment>
-    );
-  }
 
   return (
     <React.Fragment>
       <HeaderBox>
         <Container>
-          <div>로고(하루조각)</div>
+          <div onClick={() => history.push("/")}>로고(하루조각)</div>
           <div>검색</div>
           <Container1>
-            <button
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              로그인
-            </button>
+            {getCookie("token") && userInfo ? (
+              <>
+                {" "}
+                <img
+                  width="10px"
+                  src={userInfo.profileImg}
+                  alt="profile"
+                  onClick={() => history.push("/mypage")}
+                />
+                <p>{userInfo.nickname}</p>
+                <p>포인트 : {userInfo.point}</p>
+                <button
+                  onClick={() => {
+                    dispatch(userCreators.logOutDB());
+                  }}
+                >
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                로그인
+              </button>
+            )}
           </Container1>
         </Container>
       </HeaderBox>

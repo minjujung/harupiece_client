@@ -224,7 +224,9 @@ const editPostDB =
           Body: content.file,
         },
       });
+
       const promise = upload.promise();
+
       promise.then((data) => {
         consoleLogger(data);
         dispatch(imageActions.uploadImage(data.Location));

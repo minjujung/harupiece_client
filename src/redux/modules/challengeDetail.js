@@ -4,10 +4,10 @@ import { ChallengeDetailApis } from "../../shared/api";
 import { consoleLogger } from "../configureStore";
 
 import AWS from "aws-sdk";
+import { MainCreators } from "./main";
 
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
-const DELETE_CHALLENGE = "DELETE_CHALLENGE";
 const LOADING = "LOADING";
 
 const getChallengeDetail = createAction(GET_CHALLENGE_DETAIL, (challenge) => ({
@@ -19,12 +19,7 @@ const editChallengeDetail = createAction(
     challenge_detail,
   })
 );
-const deleteChallengeDetail = createAction(
-  DELETE_CHALLENGE,
-  (challenge_id) => ({
-    challenge_id,
-  })
-);
+
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
@@ -163,10 +158,12 @@ const adminChallengeDeleteDB =
   (dispatch, getState, { history }) => {
     ChallengeDetailApis.adminDeleteDetail(challenge_id)
       .then((res) => {
-        consoleLogger("관리자권한 강제 삭제 요청 후 응답: " + res);
-
+        consoleLogger("관리자권한 강제 삭제 요청 후 응답: ", res);
+        const challengeInfo = getState().challengeDetail.detail;
         //메인화면에서 불러오는 challenge_list 삭제하는 action 다른 모듈에서 가져오기 => 일단은 이 모듈에서 구현
-        dispatch(deleteChallengeDetail(challenge_id));
+        dispatch(
+          MainCreators.deleteUserLoad(challengeInfo.categoryName, challenge_id)
+        );
 
         window.alert("관리자 권한 챌린지 삭제 완료!");
         history.replace("/");
@@ -180,9 +177,15 @@ const challengeDeleteDB =
     ChallengeDetailApis.deleteDetail(challenge_id)
       .then((res) => {
         consoleLogger("챌린지 개설한 사용자가 삭제 요청시 응답: " + res);
+        const challengeInfo = getState().challengeDetail.detail;
 
         if (window.confirm("정말 챌린지를 삭제하시겠어요?")) {
-          dispatch(deleteChallengeDetail(challenge_id));
+          dispatch(
+            MainCreators.deleteUserLoad(
+              challengeInfo.categoryName,
+              challenge_id
+            )
+          );
           window.alert("챌린지 삭제 완료!");
           history.replace("/");
         }
@@ -211,19 +214,19 @@ const giveupChallengeDB =
       .then((res) => {
         consoleLogger("챌린지 포기 요청후 응답: " + res);
         //user 정보 불러오는 부분은 고쳐야함
-        const user_info = getState().user.user;
+        const user_info = getState().user.userInfo;
         const challenge_detail = getState().challengeDetail.detail;
 
         const new_member_list = challenge_detail.challengeMember.filter(
           (id) => id !== user_info.memberId
         );
 
-        dispatch(
-          editChallengeDetail({
-            ...challenge_detail,
-            challengeMember: new_member_list,
-          })
-        );
+        const new_challenge_info = {
+          ...challenge_detail,
+          challengeMember: new_member_list,
+        };
+
+        dispatch(editChallengeDetail(new_challenge_info));
         window.alert("챌린지 참여취소가 완료되었습니다!");
         history.replace("/mypage");
       })
@@ -256,7 +259,7 @@ const takeInPartChallengeDB =
         consoleLogger("챌린지 신청하기 요청 후 응답: " + res);
 
         //user 정보 불러오는 부분은 고쳐야함
-        const user_info = getState().user.user;
+        const user_info = getState().user.userInfo;
         const challenge_detail = getState().challengeDetail.detail;
 
         const new_member_list = [
@@ -264,12 +267,13 @@ const takeInPartChallengeDB =
           user_info.memberId,
         ];
 
-        dispatch(
-          editChallengeDetail({
-            ...challenge_detail,
-            challengeMember: new_member_list,
-          })
-        );
+        const new_challenge_info = {
+          ...challenge_detail,
+          challengeMember: new_member_list,
+        };
+
+        dispatch(editChallengeDetail(new_challenge_info));
+
         window.alert(`${challenge_detail.challengeTitle} 챌린지 신청 완료!`);
         history.push("/mypage");
       })
@@ -281,7 +285,7 @@ const takeInPartChallengeDB =
         ) {
           history.push("/");
         } else {
-          history.goback();
+          history.goBack();
         }
         consoleLogger(
           "참여신청 버튼이나 신청하기(비밀번호 있는 경우) 버튼 누른 경우: " +
@@ -301,14 +305,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.detail = action.payload.challenge_detail;
         draft.is_loading = false;
-      }),
-
-    [DELETE_CHALLENGE]: (state, action) =>
-      produce(state, (draft) => {
-        const idx = draft.list.findIndex(
-          (l) => l.challlengId === action.payload.challenge_id
-        );
-        draft.list.splice(idx, 1);
       }),
 
     [LOADING]: (state, action) =>
