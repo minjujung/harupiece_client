@@ -5,6 +5,7 @@ import AWS from "aws-sdk";
 
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
+// const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 
 const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
   myInfo,
@@ -13,6 +14,7 @@ const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
 const editMyProfile = createAction(EDIT_MYPROFILE, (myInfo) => ({
   myInfo,
 }));
+// const changePassword = createAction(CHANGE_PASSWORD, () => ({}))
 
 const initialState = {
   myInfo: {},
@@ -92,25 +94,45 @@ const editMyProfileDB = (content) => {
         console.log(data);
 
         const newProFile = { ...proFile, profileImg: data.Location };
-        console.log(newProFile);
+        console.log("프로필이미지" + newProFile.profileImg);
 
         MypageApis.EditProfile(newProFile)
           .then((res) => {
-            console.log(res);
+            console.log("프로필이미지" + newProFile.profileImg);
             const _newProFile = { ...newProFile };
             console.log(_newProFile);
             dispatch(editMyProfile(_newProFile));
           })
           .catch((error) => {
             if (window.confirm("test")) {
-              // history.push("/");
+              history.push("/");
             } else {
-              // history.goBack();
+              history.goBack();
             }
             console.log(error);
           });
       });
     }
+  };
+};
+
+const changePasswordDB = (password) => {
+  return function (dispatch, getState, { history }) {
+    const passwordList = {
+      currentPassword: password.password,
+      newPassword: password.newPassword,
+      newPasswordCheck: password.newPasswordConfirm,
+    };
+    MypageApis.ChangePassword(passwordList)
+      .then((res) => console.log(res))
+      .catch((error) => {
+        if (window.confirm("test")) {
+          // history.push("/");
+        } else {
+          // history.goBack();
+        }
+        console.log(error);
+      });
   };
 };
 
@@ -133,6 +155,7 @@ const actionCreators = {
   editMyProfile,
   getMyInfoDB,
   editMyProfileDB,
+  changePasswordDB,
 };
 
 export { actionCreators };

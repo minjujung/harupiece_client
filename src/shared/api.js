@@ -46,6 +46,8 @@ export const MainApis = {
 export const MypageApis = {
   EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
   GetMyInfo: () => instance.get(`api/member/mypage`),
+  ChangePassword: (password) =>
+    instance.put(`/api/member/mypage/password`, password),
 };
 
 export default instance;

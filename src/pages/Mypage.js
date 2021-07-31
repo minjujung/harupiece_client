@@ -5,16 +5,16 @@ import { actionCreators as myInfo } from "../redux/modules/mypage";
 import ChallengesInProgress from "../components/ChallengesInProgress";
 import UpcomingChallenge from "../components/UpcomingChallenge";
 import CompletedChallenge from "../components/CompletedChallenge";
+import MyPassword from "../components/MyPassword";
+import MyPieces from "../components/MyPieces";
 
 function Mypage() {
   const dispatch = useDispatch();
-  // const { comment: text, nickname } = props.comment;
 
   const [editMode, setEditMode] = useState(false);
 
   const myInfoList = useSelector((state) => state.mypage.myInfo);
   const nickName = myInfoList.nickname;
-  console.log(myInfoList);
 
   const [newNickName, setNewNickName] = useState(nickName);
 
@@ -67,19 +67,22 @@ function Mypage() {
   const [upComing, setUpComing] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [piece, setPiece] = useState(false);
+  const [password, setPassword] = useState(false);
 
   const changeInProgress = () => {
     setInprogress(true);
     setUpComing(false);
     setCompleted(false);
     setPiece(false);
+    setPassword(false);
   };
 
   const changeUpComing = () => {
-    setUpComing(true);
     setInprogress(false);
+    setUpComing(true);
     setCompleted(false);
     setPiece(false);
+    setPassword(false);
   };
 
   const changeCompleted = () => {
@@ -87,6 +90,7 @@ function Mypage() {
     setUpComing(false);
     setCompleted(true);
     setPiece(false);
+    setPassword(false);
   };
 
   const changePiece = () => {
@@ -94,6 +98,15 @@ function Mypage() {
     setUpComing(false);
     setCompleted(false);
     setPiece(true);
+    setPassword(false);
+  };
+
+  const changePassword = () => {
+    setInprogress(false);
+    setUpComing(false);
+    setCompleted(false);
+    setPiece(false);
+    setPassword(true);
   };
 
   if (editMode) {
@@ -134,8 +147,9 @@ function Mypage() {
           <button onClick={changeUpComing}>진행 예정 챌린지</button>
           <button onClick={changeCompleted}>완료한 챌린지</button>
           <button onClick={changePiece}>조각 모음</button>
-          <button>비밀번호 변경</button>
+          <button onClick={changePassword}>비밀번호 변경</button>
         </ChallengeCategory>
+
         <Section>
           <div>
             {inProgress === true && <ChallengesInProgress />}
@@ -144,6 +158,10 @@ function Mypage() {
             {upComing === false && null}
             {completed === true && <CompletedChallenge />}
             {completed === false && null}
+            {piece === true && <MyPieces />}
+            {piece === false && null}
+            {password === true && <MyPassword />}
+            {password === false && null}
           </div>
         </Section>
       </>
@@ -173,8 +191,8 @@ function Mypage() {
         <button onClick={changeInProgress}>진행중인 챌린지</button>
         <button onClick={changeUpComing}>진행 예정 챌린지</button>
         <button onClick={changeCompleted}>완료한 챌린지</button>
-        <button onClick={changeCompleted}>조각 모음</button>
-        <button>비밀번호 변경</button>
+        <button onClick={changePiece}>조각 모음</button>
+        <button onClick={changePassword}>비밀번호 변경</button>
       </ChallengeCategory>
       <Section>
         <div>
@@ -184,6 +202,10 @@ function Mypage() {
           {upComing === false && null}
           {completed === true && <CompletedChallenge />}
           {completed === false && null}
+          {piece === true && <MyPieces />}
+          {piece === false && null}
+          {password === true && <MyPassword />}
+          {password === false && null}
         </div>
       </Section>
     </>
