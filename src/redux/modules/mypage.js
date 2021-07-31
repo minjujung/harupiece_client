@@ -10,14 +10,9 @@ const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
   myInfo,
   myChallenge,
 }));
-const editMyProfile = createAction(
-  EDIT_MYPROFILE,
-  (memberId, nickname, profileImg) => ({
-    memberId,
-    nickname,
-    profileImg,
-  })
-);
+const editMyProfile = createAction(EDIT_MYPROFILE, (myInfo) => ({
+  myInfo,
+}));
 
 const initialState = {
   myInfo: {},
@@ -38,55 +33,84 @@ const getMyInfoDB = () => {
   };
 };
 
-const editMyProfileDB = (newNickName, file) => {
+const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
     const myProfile = getState().mypage.myInfo.memberId;
+    const myProfileImg = getState().mypage.myInfo.profileImg;
 
     const proFile = {
       memberId: myProfile,
-      nickName: newNickName,
-      profileImg: file,
+      nickname: content.newNickName,
+      profileImg: content.file,
       password: "",
     };
 
-    const date = new Date();
-
-    AWS.config.update({
-      region: "ap-northeast-2",
-      credentials: new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: `${process.env.REACT_APP_AWS_KEY}`,
-      }),
-    });
-
-    const upload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: "onedaypiece-shot-image",
-        Key: file.name + date + ".jpg",
-        Body: file,
-      },
-    });
-
-    const promise = upload.promise();
-    promise.then((data) => {
-      console.log(data);
-
-      const newProFile = { ...proFile, profileImg: data.Location };
-
-      MypageApis.EditProfile(myProfile, newProFile)
+    if (content.file === myProfileImg) {
+      MypageApis.EditProfile(proFile)
         .then((res) => {
-          console.log(res);
-          const _newProFile = { ...newProFile };
-          dispatch(editMyProfile(myProfile, _newProFile));
+          console.log("글 내용만 수정하고 server에 전송후 응답: ", res);
+          const new_post = {
+            ...proFile,
+            nickname: content.newNickName,
+            profileImg: content.file,
+          };
+          console.log(new_post);
+          dispatch(editMyProfile(new_post));
         })
         .catch((error) => {
-          if (window.confirm("test")) {
+          if (
+            window.confirm(
+              "인증샷 수정에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
+            )
+          ) {
             history.push("/");
           } else {
             history.goBack();
           }
-          console.log(error);
+          console.log("사진은 그대로고 멘트만 수정 했을 때: ", error);
         });
-    });
+    } else {
+      const date = new Date();
+
+      AWS.config.update({
+        region: "ap-northeast-2",
+        credentials: new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: `${process.env.REACT_APP_AWS_KEY}`,
+        }),
+      });
+
+      const upload = new AWS.S3.ManagedUpload({
+        params: {
+          Bucket: "onedaypiece-shot-image",
+          Key: content.file + date + ".jpg",
+          Body: content.file,
+        },
+      });
+
+      const promise = upload.promise();
+      promise.then((data) => {
+        console.log(data);
+
+        const newProFile = { ...proFile, profileImg: data.Location };
+        console.log(newProFile);
+
+        MypageApis.EditProfile(newProFile)
+          .then((res) => {
+            console.log(res);
+            const _newProFile = { ...newProFile };
+            console.log(_newProFile);
+            dispatch(editMyProfile(_newProFile));
+          })
+          .catch((error) => {
+            if (window.confirm("test")) {
+              // history.push("/");
+            } else {
+              // history.goBack();
+            }
+            console.log(error);
+          });
+      });
+    }
   };
 };
 
@@ -96,7 +120,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myInfo = action.payload.myInfo;
       }),
-    [EDIT_MYPROFILE]: (state, action) => produce(state, (draft) => {}),
+    [EDIT_MYPROFILE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myInfo = action.payload.myInfo;
+      }),
   },
   initialState
 );

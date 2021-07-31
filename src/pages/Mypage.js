@@ -5,7 +5,6 @@ import { actionCreators as myInfo } from "../redux/modules/mypage";
 import ChallengesInProgress from "../components/ChallengesInProgress";
 import UpcomingChallenge from "../components/UpcomingChallenge";
 import CompletedChallenge from "../components/CompletedChallenge";
-import AWS from "aws-sdk";
 
 function Mypage() {
   const dispatch = useDispatch();
@@ -46,10 +45,6 @@ function Mypage() {
     }
 
     reader.readAsDataURL(file);
-
-    // reader.onloadend = () => {
-    //   dispatch();
-    // };
   };
 
   // 수정 완료 버튼
@@ -60,10 +55,11 @@ function Mypage() {
     }
     if (!file) {
       dispatch(
-        myInfo.editMyProfileDB(newNickName, { file: myInfoList.profileImg })
+        myInfo.editMyProfileDB({ newNickName, file: myInfoList.profileImg })
       );
+    } else {
+      dispatch(myInfo.editMyProfileDB({ newNickName, file }));
     }
-    dispatch(myInfo.editMyProfileDB(newNickName, file));
     convertEditMode();
   };
 

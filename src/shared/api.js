@@ -44,7 +44,7 @@ export const MainApis = {
 
 // 마이 페이지
 export const MypageApis = {
-  EditProfile: (proFile) => instance.put(`/api/member/mypage`, proFile),
+  EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
   GetMyInfo: () => instance.get(`api/member/mypage`),
 };
 
