@@ -5,7 +5,7 @@ import AWS from "aws-sdk";
 
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
-// const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+const SET_PREVIEW = "SET_PREVIEW";
 
 const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
   myInfo,
@@ -14,10 +14,11 @@ const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
 const editMyProfile = createAction(EDIT_MYPROFILE, (myInfo) => ({
   myInfo,
 }));
-// const changePassword = createAction(CHANGE_PASSWORD, () => ({}))
+const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 const initialState = {
   myInfo: {},
+  preview: null,
 };
 
 const getMyInfoDB = () => {
@@ -25,7 +26,7 @@ const getMyInfoDB = () => {
     MypageApis.GetMyInfo()
       .then((res) => dispatch(getInfo(res.data)))
       .catch((error) => {
-        if (window.confirm("test")) {
+        if (window.confirm("사용자 정보를 받아올수없습니다.")) {
           history.push("/");
         } else {
           history.goBack();
@@ -43,7 +44,7 @@ const editMyProfileDB = (content) => {
     const proFile = {
       memberId: myProfile,
       nickname: content.newNickName,
-      profileImg: content.file,
+      profileImage: content.file,
       password: "",
     };
 
@@ -54,7 +55,7 @@ const editMyProfileDB = (content) => {
           const new_post = {
             ...proFile,
             nickname: content.newNickName,
-            profileImg: content.file,
+            profileImage: content.file,
           };
           console.log(new_post);
           dispatch(editMyProfile(new_post));
@@ -91,16 +92,12 @@ const editMyProfileDB = (content) => {
 
       const promise = upload.promise();
       promise.then((data) => {
-        console.log(data);
-
-        const newProFile = { ...proFile, profileImg: data.Location };
-        console.log("프로필이미지" + newProFile.profileImg);
+        const newProFile = { ...proFile, profileImage: data.Location };
 
         MypageApis.EditProfile(newProFile)
           .then((res) => {
-            console.log("프로필이미지" + newProFile.profileImg);
             const _newProFile = { ...newProFile };
-            console.log(_newProFile);
+
             dispatch(editMyProfile(_newProFile));
           })
           .catch((error) => {
@@ -146,6 +143,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myInfo = action.payload.myInfo;
       }),
+    [SET_PREVIEW]: (state, action) =>
+      produce(state, (draft) => {
+        draft.preview = action.payload.preview;
+      }),
   },
   initialState
 );
@@ -156,6 +157,7 @@ const actionCreators = {
   getMyInfoDB,
   editMyProfileDB,
   changePasswordDB,
+  setPreview,
 };
 
 export { actionCreators };

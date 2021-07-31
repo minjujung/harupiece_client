@@ -28,7 +28,7 @@ function Mypage() {
     setEditMode(!editMode);
   };
 
-  // 수정 버튼
+  // 프로필 수정 모드
   const editComment = (e) => {
     e.preventDefault();
     // dispatch();
@@ -40,29 +40,21 @@ function Mypage() {
   const selectFile = () => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
+
     if (!file) {
       return;
     }
 
     reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      dispatch(myInfo.setPreview(reader.result));
+    };
   };
 
-  // 수정 완료 버튼
-  const editProfile = () => {
-    const file = fileInput.current.files[0];
-    if (newNickName === nickName) {
-      setNewNickName(nickName);
-    }
-    if (!file) {
-      dispatch(
-        myInfo.editMyProfileDB({ newNickName, file: myInfoList.profileImg })
-      );
-    } else {
-      dispatch(myInfo.editMyProfileDB({ newNickName, file }));
-    }
-    convertEditMode();
-  };
+  // 프로필 preview 상태 값
+  const preview = useSelector((state) => state.mypage.preview);
 
+  // 카테고리 상태 값
   const [inProgress, setInprogress] = useState(true);
   const [upComing, setUpComing] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -109,14 +101,36 @@ function Mypage() {
     setPassword(true);
   };
 
+  // 수정 완료 버튼
+  const editProfile = () => {
+    const file = fileInput.current.files[0];
+    if (newNickName === nickName) {
+      setNewNickName(nickName);
+    }
+    if (!file) {
+      dispatch(
+        myInfo.editMyProfileDB({ newNickName, file: myInfoList.profileImage })
+      );
+    } else {
+      dispatch(myInfo.editMyProfileDB({ newNickName, file }));
+      dispatch(myInfo.setPreview(""));
+    }
+    convertEditMode();
+  };
+
   if (editMode) {
     return (
       <>
         <UserInfoContainer>
           <UserInfoBox>
             <UserImg>
-              <label for="ex_file">
-                <img src={myInfoList.profileImg} alt="" />
+              <label htmlFor="ex_file">
+                {
+                  <img
+                    src={preview ? preview : myInfoList.profileImage}
+                    alt=""
+                  />
+                }
               </label>
               <input
                 ref={fileInput}
@@ -173,7 +187,7 @@ function Mypage() {
       <UserInfoContainer>
         <UserInfoBox>
           <UserImg>
-            <img src={myInfoList.profileImg} alt="" />
+            <img src={myInfoList.profileImage} alt="" />
           </UserImg>
 
           <UserInfo>
