@@ -14,6 +14,7 @@ import ChallengeDetail from "./modules/challengeDetail";
 import Post from "./modules/post";
 import Image from "./modules/image";
 import Create from "./modules/challengeCreate";
+import mypage from "./modules/mypage";
 
 export const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   create: Create,
   main,
   user,
+  mypage,
   router: connectRouter(history),
 });
 

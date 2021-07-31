@@ -69,8 +69,12 @@ export const ChallengeDetailApis = {
 
 // 마이 페이지
 export const MypageApis = {
-  EditProfile: () => instance.put(`/api/member/mypage`),
-  GetMyChallenge: () => instance.get(`api/member/mypage`),
+  EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
+  GetMyInfo: () => instance.get(`api/member/mypage`),
+  GetProceed: () => instance.get(`/api/member/mypage/proceed`),
+  GetEnd: () => instance.get(`/api/member/mypage/end`),
+  ChangePassword: (password) =>
+    instance.put(`/api/member/mypage/password`, password),
 };
 
 export default instance;

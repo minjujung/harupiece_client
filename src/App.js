@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configureStore";
 
+import Header from "./components/Header";
 import ChallengeDetail from "./pages/ChallengeDetail";
 import ChallengeCreate from "./pages/ChallengeCreate";
 import ChallengeEdit from "./pages/ChallengeEdit";
@@ -26,13 +27,14 @@ function App() {
   return (
     <div className="App">
       <ConnectedRouter history={history}>
+        <Header />
         <Route exact path="/" component={Main} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/challenge" component={ChallengeCreate} />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
-        <Route exact path="/mypage" component={Mypage} />
+        <Route path="/mypage" component={Mypage} />
       </ConnectedRouter>
     </div>
   );

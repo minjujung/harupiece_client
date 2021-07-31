@@ -44,8 +44,10 @@ const ConditionBtn = (props) => {
         <button onClick={giveupChallenge}>챌린지 포기하기</button>
       </>
     );
-  } else {
+  } else if (challengeProgress === 3) {
     return <button>진행이 완료된 챌린지 입니다!</button>;
+  } else {
+    return null;
   }
 };
 

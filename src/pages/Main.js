@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MainSlider from "../components/MainSlider";
 import Category from "../components/Category";
@@ -32,7 +31,6 @@ const Main = (props) => {
 
   return (
     <div style={{ height: "auto" }}>
-      <Header />
       <Container>
         <MainSlider />
         <Category />
