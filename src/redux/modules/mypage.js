@@ -68,14 +68,12 @@ const getEndDB = () => {
 
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
-    const myProfile = getState().mypage.myInfo.memberId;
+    // const myProfile = getState().mypage.myInfo.memberId;
     const myProfileImg = getState().mypage.myInfo.profileImg;
 
     const proFile = {
-      memberId: myProfile,
       nickname: content.newNickName,
       profileImage: content.file,
-      password: "",
     };
 
     if (content.file === myProfileImg) {

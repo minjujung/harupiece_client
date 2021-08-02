@@ -13,7 +13,8 @@ const Header = (props) => {
 
   const [q, setQ] = useState("");
 
-  const search = () => {
+  const search = (e) => {
+    e.preventDefault();
     dispatch(searchActions.searchDB(q));
     history.push(`/search/1/${q}`);
   };

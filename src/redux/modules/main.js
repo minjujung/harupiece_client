@@ -52,6 +52,7 @@ const searchDB = (q) => {
     MainApis.search(encode)
       .then((res) => {
         console.log(res);
+        dispatch(search(res.data.result));
       })
       .catch((err) => {
         console.log(err);

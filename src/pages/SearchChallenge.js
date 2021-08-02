@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { MainCreators as searchActions } from "../redux/modules/main";
 
-
-function SearchChallenge() {
+function SearchChallenge(props) {
+  console.log(props.match.params.searchWords);
+  const keyWord = props.match.params.searchWords;
   const dispatch = useDispatch();
   //   const [error, setError] = useState(null);
   //   const [isLoaded, setIsloaded] = useState(false);
   //   const [items, setItems] = useState([]);
 
-  const searchList = useSelector((state) => state.main.usermain.slider);
+  React.useEffect(() => {
+    dispatch(searchActions.searchDB(keyWord));
+  }, []);
+
+  const searchList = useSelector((state) => state.main.search);
   console.log(searchList);
 
   const [q, setQ] = useState("");
@@ -19,6 +25,8 @@ function SearchChallenge() {
   function search(searchList) {
     return searchList.filter((searchLists) => {
       if (searchLists.categoryName === filterParam) {
+        console.log(searchLists.categoryName);
+        console.log(filterParam);
         return searchParam.some((newList) => {
           return (
             searchLists[newList]
