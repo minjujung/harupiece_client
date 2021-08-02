@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { MypageApis } from "../../shared/api";
 import AWS from "aws-sdk";
+import { userCreators } from "./user";
 
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
@@ -69,13 +70,12 @@ const getEndDB = () => {
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
     const myProfile = getState().mypage.myInfo.memberId;
-    const myProfileImg = getState().mypage.myInfo.profileImg;
+    const myProfileImg = getState().mypage.myInfo.profileImage;
 
     const proFile = {
       memberId: myProfile,
       nickname: content.newNickName,
       profileImage: content.file,
-      password: "",
     };
 
     if (content.file === myProfileImg) {
@@ -85,10 +85,20 @@ const editMyProfileDB = (content) => {
           const new_post = {
             ...proFile,
             nickname: content.newNickName,
-            profileImage: content.file,
+            profileImage: myProfileImg,
           };
-          console.log(new_post);
+
           dispatch(editMyProfile(new_post));
+
+          const user_info = getState().user.userInfo;
+
+          const new_user_info = {
+            ...new_post,
+            profileImg: new_post.profileImage,
+            memberLevel: user_info.memberLevel,
+            point: user_info.point,
+          };
+          dispatch(userCreators.setUser(new_user_info));
         })
         .catch((error) => {
           if (
@@ -103,7 +113,9 @@ const editMyProfileDB = (content) => {
           console.log("사진은 그대로고 멘트만 수정 했을 때: ", error);
         });
     } else {
+      console.log("사진도 바꿀 때");
       const date = new Date();
+      const user_info = getState().user.userInfo;
 
       AWS.config.update({
         region: "ap-northeast-2",
@@ -115,7 +127,7 @@ const editMyProfileDB = (content) => {
       const upload = new AWS.S3.ManagedUpload({
         params: {
           Bucket: "onedaypiece-shot-image",
-          Key: content.file + date + ".jpg",
+          Key: `${user_info.memberId}_${date.getTime()}.jpg`,
           Body: content.file,
         },
       });
@@ -129,6 +141,16 @@ const editMyProfileDB = (content) => {
             const _newProFile = { ...newProFile };
 
             dispatch(editMyProfile(_newProFile));
+
+            const user_info = getState().user.userInfo;
+
+            const new_user_info = {
+              ...newProFile,
+              profileImg: newProFile.profileImage,
+              memberLevel: user_info.memberLevel,
+              point: user_info.point,
+            };
+            dispatch(userCreators.setUser(new_user_info));
           })
           .catch((error) => {
             if (window.confirm("test")) {

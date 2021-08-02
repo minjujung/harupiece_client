@@ -3,19 +3,25 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 // middleware
 import thunk from "redux-thunk";
 
-// reducers
-import user from "./modules/user";
-import main from "./modules/main";
-import Create from "./modules/challengeCreate";
-import mypage from "./modules/mypage";
-
 // redux router
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
+// reducers
+import user from "./modules/user";
+import main from "./modules/main";
+import ChallengeDetail from "./modules/challengeDetail";
+import Post from "./modules/post";
+import Image from "./modules/image";
+import Create from "./modules/challengeCreate";
+import mypage from "./modules/mypage";
+
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  post: Post,
+  image: Image,
+  challengeDetail: ChallengeDetail,
   create: Create,
   main,
   user,
@@ -34,11 +40,11 @@ if (env === "development") {
   middlewares.push(logger);
 }
 
-export const consoleLogger = (msg) => {
+export const consoleLogger = (name, msg) => {
   if (process.env.NODE_ENV === "production") {
     return;
   }
-  console.log(msg);
+  console.log(name, msg);
 };
 
 const composeEnhancers =

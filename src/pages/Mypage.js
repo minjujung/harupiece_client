@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as myInfo } from "../redux/modules/mypage";
+
 import ChallengesInProgress from "../components/ChallengesInProgress";
 import UpcomingChallenge from "../components/UpcomingChallenge";
 import CompletedChallenge from "../components/CompletedChallenge";
 import MyPassword from "../components/MyPassword";
 import MyPieces from "../components/MyPieces";
 
-function Mypage() {
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as myInfo } from "../redux/modules/mypage";
+import { Link, Route, Switch } from "react-router-dom";
+import { history } from "../redux/configureStore";
+
+function Mypage(props) {
   const dispatch = useDispatch();
+  const {
+    match: { path },
+  } = props;
+
+  // 유저의 챌린지들 가져오기
+  useEffect(() => {
+    dispatch(myInfo.getMyInfoDB());
+  }, []);
+
+  //   1. 완료한 챌린지 시작날짜 끝날짜
+
+  // 2. 참여중인 인원수 보여주기(participateSize)
+
+  // 3. 참여중인 유저 이미지 들어갈 4개 원 만들기
 
   const [editMode, setEditMode] = useState(false);
 
@@ -17,11 +35,6 @@ function Mypage() {
   const nickName = myInfoList.nickname;
 
   const [newNickName, setNewNickName] = useState(nickName);
-
-  // 유저의 챌린지들 가져오기
-  React.useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
 
   const convertEditMode = () => {
     setNewNickName(nickName);
@@ -54,53 +67,6 @@ function Mypage() {
   // 프로필 preview 상태 값
   const preview = useSelector((state) => state.mypage.preview);
 
-  // 카테고리 상태 값
-  const [inProgress, setInprogress] = useState(true);
-  const [upComing, setUpComing] = useState(false);
-  const [completed, setCompleted] = useState(false);
-  const [piece, setPiece] = useState(false);
-  const [password, setPassword] = useState(false);
-
-  const changeInProgress = () => {
-    setInprogress(true);
-    setUpComing(false);
-    setCompleted(false);
-    setPiece(false);
-    setPassword(false);
-  };
-
-  const changeUpComing = () => {
-    setInprogress(false);
-    setUpComing(true);
-    setCompleted(false);
-    setPiece(false);
-    setPassword(false);
-  };
-
-  const changeCompleted = () => {
-    setInprogress(false);
-    setUpComing(false);
-    setCompleted(true);
-    setPiece(false);
-    setPassword(false);
-  };
-
-  const changePiece = () => {
-    setInprogress(false);
-    setUpComing(false);
-    setCompleted(false);
-    setPiece(true);
-    setPassword(false);
-  };
-
-  const changePassword = () => {
-    setInprogress(false);
-    setUpComing(false);
-    setCompleted(false);
-    setPiece(false);
-    setPassword(true);
-  };
-
   // 수정 완료 버튼
   const editProfile = () => {
     const file = fileInput.current.files[0];
@@ -118,111 +84,82 @@ function Mypage() {
     convertEditMode();
   };
 
-  if (editMode) {
-    return (
-      <>
-        <UserInfoContainer>
-          <UserInfoBox>
-            <UserImg>
-              <label htmlFor="ex_file">
-                {
+  return (
+    <div style={{ paddingTop: "4em" }}>
+      <UserInfoContainer>
+        <UserInfoBox>
+          <UserImg>
+            {editMode ? (
+              <>
+                <label htmlFor="ex_file">
                   <img
                     src={preview ? preview : myInfoList.profileImage}
                     alt=""
                   />
-                }
-              </label>
-              <input
-                ref={fileInput}
-                onChange={selectFile}
-                type="file"
-                id="ex_file"
-              ></input>
-            </UserImg>
+                </label>
+                <input
+                  ref={fileInput}
+                  onChange={selectFile}
+                  type="file"
+                  id="ex_file"
+                ></input>
+              </>
+            ) : (
+              <img src={myInfoList.profileImage} alt="" />
+            )}
+          </UserImg>
 
-            <UserInfo>
+          <UserInfo>
+            {editMode ? (
               <input
                 type="text"
                 value={newNickName}
                 onChange={(e) => setNewNickName(e.target.value)}
                 onSubmit={editComment}
               />
-              <span>챌린지를 열심히 참여하고 계시군요!</span>
-            </UserInfo>
-          </UserInfoBox>
+            ) : (
+              <span>{myInfoList.nickname}</span>
+            )}
 
-          <EditBox>
-            <button onClick={editProfile}>완료</button>
-          </EditBox>
-        </UserInfoContainer>
-
-        <ChallengeCategory>
-          <button onClick={changeInProgress}>진행중인 챌린지</button>
-          <button onClick={changeUpComing}>진행 예정 챌린지</button>
-          <button onClick={changeCompleted}>완료한 챌린지</button>
-          <button onClick={changePiece}>조각 모음</button>
-          <button onClick={changePassword}>비밀번호 변경</button>
-        </ChallengeCategory>
-
-        <Section>
-          <div>
-            {inProgress === true && <ChallengesInProgress />}
-            {inProgress === false && null}
-            {upComing === true && <UpcomingChallenge />}
-            {upComing === false && null}
-            {completed === true && <CompletedChallenge />}
-            {completed === false && null}
-            {piece === true && <MyPieces />}
-            {piece === false && null}
-            {password === true && <MyPassword />}
-            {password === false && null}
-          </div>
-        </Section>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <UserInfoContainer>
-        <UserInfoBox>
-          <UserImg>
-            <img src={myInfoList.profileImage} alt="" />
-          </UserImg>
-
-          <UserInfo>
-            <span>{myInfoList.nickname}</span>
             <span>챌린지를 열심히 참여하고 계시군요!</span>
           </UserInfo>
         </UserInfoBox>
 
         <EditBox>
-          <button onClick={convertEditMode}>수정</button>
+          {editMode ? (
+            <button onClick={editProfile}>완료</button>
+          ) : (
+            <button onClick={convertEditMode}>수정</button>
+          )}
         </EditBox>
       </UserInfoContainer>
-
       <ChallengeCategory>
-        <button onClick={changeInProgress}>진행중인 챌린지</button>
-        <button onClick={changeUpComing}>진행 예정 챌린지</button>
-        <button onClick={changeCompleted}>완료한 챌린지</button>
-        <button onClick={changePiece}>조각 모음</button>
-        <button onClick={changePassword}>비밀번호 변경</button>
+        <li>
+          <Link to={`${path}/now`}>진행중인 챌린지</Link>
+        </li>
+        <li>
+          <Link to={`${path}/upcoming`}>진행 예정 챌린지</Link>
+        </li>
+        <li>
+          <Link to={`${path}/completed`}>완료한 챌린지</Link>
+        </li>
+        <li>
+          <Link to={`${path}/pieces`}>조각 모음</Link>
+        </li>
+        <li>
+          <Link to={`${path}/password`}>비밀번호 변경</Link>
+        </li>
       </ChallengeCategory>
       <Section>
-        <div>
-          {inProgress === true && <ChallengesInProgress />}
-          {inProgress === false && null}
-          {upComing === true && <UpcomingChallenge />}
-          {upComing === false && null}
-          {completed === true && <CompletedChallenge />}
-          {completed === false && null}
-          {piece === true && <MyPieces />}
-          {piece === false && null}
-          {password === true && <MyPassword />}
-          {password === false && null}
-        </div>
+        <Switch>
+          <Route path={`${path}/now`} component={ChallengesInProgress} />
+          <Route path={`${path}/upcoming`} component={UpcomingChallenge} />
+          <Route path={`${path}/completed`} component={CompletedChallenge} />
+          <Route path={`${path}/pieces`} component={MyPieces} />
+          <Route path={`${path}/password`} component={MyPassword} />
+        </Switch>
       </Section>
-    </>
+    </div>
   );
 }
 
@@ -273,13 +210,15 @@ const UserInfo = styled.div`
 
 const EditBox = styled.div``;
 
-const ChallengeCategory = styled.div`
+const ChallengeCategory = styled.ul`
   width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: blanchedalmond;
+  margin: 0;
+  list-style: none;
 `;
 
 const Section = styled.div`
@@ -287,11 +226,6 @@ const Section = styled.div`
   height: 100vh;
   background-color: chartreuse;
   padding: 20px;
-`;
-
-const Form = styled.form`
-  width: 100%;
-  height: 100%;
 `;
 
 export default Mypage;

@@ -80,6 +80,9 @@ function CreateCalendar({ challengeInfo, setChallengeInfo }) {
     });
   };
 
+  let date = new Date();
+  date.setDate(date.getDate() + 1);
+
   return (
     <>
       <label htmlFor="checkweek">주말 체크</label>
@@ -97,7 +100,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo }) {
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
         locale={ko}
-        minDate={new Date()}
+        minDate={date}
         isClearable={true}
       />
     </>
