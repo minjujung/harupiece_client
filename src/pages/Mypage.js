@@ -44,7 +44,6 @@ function Mypage(props) {
   // 프로필 수정 모드
   const editComment = (e) => {
     e.preventDefault();
-    // dispatch();
     convertEditMode();
   };
 
@@ -81,6 +80,7 @@ function Mypage(props) {
       dispatch(myInfo.editMyProfileDB({ newNickName, file }));
       dispatch(myInfo.setPreview(""));
     }
+    dispatch(myInfo.getMyInfoDB());
     convertEditMode();
   };
 
@@ -91,12 +91,8 @@ function Mypage(props) {
           <UserImg>
             {editMode ? (
               <>
-                <label htmlFor="ex_file">
-                  <img
-                    src={preview ? preview : myInfoList.profileImage}
-                    alt=""
-                  />
-                </label>
+                <img src={preview ? preview : myInfoList.profileImage} alt="" />
+                <label htmlFor="ex_file">프로필 사진 수정</label>
                 <input
                   ref={fileInput}
                   onChange={selectFile}
