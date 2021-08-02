@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { MainCreators as searchActions } from "../redux/modules/main";
+
+import levelData from "../level";
+
+import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
-import { MainCreators as searchActions } from "../redux/modules/main";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -19,56 +21,57 @@ const Header = (props) => {
     history.push(`/search/1/${q}`);
   };
 
-  if (getCookie("token")) {
-    return (
-      <React.Fragment>
-        <HeaderBox>
-          <Container>
-            <div>로고(하루조각)</div>
-            <form>
-              <label htmlFor="search-form">
-                <input
-                  type="search"
-                  id="search-form"
-                  placeholder="Search for..."
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                />
-              </label>
-              <input type="submit" onClick={search} />
-            </form>
-            <Container1>
-              <img width="10px" src={userInfo.profileImg} alt="" />
-              <p>{userInfo.nickname}</p>
-              <p>포인트 : {userInfo.point}</p>
-              <button
-                onClick={() => {
-                  dispatch(userCreators.logOutDB());
-                }}
-              >
-                로그아웃
-              </button>
-            </Container1>
-          </Container>
-        </HeaderBox>
-      </React.Fragment>
-    );
-  }
-
   return (
     <React.Fragment>
       <HeaderBox>
         <Container>
-          <div>로고(하루조각)</div>
-          <div>검색</div>
+          <div onClick={() => history.push("/")}>로고(하루조각)</div>
+          <form>
+            <label htmlFor="search-form">
+              <input
+                type="search"
+                id="search-form"
+                placeholder="Search for..."
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+              />
+            </label>
+            <input type="submit" onClick={search} />
+          </form>
           <Container1>
-            <button
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              로그인
-            </button>
+            {getCookie("token") && userInfo ? (
+              <>
+                {" "}
+                <img
+                  style={{ width: "50px", height: "50px" }}
+                  src={userInfo.profileImg}
+                  alt="profile"
+                  onClick={() => history.push("/mypage/now")}
+                />
+                <p>{userInfo.nickname}</p>
+                <p>포인트 : {userInfo.point}</p>
+                <img
+                  src={levelData[userInfo.memberLevel - 1]?.img}
+                  alt="level_image"
+                  style={{ width: "3em", height: "3em", margin: "0 1em" }}
+                />
+                <button
+                  onClick={() => {
+                    dispatch(userCreators.logOutDB());
+                  }}
+                >
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                로그인
+              </button>
+            )}
           </Container1>
         </Container>
       </HeaderBox>

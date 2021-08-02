@@ -13,42 +13,21 @@ function ChallengeCreate(props) {
   const dispatch = useDispatch();
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
 
-  const challengeId = props.match.params.id;
-  const edit_mode = challengeId ? true : false;
+  const challenge_id = props.match.params.id;
 
   useEffect(() => {
-    if (edit_mode && !challenge_info) {
-      window.alert("챌린지 정보가 없어요!");
-      history.goBack();
-      return;
-    }
-
-    if (edit_mode) {
-      dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-    }
+    dispatch(challengeDetailActions.getChallengeDetailDB(challenge_id));
   }, []);
 
   const [challengeInfo, setChallengeInfo] = useState({
-    categoryName: "",
+    ...challenge_info,
     challengeBad: "",
-    challengeContent: "",
-    challengeEndDate: "",
     challengeGood: "",
-    challengeTitle: "",
-    challengeHoliday: "",
-    challengeStartDate: "",
-    challengeImgUrl: "",
-    challengePassword: "",
   });
 
   // 챌린지 이름
   const saveTitle = (e) => {
     setChallengeInfo({ ...challengeInfo, challengeTitle: e.target.value });
-  };
-
-  // 챌린지 카테고리 설정
-  const chooseCategory = (e) => {
-    setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
   };
 
   // 모집 형식
@@ -78,24 +57,8 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
   };
 
-  // 챌린지 개설
-  const createChallenge = () => {
-    if (challengeInfo.challengeTitle === "") {
-      window.alert("챌린지 이름을 입력해주세요.");
-      return;
-    }
-    if (challengeInfo.challengeContent === "") {
-      window.alert("챌린지 설명을 입력해주세요.");
-      return;
-    }
-    if (challengeInfo.categoryName === "") {
-      window.alert("챌린지 카테고리를 선택해주세요.");
-      return;
-    }
-    if (challengeInfo.challengeImgUrl === "") {
-      window.alert("챌린지 대표이미지를 선택해주세요.");
-      return;
-    }
+  // 챌린지 수정
+  const editChallenge = () => {
     if (challengeInfo.challengeStartDate === "") {
       window.alert("챌린지 시작날짜를 선택해주세요.");
       return;
@@ -105,11 +68,11 @@ function ChallengeCreate(props) {
       return;
     }
     if (challengeInfo.challengeGood === "") {
-      window.alert("챌린지 인증 예시를 등록해주세요.");
+      window.alert("챌린지 인증 예시를 재등록해주세요.");
       return;
     }
     if (challengeInfo.challengeBad === "") {
-      window.alert("챌린지 인증 예시를 등록해주세요.");
+      window.alert("챌린지 인증 예시를 재등록해주세요.");
       return;
     }
 
@@ -122,24 +85,18 @@ function ChallengeCreate(props) {
       window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
       return;
     }
-    dispatch(createActions.createChDB(challengeInfo));
+    dispatch(
+      challengeDetailActions.editChallengeDB(challenge_id, challengeInfo)
+    );
     window.alert("챌린지 개설 완료!");
     dispatch(createActions.setGoodPreview(""));
     dispatch(createActions.setBadPreview(""));
-    history.push("/");
-  };
-
-  // 챌린지 수정
-  const editChallenge = () => {
-    dispatch(
-      challengeDetailActions.editChallengeDB(challengeId, challengeInfo)
-    );
     history.push(`/challenge/${challenge_info.challengeId}`);
   };
 
   return (
     <>
-      {edit_mode ? <h2>챌린지 수정</h2> : <h2>챌린지 개설</h2>}
+      <h2>챌린지 수정</h2>
 
       <CreateContainer>
         <GuideLine>개설 가이드라인</GuideLine>
@@ -150,11 +107,7 @@ function ChallengeCreate(props) {
               제목
               <input
                 onChange={saveTitle}
-                placeholder={
-                  edit_mode
-                    ? challenge_info.challengeTitle
-                    : "제목을 입력해주세요"
-                }
+                placeholder={challenge_info.challengeTitle}
               />
             </label>
           </Contents>
@@ -162,30 +115,17 @@ function ChallengeCreate(props) {
           <ContentsContainer>
             <Contents>
               {/* 카테고리 */}
-              {edit_mode ? (
-                <>
-                  <p>{challenge_info.categoryName}</p>
-                  <p>
-                    카테고리는 수정이 불가해요! 다른 카테고리의 챌린지를
-                    원하시면 삭제하고 다시 만들어주세요!
-                  </p>
-                </>
-              ) : (
-                <>
-                  <label htmlFor="category">카테고리</label>
-                  <select id="category" onChange={chooseCategory}>
-                    <option value="CATEGORY">카테고리</option>
-                    <option value="NODRINKNOSMOKE">금연/금주</option>
-                    <option value="EXERCISE">운동</option>
-                    <option value="LIVINGHABITS">생활습관</option>
-                  </select>
-                </>
-              )}
+              <p>{challenge_info.categoryName}</p>
+              <p>
+                카테고리는 수정이 불가해요! 다른 카테고리의 챌린지를 원하시면
+                삭제하고 다시 만들어주세요!
+              </p>
 
               {/* 대표 이미지 */}
               <CreateImgSelect
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
+                id={challenge_id}
               />
               {/* 인증샷 예시 */}
               <CreateCertification
@@ -196,15 +136,12 @@ function ChallengeCreate(props) {
 
             <Contents>
               {/* date picker */}
-              {edit_mode ? (
-                <>
-                  <p>원래 선택하셨던 날짜</p>
-                  <p>
-                    {challenge_info.challengeStartDate.split("T")[0]} ~{" "}
-                    {challenge_info.challengeEndDate.split("T")[0]}
-                  </p>
-                </>
-              ) : null}
+              <p>원래 선택하셨던 날짜</p>
+              <p>
+                {challenge_info.challengeStartDate.split("T")[0]} ~{" "}
+                {challenge_info.challengeEndDate.split("T")[0]}
+              </p>
+
               <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
@@ -231,25 +168,14 @@ function ChallengeCreate(props) {
                 <div>
                   <input
                     onChange={saveDesc}
-                    placeholder={
-                      edit_mode
-                        ? challenge_info.challengeContent
-                        : "챌린지를 설명해주세요."
-                    }
+                    placeholder={challenge_info.challengeContent}
                   />
                 </div>
               </label>
             </Contents>
           </ContentsContainer>
-
-          {edit_mode ? (
-            <>
-              <button onClick={editChallenge}>챌린지 수정하기</button>
-              <button onClick={() => history.goBack()}>챌린지 수정취소</button>
-            </>
-          ) : (
-            <button onClick={createChallenge}>챌린지 개설하기</button>
-          )}
+          <button onClick={editChallenge}>챌린지 수정하기</button>
+          <button onClick={() => history.goBack()}>챌린지 수정취소</button>
         </CreateContents>
       </CreateContainer>
     </>
