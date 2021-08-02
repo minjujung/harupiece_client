@@ -5,11 +5,17 @@
 /.pnp
 .pnp.js
 
+# aws apikey
+.env
+
 # testing
 /coverage
 
 # production
 /build
+
+# API KEYS
+.env
 
 # misc
 .DS_Store

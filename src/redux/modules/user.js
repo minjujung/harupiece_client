@@ -24,7 +24,7 @@ const initialState = {
   },
 };
 
-// Thunk
+// 회원가입
 const registerDB = (email, nick, pw, pwc, profileImg) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nick, pw, pwc, profileImg)
@@ -38,6 +38,7 @@ const registerDB = (email, nick, pw, pwc, profileImg) => {
   };
 };
 
+//로그인
 const setLoginDB = (email, pwd) => {
   return function (dispatch, getState, { history }) {
     UserApis.login(email, pwd)
@@ -56,6 +57,7 @@ const setLoginDB = (email, pwd) => {
   };
 };
 
+//로그아웃
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
@@ -66,6 +68,7 @@ const logOutDB = () => {
   };
 };
 
+//새로고침시 로그인 유지
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
     const user_info = getState().user.userInfo
@@ -107,6 +110,7 @@ const userCreators = {
   setLoginDB,
   logOutDB,
   loginCheckDB,
+  setUser,
 };
 
 export { userCreators };

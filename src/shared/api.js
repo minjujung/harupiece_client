@@ -52,9 +52,17 @@ instance.interceptors.response.use((response) => {
 
 // 유저 정보
 export const UserApis = {
-  login: (email, pw) => instance.post('api/member/login', {email: email, password: pw}),
-	signup: (email, nick, pw, pwc, profileImg) => instance.post('api/member/signup', {email: email, nickname: nick , password: pw, passwordConfirm: pwc ,profileImg: profileImg}),
-  reload: () => instance.get('api/member/reload'),
+  login: (email, pw) =>
+    instance.post("api/member/login", { email: email, password: pw }),
+  signup: (email, nick, pw, pwc, profileImg) =>
+    instance.post("api/member/signup", {
+      email: email,
+      nickname: nick,
+      password: pw,
+      passwordConfirm: pwc,
+      profileImg: profileImg,
+    }),
+  reload: () => instance.get("api/member/reload"),
 };
 
 // 챌린지 생성
@@ -68,12 +76,42 @@ export const ChallengeCreateApis = {
 export const MainApis = {
   guestMain: () => instance.get(`api/guest/main`),
   userMain: () => instance.get(`api/member/main`),
+  search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
+};
+
+export const PostApis = {
+  getPost: (page, challengeId) =>
+    instance.get(`api/posting/${page}/${challengeId}`),
+  addPost: (new_post) => instance.post("api/posting", new_post),
+  editPost: (post_id, post) =>
+    instance.put(`api/posting/update/${post_id}`, post),
+  deletePost: (post_id) => instance.delete(`api/posting/delete/${post_id}`),
+  clickCheck: (check_info) => instance.post("api/certification", check_info),
+};
+
+export const ChallengeDetailApis = {
+  getDetail: (challenge_id) =>
+    instance.get(`api/member/challenge/${challenge_id}`),
+  editDetail: (challengeInfo) =>
+    instance.put(`api/member/challenge`, challengeInfo),
+  adminDeleteDetail: (challenge_id) =>
+    instance.delete(`api/admin/challenge/${challenge_id}`),
+  deleteDetail: (challenge_id) =>
+    instance.delete(`api/member/challenge/${challenge_id}`),
+  giveupChallenge: (challenge_id) =>
+    instance.delete(`api/member/challenge-give-up/${challenge_id}`),
+  takeInPartChallenge: (challengeInfo) =>
+    instance.post(`api/member/challenge-request`, challengeInfo),
 };
 
 // 마이 페이지
 export const MypageApis = {
-  EditProfile: () => instance.put(`/api/member/mypage`),
-  GetMyChallenge: () => instance.get(`api/member/mypage`),
+  EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
+  GetMyInfo: () => instance.get(`api/member/mypage`),
+  GetProceed: () => instance.get(`/api/member/mypage/proceed`),
+  GetEnd: () => instance.get(`/api/member/mypage/end`),
+  ChangePassword: (password) =>
+    instance.put(`/api/member/mypage/password`, password),
 };
 
 export default instance;
