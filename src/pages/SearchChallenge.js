@@ -1,25 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { MainCreators as searchActions } from "../redux/modules/main";
+import { useSelector } from "react-redux";
 
 function SearchChallenge() {
-  const dispatch = useDispatch();
-  //   const [error, setError] = useState(null);
-  //   const [isLoaded, setIsloaded] = useState(false);
-  //   const [items, setItems] = useState([]);
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      searchKeyWord();
-    }
-  };
-
-  const searchKeyWord = (e) => {
-    dispatch(searchActions.searchDB(q));
-  };
-
-  const searchList = useSelector((state) => state.main.search);
+    const searchList = useSelector((state) => state.main.search);
 
   const [q, setQ] = useState("");
   const [searchParam] = useState(["categoryName", "challengeTitle"]);
@@ -51,18 +35,6 @@ function SearchChallenge() {
 
   return (
     <Container>
-      <label htmlFor="search-form">
-        <input
-          type="search"
-          id="search-form"
-          placeholder="Search for..."
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-      </label>
-      <input type="submit" onClick={searchKeyWord} />
-
       <div>
         <select onChange={(e) => setFilterParam(e.target.value)}>
           <option value="All">Filter By Category</option>
@@ -96,6 +68,7 @@ function SearchChallenge() {
 const Container = styled.div`
   width: 100%;
   height: 400px;
+  margin: 150px;
   display: flex;
   flex-direction: column;
 `;
