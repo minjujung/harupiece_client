@@ -47,11 +47,9 @@ const userLoadDB = () => {
 
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
-    console.log(q);
     const encode = encodeURIComponent(q);
     MainApis.search(encode)
       .then((res) => {
-        console.log(res);
         dispatch(search(res.data.result));
       })
       .catch((err) => {
