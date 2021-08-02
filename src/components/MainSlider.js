@@ -13,7 +13,7 @@ const MainSlider = (props) => {
         return (
             <React.Fragment>
                     <Contain>
-                        {getCookie("token") ? (main_list.usermain.myList?.map((l,idx)=>
+                        {getCookie("token") ? (main_list.usermain.slider?.map((l,idx)=>
                         <div>
                             <p>배경 이미지 : {l.challengeImgUrl}</p>
                             <p>카테고리 이름 : {l.categoryName}</p>
@@ -24,7 +24,7 @@ const MainSlider = (props) => {
                         </div> 
                         )) : (main_list.guestmain.popular?.map((l,idx)=> 
                             <div>
-                            {/* <p>배경 이미지 : {l.challengeImgUrl}</p> */}
+                            <p>배경 이미지 : {l.challengeImgUrl}</p>
                             <p>카테고리 이름 : {l.categoryName}</p>
                             <p>챌린지 재목 : {l.challengeTitle}</p>
                             <p>챌린지 참여 명수 : {l.challengeMember.length}</p>

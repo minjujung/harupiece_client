@@ -42,7 +42,9 @@ const setLoginDB = (email, pwd) => {
   return function (dispatch, getState, { history }) {
     UserApis.login(email, pwd)
       .then((res) => {
+        console.log(res);
         setCookie("token", res.data.accessToken, 1, "/");
+        setCookie("refreshToken", res.data.refreshToken, 1, "/");
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(null));
         history.replace("/");
@@ -57,6 +59,7 @@ const setLoginDB = (email, pwd) => {
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
+    deleteCookie("refreshToken");
     dispatch(logOut());
     dispatch(MainCreators.guestLoadDB());
     history.replace("/");
@@ -65,6 +68,10 @@ const logOutDB = () => {
 
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
+    const user_info = getState().user.userInfo
+    if (getCookie("token")&& !user_info){
+      history.replace("/login");
+    }
     UserApis.reload()
       .then((res) => {
         dispatch(setUser(res.data.userInfo));

@@ -21,7 +21,7 @@ const Signup = (props) => {
     
     useEffect(() => {
 		if (islogin) props.history.push('/');
-	});
+	},[]);
 
 	if (pw && pwc && pw === pwc) {
 		pwd.current.innerText = '성공 아이콘';

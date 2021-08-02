@@ -13,7 +13,7 @@ const Login = (props) => {
 
     useEffect(() => {
 		if (islogin) props.history.push('/');
-	});
+	},[]);
     const login =() => {
         dispatch(userCreators.setLoginDB(email,pw));
     }
