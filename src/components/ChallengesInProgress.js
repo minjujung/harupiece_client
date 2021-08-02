@@ -6,7 +6,6 @@ import { actionCreators as myInfo } from "../redux/modules/mypage";
 const changeForm = (dates) => {
   let _month = dates?.map((m) => {
     if (m.split("-")[1][0] === "0") {
-      console.log(m.split("-")[1][1], m.split("-")[1]);
       return m.split("-")[1][1];
     } else {
       return m.split("-")[1];
@@ -25,10 +24,6 @@ const changeForm = (dates) => {
 };
 
 function ChallengesInProgress(props) {
-  const {
-    match: { path },
-  } = props;
-
   useEffect(() => {
     dispatch(myInfo.getMyInfoDB());
   }, []);
@@ -65,7 +60,11 @@ function ChallengesInProgress(props) {
                 </div>
                 <div>
                   <div>
-                    <img alt="" />
+                    {/* <img
+                      src={}
+                      alt="profile_list"
+                      style={{ width: "2em", height: "2em" }}
+                    /> */}
                   </div>
                   <div>
                     {list.participateSize && list.participateSize > 1 ? (

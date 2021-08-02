@@ -207,6 +207,7 @@ const editPostDB =
     } else {
       // 사진이 전과 다를 때는 업로드
       const date = new Date();
+      const user_info = getState().user.userInfo;
 
       AWS.config.update({
         region: "ap-northeast-2",
@@ -220,7 +221,7 @@ const editPostDB =
       const upload = new AWS.S3.ManagedUpload({
         params: {
           Bucket: "onedaypiece-shot-image",
-          Key: content.file.name + date + ".jpg",
+          Key: `${user_info.memberId}_${date.getTime()}`,
           Body: content.file,
         },
       });
