@@ -28,6 +28,10 @@ const ConditionBtn = (props) => {
     }
   };
 
+  if (!user_info) {
+    return;
+  }
+
   if (challengeProgress === 1) {
     if (challengeMember.includes(user_info.memberId)) {
       return <button onClick={giveupChallenge}>챌린지 포기하기</button>;

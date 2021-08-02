@@ -9,6 +9,7 @@ import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../shared/Cookie";
+import Popular from "../components/Popular";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const Main = (props) => {
     <div style={{ height: "auto" }}>
       <Container>
         <MainSlider />
+        <Popular />
         <Category />
         <button onClick={goToCreate}>챌린지 개설하기</button>
       </Container>

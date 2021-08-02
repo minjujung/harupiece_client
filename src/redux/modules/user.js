@@ -103,6 +103,7 @@ const userCreators = {
   setLoginDB,
   logOutDB,
   loginCheckDB,
+  setUser,
 };
 
 export { userCreators };

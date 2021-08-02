@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as myInfo } from "../redux/modules/mypage";
+
 import ChallengesInProgress from "../components/ChallengesInProgress";
 import UpcomingChallenge from "../components/UpcomingChallenge";
 import CompletedChallenge from "../components/CompletedChallenge";
 import MyPassword from "../components/MyPassword";
 import MyPieces from "../components/MyPieces";
+
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as myInfo } from "../redux/modules/mypage";
 import { Link, Route, Switch } from "react-router-dom";
-import { ChallengeDetailApis } from "../shared/api";
+import { history } from "../redux/configureStore";
 
 function Mypage(props) {
   const dispatch = useDispatch();

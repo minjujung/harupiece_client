@@ -31,10 +31,10 @@ function App() {
         <Route exact path="/" component={Main} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
+        <Route path="/mypage" component={Mypage} />
         <Route exact path="/challenge" component={ChallengeCreate} />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
-        <Route path="/mypage" component={Mypage} />
       </ConnectedRouter>
     </div>
   );

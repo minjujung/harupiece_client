@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { MypageApis } from "../../shared/api";
 import AWS from "aws-sdk";
+import { userCreators } from "./user";
 
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
@@ -75,7 +76,6 @@ const editMyProfileDB = (content) => {
       memberId: myProfile,
       nickname: content.newNickName,
       profileImage: content.file,
-      password: "",
     };
 
     if (content.file === myProfileImg) {
@@ -89,6 +89,16 @@ const editMyProfileDB = (content) => {
           };
           console.log(new_post);
           dispatch(editMyProfile(new_post));
+
+          const user_info = getState().user.userInfo;
+
+          const new_user_info = {
+            ...new_post,
+            profileImg: new_post.profileImage,
+            memberLevel: user_info.memberLevel,
+            point: user_info.point,
+          };
+          dispatch(userCreators.setUser(new_user_info));
         })
         .catch((error) => {
           if (
@@ -129,6 +139,16 @@ const editMyProfileDB = (content) => {
             const _newProFile = { ...newProFile };
 
             dispatch(editMyProfile(_newProFile));
+
+            const user_info = getState().user.userInfo;
+
+            const new_user_info = {
+              ...newProFile,
+              profileImg: newProFile.profileImage,
+              memberLevel: user_info.memberLevel,
+              point: user_info.point,
+            };
+            dispatch(userCreators.setUser(new_user_info));
           })
           .catch((error) => {
             if (window.confirm("test")) {

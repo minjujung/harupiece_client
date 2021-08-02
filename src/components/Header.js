@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
+import levelData from "../level";
+
+import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
@@ -24,10 +26,15 @@ const Header = (props) => {
                   style={{ width: "50px", height: "50px" }}
                   src={userInfo.profileImg}
                   alt="profile"
-                  onClick={() => history.push("/mypage")}
+                  onClick={() => history.push("/mypage/now")}
                 />
                 <p>{userInfo.nickname}</p>
                 <p>포인트 : {userInfo.point}</p>
+                <img
+                  src={levelData[userInfo.memberLevel - 1]?.img}
+                  alt="level_image"
+                  style={{ width: "3em", height: "3em", margin: "0 1em" }}
+                />
                 <button
                   onClick={() => {
                     dispatch(userCreators.logOutDB());
