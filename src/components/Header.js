@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import levelData from "../level";
+import levelData from "../shared/level";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PostWrite from "./PostWrite";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
+import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import PwdModal from "./PwdModal";
 
 const ConditionBtn = (props) => {

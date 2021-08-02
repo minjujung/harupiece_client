@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import Footer from "../components/Footer";
-import MainSlider from "../components/MainSlider";
-import Category from "../components/Category";
+import MainSlider from "../components/mainpage/MainSlider";
+import Category from "../components/mainpage/Category";
+import Popular from "../components/mainpage/Popular";
 
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCookie } from "../shared/Cookie";
-import Popular from "../components/Popular";
 
 const Main = (props) => {
   const dispatch = useDispatch();

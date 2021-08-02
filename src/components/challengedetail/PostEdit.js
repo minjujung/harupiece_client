@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as imageActions } from "../redux/modules/image";
-import { actionCreator as postActions } from "../redux/modules/post";
+import { actionCreator as imageActions } from "../../redux/modules/image";
+import { actionCreator as postActions } from "../../redux/modules/post";
 
 const PostEdit = (props) => {
   const {

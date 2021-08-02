@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import { history } from "../redux/configureStore";
+import { history } from "../../redux/configureStore";
 import { useSelector } from "react-redux";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
 
 const Category = (props) => {
   const main_list = useSelector((state) => state.main);

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { history } from "../redux/configureStore";
+import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../../shared/Cookie";
 
-const Popular = (props) => {
+const MainSlider = (props) => {
   const dispatch = useDispatch();
 
   const main_list = useSelector((state) => state.main);
@@ -14,7 +14,7 @@ const Popular = (props) => {
     <React.Fragment>
       <Contain>
         {getCookie("token")
-          ? main_list.usermain.popular?.map((l, idx) => (
+          ? main_list.usermain.slider?.map((l, idx) => (
               <div
                 key={l.challengeId}
                 onClick={() => history.push(`/challenge/${l.challengeId}`)}
@@ -27,7 +27,7 @@ const Popular = (props) => {
                 <p>챌린지 마감 날짜 : {l.challengeEndDate}</p>
               </div>
             ))
-          : main_list.guestmain.popular?.map((l, idx) => (
+          : main_list.guestmain.slider?.map((l, idx) => (
               <div
                 key={l.challengeId}
                 onClick={() => history.push(`/challenge/${l.challengeId}`)}
@@ -45,7 +45,7 @@ const Popular = (props) => {
   );
 };
 
-export default Popular;
+export default MainSlider;
 
 const Contain = styled.div`
   display: flex;

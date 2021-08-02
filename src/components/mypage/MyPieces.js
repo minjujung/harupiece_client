@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import levelData from "../level";
+import React from "react";
+import levelData from "../../shared/level";
 
 import { useSelector } from "react-redux";
 
@@ -10,6 +10,7 @@ function MyPieces(props) {
   const userLevel = user_info.memberLevel;
   const levelDivided5 = parseInt((userLevel - 1) / 5) + 1;
 
+  //다음 레벨까지 얼마나 남았는지 계산
   let levelState = 0;
   if (userLevel <= 5) {
     levelState = (((userLevel - 1) % 5) + 1) * (levelDivided5 * 100);
@@ -25,7 +26,7 @@ function MyPieces(props) {
     levelState = (((userLevel - 1) % 5) + 1) * (levelDivided5 * 100) + 7500;
   }
 
-  const levelDataIdx = parseInt(user_info.memberLevel - 1) / 5;
+  const levelDataIdx = parseInt((userLevel - 1) / 5);
 
   const levelArray = Array.from({ length: levelDivided5 }, (item, idx) => {
     return idx;
@@ -44,7 +45,7 @@ function MyPieces(props) {
           level {user_info.memberLevel}
         </div>
         <div>
-          <h3>조각 모음:</h3> 총 {user_info.point}개 / 다음 챌린지 까지{" "}
+          <h3>조각 모음:</h3> 총 {user_info.point}개 / 다음 레벨 까지{" "}
           {levelState - user_info.point} 개가 더 필요해요!{" "}
         </div>
         <div>

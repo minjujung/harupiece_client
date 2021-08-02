@@ -1,13 +1,13 @@
-import gray from "./images/level/gray.svg";
-import yellow from "./images/level/yellow.svg";
-import orange from "./images/level/orange.svg";
-import red from "./images/level/red.svg";
-import pink from "./images/level/pink.svg";
-import dark_gray from "./images/level/dark_gray.svg";
-import purple from "./images/level/purple.svg";
-import navy from "./images/level/navy.svg";
-import blue from "./images/level/blue.svg";
-import green from "./images/level/green.svg";
+import gray from "../images/level/gray.svg";
+import yellow from "../images/level/yellow.svg";
+import orange from "../images/level/orange.svg";
+import red from "../images/level/red.svg";
+import pink from "../images/level/pink.svg";
+import dark_gray from "../images/level/dark_gray.svg";
+import purple from "../images/level/purple.svg";
+import navy from "../images/level/navy.svg";
+import blue from "../images/level/blue.svg";
+import green from "../images/level/green.svg";
 
 const levelData = [
   {
