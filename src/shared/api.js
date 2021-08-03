@@ -24,7 +24,7 @@ instance.interceptors.response.use((response) => {
       response: { status },
     } = error;
     if (status === 401) {
-      if (error.response.data.message  === "TokenExpiredError") {
+      if (error.response  === "Unauthorized") {
         const originalRequest = config;
         const refresh_token = getCookie("refreshToken");
         const token = getCookie("token");
@@ -52,15 +52,15 @@ instance.interceptors.response.use((response) => {
 
 // 유저 정보
 export const UserApis = {
-  login: (email, pw) =>
-    instance.post("api/member/login", { email: email, password: pw }),
-  signup: (email, nick, pw, pwc, profileImg) =>
+  login: (email, password) =>
+    instance.post("api/member/login", { email, password }),
+  signup: (email, nickname, password, passwordConfirm, profileImg) =>
     instance.post("api/member/signup", {
-      email: email,
-      nickname: nick,
-      password: pw,
-      passwordConfirm: pwc,
-      profileImg: profileImg,
+      email,
+      nickname,
+      password,
+      passwordConfirm,
+      profileImg,
     }),
   reload: () => instance.get("api/member/reload"),
 };

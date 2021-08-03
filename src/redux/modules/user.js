@@ -1,8 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
+import { deleteCookie, setCookie, getCookie, multiCookie } from "../../shared/Cookie";
 import { UserApis } from "../../shared/api";
 import { MainCreators } from "./main";
+import instance from "../../shared/api";
 
 // action
 const LOGIN = "user/LOGIN";
@@ -25,10 +26,11 @@ const initialState = {
 };
 
 // 회원가입
-const registerDB = (email, nick, pw, pwc, profileImg) => {
+const registerDB = ({email, nickname, password, passwordConfirm, profileImg}) => {
   return function (dispatch, getState, { history }) {
-    UserApis.signup(email, nick, pw, pwc, profileImg)
+    UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
+        console.log(res)
         window.alert("회원가입이 완료되었습니다!");
         history.push("/login");
       })
@@ -39,9 +41,9 @@ const registerDB = (email, nick, pw, pwc, profileImg) => {
 };
 
 //로그인
-const setLoginDB = (email, pwd) => {
+const setLoginDB = ({email, password}) => {
   return function (dispatch, getState, { history }) {
-    UserApis.login(email, pwd)
+    UserApis.login(email, password)
       .then((res) => {
         console.log(res);
         setCookie("token", res.data.accessToken, 1, "/");
