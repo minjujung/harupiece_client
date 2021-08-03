@@ -1,7 +1,12 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
-import { UserApis } from "../../shared/api";
+import {
+  deleteCookie,
+  setCookie,
+  getCookie,
+  multiCookie,
+} from "../../shared/Cookie";
+import instance, { UserApis } from "../../shared/api";
 import { MainCreators } from "./main";
 
 // action
@@ -75,6 +80,7 @@ const loginCheckDB = () => {
     if (getCookie("token") && !user_info) {
       history.replace("/login");
     }
+
     UserApis.reload()
       .then((res) => {
         dispatch(setUser(res.data.userInfo));

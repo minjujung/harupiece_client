@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie, multiCookie } from "./Cookie";
+import { history } from "../redux/configureStore";
 
 const instance = axios.create({
   baseURL: "http://54.180.141.39/",
@@ -85,40 +86,36 @@ instance.interceptors.response.use(
         isTokenRefreshing = true;
         const refresh_token = getCookie("refreshToken");
         const token = getCookie("token");
-        await instance
-          .post(`api/member/reissue`, {
-            accessToken: token,
-            refreshToken: refresh_token,
-          })
-          .then((res) => {
-            console.log(res);
-            const accessCookie = {
-              name: "token",
-              value: res.data.accessToken,
-            };
-            const refreshCookie = {
-              name: "refreshToken",
-              value: res.data.refreshToken,
-            };
-            multiCookie(accessCookie, refreshCookie);
-            isTokenRefreshing = false;
-            instance.defaults.headers.common[
-              "Authorization"
-            ] = `Bearer ${accessCookie.value}`;
-            onTokenRefreshed(accessCookie.value);
+        const { data } = await instance.post(`api/member/reissue`, {
+          accessToken: token,
+          refreshToken: refresh_token,
+        });
 
-            const retryOriginalRequest = new Promise((resolve) => {
-              addRefreshSubscriber((accessToken) => {
-                originalRequest.headers.Authorization = "Bearer " + accessToken;
-                resolve(axios(originalRequest));
-              });
-            });
-
-            return retryOriginalRequest;
-          });
-        return Promise.reject(error);
+        const accessCookie = {
+          name: "token",
+          value: data.accessToken,
+        };
+        const refreshCookie = {
+          name: "refreshToken",
+          value: data.refreshToken,
+        };
+        multiCookie(accessCookie, refreshCookie);
+        isTokenRefreshing = false;
+        instance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessCookie.value}`;
+        onTokenRefreshed(accessCookie.value);
+        window.alert("로그인 시간이 만료되었습니다! 새로고침 해주세요!");
       }
+      const retryOriginalRequest = new Promise((resolve) => {
+        addRefreshSubscriber((accessToken) => {
+          originalRequest.headers.Authorization = "Bearer " + accessToken;
+          resolve(instance(originalRequest));
+        });
+      });
+      return retryOriginalRequest;
     }
+    return Promise.reject(error);
   }
 );
 
