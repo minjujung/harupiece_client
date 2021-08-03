@@ -1,9 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import { deleteCookie, setCookie, getCookie, multiCookie } from "../../shared/Cookie";
-import { UserApis } from "../../shared/api";
+import {
+  deleteCookie,
+  setCookie,
+  getCookie,
+  multiCookie,
+} from "../../shared/Cookie";
+import instance, { UserApis } from "../../shared/api";
 import { MainCreators } from "./main";
-import instance from "../../shared/api";
 
 // action
 const LOGIN = "user/LOGIN";
@@ -73,10 +77,11 @@ const logOutDB = () => {
 //새로고침시 로그인 유지
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    const user_info = getState().user.userInfo
-    if (getCookie("token")&& !user_info){
+    const user_info = getState().user.userInfo;
+    if (getCookie("token") && !user_info) {
       history.replace("/login");
     }
+
     UserApis.reload()
       .then((res) => {
         dispatch(setUser(res.data.userInfo));

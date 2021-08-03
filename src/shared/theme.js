@@ -8,9 +8,9 @@
 
 const colors = {
   mainGreen: "#00DB9A",
-  mainOrange: "FF4532",
+  mainOrange: "#FF4532",
   white: "#FFFFFF",
-  lightGray: "EFEFEF",
+  lightGray: "#EFEFEF",
   darkGray: "#606060",
   black: "#222222",
 };
@@ -28,10 +28,10 @@ const fontSizes = {
 };
 
 const theme = {
-    // device,
-    colors,
-    paddings,
-    fontSizes,
-  };
-  
+  // device,
+  colors,
+  paddings,
+  fontSizes,
+};
+
 export default theme;

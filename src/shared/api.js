@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getCookie, multiCookie} from "./Cookie";
+import { getCookie, multiCookie } from "./Cookie";
+import { history } from "../redux/configureStore";
 
 const instance = axios.create({
   baseURL: "http://54.180.141.39/",
@@ -15,38 +16,63 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
-instance.interceptors.response.use((response) => {
-  return response;
+let isTokenRefreshing = false;
+let refreshSubscribers = [];
+
+const onTokenRefreshed = (accessToken) => {
+  refreshSubscribers.map((callback) => callback(accessToken));
+};
+
+const addRefreshSubscriber = (callback) => {
+  refreshSubscribers.push(callback);
+};
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
   },
   async (error) => {
     const {
       config,
       response: { status },
     } = error;
+    const originalRequest = config;
     if (status === 401) {
-      if (error.response  === "Unauthorized") {
-        const originalRequest = config;
+      if (!isTokenRefreshing) {
+        // isTokenRefreshing이 false인 경우에만 token refresh 요청
+        isTokenRefreshing = true;
         const refresh_token = getCookie("refreshToken");
         const token = getCookie("token");
-        const { data } = await instance.post(
-          `api/member/reissue`,
-          {
-            accessToken : token,
-            refreshToken : refresh_token,
-          }
-        );
-          const {
-            accessToken,
-            refreshToken,
-          } = data;
-          const accessCookie = {name: "token", value: accessToken} 
-          const refreshCookie = {name: "refreshToken", value: refreshToken} 
-          await multiCookie (accessCookie, refreshCookie)
-          instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-          originalRequest.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        return instance(originalRequest);
+        const { data } = await instance.post(`api/member/reissue`, {
+          accessToken: token,
+          refreshToken: refresh_token,
+        });
+
+        const accessCookie = {
+          name: "token",
+          value: data.accessToken,
+        };
+        const refreshCookie = {
+          name: "refreshToken",
+          value: data.refreshToken,
+        };
+        multiCookie(accessCookie, refreshCookie);
+        isTokenRefreshing = false;
+        instance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessCookie.value}`;
+        onTokenRefreshed(accessCookie.value);
+        window.alert("로그인 시간이 만료되었습니다! 새로고침 해주세요!");
       }
+      const retryOriginalRequest = new Promise((resolve) => {
+        addRefreshSubscriber((accessToken) => {
+          originalRequest.headers.Authorization = "Bearer " + accessToken;
+          resolve(instance(originalRequest));
+        });
+      });
+      return retryOriginalRequest;
     }
+    return Promise.reject(error);
   }
 );
 
@@ -106,11 +132,12 @@ export const ChallengeDetailApis = {
 
 // 마이 페이지
 export const MypageApis = {
-  EditProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
-  GetMyInfo: () => instance.get(`api/member/mypage`),
-  GetProceed: () => instance.get(`/api/member/mypage/proceed`),
-  GetEnd: () => instance.get(`/api/member/mypage/end`),
-  ChangePassword: (password) =>
+  editProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
+  getMyInfo: () => instance.get(`api/member/mypage`),
+  getProceed: () => instance.get(`/api/member/mypage/proceed`),
+  getEnd: () => instance.get(`/api/member/mypage/end`),
+  getPoint: () => instance.get(`api/member/mypage/history`),
+  changePassword: (password) =>
     instance.put(`/api/member/mypage/password`, password),
 };
 
