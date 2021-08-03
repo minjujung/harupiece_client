@@ -71,8 +71,8 @@ const logOutDB = () => {
 //새로고침시 로그인 유지
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    const user_info = getState().user.userInfo
-    if (getCookie("token")&& !user_info){
+    const user_info = getState().user.userInfo;
+    if (getCookie("token") && !user_info) {
       history.replace("/login");
     }
     UserApis.reload()
