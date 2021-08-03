@@ -40,7 +40,7 @@ const PwdModal = (props) => {
 
   //챌린지 신청히기, 비공개의 경우 비밀번호 모달창 띄우기
   const takePartIn = () => {
-    if (!user_info) {
+    if (user_info.memberId === null) {
       window.alert("로그인이 필요한 서비스 입니다!");
       return;
     }

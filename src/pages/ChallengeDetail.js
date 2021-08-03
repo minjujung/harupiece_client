@@ -58,7 +58,9 @@ const ChallengeDetail = (props) => {
   };
 
   let today = new Date();
-  console.log(today);
+  const progress = today.getTime() - date1.getTime();
+  const progressDays = progress / 1000 / 60 / 60 / 24;
+
   today =
     leadingZeros(today.getFullYear(), 4) +
     "-" +
@@ -85,31 +87,37 @@ const ChallengeDetail = (props) => {
     status = "진행 종료";
   }
 
-  console.log(
-    today,
-    challenge.challengeStartDate,
-    today < challenge.challengeStartDate.split("T")[0]
-  );
+  //navbar 지금 클릭되어 있는 거 확인할 수 있는 hash
+  const {
+    location: { hash },
+  } = props;
+
+  console.log(props);
 
   return (
     <>
       <ChallengeHeader>
-        <h1>{challenge.challengeTitle}</h1>
-        <h2>총 {challenge.challengeMember.length}명이 참여중입니다!</h2>
-        <nav>
+        <Banner bgImg={challenge.challengeImgUrl}>
+          <Title>{challenge.challengeTitle}</Title>
+          <TotalNum>
+            참여 {challenge.challengeMember.length}명 | 진행률{" "}
+            {parseInt(progressDays / totalDay) * 100} %
+          </TotalNum>
+        </Banner>
+        <NavBar>
           <ul>
-            <li>
-              <a href="#intro">소개</a>
-            </li>
-            <li>
+            <Item selected={hash === "#intro"}>
+              <a href="#intro">챌린지 소개</a>
+            </Item>
+            <Item selected={hash === "#shot_list"}>
               <a href="#shot_list">인증목록</a>
-            </li>
+            </Item>
           </ul>
-        </nav>
-        <button onClick={() => history.push("/")}>홈으로 가기</button>
-        <button onClick={adminDelete}>관리자 권한 삭제</button>
+        </NavBar>
+        {/* <button onClick={() => history.push("/")}>홈으로 가기</button>
+        <button onClick={adminDelete}>관리자 권한 삭제</button> */}
         {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
-        {user_info?.memberId === challenge.memberId &&
+        {/* {user_info?.memberId === challenge.memberId &&
         today < challenge.challengeStartDate.split("T")[0] ? (
           <>
             <button onClick={editChallenge}>챌린지 수정하기</button>
@@ -117,13 +125,13 @@ const ChallengeDetail = (props) => {
               챌린지 없애기(챌린지 개설한 사용자)
             </button>
           </>
-        ) : null}
+        ) : null} */}
       </ChallengeHeader>
-      <div style={{ height: "15em" }}></div>
+      <div style={{ height: "30.875em" }}></div>
       <div style={{ position: "relative" }}>
         <span
           id="intro"
-          style={{ position: "absolute", left: "0", top: "-15em" }}
+          style={{ position: "absolute", left: "0", top: "-30.875em" }}
         >
           &nbsp;
         </span>
@@ -163,7 +171,7 @@ const ChallengeDetail = (props) => {
       <div style={{ position: "relative" }}>
         <span
           id="shot_list"
-          style={{ position: "absolute", left: "0", top: "-15em" }}
+          style={{ position: "absolute", left: "0", top: "-30.875em" }}
         >
           &nbsp;
         </span>
@@ -205,10 +213,61 @@ const ChallengeDetail = (props) => {
 export default ChallengeDetail;
 
 const ChallengeHeader = styled.div`
-  width: 100%;
-  background: lightblue;
   position: fixed;
-  top: 0;
-  height: 15em;
-  opacity: 0.75;
+  z-index: 10;
+  top: 4em;
+  padding-top: 3em;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+
+const Banner = styled.div`
+  background-image: url(${(props) => props.bgImg});
+  background-position: center;
+  width: 59.38em;
+  height: 18.75em;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: bold;
+  padding: 0.7em;
+`;
+
+const TotalNum = styled.h3`
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
+`;
+
+const NavBar = styled.nav`
+  width: 59.38em;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  ul {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const Item = styled.li`
+  width: 155px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5em;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  ${(props) =>
+    props.selected
+      ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
+      : null}
 `;

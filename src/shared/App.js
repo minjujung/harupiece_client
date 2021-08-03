@@ -20,7 +20,6 @@ import { getCookie } from "./Cookie";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
-import TestPage from "../pages/TestPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,7 +46,6 @@ function App() {
         />
         <Route exact path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
-        <Route exact path="/test" component={TestPage} />
       </ConnectedRouter>
     </ThemeProvider>
   );

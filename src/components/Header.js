@@ -85,7 +85,7 @@ const HeaderBox = styled.div`
   height: 4em;
   width: 56em;
   top: 0;
-  position: absolute;
+  position: fixed;
   background-color: #c4c4c4;
 `;
 
