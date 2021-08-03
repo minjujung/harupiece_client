@@ -5,6 +5,8 @@ import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
+import Input from "../elements/Input";
+
 const Login = (props) => {
   const islogin = useSelector((store) => store.user.isLogin);
   const dispatch = useDispatch();
@@ -27,18 +29,18 @@ const Login = (props) => {
           <h1>Login</h1>
         </LoginC0>
         <LoginC1>
-          <input
+          <Input
             placeholder="아이디"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-          ></input>
-          <input
+          ></Input>
+          <Input
             placeholder="비밀번호"
             onChange={(e) => {
               setPw(e.target.value);
             }}
-          ></input>
+          ></Input>
           <button onClick={login}>로그인 하기</button>
           <button
             onClick={() => {
