@@ -67,6 +67,10 @@ const getEndDB = () => {
   };
 };
 
+const getPointDB = () => {
+  return function (dispatch, getState, { history }) {};
+};
+
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
     const myProfile = getState().mypage.myInfo.memberId;
