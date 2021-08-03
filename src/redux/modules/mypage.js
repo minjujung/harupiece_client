@@ -73,7 +73,6 @@ const editMyProfileDB = (content) => {
     const myProfileImg = getState().mypage.myInfo.profileImage;
 
     const proFile = {
-      memberId: myProfile,
       nickname: content.newNickName,
       profileImage: content.file,
     };

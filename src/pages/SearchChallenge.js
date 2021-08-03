@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+
+function SearchChallenge() {
+  const searchList = useSelector((state) => state.main.search);
+
+  const [searchParam] = useState(["categoryName", "challengeTitle"]);
+  const [filterParam, setFilterParam] = useState(["All"]);
+
+  function search(searchList) {
+    return searchList.filter((searchLists) => {
+      if (searchLists.categoryName === filterParam) {
+        return searchParam.some((newList) => {
+          return searchLists[newList].toString().toLowerCase();
+        });
+      } else if (filterParam == "All") {
+        return searchParam.some((newList) => {
+          return searchLists[newList].toString().toLowerCase();
+        });
+      }
+    });
+  }
+
+  return (
+    <Container>
+      <div>
+        <select onChange={(e) => setFilterParam(e.target.value)}>
+          <option value="All">Filter By Category</option>
+          <option value="EXERCISE">EXERCISE</option>
+          <option value="LIVINGHABITS">LIVINGHABITS</option>
+          <option value="NODRINKNOSMOKE">NODRINKNOSMOKE</option>
+        </select>
+      </div>
+
+      <BoxContainer>
+        {searchList &&
+          search(searchList).map((l, idx) => {
+            return (
+              <div key={idx}>
+                <Box>
+                  <span>{l.challengeTitle}</span>
+                  <img
+                    src={l.challengeImgUrl}
+                    alt=""
+                    style={{ width: "300px", height: "300px" }}
+                  />
+                </Box>
+              </div>
+            );
+          })}
+      </BoxContainer>
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  width: 100%;
+  height: 400px;
+  margin: 150px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const BoxContainer = styled.div`
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Box = styled.div`
+  width: 400px;
+  height: 400px;
+  margin: 10px;
+  background-color: forestgreen;
+`;
+
+export default SearchChallenge;

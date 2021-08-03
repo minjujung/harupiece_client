@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { MainCreators as searchActions } from "../redux/modules/main";
 
 import levelData from "../shared/level";
 
@@ -12,12 +13,31 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
 
+  const [q, setQ] = useState("");
+
+  const search = (e) => {
+    e.preventDefault();
+    dispatch(searchActions.searchDB(q));
+    history.push(`/search/1/${q}`);
+  };
+
   return (
     <React.Fragment>
       <HeaderBox>
         <Container>
           <div onClick={() => history.push("/")}>로고(하루조각)</div>
-          <div>검색</div>
+          <form>
+            <label htmlFor="search-form">
+              <input
+                type="search"
+                id="search-form"
+                placeholder="Search for..."
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+              />
+            </label>
+            <input type="submit" onClick={search} />
+          </form>
           <Container1>
             {getCookie("token") && userInfo ? (
               <>
@@ -63,9 +83,9 @@ export default Header;
 
 const HeaderBox = styled.div`
   height: 4em;
-  width: 100%;
+  width: 56em;
   top: 0;
-  position: fixed;
+  position: absolute;
   background-color: #c4c4c4;
 `;
 

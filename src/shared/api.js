@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie, multiCookie} from "./Cookie";
 
 const instance = axios.create({
   baseURL: "http://54.180.141.39/",
@@ -9,10 +10,45 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(function (config) {
-  const accessToken = document.cookie.split("=")[1];
-  config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  const accessToken = getCookie("token");
+  config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
   return config;
 });
+
+instance.interceptors.response.use((response) => {
+  return response;
+  },
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    if (status === 401) {
+      if (error.response.data.message  === "TokenExpiredError") {
+        const originalRequest = config;
+        const refresh_token = getCookie("refreshToken");
+        const token = getCookie("token");
+        const { data } = await instance.post(
+          `api/member/reissue`,
+          {
+            accessToken : token,
+            refreshToken : refresh_token,
+          }
+        );
+          const {
+            accessToken,
+            refreshToken,
+          } = data;
+          const accessCookie = {name: "token", value: accessToken} 
+          const refreshCookie = {name: "refreshToken", value: refreshToken} 
+          await multiCookie (accessCookie, refreshCookie)
+          instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+          originalRequest.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        return instance(originalRequest);
+      }
+    }
+  }
+);
 
 // 유저 정보
 export const UserApis = {
@@ -40,6 +76,7 @@ export const ChallengeCreateApis = {
 export const MainApis = {
   guestMain: () => instance.get(`api/guest/main`),
   userMain: () => instance.get(`api/member/main`),
+  search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
 };
 
 export const PostApis = {

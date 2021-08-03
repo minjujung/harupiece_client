@@ -5,12 +5,14 @@ import { MainApis } from "../../shared/api";
 // action
 const G_LOAD = "main/G_LOAD";
 const M_LOAD = "main/M_LOAD";
+const SEARCH = "SEARCH";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 
 // action creator
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
+const search = createAction(SEARCH, (search) => ({ search }));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -27,6 +29,7 @@ const deleteUserLoad = createAction(
 const initialState = {
   guestmain: [],
   usermain: [],
+  search: [],
 };
 
 //유저가 로그인 안했을 때 메인에서 불러와야하는 것
@@ -55,6 +58,19 @@ const userLoadDB = () => {
   };
 };
 
+const searchDB = (q) => {
+  return function (dispatch, getState, { history }) {
+    const encode = encodeURIComponent(q);
+    MainApis.search(encode)
+      .then((res) => {
+        dispatch(search(res.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // reducer
 export default handleActions(
   {
@@ -73,6 +89,9 @@ export default handleActions(
         draft.usermain[
           action.payload.challenge.categoryName.toLowerCase()
         ].unshift(action.payload.challenge);
+      }),
+      [SEARCH]:(state,action) => produce(state,(draft) => {
+        draft.search = action.payload.search;
       }),
 
     [DELETE_M_LOAD]: (state, action) =>
@@ -95,6 +114,7 @@ const MainCreators = {
   userLoadDB,
   userLoad,
   guestLoad,
+  searchDB,
   addUserLoad,
   deleteUserLoad,
 };
