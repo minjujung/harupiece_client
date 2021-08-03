@@ -31,13 +31,15 @@ const Main = (props) => {
   };
 
   return (
-    <Container>
-      <MainSlider />
-      <Popular />
-      <Category />
-      <button onClick={goToCreate}>챌린지 개설하기</button>
+    <>
+      <Container>
+        <MainSlider />
+        <Popular />
+        <Category />
+        <button onClick={goToCreate}>챌린지 개설하기</button>
+      </Container>
       <Footer />
-    </Container>
+    </>
   );
 };
 
