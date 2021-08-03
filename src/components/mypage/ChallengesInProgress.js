@@ -1,27 +1,48 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { actionCreators as myInfo } from "../redux/modules/mypage";
-import { changeForm } from "./ChallengesInProgress";
+import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
-function UpcomingChallenge(props) {
-  const dispatch = useDispatch();
+const changeForm = (dates) => {
+  let _month = dates?.map((m) => {
+    if (m.split("-")[1][0] === "0") {
+      return m.split("-")[1][1];
+    } else {
+      return m.split("-")[1];
+    }
+  });
 
+  let _date = dates?.map((d) => {
+    if (d.split("-")[2][0] === "0") {
+      return d.split("-")[2][1];
+    } else {
+      return d.split("-")[2];
+    }
+  });
+
+  return { _month, _date };
+};
+
+function ChallengesInProgress(props) {
   useEffect(() => {
-    dispatch(myInfo.getProceedDB());
+    dispatch(myInfo.getMyInfoDB());
   }, []);
 
-  const my_info = useSelector((state) => state.mypage.myInfo);
-
+  const dispatch = useDispatch();
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.challengeList
   );
+  const my_info = useSelector((state) => state.mypage.myInfo);
 
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]
   );
 
   const { _month: start_month, _date: start_date } = changeForm(start);
+
+  const profileArray = Array.from({ length: 10 }, (item, idx) => {
+    return idx;
+  });
 
   return (
     <>
@@ -35,8 +56,7 @@ function UpcomingChallenge(props) {
               <div>
                 <div>
                   <span>
-                    {" "}
-                    {start_month[idx]}월 {start_date[idx]}일 부터 시작합니다!
+                    {start_month[idx]}월 {start_date[idx]}일 부터 시작했어요!
                   </span>
                 </div>
                 <div>
@@ -44,7 +64,22 @@ function UpcomingChallenge(props) {
                 </div>
                 <div>
                   <div>
-                    <img alt="" />
+                    {profileArray.map((profile, idx) => {
+                      if (idx < 4) {
+                        return (
+                          <img
+                            src={my_info.profileImage}
+                            alt="profile_list"
+                            style={{
+                              width: "2em",
+                              height: "2em",
+                              borderRadius: "2em",
+                              marginRight: "-1em",
+                            }}
+                          />
+                        );
+                      }
+                    })}
                   </div>
                   <div>
                     {list.participateSize && list.participateSize > 1 ? (
@@ -66,7 +101,6 @@ function UpcomingChallenge(props) {
     </>
   );
 }
-
 const ChallengeContent = styled.div`
   width: 100%;
   height: 100px;
@@ -84,4 +118,6 @@ const ChallengeImg = styled.div`
   }
 `;
 
-export default UpcomingChallenge;
+export { changeForm };
+
+export default ChallengesInProgress;

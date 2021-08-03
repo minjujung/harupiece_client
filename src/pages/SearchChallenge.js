@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 function SearchChallenge() {
-    const searchList = useSelector((state) => state.main.search);
+  const searchList = useSelector((state) => state.main.search);
 
-  const [q, setQ] = useState("");
   const [searchParam] = useState(["categoryName", "challengeTitle"]);
   const [filterParam, setFilterParam] = useState(["All"]);
 
@@ -13,21 +12,11 @@ function SearchChallenge() {
     return searchList.filter((searchLists) => {
       if (searchLists.categoryName === filterParam) {
         return searchParam.some((newList) => {
-          return (
-            searchLists[newList]
-              .toString()
-              .toLowerCase()
-              .indexOf(q.toLowerCase()) > -1
-          );
+          return searchLists[newList].toString().toLowerCase();
         });
       } else if (filterParam == "All") {
         return searchParam.some((newList) => {
-          return (
-            searchLists[newList]
-              .toString()
-              .toLowerCase()
-              .indexOf(q.toLowerCase()) > -1
-          );
+          return searchLists[newList].toString().toLowerCase();
         });
       }
     });

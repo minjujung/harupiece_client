@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import ChallengesInProgress from "../components/ChallengesInProgress";
-import UpcomingChallenge from "../components/UpcomingChallenge";
-import CompletedChallenge from "../components/CompletedChallenge";
-import MyPassword from "../components/MyPassword";
-import MyPieces from "../components/MyPieces";
+import ChallengesInProgress from "../components/mypage/ChallengesInProgress";
+import UpcomingChallenge from "../components/mypage/UpcomingChallenge";
+import CompletedChallenge from "../components/mypage/CompletedChallenge";
+import MyPassword from "../components/mypage/MyPassword";
+import MyPieces from "../components/mypage/MyPieces";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as myInfo } from "../redux/modules/mypage";
 import { Link, Route, Switch } from "react-router-dom";
-import { history } from "../redux/configureStore";
 
 function Mypage(props) {
   const dispatch = useDispatch();
@@ -44,7 +43,6 @@ function Mypage(props) {
   // 프로필 수정 모드
   const editComment = (e) => {
     e.preventDefault();
-    // dispatch();
     convertEditMode();
   };
 
@@ -81,6 +79,7 @@ function Mypage(props) {
       dispatch(myInfo.editMyProfileDB({ newNickName, file }));
       dispatch(myInfo.setPreview(""));
     }
+    dispatch(myInfo.getMyInfoDB());
     convertEditMode();
   };
 
@@ -91,12 +90,8 @@ function Mypage(props) {
           <UserImg>
             {editMode ? (
               <>
-                <label htmlFor="ex_file">
-                  <img
-                    src={preview ? preview : myInfoList.profileImage}
-                    alt=""
-                  />
-                </label>
+                <img src={preview ? preview : myInfoList.profileImage} alt="" />
+                <label htmlFor="ex_file">프로필 사진 수정</label>
                 <input
                   ref={fileInput}
                   onChange={selectFile}

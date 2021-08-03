@@ -1,31 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { actionCreators as myInfo } from "../redux/modules/mypage";
+import { actionCreators as myInfo } from "../../redux/modules/mypage";
 import { changeForm } from "./ChallengesInProgress";
 
-function CompletedChallenge() {
+function UpcomingChallenge(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(myInfo.getEndDB());
+    dispatch(myInfo.getProceedDB());
   }, []);
+
+  const my_info = useSelector((state) => state.mypage.myInfo);
 
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.challengeList
   );
 
-  const my_info = useSelector((state) => state.mypage.myInfo);
-
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]
   );
-  const end = myChallengeList?.map(
-    (list) => list.challengeEndDate.split("T")[0]
-  );
 
   const { _month: start_month, _date: start_date } = changeForm(start);
-  const { _month: end_month, _date: end_date } = changeForm(end);
 
   return (
     <>
@@ -39,11 +35,9 @@ function CompletedChallenge() {
               <div>
                 <div>
                   <span>
-                    {start_month[idx]}월 {start_date[idx]}일 부터{" "}
-                    {end_month[idx]}월 {end_date[idx]}
-                    일까지 열심히 달성했어요!
+                    {" "}
+                    {start_month[idx]}월 {start_date[idx]}일 부터 시작합니다!
                   </span>
-                  <span>완료!</span>
                 </div>
                 <div>
                   <span>{list.challengeTitle}</span>
@@ -90,4 +84,4 @@ const ChallengeImg = styled.div`
   }
 `;
 
-export default CompletedChallenge;
+export default UpcomingChallenge;

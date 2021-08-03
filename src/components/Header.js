@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MainCreators as searchActions } from "../redux/modules/main";
 
-import levelData from "../level";
+import levelData from "../shared/level";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
@@ -83,9 +83,9 @@ export default Header;
 
 const HeaderBox = styled.div`
   height: 4em;
-  width: 100%;
+  width: 56em;
   top: 0;
-  position: fixed;
+  position: absolute;
   background-color: #c4c4c4;
 `;
 

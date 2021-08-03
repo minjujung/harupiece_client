@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import InfinityScroll from "../shared/InfinityScroll";
-import PostList from "../components/PostList";
-import ConditionBtn from "../components/ConditionBtn";
+import PostList from "../components/challengedetail/PostList";
+import ConditionBtn from "../components/challengedetail/ConditionBtn";
 
-import { consoleLogger } from "../redux/configureStore";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";

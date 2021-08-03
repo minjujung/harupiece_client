@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
+import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";

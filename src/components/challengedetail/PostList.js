@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
-import { consoleLogger } from "../redux/configureStore";
 import PostEdit from "./PostEdit";
 
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as imageActions } from "../redux/modules/image";
-import { actionCreator as postActions } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
+import { actionCreator as imageActions } from "../../redux/modules/image";
+import { actionCreator as postActions } from "../../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();

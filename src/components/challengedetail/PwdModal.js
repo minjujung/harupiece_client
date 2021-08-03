@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import { consoleLogger, history } from "../redux/configureStore";
+import { history } from "../../redux/configureStore";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
+import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 
 const PwdModal = (props) => {
   const { challengeTitle, challengePassword, challengeId, challengeMember } =

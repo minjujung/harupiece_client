@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { actionCreators as passwordActions } from "../redux/modules/mypage";
+import { actionCreators as passwordActions } from "../../redux/modules/mypage";
 
 function MyPassword() {
   const dispatch = useDispatch();

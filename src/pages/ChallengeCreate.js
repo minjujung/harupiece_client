@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import CreateImgSelect from "../components/CreateImgSelect";
-import CreateCertification from "../components/CreateCertification";
-import CreateCalendar from "../components/CreateCalendar";
+import CreateImgSelect from "../components/challenge/CreateImgSelect";
+import CreateCertification from "../components/challenge/CreateCertification";
+import CreateCalendar from "../components/challenge/CreateCalendar";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";

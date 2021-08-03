@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/challengeCreate";
+import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
