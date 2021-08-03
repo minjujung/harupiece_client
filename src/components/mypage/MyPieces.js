@@ -28,6 +28,7 @@ function MyPieces(props) {
 
   const levelDataIdx = parseInt((userLevel - 1) / 5);
 
+  // 사용자의 level에 맞게 구슬 보여주기 위한 함수
   const levelArray = Array.from({ length: levelDivided5 }, (item, idx) => {
     return idx;
   });
