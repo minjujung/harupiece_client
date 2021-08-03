@@ -16,7 +16,10 @@ const Category = (props) => {
       <Contain>
         {getCookie("token")
           ? main_list.usermain.exercise?.map((l, idx) => (
-              <div onClick={() => history.push(`/challenge/${l.challengeId}`)}>
+              <div
+                key={l.challengeId}
+                onClick={() => history.push(`/challenge/${l.challengeId}`)}
+              >
                 배경이미지 : {l.challengeImgUrl}
                 챌린지 이름 : {l.challengeTitle}
                 참여 인원 : {l.challengeMember.length}
@@ -24,7 +27,10 @@ const Category = (props) => {
               </div>
             ))
           : main_list.guestmain.exercise?.map((l, idx) => (
-              <div onClick={() => history.push(`/challenge/${l.challengeId}`)}>
+              <div
+                key={l.challengeId}
+                onClick={() => history.push(`/challenge/${l.challengeId}`)}
+              >
                 배경이미지 : {l.challengeImgUrl}
                 챌린지 이름 : {l.challengeTitle}
                 참여 인원 : {l.challengeMember.length}

@@ -3,6 +3,7 @@ import produce from "immer";
 import { MypageApis } from "../../shared/api";
 import AWS from "aws-sdk";
 import { userCreators } from "./user";
+import { consoleLogger } from "../configureStore";
 
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
@@ -24,7 +25,7 @@ const initialState = {
 
 const getMyInfoDB = () => {
   return function (dispatch, getState, { history }) {
-    MypageApis.GetMyInfo()
+    MypageApis.getMyInfo()
       .then((res) => dispatch(getInfo(res.data)))
       .catch((error) => {
         if (window.confirm("사용자 정보를 받아올수없습니다.")) {
@@ -39,7 +40,7 @@ const getMyInfoDB = () => {
 
 const getProceedDB = () => {
   return function (dispatch, getState, { history }) {
-    MypageApis.GetProceed()
+    MypageApis.getProceed()
       .then((res) => dispatch(getInfo(res.data)))
       .catch((error) => {
         if (window.confirm("사용자 정보를 받아올수없습니다.")) {
@@ -54,7 +55,7 @@ const getProceedDB = () => {
 
 const getEndDB = () => {
   return function (dispatch, getState, { history }) {
-    MypageApis.GetEnd()
+    MypageApis.getEnd()
       .then((res) => dispatch(getInfo(res.data)))
       .catch((error) => {
         if (window.confirm("사용자 정보를 받아올수없습니다.")) {
@@ -68,7 +69,21 @@ const getEndDB = () => {
 };
 
 const getPointDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    MypageApis.getPoint()
+      .then((res) => {
+        consoleLogger("point history 요청 후 응답", res);
+        dispatch(getInfo(res.data));
+      })
+      .catch((error) => {
+        if (window.confirm("포인트 정보를 찾을수가 없어요ㅜㅜ")) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
+        console.log(error);
+      });
+  };
 };
 
 const editMyProfileDB = (content) => {
@@ -82,7 +97,7 @@ const editMyProfileDB = (content) => {
     };
 
     if (content.file === myProfileImg) {
-      MypageApis.EditProfile(proFile)
+      MypageApis.editProfile(proFile)
         .then((res) => {
           console.log("글 내용만 수정하고 server에 전송후 응답: ", res);
           const new_post = {
@@ -175,7 +190,7 @@ const changePasswordDB = (password) => {
       newPassword: password.newPassword,
       newPasswordCheck: password.newPasswordConfirm,
     };
-    MypageApis.ChangePassword(passwordList)
+    MypageApis.changePassword(passwordList)
       .then((res) => console.log(res))
       .catch((error) => {
         if (window.confirm("test")) {
@@ -215,6 +230,7 @@ const actionCreators = {
   setPreview,
   getProceedDB,
   getEndDB,
+  getPointDB,
 };
 
 export { actionCreators };

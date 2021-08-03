@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import levelData from "../../shared/level";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
 function MyPieces(props) {
-  const { memberLevel, point, pointHistoryList } = props;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(myInfo.getPointDB());
+  }, []);
+
   const user_info = useSelector((state) => state.user.userInfo);
+  const point_history = useSelector(
+    (state) => state.mypage.myInfo.pointHistoryList
+  );
+
+  console.log(point_history);
 
   const userLevel = user_info.memberLevel;
   const levelDivided5 = parseInt((userLevel - 1) / 5) + 1;
@@ -62,17 +73,18 @@ function MyPieces(props) {
       </section>
       <section>
         <h4>조각 모음 일지</h4>
-        {pointHistoryList.map((history) => (
-          <div key={history.pointHistoryId}>
-            <p>
-              <strong>{history.challengeTitle}</strong> 챌린지에서 조각을
-              획득했어요!
-            </p>
-            <p>
-              획득한 조각 <strong>{history.point}</strong>개!
-            </p>
-          </div>
-        ))}
+        {point_history &&
+          point_history.map((history) => (
+            <div key={history.pointHistoryId}>
+              <p>
+                <strong>{history.challengeTitle}</strong> 챌린지에서 조각을
+                획득했어요!
+              </p>
+              <p>
+                획득한 조각 <strong>{history.point}</strong>개!
+              </p>
+            </div>
+          ))}
       </section>
     </>
   );
