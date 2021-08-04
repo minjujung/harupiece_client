@@ -27,49 +27,6 @@ const addRefreshSubscriber = (callback) => {
   refreshSubscribers.push(callback);
 };
 
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   async (error) => {
-//     const {
-//       config,
-//       response: { status },
-//     } = error;
-//     if (status === 401) {
-//       if (error.response.data.error === "Unauthorized") {
-//         const originalRequest = config;
-//         const refresh_token = getCookie("refreshToken");
-//         const token = getCookie("token");
-//         await instance
-//           .post(`api/member/reissue`, {
-//             accessToken: token,
-//             refreshToken: refresh_token,
-//           })
-//           .then((res) => {
-//             console.log(res);
-//             const accessCookie = {
-//               name: "token",
-//               value: res.data.accessToken,
-//             };
-//             const refreshCookie = {
-//               name: "refreshToken",
-//               value: res.data.refreshToken,
-//             };
-//             multiCookie(accessCookie, refreshCookie);
-//             instance.defaults.headers.common[
-//               "Authorization"
-//             ] = `Bearer ${accessCookie.value}`;
-//             originalRequest.headers.common[
-//               "Authorization"
-//             ] = `Bearer ${accessCookie.value}`;
-//             return instance(originalRequest);
-//           });
-//       }
-//     }
-//   }
-// );
-
 instance.interceptors.response.use(
   (response) => {
     return response;
@@ -121,15 +78,15 @@ instance.interceptors.response.use(
 
 // 유저 정보
 export const UserApis = {
-  login: (email, pw) =>
-    instance.post("api/member/login", { email: email, password: pw }),
-  signup: (email, nick, pw, pwc, profileImg) =>
+  login: (email, password) =>
+    instance.post("api/member/login", { email, password }),
+  signup: (email, nickname, password, passwordConfirm, profileImg) =>
     instance.post("api/member/signup", {
-      email: email,
-      nickname: nick,
-      password: pw,
-      passwordConfirm: pwc,
-      profileImg: profileImg,
+      email,
+      nickname,
+      password,
+      passwordConfirm,
+      profileImg,
     }),
   reload: () => instance.get("api/member/reload"),
 };
