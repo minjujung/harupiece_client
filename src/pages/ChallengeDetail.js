@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+import { RadioButtonUnchecked, NotInterested } from "@material-ui/icons";
+
 import InfinityScroll from "../shared/InfinityScroll";
 import PostList from "../components/challengedetail/PostList";
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
+import { Image, Tag } from "../elements/index";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
+import StateBox from "../components/challengedetail/StateBox";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -87,33 +91,44 @@ const ChallengeDetail = (props) => {
     status = "진행 종료";
   }
 
+  //카테고리 이름 한글로 변경
+  let category = "";
+  if (challenge.categoryName === "EXERCISE") {
+    category = "운동";
+  } else if (challenge.categoryName === "NODRINKNOSMOKE") {
+    category = "금연 / 금주";
+  } else {
+    category = "생활습관";
+  }
+
   //navbar 지금 클릭되어 있는 거 확인할 수 있는 hash
   const {
     location: { hash },
   } = props;
 
-  console.log(props);
-
   return (
     <>
       <ChallengeHeader>
-        <Banner bgImg={challenge.challengeImgUrl}>
-          <Title>{challenge.challengeTitle}</Title>
-          <TotalNum>
-            참여 {challenge.challengeMember.length}명 | 진행률{" "}
-            {parseInt(progressDays / totalDay) * 100} %
-          </TotalNum>
-        </Banner>
-        <NavBar>
-          <ul>
-            <Item selected={hash === "#intro"}>
-              <a href="#intro">챌린지 소개</a>
-            </Item>
-            <Item selected={hash === "#shot_list"}>
-              <a href="#shot_list">인증목록</a>
-            </Item>
-          </ul>
-        </NavBar>
+        <StateContainer>
+          <Banner bgImg={challenge.challengeImgUrl}>
+            <Title>{challenge.challengeTitle}</Title>
+            <TotalNum>
+              참여 {challenge.challengeMember.length}명 | 진행률{" "}
+              {parseInt(progressDays / totalDay) * 100} %
+            </TotalNum>
+          </Banner>
+          <NavBar>
+            <ul>
+              <Item selected={hash === "#intro" || hash === ""}>
+                <a href="#intro">챌린지 소개</a>
+              </Item>
+              <Item selected={hash === "#shot_list"}>
+                <a href="#shot_list">인증목록</a>
+              </Item>
+            </ul>
+          </NavBar>
+        </StateContainer>
+        <StateBox />
         {/* <button onClick={() => history.push("/")}>홈으로 가기</button>
         <button onClick={adminDelete}>관리자 권한 삭제</button> */}
         {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
@@ -127,85 +142,128 @@ const ChallengeDetail = (props) => {
           </>
         ) : null} */}
       </ChallengeHeader>
-      <div style={{ height: "30.875em" }}></div>
-      <div style={{ position: "relative" }}>
+      <div style={{ height: "40.55vh" }}></div>
+      <div
+        style={{
+          position: "relative",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <span
           id="intro"
-          style={{ position: "absolute", left: "0", top: "-30.875em" }}
+          style={{ position: "absolute", left: "0", top: "-50vh" }}
         >
           &nbsp;
         </span>
-        <h3
-          style={{
-            position: "absolute",
-            left: "0",
-            top: "0",
-            margin: "0",
-          }}
-        >
-          챌린지 소개
-        </h3>
+
+        <SectionTitle> 챌린지 소개</SectionTitle>
       </div>
-      <section style={{ paddingTop: "1em", boxSizing: "border-box" }}>
-        <p>{challenge.challengePassword === "" ? "공개" : "비공개"}</p>
-        <p>카테고리: {challenge.categoryName}</p>
-        <p>
-          인증기간: {challenge.challengeStartDate.split("T")[0]} ~{" "}
-          {challenge.challengeEndDate.split("T")[0]}
-        </p>
-        <p>
-          {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"}
-        </p>
-        <p>개시자: {challenge.memberName}</p>
-        <p>{status}</p>
-        <p>챌린지 설명: {challenge.challengeContent}</p>
-        <article>
-          <p>좋은 예시</p>
-          <img src={challenge.challengeGood} alt="vegan_diet" />
-        </article>
-        <article>
-          <p>나쁜 예시</p>
-          <img src={challenge.challengeBad} alt="nonvegan_diet" />
-        </article>
-      </section>
-      <div style={{ position: "relative" }}>
+      <ChallengeInfo>
+        <Section>
+          <h3>기본정보</h3>
+          <Info>
+            <span>카테고리</span>
+            {category}
+          </Info>
+          <Info>
+            <span>인증기간</span>
+            {challenge.challengeStartDate.split("T")[0]} ~{" "}
+            {challenge.challengeEndDate.split("T")[0]} (
+            {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"})
+          </Info>
+          <Info>
+            <span>모집방식</span>
+            {challenge.challengePassword === "" ? "공개" : "비공개"}
+          </Info>
+          {/* <p>개시자: {challenge.memberName}</p> */}
+          {/* <p>{status}</p> */}
+          <Info>
+            <span>진행상태</span>
+            {status}
+          </Info>
+          <Example>
+            <span>인증샷예시</span>
+            <div>
+              <Image
+                width="10em"
+                height="10em"
+                borderRadius="16px"
+                border
+                src={challenge.challengeGood}
+                alt="vegan_diet"
+              />
+              <ExTitle good>
+                <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
+                인증샷
+              </ExTitle>
+            </div>
+            <div>
+              <Image
+                width="10em"
+                height="10em"
+                borderRadius="16px"
+                border
+                src={challenge.challengeBad}
+                alt="nonvegan_diet"
+              />
+              <ExTitle>
+                <NotInterested style={{ marginRight: "8px" }} />
+                나쁜 인증샷
+              </ExTitle>
+            </div>
+          </Example>
+          <h3>소개글</h3>
+          <Desc>{challenge.challengeContent}</Desc>
+          <TagFrame>
+            <Tag bg="mainGreen" color="white">
+              #2주
+            </Tag>
+            <Tag bg="mainGreen" color="white">
+              #인기챌린지
+            </Tag>
+          </TagFrame>
+        </Section>
+      </ChallengeInfo>
+      <div
+        style={{
+          position: "relative",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <span
           id="shot_list"
-          style={{ position: "absolute", left: "0", top: "-30.875em" }}
+          style={{ position: "absolute", left: "0", top: "-50vh" }}
         >
           &nbsp;
         </span>
-        <h3
-          style={{
-            position: "absolute",
-            left: "0",
-            top: "0",
-            margin: "0",
-          }}
-        >
-          인증 목록
-        </h3>
+        <SectionTitle list>인증 목록</SectionTitle>
       </div>
-      <section style={{ paddingTop: "2em", boxSizing: "border-box" }}>
-        <InfinityScroll
-          callNext={() => {
-            dispatch(postActions.getPostDB(challengeId, paging.next));
-          }}
-          is_next={paging.next ? true : false}
-          loading={is_loading}
-        >
-          <PostList
-            list={list}
-            challengeStatus={challenge.challengeProgress}
-            challengeId={challenge.challengeId}
-            totalNumber={challenge.challengeMember.length}
-            totalDay={totalDay}
-          />
-        </InfinityScroll>
-        <div>
-          <ConditionBtn {...challenge} />
-        </div>
-      </section>
+      <ChallengeInfo list>
+        <Section>
+          <InfinityScroll
+            callNext={() => {
+              dispatch(postActions.getPostDB(challengeId, paging.next));
+            }}
+            is_next={paging.next ? true : false}
+            loading={is_loading}
+          >
+            <PostList
+              list={list}
+              challengeStatus={challenge.challengeProgress}
+              challengeId={challenge.challengeId}
+              totalNumber={challenge.challengeMember.length}
+              totalDay={totalDay}
+            />
+          </InfinityScroll>
+          <div>
+            <ConditionBtn {...challenge} />
+          </div>
+        </Section>
+      </ChallengeInfo>
     </>
   );
 };
@@ -213,18 +271,28 @@ const ChallengeDetail = (props) => {
 export default ChallengeDetail;
 
 const ChallengeHeader = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 40.55vh;
+  justify-content: center;
   position: fixed;
   z-index: 10;
-  top: 4em;
-  padding-top: 3em;
+  padding-top: 5.37vh;
   background-color: ${({ theme }) => theme.colors.white};
+`;
+
+const StateContainer = styled.div`
+  width: 49.48vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Banner = styled.div`
   background-image: url(${(props) => props.bgImg});
   background-position: center;
-  width: 59.38em;
-  height: 18.75em;
+  width: 100%;
+  height: 28.7vh;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -236,7 +304,7 @@ const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
-  padding: 0.7em;
+  margin-bottom: 2.5%;
 `;
 
 const TotalNum = styled.h3`
@@ -246,11 +314,12 @@ const TotalNum = styled.h3`
 `;
 
 const NavBar = styled.nav`
-  width: 59.38em;
-  height: 5em;
+  width: 100%;
+  height: 7.4vh;
   display: flex;
   align-items: center;
   ul {
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -264,10 +333,81 @@ const Item = styled.li`
   align-items: center;
   justify-content: center;
   margin-right: 5em;
-  font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.md};
   ${(props) =>
     props.selected
       ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
       : null}
+`;
+
+const ChallengeInfo = styled.section`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: ${(props) => (props.list ? "20%" : "0")};
+`;
+
+const SectionTitle = styled.h3`
+  position: absolute;
+  top: 0;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-weight: bold;
+  width: 66.67vw;
+  text-align: left;
+  padding-top: ${(props) => (props.list ? "0" : "2.4%")};
+`;
+
+const Section = styled.section`
+  width: 66.67vw;
+  padding-top: 5%;
+  h3 {
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    font-weight: bold;
+    margin: 1.2em 0;
+  }
+`;
+
+const Info = styled.p`
+  margin-bottom: 0.8em;
+  span {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    color: ${({ theme }) => theme.colors.gray};
+    margin-right: 2em;
+    font-weight: bold;
+  }
+`;
+
+const Example = styled.article`
+  display: flex;
+
+  span {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    color: ${({ theme }) => theme.colors.gray};
+    margin-right: 2em;
+    font-weight: bold;
+  }
+  div {
+    margin-right: 2em;
+  }
+`;
+
+const ExTitle = styled.h4`
+  height: 2em;
+  display: flex;
+  align-items: center;
+  color: ${(props) =>
+    props.good ? props.theme.colors.mainGreen : props.theme.colors.mainOrange};
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+`;
+
+const Desc = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  margin-bottom: 1.2em;
+`;
+
+const TagFrame = styled.div`
+  display: flex;
+  margin-bottom: 80px;
 `;

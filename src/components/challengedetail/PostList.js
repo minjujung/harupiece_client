@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
 import PostEdit from "./PostEdit";
+import { Image } from "../../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
@@ -63,7 +64,10 @@ const PostList = (props) => {
     <>
       {list.map((l, idx) => (
         <article key={l.postingId}>
-          <img
+          <Image
+            width="19em"
+            height="19em"
+            borderRadius="12px"
             src={l.postingImg}
             onClick={() => handleClickOpen(l.postingId)}
             alt="vegan_post"

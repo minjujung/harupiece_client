@@ -9,7 +9,8 @@ ${reset};
 }
 
 body {
-    padding: 70px 20em 50px 20em;
+    padding: 70px 0px 50px 0px;
+ 
 }
 
 a {
