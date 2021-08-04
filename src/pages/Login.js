@@ -15,7 +15,7 @@ const Login = (props) => {
       <Header />
       <Container>
         <LoginC0>
-          <h1>SignUp</h1>
+          <h1>Login</h1>
         </LoginC0>
         <Formik
           initialValues = {{
