@@ -11,6 +11,7 @@ const colors = {
   mainOrange: "#FF4532",
   white: "#FFFFFF",
   lightGray: "#EFEFEF",
+  gray: "#A9A9A9",
   darkGray: "#606060",
   black: "#222222",
 };
@@ -23,6 +24,7 @@ const fontSizes = {
   xl: "40px",
   lg: "28px",
   md: "22px",
+  ms: "18px",
   sm: "16px",
   xs: "14px",
 };
