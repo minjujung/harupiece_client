@@ -11,44 +11,99 @@ import { useSelector } from "react-redux";
 
 const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
-  const levelState = parseInt((user_info.userLevel - 1) / 5);
+  // const levelState = parseInt((user_info.userLevel - 1) / 5);
 
-  return (
-    <StateContainer>
-      <UserStatus>
-        {user_info.nickname}은<br />
-        4개의 챌린지 진행중!
-      </UserStatus>
-      <UserLevel>
-        <LevelInfo>
-          <p>
-            <Image width="1.5em" height="1.5em" src={level} alt="level" />
-            등급: {levelData[levelState] && levelData[levelState].name}
-          </p>
-          <Image
-            width="7.5em"
-            height="7.5em"
-            borderRadius="50%"
-            src={levelData[levelState] && levelData[levelState].img}
-            alt="level_image"
-          />
-        </LevelInfo>
-        <section>
-          <p>
-            <Image width="1.5em" height="1.5em" src={completed} alt="level" />
-            완료: 4개
-          </p>
-          <Image
-            width="1.89em"
-            height="2.5em"
-            borderRadius="50%"
-            src={product_icon}
-            alt="level_image"
-          />
-        </section>
-      </UserLevel>
-    </StateContainer>
-  );
+  if (user_info.memberId === null) {
+    return (
+      <StateContainer>
+        <UserStatus>
+          <Strong>
+            로그인 해서
+            <br />
+            나에게 맞는 챌린지를
+            <br />
+            찾아보세요.
+          </Strong>
+        </UserStatus>
+        <Image
+          width="6.25vw"
+          height="60%"
+          borderRadius="50%"
+          margin="0 auto"
+          src={levelData[0].img}
+          alt="level_image"
+        />
+      </StateContainer>
+    );
+  } else if (user_info.memberId !== null && user_info.challengeCount > 0) {
+    return (
+      <StateContainer>
+        <UserStatus goodUser>
+          <Strong>{user_info.nickname}</Strong>은<br />
+          {user_info.challengeCount}의 챌린지 진행중!
+        </UserStatus>
+        <UserLevel>
+          <LevelInfo>
+            <p>
+              <Image
+                width="1.5em"
+                height="1.5em"
+                margin="2%"
+                src={level}
+                alt="level"
+              />
+              {/* 등급: {levelData[levelState] && levelData[levelState].name} */}
+              등급: {levelData[1] && levelData[1].name.split(" ")[0]}
+            </p>
+            <Image
+              width="6.25vw"
+              height="60%"
+              borderRadius="50%"
+              src={levelData[1].img}
+              alt="level_image"
+            />
+          </LevelInfo>
+
+          <Completed>
+            <p>
+              <Image
+                width="1.5em"
+                height="1.5em"
+                margin="3%"
+                src={completed}
+                alt="level"
+              />
+              완료: 4개
+            </p>
+            <Image
+              width="1.57vw"
+              height="60%"
+              borderRadius="50%"
+              src={product_icon}
+              alt="level_image"
+            />
+          </Completed>
+        </UserLevel>
+      </StateContainer>
+    );
+  } else {
+    return (
+      <StateContainer>
+        <UserStatus>
+          <Strong>{user_info.nickname}</Strong>은<br />
+          새로운 챌린지를 찾는 중!
+        </UserStatus>
+        <Image
+          width="6.25vw"
+          height="60%"
+          borderRadius="50%"
+          margin="0 auto"
+          src={levelData[0].img}
+          alt="level_image"
+        />
+      </StateContainer>
+    );
+  }
 };
 
 export default StateBox;
@@ -56,21 +111,56 @@ export default StateBox;
 const StateContainer = styled.div`
   width: 16.15vw;
   height: 28.7vh;
+  display: flex;
+  flex-direction: column;
   border: 2px solid ${({ theme }) => theme.colors.lightGray};
   border-radius: 10px;
-  margin-left: 1%;
+  position: fixed;
 `;
 
 const UserStatus = styled.p`
-  padding: 1em;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.lightGray};
+  padding: 7%;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  ${(props) =>
+    props.goodUser
+      ? `border-bottom: 2px solid ${props.theme.colors.lightGray};`
+      : null};
+`;
+
+const Strong = styled.strong`
+  font-weight: bold;
 `;
 
 const UserLevel = styled.div`
-  height: 100%;
+  height: 90%;
   display: flex;
 `;
 
 const LevelInfo = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+  padding: 7%;
   border-right: 2px solid ${({ theme }) => theme.colors.lightGray};
+  color: 2px solid ${({ theme }) => theme.colors.darkGray};
+  p {
+    display: flex;
+    height: 15%;
+    align-items: center;
+  }
+`;
+
+const Completed = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+  color: 2px solid ${({ theme }) => theme.colors.darkGray};
+  padding: 7%;
+  p {
+    display: flex;
+    height: 15%;
+    align-items: center;
+  }
 `;

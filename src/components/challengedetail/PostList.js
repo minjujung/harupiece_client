@@ -63,7 +63,7 @@ const PostList = (props) => {
   return (
     <>
       {list.map((l, idx) => (
-        <article key={l.postingId}>
+        <ImageList key={l.postingId}>
           <Image
             width="19em"
             height="19em"
@@ -72,7 +72,7 @@ const PostList = (props) => {
             onClick={() => handleClickOpen(l.postingId)}
             alt="vegan_post"
           />
-        </article>
+        </ImageList>
       ))}
 
       <Dialog
@@ -135,6 +135,10 @@ const PostList = (props) => {
 };
 
 export default PostList;
+
+const ImageList = styled.article`
+  /* display: flex; */
+`;
 
 const Profile = styled.img`
   width: 1em;

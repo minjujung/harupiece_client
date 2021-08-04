@@ -5,6 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
 import { actionCreator as postActions } from "../../redux/modules/post";
+import Button from "../../elements/Button";
 
 const PostWrite = ({ challengeId }) => {
   const dispatch = useDispatch();
@@ -58,7 +59,17 @@ const PostWrite = ({ challengeId }) => {
 
   return (
     <>
-      <button onClick={handleClickOpen}>인증샷 올리기</button>
+      <Button
+        width="16.15vw"
+        bg="mainGreen"
+        color="white"
+        padding="21px 64px"
+        border="lightGray"
+        margin="0 0 20px 0"
+        _onClick={handleClickOpen}
+      >
+        인증 하기
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}

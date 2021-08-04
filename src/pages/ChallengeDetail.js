@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { RadioButtonUnchecked, NotInterested } from "@material-ui/icons";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
 import StateBox from "../components/challengedetail/StateBox";
+import Button from "../elements/Button";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -106,10 +107,17 @@ const ChallengeDetail = (props) => {
     location: { hash },
   } = props;
 
+  // 스크롤 함수
+  const info = useRef(null);
+  const shotList = useRef(null);
+
+  const scrollToInfo = () => info.current.scrollIntoView();
+  const scrollToList = () => shotList.current.scrollIntoView();
+
   return (
-    <>
-      <ChallengeHeader>
-        <StateContainer>
+    <Area>
+      <StateContainer>
+        <ChallengeHeader>
           <Banner bgImg={challenge.challengeImgUrl}>
             <Title>{challenge.challengeTitle}</Title>
             <TotalNum>
@@ -119,160 +127,197 @@ const ChallengeDetail = (props) => {
           </Banner>
           <NavBar>
             <ul>
-              <Item selected={hash === "#intro" || hash === ""}>
+              <Item
+                selected={hash === "#intro" || hash === ""}
+                onClick={scrollToInfo}
+              >
                 <a href="#intro">챌린지 소개</a>
               </Item>
-              <Item selected={hash === "#shot_list"}>
+              <Item selected={hash === "#shot_list"} onClick={scrollToList}>
                 <a href="#shot_list">인증목록</a>
               </Item>
             </ul>
           </NavBar>
-        </StateContainer>
-        <StateBox />
-        {/* <button onClick={() => history.push("/")}>홈으로 가기</button>
-        <button onClick={adminDelete}>관리자 권한 삭제</button> */}
-        {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
-        {/* {user_info?.memberId === challenge.memberId &&
-        today < challenge.challengeStartDate.split("T")[0] ? (
-          <>
-            <button onClick={editChallenge}>챌린지 수정하기</button>
-            <button onClick={deleteChallenge}>
-              챌린지 없애기(챌린지 개설한 사용자)
-            </button>
-          </>
-        ) : null} */}
-      </ChallengeHeader>
-      <div style={{ height: "40.55vh" }}></div>
-      <div
-        style={{
-          position: "relative",
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <span
-          id="intro"
-          style={{ position: "absolute", left: "0", top: "-50vh" }}
-        >
-          &nbsp;
-        </span>
+        </ChallengeHeader>
 
-        <SectionTitle> 챌린지 소개</SectionTitle>
-      </div>
-      <ChallengeInfo>
-        <Section>
-          <h3>기본정보</h3>
-          <Info>
-            <span>카테고리</span>
-            {category}
-          </Info>
-          <Info>
-            <span>인증기간</span>
-            {challenge.challengeStartDate.split("T")[0]} ~{" "}
-            {challenge.challengeEndDate.split("T")[0]} (
-            {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"})
-          </Info>
-          <Info>
-            <span>모집방식</span>
-            {challenge.challengePassword === "" ? "공개" : "비공개"}
-          </Info>
-          {/* <p>개시자: {challenge.memberName}</p> */}
-          {/* <p>{status}</p> */}
-          <Info>
-            <span>진행상태</span>
-            {status}
-          </Info>
-          <Example>
-            <span>인증샷예시</span>
-            <div>
-              <Image
-                width="10em"
-                height="10em"
-                borderRadius="16px"
-                border
-                src={challenge.challengeGood}
-                alt="vegan_diet"
-              />
-              <ExTitle good>
-                <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
-                인증샷
-              </ExTitle>
-            </div>
-            <div>
-              <Image
-                width="10em"
-                height="10em"
-                borderRadius="16px"
-                border
-                src={challenge.challengeBad}
-                alt="nonvegan_diet"
-              />
-              <ExTitle>
-                <NotInterested style={{ marginRight: "8px" }} />
-                나쁜 인증샷
-              </ExTitle>
-            </div>
-          </Example>
-          <h3>소개글</h3>
-          <Desc>{challenge.challengeContent}</Desc>
-          <TagFrame>
-            <Tag bg="mainGreen" color="white">
-              #2주
-            </Tag>
-            <Tag bg="mainGreen" color="white">
-              #인기챌린지
-            </Tag>
-          </TagFrame>
-        </Section>
-      </ChallengeInfo>
-      <div
-        style={{
-          position: "relative",
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <span
-          id="shot_list"
-          style={{ position: "absolute", left: "0", top: "-50vh" }}
-        >
-          &nbsp;
-        </span>
-        <SectionTitle list>인증 목록</SectionTitle>
-      </div>
-      <ChallengeInfo list>
-        <Section>
-          <InfinityScroll
-            callNext={() => {
-              dispatch(postActions.getPostDB(challengeId, paging.next));
+        <ChallengeDesc>
+          <div
+            style={{
+              height: "40.55vh",
+              width: "60vw",
+              backgroundColor: "white",
             }}
-            is_next={paging.next ? true : false}
-            loading={is_loading}
+          ></div>
+          <div
+            style={{
+              position: "relative",
+              width: "100vw",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <PostList
-              list={list}
-              challengeStatus={challenge.challengeProgress}
-              challengeId={challenge.challengeId}
-              totalNumber={challenge.challengeMember.length}
-              totalDay={totalDay}
-            />
-          </InfinityScroll>
+            <span
+              id="intro"
+              style={{ position: "absolute", left: "0", top: "-50vh" }}
+            >
+              &nbsp;
+            </span>
+
+            <SectionTitle ref={info}> 챌린지 소개</SectionTitle>
+          </div>
+          <Section>
+            <h3>기본정보</h3>
+            <Info>
+              <span>카테고리</span>
+              {category}
+            </Info>
+            <Info>
+              <span>인증기간</span>
+              {challenge.challengeStartDate.split("T")[0]} ~{" "}
+              {challenge.challengeEndDate.split("T")[0]} (
+              {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"}
+              )
+            </Info>
+            <Info>
+              <span>모집방식</span>
+              {challenge.challengePassword === "" ? "공개" : "비공개"}
+            </Info>
+            {/* <p>개시자: {challenge.memberName}</p> */}
+            {/* <p>{status}</p> */}
+            <Info>
+              <span>진행상태</span>
+              {status}
+            </Info>
+            <Example>
+              <span>인증샷예시</span>
+              <div>
+                <Image
+                  width="10em"
+                  height="10em"
+                  borderRadius="16px"
+                  border
+                  src={challenge.challengeGood}
+                  alt="vegan_diet"
+                />
+                <ExTitle good>
+                  <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
+                  인증샷
+                </ExTitle>
+              </div>
+              <div>
+                <Image
+                  width="10em"
+                  height="10em"
+                  borderRadius="16px"
+                  border
+                  src={challenge.challengeBad}
+                  alt="nonvegan_diet"
+                />
+                <ExTitle>
+                  <NotInterested style={{ marginRight: "8px" }} />
+                  나쁜 인증샷
+                </ExTitle>
+              </div>
+            </Example>
+            <h3>소개글</h3>
+            <Desc>{challenge.challengeContent}</Desc>
+            <TagFrame>
+              <Tag bg="mainGreen" color="white">
+                #2주
+              </Tag>
+              <Tag bg="mainGreen" color="white">
+                #인기챌린지
+              </Tag>
+            </TagFrame>
+          </Section>
+        </ChallengeDesc>
+        <ChallengeDesc list>
+          <SectionTitle list ref={shotList}>
+            인증 목록
+          </SectionTitle>
+          <Section list>
+            <InfinityScroll
+              callNext={() => {
+                dispatch(postActions.getPostDB(challengeId, paging.next));
+              }}
+              is_next={paging.next ? true : false}
+              loading={is_loading}
+            >
+              <PostList
+                list={list}
+                challengeStatus={challenge.challengeProgress}
+                challengeId={challenge.challengeId}
+                totalNumber={challenge.challengeMember.length}
+                totalDay={totalDay}
+              />
+            </InfinityScroll>
+          </Section>
+        </ChallengeDesc>
+      </StateContainer>
+      <RightNav>
+        <StateBox />
+        <Btns>
+          <Button
+            width="16.15vw"
+            padding="21px 64px"
+            margin="0 0 20px 0"
+            _onClick={adminDelete}
+          >
+            관리자 권한 삭제
+          </Button>
+          {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
+          {user_info?.memberId === challenge.memberId &&
+          today < challenge.challengeStartDate.split("T")[0] ? (
+            <>
+              <Button
+                width="16.15vw"
+                bg="white"
+                color="mainGreen"
+                padding="21px 64px"
+                border="lightGray"
+                margin="0 0 20px 0"
+                _onClick={editChallenge}
+              >
+                챌린지 수정하기
+              </Button>
+              <Button
+                width="16.15vw"
+                padding="21px 64px"
+                margin="0 0 20px 0"
+                _onClick={deleteChallenge}
+              >
+                {/* (챌린지 개설한 사용자) */}
+                챌린지 없애기
+              </Button>
+            </>
+          ) : null}
           <div>
             <ConditionBtn {...challenge} />
           </div>
-        </Section>
-      </ChallengeInfo>
-    </>
+        </Btns>
+      </RightNav>
+    </Area>
   );
 };
 
 export default ChallengeDetail;
 
+const Area = styled.div`
+  display: grid;
+  margin: 0 auto;
+  width: 66.67vw;
+  height: 100vh;
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas:
+    "banner nav"
+    "banner btns";
+  grid-gap: 20px;
+`;
+
 const ChallengeHeader = styled.div`
   display: flex;
-  width: 100vw;
+  flex-direction: column;
+  width: 49.48vw;
   height: 40.55vh;
   justify-content: center;
   position: fixed;
@@ -283,9 +328,25 @@ const ChallengeHeader = styled.div`
 
 const StateContainer = styled.div`
   width: 49.48vw;
+  height: 40.55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  grid-area: banner;
+`;
+
+const Btns = styled.div`
+  padding-top: 5.37vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 37.77vh;
+`;
+
+const RightNav = styled.div`
+  width: 16.15vw;
+  padding-top: 5.47vh;
+  grid-area: nav;
 `;
 
 const Banner = styled.div`
@@ -340,27 +401,25 @@ const Item = styled.li`
       : null}
 `;
 
-const ChallengeInfo = styled.section`
-  width: 100vw;
+const ChallengeDesc = styled.section`
+  width: 49.48vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${(props) => (props.list ? "20%" : "0")};
 `;
 
 const SectionTitle = styled.h3`
-  position: absolute;
-  top: 0;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: bold;
-  width: 66.67vw;
+  width: 49.48vw;
+  height: 10vh;
   text-align: left;
-  padding-top: ${(props) => (props.list ? "0" : "2.4%")};
+  padding-top: 2.4%;
 `;
 
 const Section = styled.section`
-  width: 66.67vw;
-  padding-top: 5%;
+  width: 49.48vw;
+  padding-bottom: ${(props) => (props.list ? "15%" : "0")};
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;

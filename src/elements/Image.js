@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const Image = ({ width, height, borderRadius, border, onClick, src, alt }) => {
-  const styles = { width, height, borderRadius, border };
+const Image = ({
+  width,
+  height,
+  borderRadius,
+  margin,
+  border,
+  onClick,
+  src,
+  alt,
+}) => {
+  const styles = { width, height, borderRadius, border, margin };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
 
@@ -11,6 +20,7 @@ Image.defaultProps = {
   height: false,
   borderRadius: false,
   border: false,
+  margin: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -25,4 +35,5 @@ const ImageFrame = styled.img`
     props.borderRadius ? props.borderRadius : "8px 8px 0px 0px"};
   ${(props) =>
     props.border ? `border: 1px solid ${props.theme.colors.black}` : null}
+  ${(props) => (props.margin ? `margin: ${props.margin}` : null)}
 `;
