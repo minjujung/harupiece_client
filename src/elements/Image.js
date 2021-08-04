@@ -7,11 +7,12 @@ const Image = ({
   borderRadius,
   margin,
   border,
+  fill,
   onClick,
   src,
   alt,
 }) => {
-  const styles = { width, height, borderRadius, border, margin };
+  const styles = { width, height, borderRadius, border, margin, fill };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
 
@@ -34,6 +35,6 @@ const ImageFrame = styled.img`
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "8px 8px 0px 0px"};
   ${(props) =>
-    props.border ? `border: 1px solid ${props.theme.colors.black}` : null}
-  ${(props) => (props.margin ? `margin: ${props.margin}` : null)}
+    props.border ? `border: 1px solid ${props.theme.colors.black};` : null}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : null)};
 `;

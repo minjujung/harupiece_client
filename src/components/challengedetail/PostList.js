@@ -81,6 +81,8 @@ const PostList = (props) => {
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
+            width: "55.21vw",
+            height: "66.66vh",
             padding: "1em",
             borderRadius: "0.6em ",
           },

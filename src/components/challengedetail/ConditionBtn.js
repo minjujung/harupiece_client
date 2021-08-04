@@ -33,30 +33,30 @@ const ConditionBtn = (props) => {
     return;
   }
 
-  if (challengeProgress === 1) {
-    //챌린지 진행 전에 로그인한 유저가 이미 신청되어 있는 경우
-    if (challengeMember.includes(user_info.memberId)) {
-      return (
-        <Button
-          width="16.15vw"
-          bg="white"
-          color="mainGreen"
-          padding="21px 64px"
-          border="lightGray"
-          margin="0 0 20px 0"
-          onClick={giveupChallenge}
-        >
-          챌린지 신청 취소하기
-        </Button>
-      );
-    } else {
-      //챌린지 진행전인데 신청 안된 상태면 공개/비공개 나눠서 신청 받기
-      return <PwdModal challengeMember={challengeMember} {...props} />;
-    }
-  }
-  // 챌린지 진행중에 로그인한 사용자가 신청자 이면 인증샷 올리기 버튼
+  // if (challengeProgress === 1) {
+  //   //챌린지 진행 전에 로그인한 유저가 이미 신청되어 있는 경우
+  //   if (challengeMember.includes(user_info.memberId)) {
+  //     return (
+  //       <Button
+  //         width="16.15vw"
+  //         bg="white"
+  //         color="mainGreen"
+  //         padding="21px 64px"
+  //         border="lightGray"
+  //         margin="0 0 20px 0"
+  //         onClick={giveupChallenge}
+  //       >
+  //         챌린지 신청 취소하기
+  //       </Button>
+  //     );
+  //   } else {
+  //     //챌린지 진행전인데 신청 안된 상태면 공개/비공개 나눠서 신청 받기
+  //     return <PwdModal challengeMember={challengeMember} {...props} />;
+  //   }
+  // }
+  // // 챌린지 진행중에 로그인한 사용자가 신청자 이면 인증샷 올리기 버튼
   else if (
-    challengeProgress === 2 &&
+    // challengeProgress === 2 &&
     challengeMember.includes(user_info.memberId)
   ) {
     return (
