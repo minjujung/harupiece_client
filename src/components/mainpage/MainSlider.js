@@ -8,6 +8,8 @@ import { getCookie } from "../../shared/Cookie";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
+import { Tag } from "../../elements";
+
 const MainSlider = (props) => {
   const main_list = useSelector((state) => state.main);
 
@@ -17,39 +19,71 @@ const MainSlider = (props) => {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Mmg90FMgb9CTBC3ft6h0RPjrdsqeHZ5TWA&usqp=CAU",
   ];
 
+  const properties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: true,
+    prevArrow: (
+      <PrevArrowBox>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+        </svg>
+      </PrevArrowBox>
+    ),
+    nextArrow: (
+      <NextArrowBox>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+        </svg>
+      </NextArrowBox>
+    ),
+  };
+
   return (
     <>
       <Contain>
-        <Slide easing="ease">
+        <Slide easing="ease" {...properties}>
           <div style={{ height: "250px" }} className="each-slide">
-            <div
+            <SliderBox
               style={{
-                height: "250px",
-                backgroundImage: `url(${slideImages[0]})`,
+                background: `url(${slideImages[0]}) no-repeat center center`,
               }}
             >
-              <span>Slide 1</span>
-            </div>
+              <TagBox>
+                <Tag>#2주</Tag>
+                <Tag>#인기챌린지</Tag>
+              </TagBox>
+              <div>주 2회 1만보 걷기</div>
+              <div>10일째 진행중!</div>
+            </SliderBox>
           </div>
           <div className="each-slide">
-            <div
+            <SliderBox
               style={{
-                height: "250px",
-                backgroundImage: `url(${slideImages[1]})`,
+                background: `url(${slideImages[1]}) no-repeat center center`,
               }}
             >
-              <span>Slide 2</span>
-            </div>
+              <TagBox>
+                <Tag>#2주</Tag>
+                <Tag>#인기챌린지</Tag>
+              </TagBox>
+              <div>주 2회 1만보 걷기</div>
+              <div>10일째 진행중!</div>
+            </SliderBox>
           </div>
           <div className="each-slide">
-            <div
+            <SliderBox
               style={{
-                height: "250px",
-                backgroundImage: `url(${slideImages[2]})`,
+                background: `url(${slideImages[2]}) no-repeat center center`,
               }}
             >
-              <span>Slide 3</span>
-            </div>
+              <TagBox>
+                <Tag>#2주</Tag>
+                <Tag>#인기챌린지</Tag>
+              </TagBox>
+              <div>주 2회 1만보 걷기</div>
+              <div>10일째 진행중!</div>
+            </SliderBox>
           </div>
         </Slide>
       </Contain>
@@ -75,4 +109,53 @@ const Contain = styled.div`
     text-align: center;
   }
   margin-bottom: 20px;
+`;
+
+const PrevArrowBox = styled.button`
+  width: 34px;
+  height: 32px;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+  svg {
+    font-size: 12px;
+    width: 14px;
+  }
+`;
+
+const NextArrowBox = styled.button`
+  width: 34px;
+  height: 32px;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+  svg {
+    font-size: 12px;
+    width: 14px;
+  }
+`;
+
+const SliderBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 250px;
+  background-size: cover;
+  padding: 0px 15px;
+  div {
+    font-size: 24px;
+  }
+`;
+
+const TagBox = styled.div`
+  display: flex;
 `;

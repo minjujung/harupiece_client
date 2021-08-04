@@ -5,7 +5,7 @@ import { history } from "../../redux/configureStore";
 import { useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
-import { Card, Tag } from "../../elements";
+import { Tag } from "../../elements";
 
 const Category = (props) => {
   const main_list = useSelector((state) => state.main.usermain.exercise);
@@ -28,9 +28,14 @@ const Category = (props) => {
             main_list.map((l, idx) => {
               return (
                 <>
-                  <div style={{ padding: "20px", fontSize: "12px" }}>
-                    <Card key={idx}></Card>
-                  </div>
+                  <Card style={{ padding: "20px", fontSize: "12px" }}>
+                    <div key={idx}>
+                      <div>
+                        <img src={l.challengeImgUrl} alt="" />
+                      </div>
+                      <div></div>
+                    </div>
+                  </Card>
                 </>
               );
             })}
@@ -48,10 +53,13 @@ const Contain = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 49.48vw;
-  height: 47.59vh;
+  height: 52vh;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.xl};
+  div {
+    padding-bottom: 24px;
+  }
 `;
 
 const CardBox = styled.div`
@@ -60,4 +68,21 @@ const CardBox = styled.div`
 
 const CardBox2 = styled.div`
   display: flex;
+`;
+
+const Card = styled.div`
+  width: 210px;
+  height: 225px;
+  background-color: slategrey;
+  display: flex;
+  margin-right: 10px;
+
+  div {
+    img {
+      border-radius: 10px;
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
+  }
 `;

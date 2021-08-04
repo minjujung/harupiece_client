@@ -7,7 +7,7 @@ function Info() {
       <InfoContainer>
         <InfoBox>
           <div>
-            <span style={{ fontWeight: "bold" }}>홍길동</span>님은
+            <span style={{ fontWeight: "bold" }}>홍길동님은</span>
           </div>
           <div>4개의 챌린지를 진행중!</div>
         </InfoBox>
