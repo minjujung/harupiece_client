@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 function Input(props) {
   const {
+    width,
     label,
     placeholder,
     type,
@@ -12,13 +13,15 @@ function Input(props) {
     onSubmit,
     onChange,
   } = props;
+
+  const styles = { width: width };
   return (
     <>
       <ElInput
+        {...styles}
         label={label}
         placeholder={placeholder}
         type={type}
-        value={value}
         onChange={onChange}
       />
     </>
@@ -26,6 +29,7 @@ function Input(props) {
 }
 
 Input.defaultProps = {
+  width: "100%",
   multiLine: false,
   label: false,
   placeholder: "텍스트를 입력해주세요.",
@@ -35,10 +39,13 @@ Input.defaultProps = {
 };
 
 const ElInput = styled.input`
-  border-bottom: 1px solid #212121;
-  width: 100%;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+  width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
 `;
 
 export default Input;

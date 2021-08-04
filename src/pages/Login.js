@@ -1,55 +1,82 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
 import Header from "../components/Header";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
-import Input from "../elements/Input";
+import { Input } from "../elements";
 
 const Login = (props) => {
-  const islogin = useSelector((store) => store.user.isLogin);
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
-
-  useEffect(() => {
-    if (islogin) props.history.push("/");
-  }, []);
-
-  const login = () => {
-    dispatch(userCreators.setLoginDB(email, pw));
-  };
-
   return (
     <React.Fragment>
       <Header />
       <Container>
         <LoginC0>
-          <h1>Login</h1>
+          <h1>SignUp</h1>
         </LoginC0>
-        <LoginC1>
-          <Input
-            placeholder="아이디"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          ></Input>
-          <Input
-            placeholder="비밀번호"
-            onChange={(e) => {
-              setPw(e.target.value);
-            }}
-          ></Input>
-          <button onClick={login}>로그인 하기</button>
-          <button
-            onClick={() => {
-              props.history.push("/signup");
-            }}
-          >
-            회원가입 하러 하기
-          </button>
-        </LoginC1>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={Yup.object({
+            email: Yup.string()
+              .email("올바른 이메일 형식을 작성해주세요.")
+              .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
+
+            password: Yup.string()
+              .matches(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+                "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+              )
+              .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+            dispatch(userCreators.setLoginDB(values));
+            setSubmitting(false);
+          }}
+        >
+          {(formik) => (
+            <form onSubmit={formik.handleSubmit}>
+              <LoginC1>
+                <Input
+                  width="50%"
+                  id="email"
+                  type="text"
+                  placeholder="이메일"
+                  {...formik.getFieldProps("email")}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div>{formik.errors.email}</div>
+                ) : null}
+                <Input
+                  width="50%"
+                  id="password"
+                  type="password"
+                  placeholder="비밀번호"
+                  {...formik.getFieldProps("password")}
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <div>{formik.errors.password}</div>
+                ) : null}
+                <button type="submit">로그인 하기</button>
+              </LoginC1>
+            </form>
+          )}
+        </Formik>
+        <button
+          onClick={() => {
+            props.history.push("/signup");
+          }}
+        >
+          회원가입 하러 가기
+        </button>
       </Container>
     </React.Fragment>
   );

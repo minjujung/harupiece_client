@@ -1,62 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
 import Header from "../components/Header";
 
-import { nickCheck, emailCheck } from "../shared/regExp";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
+import { Input } from "../elements";
+
 const Signup = (props) => {
-  const islogin = useSelector((store) => store.user.isLogin);
   const dispatch = useDispatch();
-  const [email, setEmail] = React.useState("");
-  const [nick, setNick] = React.useState("");
-  const [pw, setPw] = React.useState("");
-  const [pwc, setPwC] = React.useState("");
-
-  const pwd = React.useRef();
-  const pwdC = React.useRef();
-  const profileImg =
-    "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profieImg.png";
-
-  useEffect(() => {
-    if (islogin) props.history.push("/");
-  }, []);
-
-  if (pw && pwc && pw === pwc) {
-    pwd.current.innerText = "성공 아이콘";
-    pwdC.current.innerText = "성공 아이콘";
-  } else if (pw !== pwc) {
-    pwd.current.innerText = "실패 아이콘";
-    pwdC.current.innerText = "실패 아이콘";
-  }
-
-  const signup = () => {
-    if (email === "" || nick === "" || pw === "" || pwc === "") {
-      window.alert(
-        "이메일, 닉네임, 비밀번호, 비밀번호 체크를 모두 입력해주세요!!"
-      );
-      return;
-    }
-
-    if (!emailCheck(email)) {
-      window.alert("올바른 이메일 형식을 작성해주세요");
-      return;
-    }
-
-    if (!nickCheck(nick)) {
-      window.alert("숫자 및 영어만 입력가능합니다.");
-      return;
-    }
-
-    if (pw !== pwc) {
-      window.alert("비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
-      return;
-    }
-
-    dispatch(userCreators.registerDB(email, nick, pw, pwc, profileImg));
-  };
-
   return (
     <React.Fragment>
       <Header />
@@ -64,35 +19,104 @@ const Signup = (props) => {
         <LoginC0>
           <h1>SignUp</h1>
         </LoginC0>
-        <LoginC1>
-          <input
-            placeholder="이메일"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          ></input>
-          <input
-            placeholder="닉네임"
-            onChange={(e) => {
-              setNick(e.target.value);
-            }}
-          ></input>
-          <input
-            placeholder="패스워드"
-            onChange={(e) => {
-              setPw(e.target.value);
-            }}
-          ></input>{" "}
-          <p ref={pwd} />
-          <input
-            placeholder="패스워드 확인"
-            onChange={(e) => {
-              setPwC(e.target.value);
-            }}
-          ></input>{" "}
-          <p ref={pwdC} />
-          <button onClick={signup}>회원가입 하기</button>
-        </LoginC1>
+        <Formik
+          initialValues={{
+            email: "",
+            nickname: "",
+            password: "",
+            passwordConfirm: "",
+            profileImg:
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profieImg.png",
+          }}
+          validationSchema={Yup.object({
+            email: Yup.string()
+              .email("올바른 이메일 형식을 작성해주세요.")
+              .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
+
+            nickname: Yup.string().required(
+              "닉네임 작성칸이 빈칸 입니다 입력 해주세요."
+            ),
+
+            password: Yup.string()
+              .matches(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+                "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+              )
+              .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
+
+            passwordConfirm: Yup.string()
+              .matches(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+                "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+              )
+              .required("비밀번호 체크 작성칸이 빈칸 입니다 입력 해주세요.")
+              .oneOf(
+                [Yup.ref("password"), null],
+                "비밀번호가 일치하지 않습니다"
+              ),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+            dispatch(userCreators.registerDB(values));
+            setSubmitting(false);
+          }}
+        >
+          {(formik) => (
+            <form onSubmit={formik.handleSubmit}>
+              <LoginC1>
+                <Input
+                  width="50%"
+                  id="email"
+                  type="text"
+                  placeholder="이메일"
+                  {...formik.getFieldProps("email")}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div>{formik.errors.email}</div>
+                ) : null}
+                <Input
+                  width="50%"
+                  id="nickname"
+                  type="nickname"
+                  placeholder="닉네임"
+                  {...formik.getFieldProps("nickname")}
+                />
+                {formik.touched.nickname && formik.errors.nickname ? (
+                  <div>{formik.errors.nickname}</div>
+                ) : null}
+                <Input
+                  width="50%"
+                  id="password"
+                  type="password"
+                  placeholder="비밀번호"
+                  {...formik.getFieldProps("password")}
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <div>{formik.errors.password}</div>
+                ) : null}
+                <Input
+                  width="50%"
+                  id="passwordConfirm"
+                  type="password"
+                  placeholder="비밀번호 확인"
+                  {...formik.getFieldProps("passwordConfirm")}
+                />
+                {formik.touched.passwordConfirm &&
+                formik.errors.passwordConfirm ? (
+                  <div>{formik.errors.passwordConfirm}</div>
+                ) : null}
+                <button type="submit">회원가입 하기</button>
+              </LoginC1>
+            </form>
+          )}
+        </Formik>
+        <button
+          onClick={() => {
+            props.history.push("/login");
+          }}
+        >
+          로그인 하러 가기
+        </button>
       </Container>
     </React.Fragment>
   );
