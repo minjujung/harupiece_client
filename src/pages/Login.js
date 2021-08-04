@@ -8,6 +8,8 @@ import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
+import { Input } from "../elements";
+
 const Login = (props) => {
   const dispatch = useDispatch();
   return (
@@ -18,20 +20,21 @@ const Login = (props) => {
           <h1>Login</h1>
         </LoginC0>
         <Formik
-          initialValues = {{
+          initialValues={{
             email: "",
             password: "",
           }}
-          validationSchema= {Yup.object({
+          validationSchema={Yup.object({
             email: Yup.string()
-            .email("올바른 이메일 형식을 작성해주세요.")
-            .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
+              .email("올바른 이메일 형식을 작성해주세요.")
+              .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
-            password: Yup.string()
-            .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
-            ,"최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오" )
-            .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
-
+            // password: Yup.string()
+            //   .matches(
+            //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+            //     "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+            //   )
+            //   .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
           })}
           onSubmit={(values, { setSubmitting }) => {
             console.log(values);
@@ -39,36 +42,41 @@ const Login = (props) => {
             setSubmitting(false);
           }}
         >
-          {formik => (
+          {(formik) => (
             <form onSubmit={formik.handleSubmit}>
               <LoginC1>
                 <input
-                id= "email"
-                type="text"
-                placeholder="이메일"
-                {...formik.getFieldProps('email')}
+                  width="50%"
+                  id="email"
+                  type="text"
+                  placeholder="이메일"
+                  {...formik.getFieldProps("email")}
                 />
                 {formik.touched.email && formik.errors.email ? (
-                    <div>{formik.errors.email}</div>
+                  <div>{formik.errors.email}</div>
                 ) : null}
                 <input
-                id= "password"
-                type="password"
-                placeholder="비밀번호"
-                {...formik.getFieldProps('password')}
+                  width="50%"
+                  id="password"
+                  type="password"
+                  placeholder="비밀번호"
+                  {...formik.getFieldProps("password")}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                    <div>{formik.errors.password}</div>
+                  <div>{formik.errors.password}</div>
                 ) : null}
                 <button type="submit">로그인 하기</button>
               </LoginC1>
             </form>
           )}
-          </Formik>
-          <button onClick={() => {
+        </Formik>
+        <button
+          onClick={() => {
             props.history.push("/signup");
-            }}
-            >회원가입 하러 가기</button>
+          }}
+        >
+          회원가입 하러 가기
+        </button>
       </Container>
     </React.Fragment>
   );

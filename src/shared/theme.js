@@ -11,6 +11,7 @@ const colors = {
   mainOrange: "#FF4532",
   white: "#FFFFFF",
   lightGray: "#EFEFEF",
+  gray: "#A9A9A9",
   darkGray: "#606060",
   black: "#222222",
 };
