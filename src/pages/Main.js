@@ -10,6 +10,7 @@ import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
 import { useDispatch } from "react-redux";
 import { getCookie } from "../shared/Cookie";
+import Info from "../components/mainpage/Info";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -22,23 +23,35 @@ const Main = (props) => {
     }
   }, []);
 
+  const is_login = getCookie("token") ? true : false;
+
   const goToCreate = () => {
-    if (getCookie("token")) {
-      history.push("/challenge");
-    } else {
-      window.alert("로그인이 필요한 서비스 입니다!");
-    }
+    history.push("/challenge");
+  };
+
+  const goToLogin = () => {
+    history.push("/login");
   };
 
   return (
     <>
       <Container>
-        <MainSlider />
-        <Popular />
-        <Category />
-        <button onClick={goToCreate}>챌린지 개설하기</button>
+        <ContainerLeft>
+          <MainSlider />
+          <Category />
+        </ContainerLeft>
+        <ContainerRight>
+          <Info />
+          {is_login ? (
+            <Button onClick={goToCreate}>챌린지등록하기+</Button>
+          ) : (
+            <Button onClick={goToLogin}>로그인 하기</Button>
+          )}
+
+          <Popular />
+        </ContainerRight>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
@@ -46,6 +59,34 @@ const Main = (props) => {
 export default Main;
 
 const Container = styled.div`
-  width: 56em;
-  height: 100%;
+  display: flex;
+  width: 100vw;
+  height: 50vh;
+  padding-left: 320px;
+  padding-right: 320px;
+  margin: 70px auto;
+`;
+
+const ContainerLeft = styled.div`
+  width: 49.48vw;
+  height: 77.22vh;
+  margin-right: 20px;
+`;
+
+const ContainerRight = styled.div`
+  width: 16.15vw;
+  height: 77.22vh;
+`;
+
+const Button = styled.button`
+  width: 16.15vw;
+  height: 6.27vh;
+  background-color: ${({ theme }) => theme.colors.mainGreen};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 `;

@@ -6,10 +6,12 @@ ${reset};
 
 * {
     box-sizing: border-box;
+    transition: all .5s;
 }
 
 body {
-    padding: 70px 20em 50px 20em;
+    padding-top: 5em;
+    padding-bottom:50px;
 }
 
 a {

@@ -82,8 +82,8 @@ const Header = (props) => {
 export default Header;
 
 const HeaderBox = styled.div`
-  height: 4em;
-  width: 56em;
+  height: 10.37vh;
+  width: 90vw;
   top: 0;
   position: absolute;
   background-color: #c4c4c4;
