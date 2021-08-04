@@ -8,7 +8,9 @@ import Header from "../components/Header";
 import { useDispatch } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
-import { Input } from "../elements";
+import Green from "../images/level/green.svg";
+
+import { Button , Image } from "../elements";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -16,9 +18,10 @@ const Signup = (props) => {
     <React.Fragment>
       <Header />
       <Container>
-        <LoginC0>
-          <h1>SignUp</h1>
-        </LoginC0>
+        <div>
+          <Image width ="162px" height ="155px" src={Green} />
+        </div>
+        <p>매일 달성하는 나만의 하루 조각</p>
         <Formik
           initialValues={{
             email: "",
@@ -33,9 +36,8 @@ const Signup = (props) => {
               .email("올바른 이메일 형식을 작성해주세요.")
               .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
-            nickname: Yup.string().required(
-              "닉네임 작성칸이 빈칸 입니다 입력 해주세요."
-            ),
+            nickname: Yup.string()
+            .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
 
             password: Yup.string()
               .matches(
@@ -49,7 +51,7 @@ const Signup = (props) => {
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
                 "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
               )
-              .required("비밀번호 체크 작성칸이 빈칸 입니다 입력 해주세요.")
+              .required("비밀번호 확인 작성칸이 빈칸 입니다 입력 해주세요.")
               .oneOf(
                 [Yup.ref("password"), null],
                 "비밀번호가 일치하지 않습니다"
@@ -63,39 +65,35 @@ const Signup = (props) => {
         >
           {(formik) => (
             <form onSubmit={formik.handleSubmit}>
-              <LoginC1>
-                <input
-                  width="50%"
+              <div>
+                <Input
                   id="email"
                   type="text"
                   placeholder="이메일"
                   {...formik.getFieldProps("email")}
                 />
                 {formik.touched.email && formik.errors.email ? (
-                  <div>{formik.errors.email}</div>
+                  <ErrorMsg>{formik.errors.email}</ErrorMsg>
                 ) : null}
-                <input
-                  width="50%"
+                <Input
                   id="nickname"
                   type="nickname"
                   placeholder="닉네임"
                   {...formik.getFieldProps("nickname")}
                 />
                 {formik.touched.nickname && formik.errors.nickname ? (
-                  <div>{formik.errors.nickname}</div>
+                  <ErrorMsg>{formik.errors.nickname}</ErrorMsg>
                 ) : null}
-                <input
-                  width="50%"
+                <Input
                   id="password"
                   type="password"
                   placeholder="비밀번호"
                   {...formik.getFieldProps("password")}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <div>{formik.errors.password}</div>
+                  <ErrorMsg>{formik.errors.password}</ErrorMsg>
                 ) : null}
-                <input
-                  width="50%"
+                <Input
                   id="passwordConfirm"
                   type="password"
                   placeholder="비밀번호 확인"
@@ -103,20 +101,19 @@ const Signup = (props) => {
                 />
                 {formik.touched.passwordConfirm &&
                 formik.errors.passwordConfirm ? (
-                  <div>{formik.errors.passwordConfirm}</div>
+                  <ErrorMsg>{formik.errors.passwordConfirm}</ErrorMsg>
                 ) : null}
-                <button type="submit">회원가입 하기</button>
-              </LoginC1>
+                  <Button width="100%" padding= "16px 148px" bg="black" color="white" fontsize = "ms" type="submit">
+                    회원가입
+                  </Button>
+              </div>
             </form>
           )}
         </Formik>
-        <button
-          onClick={() => {
-            props.history.push("/login");
-          }}
+        <LoginText onClick={() => {props.history.push("/login");}}
         >
           로그인 하러 가기
-        </button>
+        </LoginText>
       </Container>
     </React.Fragment>
   );
@@ -125,27 +122,39 @@ const Signup = (props) => {
 export default Signup;
 
 const Container = styled.div`
-  max-width: 43.75em;
-  margin: 0 auto;
-  width: 100%;
-  top: 54px;
   position: absolute;
-  left: 50%;
-  top: 18em;
-  transform: translateX(-50%);
-`;
-
-const LoginC0 = styled.div`
-  padding: 1em;
-  display: flex;
-  justify-content: center;
-  background-color: #c4c4c4;
-`;
-
-const LoginC1 = styled.div`
-  display: flex;
+  width: 19.58vW;
+  top: 16.38vh;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
-  background-color: #c4c4c4;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  transform: translateX(-50%);
+  & > p {
+    margin-top : 26px;
+    margin-bottom: 73px;
+  }
+`;
+
+const Input = styled.input`
+  margin-bottom: 22px;
+  width:100%;
+  padding: 14px;
+  background-color: ${({theme}) => theme.colors.white};
+  border-bottom: 2px solid ${({theme}) => theme.colors.black};
+`;
+
+const ErrorMsg = styled.p`
+  margin-bottom: 10px;
+  text-align :center;
+  color: red;
+  font-size: 12px;
+`;
+
+const LoginText = styled.p`
+  text-align :center;
+  margin-top : 31px;
+  font-size: ${({theme}) => theme.fontSizes.sm};
+  color: ${({theme}) => theme.colors.gray};
 `;

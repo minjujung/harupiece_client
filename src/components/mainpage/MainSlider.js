@@ -5,8 +5,8 @@ import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
+// import { Slide } from "react-slideshow-image";
+// import "react-slideshow-image/dist/styles.css";
 
 const MainSlider = (props) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const MainSlider = (props) => {
   return (
     <>
       <Contain>
-        <Slide easing="ease">
+        {/* <Slide easing="ease">
           <div style={{ height: "350px" }} className="each-slide">
             <div style={{ height: "350px", backgroundImage: `url(${slideImages[0]})` }}>
               <span>Slide 1</span>
@@ -41,7 +41,7 @@ const MainSlider = (props) => {
               <span>Slide 3</span>
             </div>
           </div>
-        </Slide>
+        </Slide> */}
       </Contain>
     </>
   );

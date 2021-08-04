@@ -8,9 +8,9 @@ ${reset};
     box-sizing: border-box;
 }
 
-body {
+/* body {
     padding: 70px 20em 50px 20em;
-}
+} */
 
 a {
     color: #222222;
