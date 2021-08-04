@@ -29,12 +29,12 @@ const Login = (props) => {
               .email("올바른 이메일 형식을 작성해주세요.")
               .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
-            password: Yup.string()
-              .matches(
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
-                "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
-              )
-              .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
+            // password: Yup.string()
+            //   .matches(
+            //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+            //     "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+            //   )
+            //   .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
           })}
           onSubmit={(values, { setSubmitting }) => {
             console.log(values);
@@ -45,7 +45,7 @@ const Login = (props) => {
           {(formik) => (
             <form onSubmit={formik.handleSubmit}>
               <LoginC1>
-                <Input
+                <input
                   width="50%"
                   id="email"
                   type="text"
@@ -55,7 +55,7 @@ const Login = (props) => {
                 {formik.touched.email && formik.errors.email ? (
                   <div>{formik.errors.email}</div>
                 ) : null}
-                <Input
+                <input
                   width="50%"
                   id="password"
                   type="password"

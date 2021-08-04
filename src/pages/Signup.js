@@ -64,7 +64,7 @@ const Signup = (props) => {
           {(formik) => (
             <form onSubmit={formik.handleSubmit}>
               <LoginC1>
-                <Input
+                <input
                   width="50%"
                   id="email"
                   type="text"
@@ -74,7 +74,7 @@ const Signup = (props) => {
                 {formik.touched.email && formik.errors.email ? (
                   <div>{formik.errors.email}</div>
                 ) : null}
-                <Input
+                <input
                   width="50%"
                   id="nickname"
                   type="nickname"
@@ -84,7 +84,7 @@ const Signup = (props) => {
                 {formik.touched.nickname && formik.errors.nickname ? (
                   <div>{formik.errors.nickname}</div>
                 ) : null}
-                <Input
+                <input
                   width="50%"
                   id="password"
                   type="password"
@@ -94,7 +94,7 @@ const Signup = (props) => {
                 {formik.touched.password && formik.errors.password ? (
                   <div>{formik.errors.password}</div>
                 ) : null}
-                <Input
+                <input
                   width="50%"
                   id="passwordConfirm"
                   type="password"
