@@ -5,8 +5,8 @@ import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
+// import { Slide } from "react-slideshow-image";
+// import "react-slideshow-image/dist/styles.css";
 
 import { Tag } from "../../elements";
 
@@ -103,7 +103,7 @@ const MainSlider = (props) => {
               </SubTitleBox>
             </SliderBox>
           </div>
-        </Slide>
+        </Slide> */}
       </Contain>
     </>
   );
