@@ -145,6 +145,7 @@ const ChallengeDetail = (props) => {
             style={{
               height: "42vh",
               width: "60vw",
+              marginTop: "3vh",
               backgroundColor: "white",
             }}
           ></div>
@@ -304,7 +305,7 @@ export default ChallengeDetail;
 
 const Area = styled.div`
   display: grid;
-  margin: 10.55vh auto 0 auto;
+  margin: 0 auto;
   width: 66.67vw;
   height: 100vh;
   grid-template-rows: 1fr 3fr;
@@ -312,7 +313,6 @@ const Area = styled.div`
     "banner nav"
     "banner btns";
   grid-gap: 20px;
-  /* padding-top: 10.55vh; */
 `;
 
 const ChallengeHeader = styled.div`
@@ -322,8 +322,9 @@ const ChallengeHeader = styled.div`
   height: 40.55vh;
   justify-content: center;
   position: fixed;
-  z-index: 10;
+  z-index: 9;
   padding-top: 5.37vh;
+  margin-top: 3vh;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -346,6 +347,7 @@ const Btns = styled.div`
 const RightNav = styled.div`
   width: 16.15vw;
   padding-top: 5.47vh;
+  margin-top: 3vh;
   grid-area: nav;
 `;
 

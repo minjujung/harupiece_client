@@ -154,7 +154,7 @@ const editMyProfileDB = (content) => {
       promise.then((data) => {
         const newProFile = { ...proFile, profileImage: data.Location };
 
-        MypageApis.EditProfile(newProFile)
+        MypageApis.editProfile(newProFile)
           .then((res) => {
             const _newProFile = { ...newProFile };
 
