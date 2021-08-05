@@ -1,3 +1,4 @@
+import { PortableWifiOffSharp } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 
@@ -42,6 +43,8 @@ Image.defaultProps = {
   border: false,
   margin: false,
   _onClick: () => {},
+
+  type: "",
 };
 
 export default Button;

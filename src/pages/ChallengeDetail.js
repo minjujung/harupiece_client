@@ -143,7 +143,7 @@ const ChallengeDetail = (props) => {
         <ChallengeDesc>
           <div
             style={{
-              height: "40.55vh",
+              height: "42vh",
               width: "60vw",
               backgroundColor: "white",
             }}
@@ -158,7 +158,7 @@ const ChallengeDetail = (props) => {
           >
             <span
               id="intro"
-              style={{ position: "absolute", left: "0", top: "-50vh" }}
+              style={{ position: "absolute", left: "0", top: "-52vh" }}
             >
               &nbsp;
             </span>
@@ -304,7 +304,7 @@ export default ChallengeDetail;
 
 const Area = styled.div`
   display: grid;
-  margin: 0 auto;
+  margin: 10.55vh auto 0 auto;
   width: 66.67vw;
   height: 100vh;
   grid-template-rows: 1fr 3fr;
@@ -312,6 +312,7 @@ const Area = styled.div`
     "banner nav"
     "banner btns";
   grid-gap: 20px;
+  /* padding-top: 10.55vh; */
 `;
 
 const ChallengeHeader = styled.div`
@@ -336,11 +337,10 @@ const StateContainer = styled.div`
 `;
 
 const Btns = styled.div`
-  padding-top: 5.37vh;
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 37.77vh;
+  top: 46.57vh;
 `;
 
 const RightNav = styled.div`
@@ -419,7 +419,7 @@ const SectionTitle = styled.h3`
 
 const Section = styled.section`
   width: 49.48vw;
-  padding-bottom: ${(props) => (props.list ? "15%" : "0")};
+  padding-bottom: ${(props) => (props.list ? "10vh" : "0")};
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;

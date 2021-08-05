@@ -151,7 +151,7 @@ const Title = styled.h1`
 `;
 
 const Preview = styled.div`
-  width: 35.16vw;
+  width: 25.1vw;
   height: 45.09vh;
   background-color: #e5e5e5;
   border-radius: 16px;
@@ -175,12 +175,12 @@ const InputContainer = styled.div`
 `;
 
 const TextInput = styled.input`
-  width: 15.68vw;
+  width: 25.1vw;
   height: 45.09vh;
   background-color: #e5e5e5;
   display: flex;
   border-radius: 16px;
-  margin-left: 20px;
+  margin-left: 32px;
 `;
 
 const CreateBtn = styled.button`

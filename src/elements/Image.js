@@ -7,12 +7,11 @@ const Image = ({
   borderRadius,
   margin,
   border,
-  fill,
   onClick,
   src,
   alt,
 }) => {
-  const styles = { width, height, borderRadius, border, margin, fill };
+  const styles = { width, height, borderRadius, border, margin };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
 
