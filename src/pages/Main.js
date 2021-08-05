@@ -5,12 +5,13 @@ import Footer from "../components/Footer";
 import MainSlider from "../components/mainpage/MainSlider";
 import Category from "../components/mainpage/Category";
 import Popular from "../components/mainpage/Popular";
+import Info from "../components/mainpage/Info";
 
+import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
+import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { useDispatch } from "react-redux";
-import { getCookie } from "../shared/Cookie";
-import Info from "../components/mainpage/Info";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Main = (props) => {
   const is_login = getCookie("token") ? true : false;
 
   const goToCreate = () => {
+    dispatch(createActions.setGoodPreview(""));
+    dispatch(createActions.setBadPreview(""));
     history.push("/challenge");
   };
 

@@ -28,7 +28,10 @@ const Category = (props) => {
             main_list.map((l, idx) => {
               return (
                 <>
-                  <Card style={{ padding: "20px", fontSize: "12px" }}>
+                  <Card
+                    style={{ padding: "20px", fontSize: "12px" }}
+                    onClick={() => history.push(`/challenge/${l.challengeId}`)}
+                  >
                     <div key={idx}>
                       <div>
                         <img src={l.challengeImgUrl} alt="" />

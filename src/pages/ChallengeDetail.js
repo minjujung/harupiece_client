@@ -64,7 +64,10 @@ const ChallengeDetail = (props) => {
 
   let today = new Date();
   const progress = today.getTime() - date1.getTime();
-  const progressDays = progress / 1000 / 60 / 60 / 24;
+  let progressDays = progress / 1000 / 60 / 60 / 24;
+  if (progressDays < 0) {
+    progressDays = 0;
+  }
 
   today =
     leadingZeros(today.getFullYear(), 4) +
@@ -176,7 +179,7 @@ const ChallengeDetail = (props) => {
               <span>인증기간</span>
               {challenge.challengeStartDate.split("T")[0]} ~{" "}
               {challenge.challengeEndDate.split("T")[0]} (
-              {challenge.challengeHollyday === "0, 6" ? "주말포함" : "주말제외"}
+              {challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"}
               )
             </Info>
             <Info>
@@ -313,6 +316,7 @@ const Area = styled.div`
     "banner nav"
     "banner btns";
   grid-gap: 20px;
+  margin-top: 3vh;
 `;
 
 const ChallengeHeader = styled.div`
@@ -324,7 +328,6 @@ const ChallengeHeader = styled.div`
   position: fixed;
   z-index: 9;
   padding-top: 5.37vh;
-  margin-top: 3vh;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -341,13 +344,12 @@ const Btns = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 46.57vh;
+  top: 45.8vh;
 `;
 
 const RightNav = styled.div`
   width: 16.15vw;
   padding-top: 5.47vh;
-  margin-top: 3vh;
   grid-area: nav;
 `;
 

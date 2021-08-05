@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Tag = ({ children, bg, color }) => {
+const Tag = ({ children, bg, color, clicked, onClick }) => {
   const styles = { bg, color };
   return <TagFrame {...styles}>{children}</TagFrame>;
 };
@@ -24,10 +24,7 @@ const TagFrame = styled.div`
       : props.theme.colors.darkGray};
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  border-radius: 1.7em;
+  border-radius: 27px;
   padding: 10px;
   margin-right: 0.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

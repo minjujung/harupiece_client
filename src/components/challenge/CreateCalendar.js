@@ -4,14 +4,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
+import { useSelector } from "react-redux";
 
-function CreateCalendar({ challengeInfo, setChallengeInfo }) {
+function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [checkweek, setCheckweek] = useState(false);
 
+  const challenge_info = useSelector((state) => state.challengeDetail.detail);
+
   const findCheck = (e) => {
     if (e.target.checked) {
+      console.log("checked");
       setChallengeInfo({
         ...challengeInfo,
         challengeHoliday: "0,6",

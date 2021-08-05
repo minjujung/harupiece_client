@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { history } from "../../redux/configureStore";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
 const changeForm = (dates) => {
@@ -49,7 +50,10 @@ function ChallengesInProgress(props) {
       {myChallengeList &&
         myChallengeList.map((list, idx) => {
           return (
-            <ChallengeContent key={idx}>
+            <ChallengeContent
+              key={idx}
+              onClick={() => history.push(`/challenge/${list.challengeId}`)}
+            >
               <ChallengeImg>
                 <img src={list.challengeImgUrl} alt="" />
               </ChallengeImg>
@@ -64,10 +68,11 @@ function ChallengesInProgress(props) {
                 </div>
                 <div>
                   <div>
-                    {profileArray.map((profile, idx) => {
+                    {/* {profileArray.map((profile, idx) => {
                       if (idx < 4) {
                         return (
                           <img
+                            key={my_info.memberId}
                             src={my_info.profileImage}
                             alt="profile_list"
                             style={{
@@ -79,7 +84,7 @@ function ChallengesInProgress(props) {
                           />
                         );
                       }
-                    })}
+                    })} */}
                   </div>
                   <div>
                     {list.participateSize && list.participateSize > 1 ? (
