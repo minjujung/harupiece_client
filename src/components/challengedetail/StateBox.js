@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
-  // const levelState = parseInt((user_info.userLevel - 1) / 5);
+  const levelState = parseInt((user_info.userLevel - 1) / 5);
 
   if (user_info.memberId === null) {
     return (
@@ -39,7 +39,8 @@ const StateBox = (props) => {
     return (
       <StateContainer>
         <UserStatus goodUser>
-          <Strong>{user_info.nickname}</Strong>은<br />
+          <Strong>{user_info.nickname}</Strong>님은
+          <br />
           {user_info.challengeCount}의 챌린지 진행중!
         </UserStatus>
         <UserLevel>
@@ -52,8 +53,9 @@ const StateBox = (props) => {
                 src={level}
                 alt="level"
               />
-              {/* 등급: {levelData[levelState] && levelData[levelState].name} */}
-              등급: {levelData[1] && levelData[1].name.split(" ")[0]}
+              등급:{" "}
+              {levelData[levelState] &&
+                levelData[levelState].name.split(" ")[0]}
             </p>
             <Image
               width="6.25vw"

@@ -137,7 +137,19 @@ const addPostDB =
         PostApis.addPost(new_post)
           .then((res) => {
             consoleLogger("인증샷 추가 요청 이후 응답", res);
-            dispatch(addPost({ ...new_post, postingId: res.data }));
+            const _post = {
+              ...new_post,
+              postingId: res.data,
+              memberId: user_info.memberId,
+              nickname: user_info.nickname,
+              profileImg: user_info.profileImg,
+              postingCount: 0,
+              memberResponseDto: [],
+              postingApproval: true,
+              postingModifyOk: true,
+            };
+
+            dispatch(addPost(_post));
             dispatch(imageActions.setPreview(null));
           })
           .catch((error) => {

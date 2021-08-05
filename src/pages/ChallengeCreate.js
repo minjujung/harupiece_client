@@ -123,27 +123,16 @@ function ChallengeCreate(props) {
       return;
     }
     dispatch(createActions.createChDB(challengeInfo));
-    window.alert("챌린지 개설 완료!");
     dispatch(createActions.setGoodPreview(""));
     dispatch(createActions.setBadPreview(""));
-    history.push("/");
-  };
-
-  // 챌린지 수정
-  const editChallenge = () => {
-    dispatch(
-      challengeDetailActions.editChallengeDB(challengeId, challengeInfo)
-    );
-    history.push(`/challenge/${challenge_info.challengeId}`);
   };
 
   return (
     <>
-      {edit_mode ? <h2>챌린지 수정</h2> : <h2>챌린지 개설</h2>}
+      <h2>챌린지 개설</h2>
 
       <CreateContainer>
         <GuideLine>개설 가이드라인</GuideLine>
-
         <CreateContents>
           <Contents>
             <label style={{ width: "100%" }}>
@@ -158,30 +147,18 @@ function ChallengeCreate(props) {
               />
             </label>
           </Contents>
-
           <ContentsContainer>
             <Contents>
               {/* 카테고리 */}
-              {edit_mode ? (
-                <>
-                  <p>{challenge_info.categoryName}</p>
-                  <p>
-                    카테고리는 수정이 불가해요! 다른 카테고리의 챌린지를
-                    원하시면 삭제하고 다시 만들어주세요!
-                  </p>
-                </>
-              ) : (
-                <>
-                  <label htmlFor="category">카테고리</label>
-                  <select id="category" onChange={chooseCategory}>
-                    <option value="CATEGORY">카테고리</option>
-                    <option value="NODRINKNOSMOKE">금연/금주</option>
-                    <option value="EXERCISE">운동</option>
-                    <option value="LIVINGHABITS">생활습관</option>
-                  </select>
-                </>
-              )}
-
+              <>
+                <label htmlFor="category">카테고리</label>
+                <select id="category" onChange={chooseCategory}>
+                  <option value="CATEGORY">카테고리</option>
+                  <option value="NODRINKNOSMOKE">금연/금주</option>
+                  <option value="EXERCISE">운동</option>
+                  <option value="LIVINGHABITS">생활습관</option>
+                </select>
+              </>
               {/* 대표 이미지 */}
               <CreateImgSelect
                 challengeInfo={challengeInfo}
@@ -193,23 +170,12 @@ function ChallengeCreate(props) {
                 setChallengeInfo={setChallengeInfo}
               />
             </Contents>
-
             <Contents>
               {/* date picker */}
-              {edit_mode ? (
-                <>
-                  <p>원래 선택하셨던 날짜</p>
-                  <p>
-                    {challenge_info.challengeStartDate.split("T")[0]} ~{" "}
-                    {challenge_info.challengeEndDate.split("T")[0]}
-                  </p>
-                </>
-              ) : null}
               <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
               />
-
               {/* 모집형식 */}
               <label htmlFor="category">카테고리</label>
               <select id="category" onChange={choosePublic}>
@@ -224,32 +190,19 @@ function ChallengeCreate(props) {
                   onChange={savePwd}
                 />
               ) : null}
-
               {/* 챌린지 설명 */}
               <label>
                 챌린지 설명
                 <div>
                   <input
                     onChange={saveDesc}
-                    placeholder={
-                      edit_mode
-                        ? challenge_info.challengeContent
-                        : "챌린지를 설명해주세요."
-                    }
+                    placeholder="챌린지를 설명해주세요."
                   />
                 </div>
               </label>
             </Contents>
           </ContentsContainer>
-
-          {edit_mode ? (
-            <>
-              <button onClick={editChallenge}>챌린지 수정하기</button>
-              <button onClick={() => history.goBack()}>챌린지 수정취소</button>
-            </>
-          ) : (
-            <button onClick={createChallenge}>챌린지 개설하기</button>
-          )}
+          <button onClick={createChallenge}>챌린지 개설하기</button>
         </CreateContents>
       </CreateContainer>
     </>

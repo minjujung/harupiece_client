@@ -17,10 +17,15 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
     if (id) {
+      setOpen(true);
       dispatch(imageActions.getThumnailDb(challenge_info.categoryName));
     } else {
+      if (!challengeInfo.categoryName) {
+        window.alert("카테고리를 먼저 정해주세요!");
+        return;
+      }
+      setOpen(true);
       dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
     }
   };

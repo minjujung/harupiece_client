@@ -21,6 +21,7 @@ function ChallengeCreate(props) {
 
   const [challengeInfo, setChallengeInfo] = useState({
     ...challenge_info,
+    challengeHoliday: "",
     challengeBad: "",
     challengeGood: "",
   });
@@ -145,6 +146,7 @@ function ChallengeCreate(props) {
               <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
+                id={challenge_id}
               />
 
               {/* 모집형식 */}
