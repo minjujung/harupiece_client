@@ -3,7 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
+// 2021-08-07T23:59:59
+
 const changeForm = (dates) => {
+  let _year = dates?.map((y) => {
+    return y.split("-")[0];
+  });
+
   let _month = dates?.map((m) => {
     if (m.split("-")[1][0] === "0") {
       return m.split("-")[1][1];
@@ -20,7 +26,7 @@ const changeForm = (dates) => {
     }
   });
 
-  return { _month, _date };
+  return { _year, _month, _date };
 };
 
 function ChallengesInProgress(props) {

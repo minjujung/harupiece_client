@@ -1,20 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-const Tag = ({ children, bg, color }) => {
+const Tag = ({ children, bg, color, onClick }) => {
   const styles = { bg, color };
-  return <TagFrame {...styles}>{children}</TagFrame>;
+  return (
+    <TagFrame onClick={onClick} {...styles}>
+      {children}
+    </TagFrame>
+  );
 };
 
 Tag.defaultProps = {
   children: null,
   bg: false,
   color: false,
+  onClick: () => {},
 };
 
 export default Tag;
 
 const TagFrame = styled.div`
+  cursor: pointer;
   border: 1px solid white;
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.lightGray};
@@ -27,7 +33,4 @@ const TagFrame = styled.div`
   border-radius: 1.7em;
   padding: 10px;
   margin-right: 0.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
