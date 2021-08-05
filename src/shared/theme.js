@@ -14,6 +14,7 @@ const colors = {
   gray: "#A9A9A9",
   darkGray: "#606060",
   black: "#222222",
+  none: "none",
 };
 
 const paddings = {

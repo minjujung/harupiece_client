@@ -6,18 +6,16 @@ ${reset};
 
 * {
     box-sizing: border-box;
+    transition: all .5s;
 }
 
-<<<<<<< HEAD
+
 body {
+    padding-top: 5em;
+    padding-bottom:50px;
     padding: 70px 0px 50px 0px;
- 
 }
-=======
-/* body {
-    padding: 70px 20em 50px 20em;
-} */
->>>>>>> 692716e6ddd356b57161cd50648abf0084ed6366
+
 
 a {
     color: #222222;
