@@ -4,13 +4,13 @@ import Dialog from "@material-ui/core/Dialog";
 import PostEdit from "./PostEdit";
 import { Image } from "../../elements";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
 import { actionCreator as postActions } from "../../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  // const user_info = useSelector(state => state.user.userInfo)
+  const user_info = useSelector((state) => state.user.userInfo);
 
   const { list, totalNumber, totalDay, challengeId, challengeStatus } = props;
   const [open, setOpen] = useState(false);
@@ -47,14 +47,15 @@ const PostList = (props) => {
 
   //modal안의 component만 편집형태로 바꾸기
   const editPost = () => {
-    if (list[clicked]?.postingModifyOk) {
-      setEdit(true);
-    }
+    setEdit(true);
   };
 
   //post 삭제
   const deletePost = () => {
-    if (list[clicked]?.postingModifyOk) {
+    if (
+      list[clicked]?.postingModifyOk &&
+      list[clicked]?.memberId === user_info.memberId
+    ) {
       dispatch(postActions.deletePostDB(list[clicked]?.postingId));
       setOpen(false);
     }
@@ -115,14 +116,16 @@ const PostList = (props) => {
                   </span>
                 </div>
               ) : null}
-              {list[clicked]?.postingModifyOk ? (
+              {list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
                 <button onClick={deletePost}>삭제하기</button>
               ) : null}
             </div>
             <p>{list[clicked]?.postingContent}</p>
             <img src={list[clicked]?.postingImg} alt="vegan_post" />
             <div>
-              {list[clicked]?.postingModifyOk ? (
+              {list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
                 <button onClick={editPost}>인증샷 수정</button>
               ) : null}
               {challengeStatus === 2 ? (
