@@ -14,7 +14,7 @@ function Info() {
           <>
             <InfoBox>
               <div>
-                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>
+                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>님은
               </div>
               <div>{user.challengeCount}개의 챌린지를 진행중!</div>
             </InfoBox>
@@ -60,33 +60,36 @@ const InfoContainer = styled.div`
 `;
 
 const InfoBox = styled.div`
-  width: 62.26vw;
-  height: 30.9vh;
+  width: 15.05vw;
+  height: 9.8vh;
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  margin: 0 97px 23px 20px;
-  border-radius: 8px;
+  padding-left: 20px;
+  div {
+    padding-bottom: 5px;
+  }
 `;
 
 const InfoBox2 = styled.div`
-  width: 62.26vw;
-  height: 40vh;
-  border-radius: 8px;
+  width: 16.12vw;
+  height: 6.47vh;
+  border-top: 1px solid ${({ theme }) => theme.colors.lightGray};
   display: flex;
 `;
 
 const LeftBox = styled.div`
   width: 8.05vw;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-radius: 0px 0px 8px 8px / 0px 0px 0px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-right: 1px solid ${({ theme }) => theme.colors.lightGray};
   color: ${({ theme }) => theme.colors.gray};
 `;
 const RightBox = styled.div`
   width: 8.05vw;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-radius: 0px 0px 0px 0px / 0px 0px 8px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
