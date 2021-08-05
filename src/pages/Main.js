@@ -48,7 +48,7 @@ const Main = (props) => {
               width="16.15vw"
               height="6.27vh"
               margin="0px 0px 20px 0px"
-              onClick={goToCreate}
+              _onClick={goToCreate}
             >
               챌린지등록하기+
             </Button>
@@ -57,12 +57,11 @@ const Main = (props) => {
               width="16.15vw"
               height="6.27vh"
               margin="0px 0px 20px 0px"
-              onClick={goToLogin}
+              _onClick={goToLogin}
             >
               로그인 하기
             </Button>
           )}
-
           <Popular />
         </ContainerRight>
       </Container>

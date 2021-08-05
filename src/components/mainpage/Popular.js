@@ -48,7 +48,12 @@ const Popular = (props) => {
               {hot_list.guestmain.popular &&
                 hot_list.guestmain.popular.map((l, idx) => {
                   return (
-                    <div key={idx}>
+                    <div
+                      key={idx}
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}`)
+                      }
+                    >
                       <CardBox>
                         <div>
                           <img src={l.challengeImgUrl} alt="" />
