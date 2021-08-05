@@ -8,9 +8,16 @@ ${reset};
     box-sizing: border-box;
 }
 
+<<<<<<< HEAD
+body {
+    padding: 70px 0px 50px 0px;
+ 
+}
+=======
 /* body {
     padding: 70px 20em 50px 20em;
 } */
+>>>>>>> 692716e6ddd356b57161cd50648abf0084ed6366
 
 a {
     color: #222222;

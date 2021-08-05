@@ -31,7 +31,7 @@ const Header = (props) => {
     <React.Fragment>
       <HeaderBox>
         <div onClick={() => history.push("/")}>
-          <Image width ="220px" height ="34px" cursor src={logo}  />
+          <Image width="220px" height="34px" cursor src={logo} />
         </div>
         <Container1>
           <Form>
@@ -45,7 +45,7 @@ const Header = (props) => {
               />
             </label>
             <HeaderSerBtn type="submit" onClick={search}>
-              <Image width="22px" height="23px" cursor src={Search}/>
+              <Image width="22px" height="23px" cursor src={Search} />
               <p>검색</p>
             </HeaderSerBtn>
           </Form>
@@ -53,26 +53,41 @@ const Header = (props) => {
             <>
               {" "}
               <HeaderLogBtn>
-                <Image _onClick={() => {dispatch(userCreators.logOutDB());}}
-                width="22px" height="23px" cursor src={login}
+                <Image
+                  onClick={() => {
+                    dispatch(userCreators.logOutDB());
+                  }}
+                  width="22px"
+                  height="23px"
+                  cursor
+                  src={login}
                 />
                 <p>로그아웃</p>
               </HeaderLogBtn>
               <HeaderMyBtn>
-                <Image _onClick={() => { history.push("/mypage/now");}}
-                width="22px" height="23px" cursor src={myPage}
+                <Image
+                  onClick={() => {
+                    history.push("/mypage/now");
+                  }}
+                  width="22px"
+                  height="23px"
+                  cursor
+                  src={myPage}
                 />
                 <p>마이페이지</p>
               </HeaderMyBtn>
-              <Image
-                src={userInfo.profileImg}
-                width="42px" height="42px"
-              />
+              <Image src={userInfo.profileImg} width="42px" height="42px" />
             </>
           ) : (
             <HeaderLogBtn>
-              <Image _onClick={() => { history.push("/login");}}
-              width="22px" height="23px" cursor src={login}
+              <Image
+                onClick={() => {
+                  history.push("/login");
+                }}
+                width="22px"
+                height="23px"
+                cursor
+                src={login}
               />
               <p>로그인</p>
             </HeaderLogBtn>
@@ -89,11 +104,14 @@ const HeaderBox = styled.div`
   height: 10.55vh;
   width: 100vw;
   top: 0;
-  position: absolute;
+  padding: 0 16.67vw;
+  position: fixed;
+  z-index: 10;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #eeeeee ;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 2px solid #eeeeee;
 `;
 
 const HeaderSerBtn = styled.button`
@@ -101,7 +119,7 @@ const HeaderSerBtn = styled.button`
   height: 37px;
   margin-right: 10px;
   display: flex;
-  flex-direction : column;
+  flex-direction: column;
   align-items: center;
   & > p {
     margin-top: 8px;
@@ -113,7 +131,7 @@ const HeaderLogBtn = styled.button`
   height: 37px;
   margin-right: 10px;
   display: flex;
-  flex-direction : column;
+  flex-direction: column;
   align-items: center;
   & > p {
     margin-top: 8px;
@@ -125,14 +143,13 @@ const HeaderMyBtn = styled.button`
   height: 37px;
   margin-right: 10px;
   display: flex;
-  flex-direction : column;
+  flex-direction: column;
   align-items: center;
   & > p {
     margin-top: 8px;
     font-size: 14px;
   }
 `;
-
 
 const Form = styled.form`
   display: flex;

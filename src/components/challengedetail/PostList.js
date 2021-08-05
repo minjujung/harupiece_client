@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
 import PostEdit from "./PostEdit";
+import { Image } from "../../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
@@ -62,13 +63,16 @@ const PostList = (props) => {
   return (
     <>
       {list.map((l, idx) => (
-        <article key={l.postingId}>
-          <img
+        <ImageList key={l.postingId}>
+          <Image
+            width="19em"
+            height="19em"
+            borderRadius="12px"
             src={l.postingImg}
             onClick={() => handleClickOpen(l.postingId)}
             alt="vegan_post"
           />
-        </article>
+        </ImageList>
       ))}
 
       <Dialog
@@ -77,6 +81,8 @@ const PostList = (props) => {
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
+            width: "55.21vw",
+            height: "66.66vh",
             padding: "1em",
             borderRadius: "0.6em ",
           },
@@ -131,6 +137,10 @@ const PostList = (props) => {
 };
 
 export default PostList;
+
+const ImageList = styled.article`
+  /* display: flex; */
+`;
 
 const Profile = styled.img`
   width: 1em;

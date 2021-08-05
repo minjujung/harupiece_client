@@ -4,6 +4,7 @@ import { history } from "../../redux/configureStore";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
+import Button from "../../elements/Button";
 
 const PwdModal = (props) => {
   const { challengeTitle, challengePassword, challengeId, challengeMember } =
@@ -40,7 +41,7 @@ const PwdModal = (props) => {
 
   //챌린지 신청히기, 비공개의 경우 비밀번호 모달창 띄우기
   const takePartIn = () => {
-    if (!user_info) {
+    if (user_info.memberId === null) {
       window.alert("로그인이 필요한 서비스 입니다!");
       return;
     }
@@ -61,7 +62,17 @@ const PwdModal = (props) => {
 
   return (
     <>
-      <button onClick={takePartIn}>챌린지 신청하기</button>
+      <Button
+        width="16.15vw"
+        bg="mainGreen"
+        color="white"
+        padding="21px 64px"
+        border="lightGray"
+        margin="0 0 20px 0"
+        _onClick={takePartIn}
+      >
+        챌린지 신청하기
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -80,7 +91,7 @@ const PwdModal = (props) => {
           type="password"
           placeholder="비밀스러운 챌린지~"
         />
-        <button onClick={takePartInPwd}>신청하기</button>
+        <Button onClick={takePartInPwd}>신청하기</Button>
       </Dialog>
     </>
   );
