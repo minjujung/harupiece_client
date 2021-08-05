@@ -6,9 +6,10 @@ import { Image } from "../elements/index";
 import levelData from "../shared/level";
 
 import logo from "../images/logo/large.png";
-import login from "../images/icon/login.png";
-import myPage from "../images/icon/profile.png";
-import Search from "../images/icon/search.png";
+import login from "../images/icons/login.svg"
+import myPage from "../images/icons/profile.svg";
+import Search from "../images/icons/search.svg";
+import profile from "../images/logo/profile.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
@@ -52,11 +53,10 @@ const Header = (props) => {
           {getCookie("token") && userInfo ? (
             <>
               {" "}
-              <HeaderLogBtn>
+              <HeaderLogBtn onClick={() => {
+              dispatch(userCreators.logOutDB());}}
+              >
                 <Image
-                  onClick={() => {
-                    dispatch(userCreators.logOutDB());
-                  }}
                   width="22px"
                   height="23px"
                   cursor
@@ -64,11 +64,10 @@ const Header = (props) => {
                 />
                 <p>로그아웃</p>
               </HeaderLogBtn>
-              <HeaderMyBtn>
+              <HeaderMyBtn onClick={() => {
+              history.push("/mypage/now");}}
+              >
                 <Image
-                  onClick={() => {
-                    history.push("/mypage/now");
-                  }}
                   width="22px"
                   height="23px"
                   cursor
@@ -76,14 +75,13 @@ const Header = (props) => {
                 />
                 <p>마이페이지</p>
               </HeaderMyBtn>
-              <Image src={userInfo.profileImg} width="42px" height="42px" />
+              <Image src={userInfo.profileImg === "" ? profile : userInfo.profileImg } alt="profile" width="42px" height="42px" />
             </>
           ) : (
-            <HeaderLogBtn>
+            <HeaderLogBtn onClick={() => {
+              history.push("/login");}}
+              >
               <Image
-                onClick={() => {
-                  history.push("/login");
-                }}
                 width="22px"
                 height="23px"
                 cursor
