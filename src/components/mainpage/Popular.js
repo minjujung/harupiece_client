@@ -24,7 +24,12 @@ const Popular = (props) => {
               {hot_list.usermain.popular &&
                 hot_list.usermain.popular.map((l, idx) => {
                   return (
-                    <div key={idx}>
+                    <div
+                      key={idx}
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}`)
+                      }
+                    >
                       <CardBox>
                         <div>
                           <img src={l.challengeImgUrl} alt="" />
@@ -43,7 +48,12 @@ const Popular = (props) => {
               {hot_list.guestmain.popular &&
                 hot_list.guestmain.popular.map((l, idx) => {
                   return (
-                    <div key={idx}>
+                    <div
+                      key={idx}
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}`)
+                      }
+                    >
                       <CardBox>
                         <div>
                           <img src={l.challengeImgUrl} alt="" />
@@ -95,6 +105,7 @@ const Title = styled.div`
 const CardBox = styled.div`
   width: 13.02vw;
   display: flex;
+  cursor: pointer;
 
   div {
     img {

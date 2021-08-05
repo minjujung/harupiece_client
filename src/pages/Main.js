@@ -11,6 +11,7 @@ import { MainCreators } from "../redux/modules/main";
 import { useDispatch } from "react-redux";
 import { getCookie } from "../shared/Cookie";
 import Info from "../components/mainpage/Info";
+import { Button } from "../elements";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -43,11 +44,24 @@ const Main = (props) => {
         <ContainerRight>
           <Info />
           {is_login ? (
-            <Button onClick={goToCreate}>챌린지등록하기+</Button>
+            <Button
+              width="16.15vw"
+              height="6.27vh"
+              margin="0px 0px 20px 0px"
+              _onClick={goToCreate}
+            >
+              챌린지등록하기+
+            </Button>
           ) : (
-            <Button onClick={goToLogin}>로그인 하기</Button>
+            <Button
+              width="16.15vw"
+              height="6.27vh"
+              margin="0px 0px 20px 0px"
+              _onClick={goToLogin}
+            >
+              로그인 하기
+            </Button>
           )}
-
           <Popular />
         </ContainerRight>
       </Container>
@@ -60,11 +74,10 @@ export default Main;
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
   width: 100vw;
   height: 50vh;
-  padding-left: 320px;
-  padding-right: 320px;
-  margin: 70px auto;
+  margin-top: 70px;
 `;
 
 const ContainerLeft = styled.div`
@@ -76,17 +89,4 @@ const ContainerLeft = styled.div`
 const ContainerRight = styled.div`
   width: 16.15vw;
   height: 77.22vh;
-`;
-
-const Button = styled.button`
-  width: 16.15vw;
-  height: 6.27vh;
-  background-color: ${({ theme }) => theme.colors.mainGreen};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
 `;

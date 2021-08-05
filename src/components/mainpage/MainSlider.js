@@ -114,7 +114,7 @@ export default MainSlider;
 const Contain = styled.div`
   display: flex;
   width: 49.48vw;
-  height: 27.77vh;
+  height: 25.77vh;
   border-radius: 8px;
   flex-direction: column;
   & > div > p {
