@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
 import { Tag, Card } from "../../elements";
+import { changeForm } from "../mypage/ChallengesInProgress";
 
 const Category = (props) => {
   const main_list = useSelector((state) => state.main);
@@ -29,11 +30,56 @@ const Category = (props) => {
 
   const is_login = getCookie("token") ? true : false;
 
+  const start = main_list.usermain[category]?.map(
+    (list) => list.challengeStartDate.split("T")[0]
+  );
+  const end = main_list.usermain[category]?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
+
+  // const guestStart = main_list.guestmain[category]?.map(
+  //   (list) => list.challengeStartDate.split("T")[0]
+  // );
+  // const guestEnd = main_list.guestmain[category]?.map(
+  //   (list) => list.challengeEndDate.split("T")[0]
+  // );
+
+  const {
+    _year: start_year,
+    _month: start_month,
+    _date: start_date,
+  } = changeForm(start);
+  const {
+    _year: end_year,
+    _month: end_month,
+    _date: end_date,
+  } = changeForm(end);
+
+  // const {
+  //   _year: guestStart_year,
+  //   _month: guestStart_month,
+  //   _date: guestStart_date,
+  // } = changeForm(guestStart);
+  // const {
+  //   _year: guestEnd_year,
+  //   _month: guestEnd_month,
+  //   _date: guestEnd_date,
+  // } = changeForm(guestEnd);
+
   return (
     <>
       <Contain>
-        <div>하루조각 건강챌린지</div>
-        <CardBox>
+        <div
+          style={{
+            paddingTop: "20px",
+            paddingBottom: "24px",
+            fontSize: "32px",
+            fontWeight: "bold",
+          }}
+        >
+          하루조각 <span>건강챌린지</span>
+        </div>
+        <TagBox>
           <Tag
             color={category === "nodrinknosmoke" ? "white" : "black"}
             onClick={ChangeTag}
@@ -55,8 +101,8 @@ const Category = (props) => {
           >
             #운동
           </Tag>
-        </CardBox>
-        <span style={{ fontSize: "12px", paddingLeft: "44vw" }}>전체보기</span>
+        </TagBox>
+        <ViewAll onClick={() => history.push(`/search/1/`)}>전체보기</ViewAll>
         <CardBox2>
           {is_login ? (
             <>
@@ -66,23 +112,14 @@ const Category = (props) => {
                     <>
                       <Card
                         src={l.challengeImgUrl}
+                        title={l.challengeTitle}
+                        date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
+                        ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                         key={idx}
                         onClick={() =>
                           history.push(`/challenge/${l.challengeId}`)
                         }
-                      >
-                        <div>
-                          <img src={l.challengeImgUrl} alt="" />
-                        </div>
-                        <TagBox>
-                          <Tag>#1달</Tag>
-                          <Tag>#인기챌린지</Tag>
-                        </TagBox>
-                        <TextBox>
-                          <span>2주 1술 (고난이도)</span>
-                          <span>2021.07.27 - 2021.08.27</span>
-                        </TextBox>
-                      </Card>
+                      ></Card>
                     </>
                   );
                 })}
@@ -93,14 +130,16 @@ const Category = (props) => {
                 main_list.guestmain[category].map((l, idx) => {
                   return (
                     <>
-                      <Card style={{ padding: "20px", fontSize: "12px" }}>
-                        <div key={idx}>
-                          <div>
-                            <img src={l.challengeImgUrl} alt="" />
-                          </div>
-                          <div></div>
-                        </div>
-                      </Card>
+                      <Card
+                        src={l.challengeImgUrl}
+                        title={l.challengeTitle}
+                        // date={`${guestStart_year[idx]}.${guestStart_month[idx]}.${guestStart_date[idx]} -
+                        // ${guestEnd_year[idx]}.${guestEnd_month[idx]}.${guestEnd_date[idx]}`}
+                        key={idx}
+                        onClick={() =>
+                          history.push(`/challenge/${l.challengeId}`)
+                        }
+                      ></Card>
                     </>
                   );
                 })}
@@ -120,46 +159,30 @@ const Contain = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 49.48vw;
-  height: 52vh;
+  height: 54vh;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.xl};
+  div {
+    span {
+      color: ${({ theme }) => theme.colors.mainGreen};
+    }
+  }
 `;
 
-const CardBox = styled.div`
+const TagBox = styled.div`
   display: flex;
+  padding-bottom: 15px;
 `;
 
 const CardBox2 = styled.div`
   display: flex;
+  padding-top: 10px;
 `;
 
-// const Card = styled.div`
-//   border-radius: 10px;
-//   width: 287px;
-//   height: 312px;
-//   background-color: slategrey;
-//   display: flex;
-//   flex-direction: column;
-//   margin-right: 10px;
-
-//   div {
-//     img {
-//       border-radius: 10px 10px 0px 0px / 10px 10px 0px 0px;
-//       width: 100%;
-//       height: 100px;
-//     }
-//   }
-// `;
-
-const TagBox = styled.div`
-  display: flex;
-  padding: 10px;
-`;
-
-const TextBox = styled.div`
-  font-size: 22px;
-  span:nth-child(2) {
-    font-size: 16px;
-  }
+const ViewAll = styled.span`
+  font-size: 15px;
+  padding-left: 44vw;
+  color: #a9a9a9;
+  cursor: pointer;
 `;

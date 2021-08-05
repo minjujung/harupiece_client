@@ -14,7 +14,7 @@ function Info() {
           <>
             <InfoBox>
               <div>
-                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>
+                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>님은
               </div>
               <div>{user.challengeCount}개의 챌린지를 진행중!</div>
             </InfoBox>
@@ -67,6 +67,9 @@ const InfoBox = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.md};
   margin: 0 97px 23px 20px;
   border-radius: 8px;
+  div {
+    padding-bottom: 5px;
+  }
 `;
 
 const InfoBox2 = styled.div`

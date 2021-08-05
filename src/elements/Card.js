@@ -2,16 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { Image, Tag } from "./index";
 
-const Card = ({ title, date, src }) => {
+const Card = ({ title, date, src, onClick }) => {
   return (
     <>
-      <CardBox>
-        <Image src={src} alt="" />
+      <CardBox onClick={onClick}>
+        <Image width="100%" height="161px" src={src} alt="" />
         <TextContainer>
           <TagContainer>
-            <Tag bg="mainOrange" color="white">
-              #2주
-            </Tag>
+            <Tag>#2주</Tag>
             <Tag>#인기챌린지</Tag>
           </TagContainer>
           <Title>{title}</Title>
@@ -34,7 +32,9 @@ const CardBox = styled.div`
   width: 287px;
   height: 312px;
   border-radius: 10px;
-  border: 1.8px solid ${({ theme }) => theme.colors.lightGray}; ;
+  margin-right: 16px;
+  border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
+  cursor: pointer;
 `;
 
 const TextContainer = styled.div`
@@ -53,6 +53,7 @@ const Title = styled.h4`
 `;
 
 const Date = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.darkGray};
   padding: 0 5px;
 `;

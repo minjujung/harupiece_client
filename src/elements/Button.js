@@ -35,6 +35,7 @@ const Button = ({
 Image.defaultProps = {
   children: null,
   width: false,
+  height: false,
   color: false,
   padding: false,
   bg: false,
@@ -51,6 +52,7 @@ export default Button;
 
 const ElButton = styled.button`
   width: ${(props) => (props.width ? props.width : "auto")};
+  height: ${(props) => (props.height ? props.height : "auto")};
   margin: ${(props) => (props.margin ? props.margin : "auto")};
   border: ${(props) =>
     props.border ? `2px solid ${props.theme.colors[props.border]};` : "none"};

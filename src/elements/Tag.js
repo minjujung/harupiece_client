@@ -20,6 +20,7 @@ Tag.defaultProps = {
 export default Tag;
 
 const TagFrame = styled.div`
+  cursor: pointer;
   border: 1px solid white;
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.lightGray};
