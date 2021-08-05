@@ -8,56 +8,114 @@ import { getCookie } from "../../shared/Cookie";
 const Popular = (props) => {
   const dispatch = useDispatch();
 
-  const main_list = useSelector((state) => state.main);
+  const hot_list_login = useSelector((state) => state.main.usermain.popular);
+
+  const hot_list_guest = useSelector((state) => state.main.guestmain.popular);
+
+  const is_login = getCookie("token") ? true : false;
 
   return (
-    <React.Fragment>
+    <>
       <Contain>
-        {getCookie("token")
-          ? main_list.usermain.popular?.map((l, idx) => (
-              <div
-                key={l.challengeId}
-                onClick={() => history.push(`/challenge/${l.challengeId}`)}
-              >
-                <p>배경 이미지 : {l.challengeImgUrl}</p>
-                <p>카테고리 이름 : {l.categoryName}</p>
-                <p>챌린지 재목 : {l.challengeTitle}</p>
-                <p>챌린지 참여 명수 : {l.challengeMember.length}</p>
-                <p>챌린지 시작 날짜 : {l.challengeStartDate}</p>
-                <p>챌린지 마감 날짜 : {l.challengeEndDate}</p>
-              </div>
-            ))
-          : main_list.guestmain.popular?.map((l, idx) => (
-              <div
-                key={l.challengeId}
-                onClick={() => history.push(`/challenge/${l.challengeId}`)}
-              >
-                {/* <p>배경 이미지 : {l.challengeImgUrl}</p> */}
-                <p>카테고리 이름 : {l.categoryName}</p>
-                <p>챌린지 재목 : {l.challengeTitle}</p>
-                <p>챌린지 참여 명수 : {l.challengeMember.length}</p>
-                <p>챌린지 시작 날짜 : {l.challengeStartDate}</p>
-                <p>챌린지 마감 날짜 : {l.challengeEndDate}</p>
-              </div>
-            ))}
+        <Title>
+          <span>HOT</span>챌린지
+        </Title>
+        <div>
+          {is_login ? (
+            <>
+              {hot_list_login &&
+                hot_list_login.map((l, idx) => {
+                  return (
+                    <div key={idx}>
+                      <CardBox>
+                        <div>
+                          <img src={l.challengeImgUrl} alt="" />
+                        </div>
+                        <CardTitle>
+                          <div>{l.challengeTitle}</div>
+                          <div>{l.challengeMember}명이 참여중</div>
+                        </CardTitle>
+                      </CardBox>
+                    </div>
+                  );
+                })}
+            </>
+          ) : (
+            <>
+              {hot_list_guest &&
+                hot_list_guest.map((l, idx) => {
+                  return (
+                    <div key={idx}>
+                      <CardBox>
+                        <div>
+                          <img src={l.challengeImgUrl} alt="" />
+                        </div>
+                        <CardTitle>
+                          <div>{l.challengeTitle}</div>
+                          <div>{l.challengeMember}명이 참여중</div>
+                        </CardTitle>
+                      </CardBox>
+                    </div>
+                  );
+                })}
+            </>
+          )}
+        </div>
       </Contain>
-    </React.Fragment>
+    </>
   );
 };
 
 export default Popular;
 
 const Contain = styled.div`
+  width: 16.15vw;
+  height: 55.39vh;
+  padding: 30px 31px 38px 22px;
+  border-radius: 10px;
+  border: 2px solid #f3f3f3;
   display: flex;
-  & > div > p {
-    margin: 0px;
-  }
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
-  & > div {
-    background-color: #c4c4c4;
-    margin-right: 1em;
-    margin-bottom: 1em;
-    width: 100%;
-    text-align: center;
+const Title = styled.div`
+  width: 9vw;
+  height: 5.3vh;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+
+  span {
+    color: ${({ theme }) => theme.colors.mainGreen};
+  }
+`;
+
+const CardBox = styled.div`
+  width: 13.02vw;
+  display: flex;
+
+  div {
+    img {
+      border-radius: 10px;
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
+  }
+`;
+
+const CardTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 10px;
+  div:nth-child(2) {
+    padding-top: 13px;
+    color: ${({ theme }) => theme.colors.gray};
   }
 `;
