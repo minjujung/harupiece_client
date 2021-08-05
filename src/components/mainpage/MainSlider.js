@@ -14,9 +14,9 @@ const MainSlider = (props) => {
   const main_list = useSelector((state) => state.main);
 
   const slideImages = [
-    "https://images.theconversation.com/files/35050/original/hws8ftp8-1384300615.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop",
-    "https://live-production.wcms.abc-cdn.net.au/3ddf1568faa0c258bf2a734aafbeeb68?impolicy=wcms_crop_resize&cropH=1688&cropW=3000&xPos=0&yPos=0&width=862&height=485",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Mmg90FMgb9CTBC3ft6h0RPjrdsqeHZ5TWA&usqp=CAU",
+    // "https://images.theconversation.com/files/35050/original/hws8ftp8-1384300615.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop",
+    // "https://live-production.wcms.abc-cdn.net.au/3ddf1568faa0c258bf2a734aafbeeb68?impolicy=wcms_crop_resize&cropH=1688&cropW=3000&xPos=0&yPos=0&width=862&height=485",
+    // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Mmg90FMgb9CTBC3ft6h0RPjrdsqeHZ5TWA&usqp=CAU",
   ];
 
   const properties = {
@@ -50,11 +50,17 @@ const MainSlider = (props) => {
               }}
             >
               <TagBox>
-                <Tag>#2주</Tag>
-                <Tag>#인기챌린지</Tag>
+                <Tag bg="none" color="white">
+                  #2주
+                </Tag>
+                <Tag bg="none" color="white">
+                  #인기챌린지
+                </Tag>
               </TagBox>
-              <div>주 2회 1만보 걷기</div>
-              <div>10일째 진행중!</div>
+              <TitleBox>주 2회 1만보 걷기</TitleBox>
+              <SubTitleBox>
+                <span>10일째</span> 진행중!
+              </SubTitleBox>
             </SliderBox>
           </div>
           <div className="each-slide">
@@ -64,11 +70,17 @@ const MainSlider = (props) => {
               }}
             >
               <TagBox>
-                <Tag>#2주</Tag>
-                <Tag>#인기챌린지</Tag>
+                <Tag bg="none" color="white">
+                  #2주
+                </Tag>
+                <Tag bg="none" color="white">
+                  #인기챌린지
+                </Tag>
               </TagBox>
-              <div>주 2회 1만보 걷기</div>
-              <div>10일째 진행중!</div>
+              <TitleBox>주 2회 1만보 걷기</TitleBox>
+              <SubTitleBox>
+                <span>10일째</span> 진행중!
+              </SubTitleBox>
             </SliderBox>
           </div>
           <div className="each-slide">
@@ -78,11 +90,17 @@ const MainSlider = (props) => {
               }}
             >
               <TagBox>
-                <Tag>#2주</Tag>
-                <Tag>#인기챌린지</Tag>
+                <Tag bg="none" color="white">
+                  #2주
+                </Tag>
+                <Tag bg="none" color="white">
+                  #인기챌린지
+                </Tag>
               </TagBox>
-              <div>주 2회 1만보 걷기</div>
-              <div>10일째 진행중!</div>
+              <TitleBox>주 2회 1만보 걷기</TitleBox>
+              <SubTitleBox>
+                <span>10일째</span> 진행중!
+              </SubTitleBox>
             </SliderBox>
           </div>
         </Slide>
@@ -151,11 +169,24 @@ const SliderBox = styled.div`
   height: 250px;
   background-size: cover;
   padding: 0px 15px;
-  div {
-    font-size: 24px;
-  }
+  font-size: 16px;
 `;
 
 const TagBox = styled.div`
   display: flex;
+`;
+
+const TitleBox = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.white};
+  padding: 15px 0;
+`;
+
+const SubTitleBox = styled.div`
+  font-size: 40px;
+  color: ${({ theme }) => theme.colors.white};
+  span {
+    border-bottom: 1px solid white;
+  }
 `;

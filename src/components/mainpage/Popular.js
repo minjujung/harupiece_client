@@ -5,14 +5,14 @@ import { history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
-import { Card } from "../../elements";
-
 const Popular = (props) => {
   const dispatch = useDispatch();
 
-  const main_list = useSelector((state) => state.main);
-  const hot_list = useSelector((state) => state.main.usermain.popular);
-  console.log(hot_list);
+  const hot_list_login = useSelector((state) => state.main.usermain.popular);
+
+  const hot_list_guest = useSelector((state) => state.main.guestmain.popular);
+
+  const is_login = getCookie("token") ? true : false;
 
   return (
     <>
@@ -21,22 +21,45 @@ const Popular = (props) => {
           <span>HOT</span>챌린지
         </Title>
         <div>
-          {hot_list &&
-            hot_list.map((l, idx) => {
-              return (
-                <div key={idx}>
-                  <CardBox>
-                    <div>
-                      <img src={l.challengeImgUrl} alt="" />
+          {is_login ? (
+            <>
+              {hot_list_login &&
+                hot_list_login.map((l, idx) => {
+                  return (
+                    <div key={idx}>
+                      <CardBox>
+                        <div>
+                          <img src={l.challengeImgUrl} alt="" />
+                        </div>
+                        <CardTitle>
+                          <div>{l.challengeTitle}</div>
+                          <div>{l.challengeMember}명이 참여중</div>
+                        </CardTitle>
+                      </CardBox>
                     </div>
-                    <CardTitle>
-                      <div>{l.challengeTitle}</div>
-                      <div>{l.challengeMember}명이 참여중</div>
-                    </CardTitle>
-                  </CardBox>
-                </div>
-              );
-            })}
+                  );
+                })}
+            </>
+          ) : (
+            <>
+              {hot_list_guest &&
+                hot_list_guest.map((l, idx) => {
+                  return (
+                    <div key={idx}>
+                      <CardBox>
+                        <div>
+                          <img src={l.challengeImgUrl} alt="" />
+                        </div>
+                        <CardTitle>
+                          <div>{l.challengeTitle}</div>
+                          <div>{l.challengeMember}명이 참여중</div>
+                        </CardTitle>
+                      </CardBox>
+                    </div>
+                  );
+                })}
+            </>
+          )}
         </div>
       </Contain>
     </>

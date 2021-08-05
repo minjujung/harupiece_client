@@ -1,26 +1,42 @@
 import React from "react";
 import styled from "styled-components";
+import { getCookie } from "../../shared/Cookie";
 
 function Info() {
+  const is_login = getCookie("token") ? true : false;
   return (
     <>
       <InfoContainer>
-        <InfoBox>
-          <div>
-            <span style={{ fontWeight: "bold" }}>홍길동님은</span>
-          </div>
-          <div>4개의 챌린지를 진행중!</div>
-        </InfoBox>
-        <InfoBox2>
-          <LeftBox>
-            <img src="" alt="" />
-            <div>등급:노랑</div>
-          </LeftBox>
-          <RightBox>
-            <img src="" alt="" />
-            <div>총 조각:4개</div>
-          </RightBox>
-        </InfoBox2>
+        {is_login ? (
+          <>
+            <InfoBox>
+              <div>
+                <span style={{ fontWeight: "bold" }}>홍길동님은</span>
+              </div>
+              <div>4개의 챌린지를 진행중!</div>
+            </InfoBox>
+            <InfoBox2>
+              <LeftBox>
+                <img src="" alt="" />
+                <div>등급:노랑</div>
+              </LeftBox>
+              <RightBox>
+                <img src="" alt="" />
+                <div>총 조각:4개</div>
+              </RightBox>
+            </InfoBox2>
+          </>
+        ) : (
+          <>
+            <GuestBox>
+              <div>
+                <span>로그인을</span>하여
+              </div>
+              <div>자신만의 특별한</div>
+              <div>하루조각을 모아보세요!</div>
+            </GuestBox>
+          </>
+        )}
       </InfoContainer>
     </>
   );
@@ -71,6 +87,18 @@ const RightBox = styled.div`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.gray};
+`;
+
+const GuestBox = styled.div`
+  padding: 10px;
+  padding-bottom: 25px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  span {
+    font-weight: bold;
+  }
+  div {
+    padding: 5px;
+  }
 `;
 
 export default Info;
