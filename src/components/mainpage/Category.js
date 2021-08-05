@@ -30,6 +30,7 @@ const Category = (props) => {
                 <>
                   <Card style={{ padding: "20px", fontSize: "12px" }}>
                     <div key={idx}>
+                      onClick={() => history.push(`/challenge/${l.challengeId}`)}
                       <div>
                         <img src={l.challengeImgUrl} alt="" />
                       </div>

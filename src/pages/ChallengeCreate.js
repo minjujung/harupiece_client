@@ -259,8 +259,12 @@ function ChallengeCreate(props) {
 const CreateContainer = styled.div`
   background-color: orange;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  padding-top: 5.37vh;
+  padding-bottom: 23.24vh;
+  padding-left: 16.66vw;
+  padding-right: 16.66vw;
 `;
 
 const GuideLine = styled.div`
