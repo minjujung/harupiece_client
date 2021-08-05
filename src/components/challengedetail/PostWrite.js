@@ -8,6 +8,7 @@ import { actionCreator as postActions } from "../../redux/modules/post";
 import Button from "../../elements/Button";
 import { Image } from "../../elements";
 import camera from "../../images/icons/camera.svg";
+import close from "../../images/icons/close.svg";
 
 const PostWrite = ({ challengeId }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const PostWrite = ({ challengeId }) => {
   // modal창 닫기
   const handleClose = () => {
     setOpen(false);
+    dispatch(imageActions.setPreview(""));
   };
 
   //인증 관련 글
@@ -63,10 +65,7 @@ const PostWrite = ({ challengeId }) => {
     <>
       <Button
         width="16.15vw"
-        bg="mainGreen"
-        color="white"
         padding="21px 64px"
-        border="lightGray"
         margin="0 0 20px 0"
         _onClick={handleClickOpen}
       >
@@ -80,20 +79,29 @@ const PostWrite = ({ challengeId }) => {
         PaperProps={{
           style: {
             width: "55.21vw",
-            height: "66.66vh",
             padding: "32px",
-            borderRadius: "0.6em ",
+            borderRadius: "16px",
           },
         }}
       >
-        <Title>인증</Title>
+        <Container>
+          <Title>인증</Title>
+          <Image
+            src={close}
+            alt="closeBtn"
+            onClick={handleClose}
+            width="1.46vw"
+            height="2.59vh"
+          />
+        </Container>
         <InputContainer>
           {preview ? (
             <Image
               src={preview}
               alt="preview"
-              width="35.16vw"
+              width="25.1vw"
               height="45.09vh"
+              borderRadius="16px"
             />
           ) : (
             <Preview>
@@ -106,7 +114,10 @@ const PostWrite = ({ challengeId }) => {
                   src={camera}
                   alt="camera"
                 />
-                <p>업로드할 사진을 선택해 주세요.</p>
+                <p>
+                  업로드할 사진을 선택 <br />
+                  해주세요.
+                </p>
               </PreviewBtn>
             </Preview>
           )}
@@ -122,7 +133,7 @@ const PostWrite = ({ challengeId }) => {
             value={shotText}
             type="text"
             id="shot_text"
-            placeholder="챌린지를 실천하면서 느껐던 점을 메모해보세요!"
+            placeholder="이번 챌린지에서 느낀 점을 기록해보세요."
             onChange={writeText}
           />
         </InputContainer>
@@ -134,15 +145,32 @@ const PostWrite = ({ challengeId }) => {
         >
           인증 올리기
         </CreateBtn> */}
-        <Button width="100%" padding="16px 0" _onClick={createPost}>
-          인증내용 올리기
-        </Button>
+        <BtnContainer>
+          <PreviewBtn htmlFor="shot" again>
+            인증샷 수정하기
+          </PreviewBtn>
+          <Button
+            width="25.10vw"
+            height="5.92vh"
+            padding="16px 0"
+            margin="0 0 0 32px"
+            _onClick={createPost}
+          >
+            인증글 올리기
+          </Button>
+        </BtnContainer>
       </Dialog>
     </>
   );
 };
 
 export default PostWrite;
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.lg};
@@ -158,29 +186,52 @@ const Preview = styled.div`
   border: dashed ${({ theme }) => theme.colors.mainGreen};
   border-width: 6px;
   font-weight: bold;
+  ${(props) => (props.again ? `margin-right: 32px;` : null)}
 `;
 
 const PreviewBtn = styled.label`
-  width: 100%;
-  height: 100%;
+  width: ${(props) => (props.again ? "25.1vw" : "100%")};
+  height: ${(props) => (props.again ? "5.92vh" : "100%")};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.colors.gray};
+  color: ${(props) =>
+    props.again ? props.theme.colors.mainGreen : props.theme.colors.gray};
+  font-weight: bold;
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  ${(props) =>
+    props.again
+      ? `border: 2px solid ${props.theme.colors.lightGray} `
+      : props.theme.colors.gray};
+  ${(props) => (props.again ? `border-radius: 8px` : null)};
 `;
 
 const InputContainer = styled.div`
   display: flex;
 `;
 
-const TextInput = styled.input`
+const TextInput = styled.textarea`
   width: 25.1vw;
   height: 45.09vh;
   background-color: #e5e5e5;
-  display: flex;
   border-radius: 16px;
   margin-left: 32px;
+  padding: 20px;
+  ::placeholder {
+    font-weight: bold;
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    color: ${({ theme }) => theme.colors.gray};
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  margin-top: 32px;
 `;
 
 const CreateBtn = styled.button`

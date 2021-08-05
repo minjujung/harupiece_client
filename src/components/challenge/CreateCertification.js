@@ -20,6 +20,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
     const reader = new FileReader();
     const goodFile = goodFileInput.current.files[0];
 
+    if (!goodFile) {
+      return;
+    }
+
     reader.readAsDataURL(goodFile);
 
     reader.onloadend = () => {
@@ -31,6 +35,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const badSelectFile = (e) => {
     const reader = new FileReader();
     const badFile = badFileInput.current.files[0];
+
+    if (!badFile) {
+      return;
+    }
 
     reader.readAsDataURL(badFile);
 

@@ -30,7 +30,7 @@ const TagFrame = styled.div`
       : props.theme.colors.darkGray};
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  border-radius: 1.7em;
+  border-radius: 27px;
   padding: 10px;
   margin-right: 0.5em;
 `;

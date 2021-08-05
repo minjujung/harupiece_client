@@ -117,11 +117,12 @@ const editMyProfileDB = (content) => {
             point: user_info.point,
           };
           dispatch(userCreators.setUser(new_user_info));
+          history.push("/mypage/now");
         })
         .catch((error) => {
           if (
             window.confirm(
-              "인증샷 수정에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
+              "프로필 수정에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
             )
           ) {
             history.push("/");
@@ -131,7 +132,7 @@ const editMyProfileDB = (content) => {
           console.log("사진은 그대로고 멘트만 수정 했을 때: ", error);
         });
     } else {
-      console.log("사진도 바꿀 때");
+      //프로필 사진, 닉네임 둘다 바꿀 때
       const date = new Date();
       const user_info = getState().user.userInfo;
 
@@ -154,7 +155,7 @@ const editMyProfileDB = (content) => {
       promise.then((data) => {
         const newProFile = { ...proFile, profileImage: data.Location };
 
-        MypageApis.EditProfile(newProFile)
+        MypageApis.editProfile(newProFile)
           .then((res) => {
             const _newProFile = { ...newProFile };
 
@@ -169,6 +170,7 @@ const editMyProfileDB = (content) => {
               point: user_info.point,
             };
             dispatch(userCreators.setUser(new_user_info));
+            history.push("/mypage/now");
           })
           .catch((error) => {
             if (window.confirm("test")) {

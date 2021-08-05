@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { history } from "../../redux/configureStore";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
-// 2021-08-07T23:59:59
-
+// 2021-08-07T23:59:59 형태를 2021, 8, 7의 형태로 바꿔주는 함수
 const changeForm = (dates) => {
   let _year = dates?.map((y) => {
     return y.split("-")[0];
@@ -55,7 +55,10 @@ function ChallengesInProgress(props) {
       {myChallengeList &&
         myChallengeList.map((list, idx) => {
           return (
-            <ChallengeContent key={idx}>
+            <ChallengeContent
+              key={idx}
+              onClick={() => history.push(`/challenge/${list.challengeId}`)}
+            >
               <ChallengeImg>
                 <img src={list.challengeImgUrl} alt="" />
               </ChallengeImg>
@@ -70,10 +73,11 @@ function ChallengesInProgress(props) {
                 </div>
                 <div>
                   <div>
-                    {profileArray.map((profile, idx) => {
+                    {/* {profileArray.map((profile, idx) => {
                       if (idx < 4) {
                         return (
                           <img
+                            key={my_info.memberId}
                             src={my_info.profileImage}
                             alt="profile_list"
                             style={{
@@ -85,7 +89,7 @@ function ChallengesInProgress(props) {
                           />
                         );
                       }
-                    })}
+                    })} */}
                   </div>
                   <div>
                     {list.participateSize && list.participateSize > 1 ? (

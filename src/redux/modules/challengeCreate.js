@@ -31,7 +31,11 @@ const getThumnailDb = (category) => {
     ChallengeCreateApis.GetThumnail(category)
       .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))
       .catch((error) => {
-        if (window.confirm("test")) {
+        if (
+          window.confirm(
+            "카테고리 썸네일을 가져오는 데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          )
+        ) {
           history.push("/");
         } else {
           history.goBack();
@@ -104,13 +108,17 @@ const createChDB =
                   challengeMember: [user_info.memberId],
                 };
                 dispatch(MainCreators.addUserLoad(new_challenge));
+                window.alert("챌린지 개설 완료!");
+                history.push("/");
               })
               .catch((error) => {
                 if (
                   error.response.data.message ===
                   "이미 해당 카테고리에 챌린지를 생성한 유저입니다."
                 ) {
-                  window.alert("한 사람당 하나씩만 챌린지 생성이 가능해요!!");
+                  window.alert(
+                    "한 사람당 카테고리 별로 하나씩만 챌린지 생성이 가능해요!!"
+                  );
                 }
                 consoleLogger(error.response.data.message);
               });
