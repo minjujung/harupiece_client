@@ -27,4 +27,7 @@ const TagFrame = styled.div`
   border-radius: 1.7em;
   padding: 10px;
   margin-right: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

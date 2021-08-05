@@ -8,9 +8,7 @@ import { getCookie } from "../../shared/Cookie";
 const Popular = (props) => {
   const dispatch = useDispatch();
 
-  const hot_list_login = useSelector((state) => state.main.usermain.popular);
-
-  const hot_list_guest = useSelector((state) => state.main.guestmain.popular);
+  const hot_list = useSelector((state) => state.main);
 
   const is_login = getCookie("token") ? true : false;
 
@@ -23,8 +21,8 @@ const Popular = (props) => {
         <div>
           {is_login ? (
             <>
-              {hot_list_login &&
-                hot_list_login.map((l, idx) => {
+              {hot_list.usermain.popular &&
+                hot_list.usermain.popular.map((l, idx) => {
                   return (
                     <div key={idx}>
                       <CardBox>
@@ -42,8 +40,8 @@ const Popular = (props) => {
             </>
           ) : (
             <>
-              {hot_list_guest &&
-                hot_list_guest.map((l, idx) => {
+              {hot_list.guestmain.popular &&
+                hot_list.guestmain.popular.map((l, idx) => {
                   return (
                     <div key={idx}>
                       <CardBox>

@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { getCookie } from "../../shared/Cookie";
+import { useSelector } from "react-redux";
 
 function Info() {
   const is_login = getCookie("token") ? true : false;
+  const user = useSelector((state) => state.user.userInfo);
+
   return (
     <>
       <InfoContainer>
@@ -11,18 +14,19 @@ function Info() {
           <>
             <InfoBox>
               <div>
-                <span style={{ fontWeight: "bold" }}>홍길동님은</span>
+                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>
               </div>
-              <div>4개의 챌린지를 진행중!</div>
+              <div>{user.challengeCount}개의 챌린지를 진행중!</div>
             </InfoBox>
             <InfoBox2>
               <LeftBox>
                 <img src="" alt="" />
+                {/* 민주님 dev pull 받은 뒤 재 설정 필요함 */}
                 <div>등급:노랑</div>
               </LeftBox>
               <RightBox>
                 <img src="" alt="" />
-                <div>총 조각:4개</div>
+                <div>총 조각:{user.point}개</div>
               </RightBox>
             </InfoBox2>
           </>
