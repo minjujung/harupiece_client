@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import beer from "../images/test/beer.jpg";
 import { Image, Tag } from "./index";
 
-const Card = ({ title, date }) => {
+const Card = ({ title, date, src }) => {
   return (
     <>
       <CardBox>
-        <Image src={beer} alt="beer" />
+        <Image src={src} alt="" />
         <TextContainer>
           <TagContainer>
             <Tag bg="mainOrange" color="white">
@@ -26,19 +25,20 @@ const Card = ({ title, date }) => {
 Card.defaultProps = {
   title: "",
   date: "",
+  src: "",
 };
 
 export default Card;
 
 const CardBox = styled.div`
-  width: 17.9em;
-  height: 19.5em;
-  border-radius: 8px;
+  width: 287px;
+  height: 312px;
+  border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray}; ;
 `;
 
 const TextContainer = styled.div`
-  padding: 1.2em;
+  padding: 10px;
 `;
 
 const TagContainer = styled.div`
@@ -48,11 +48,11 @@ const TagContainer = styled.div`
 const Title = styled.h4`
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.black};
-  padding: 0.7em 0.4em;
+  padding: 10px;
   font-weight: bold;
 `;
 
 const Date = styled.p`
   color: ${({ theme }) => theme.colors.darkGray};
-  padding: 0 0.5em;
+  padding: 0 5px;
 `;
