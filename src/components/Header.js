@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MainCreators as searchActions } from "../redux/modules/main";
 
+import { Image } from "../elements/index";
 import levelData from "../shared/level";
+
+import logo from "../images/logo/large.png";
+import login from "../images/icon/login.png";
+import myPage from "../images/icon/profile.png";
+import Search from "../images/icon/search.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
@@ -24,9 +30,11 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <HeaderBox>
-        <Container>
-          <div onClick={() => history.push("/")}>로고(하루조각)</div>
-          <form>
+        <div onClick={() => history.push("/")}>
+          <Image width="220px" height="34px" cursor src={logo} />
+        </div>
+        <Container1>
+          <Form>
             <label htmlFor="search-form">
               <input
                 type="search"
@@ -36,44 +44,55 @@ const Header = (props) => {
                 onChange={(e) => setQ(e.target.value)}
               />
             </label>
-            <input type="submit" onClick={search} />
-          </form>
-          <Container1>
-            {getCookie("token") && userInfo ? (
-              <>
-                {" "}
-                <img
-                  style={{ width: "50px", height: "50px" }}
-                  src={userInfo.profileImg}
-                  alt="profile"
-                  onClick={() => history.push("/mypage/now")}
-                />
-                <p>{userInfo.nickname}</p>
-                <p>포인트 : {userInfo.point}</p>
-                <img
-                  src={levelData[userInfo.memberLevel - 1]?.img}
-                  alt="level_image"
-                  style={{ width: "3em", height: "3em", margin: "0 1em" }}
-                />
-                <button
+            <HeaderSerBtn type="submit" onClick={search}>
+              <Image width="22px" height="23px" cursor src={Search} />
+              <p>검색</p>
+            </HeaderSerBtn>
+          </Form>
+          {getCookie("token") && userInfo ? (
+            <>
+              {" "}
+              <HeaderLogBtn>
+                <Image
                   onClick={() => {
                     dispatch(userCreators.logOutDB());
                   }}
-                >
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <button
+                  width="22px"
+                  height="23px"
+                  cursor
+                  src={login}
+                />
+                <p>로그아웃</p>
+              </HeaderLogBtn>
+              <HeaderMyBtn>
+                <Image
+                  onClick={() => {
+                    history.push("/mypage/now");
+                  }}
+                  width="22px"
+                  height="23px"
+                  cursor
+                  src={myPage}
+                />
+                <p>마이페이지</p>
+              </HeaderMyBtn>
+              <Image src={userInfo.profileImg} width="42px" height="42px" />
+            </>
+          ) : (
+            <HeaderLogBtn>
+              <Image
                 onClick={() => {
                   history.push("/login");
                 }}
-              >
-                로그인
-              </button>
-            )}
-          </Container1>
-        </Container>
+                width="22px"
+                height="23px"
+                cursor
+                src={login}
+              />
+              <p>로그인</p>
+            </HeaderLogBtn>
+          )}
+        </Container1>
       </HeaderBox>
     </React.Fragment>
   );
@@ -82,16 +101,58 @@ const Header = (props) => {
 export default Header;
 
 const HeaderBox = styled.div`
-  height: 10.37vh;
-  width: 90vw;
+  height: 10.55vh;
+  width: 100vw;
   top: 0;
-  position: absolute;
-  background-color: #c4c4c4;
-`;
-
-const Container = styled.div`
+  padding: 0 16.67vw;
+  position: fixed;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 2px solid #eeeeee;
+`;
+
+const HeaderSerBtn = styled.button`
+  width: 28px;
+  height: 37px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+`;
+const HeaderLogBtn = styled.button`
+  width: 56px;
+  height: 37px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+`;
+const HeaderMyBtn = styled.button`
+  width: 70px;
+  height: 37px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & > p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
 `;
 
 const Container1 = styled.div`

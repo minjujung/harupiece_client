@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import _ from "lodash";
+import Spinner from "../components/Spinner";
 
 const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading } = props;
@@ -44,7 +45,7 @@ const InfinityScroll = (props) => {
   return (
     <>
       {children}
-      {/* {is_Next && <Spinner />} */}
+      {is_next && <Spinner />}
     </>
   );
 };

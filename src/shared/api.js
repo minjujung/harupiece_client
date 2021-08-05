@@ -117,7 +117,7 @@ export const PostApis = {
 
 export const ChallengeDetailApis = {
   getDetail: (challenge_id) =>
-    instance.get(`api/member/challenge/${challenge_id}`),
+    instance.get(`api/guest/challenge/${challenge_id}`),
   editDetail: (challengeInfo) =>
     instance.put(`api/member/challenge`, challengeInfo),
   adminDeleteDetail: (challenge_id) =>

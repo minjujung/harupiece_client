@@ -9,10 +9,13 @@ ${reset};
     transition: all .5s;
 }
 
+
 body {
     padding-top: 5em;
     padding-bottom:50px;
+    padding: 70px 0px 50px 0px;
 }
+
 
 a {
     color: #222222;
