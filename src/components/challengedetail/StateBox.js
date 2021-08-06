@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import level from "../../images/icons/level.svg";
 import completed from "../../images/icons/completed.svg";
-import product_icon from "../../images/icons/product_icon.svg";
 import levelData from "../../shared/level";
 import { Image } from "../../elements";
 
@@ -11,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
-  const levelState = parseInt((user_info.userLevel - 1) / 5);
+  const levelState = parseInt((user_info.memberLevel - 1) / 5);
 
   if (user_info.memberId === null) {
     return (
@@ -60,8 +59,9 @@ const StateBox = (props) => {
             <Image
               width="6.25vw"
               height="60%"
+              margin="1vh 0 0 0"
               borderRadius="50%"
-              src={levelData[1].img}
+              src={levelData[levelState].img}
               alt="level_image"
             />
           </LevelInfo>
@@ -75,13 +75,13 @@ const StateBox = (props) => {
                 src={completed}
                 alt="level"
               />
-              완료: 4개
+              조각: {user_info.point}개
             </p>
             <Image
               width="1.57vw"
               height="60%"
               borderRadius="50%"
-              src={product_icon}
+              src={levelData[levelState].piece}
               alt="level_image"
             />
           </Completed>
@@ -134,35 +134,44 @@ const Strong = styled.strong`
 `;
 
 const UserLevel = styled.div`
-  height: 90%;
+  height: 100%;
   display: flex;
 `;
 
 const LevelInfo = styled.section`
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   flex: 1;
-  padding: 7%;
   border-right: 2px solid ${({ theme }) => theme.colors.lightGray};
   color: 2px solid ${({ theme }) => theme.colors.darkGray};
   p {
     display: flex;
+    width: 100%;
     height: 15%;
+    justify-content: center;
     align-items: center;
   }
 `;
 
 const Completed = styled.section`
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   color: 2px solid ${({ theme }) => theme.colors.darkGray};
-  padding: 7%;
   p {
     display: flex;
+    width: 100%;
+
     height: 15%;
+    justify-content: center;
     align-items: center;
   }
 `;

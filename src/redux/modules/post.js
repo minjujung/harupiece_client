@@ -182,6 +182,7 @@ const addPostDB =
 const editPostDB =
   (post_id, content, challengeId) =>
   (dispatch, getState, { history }) => {
+    console.log(new Date());
     const post_list = getState().post.list;
     const post_idx = post_list.findIndex((p) => p.postingId === post_id);
     const _post = post_list[post_idx];

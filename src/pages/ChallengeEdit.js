@@ -89,10 +89,8 @@ function ChallengeCreate(props) {
     dispatch(
       challengeDetailActions.editChallengeDB(challenge_id, challengeInfo)
     );
-    window.alert("챌린지 개설 완료!");
     dispatch(createActions.setGoodPreview(""));
     dispatch(createActions.setBadPreview(""));
-    history.push(`/challenge/${challenge_info.challengeId}`);
   };
 
   return (

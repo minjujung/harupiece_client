@@ -55,8 +55,6 @@ const PwdModal = (props) => {
       setOpen(true);
     } else {
       dispatch(challengeDetailActions.takeInPartChallengeDB(challengeId));
-      window.alert(`${challengeTitle} 챌린지 신청 완료!`);
-      history.push("/mypage");
     }
   };
 
