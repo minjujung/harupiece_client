@@ -126,6 +126,8 @@ const editChallengeDB =
             .then((res) => {
               consoleLogger("챌린지 수정 요청 후 응답", res);
               dispatch(editChallengeDetail(challengeInfo));
+              window.alert("챌린지 수정 완료!");
+              history.push(`/challenge/${challenge_id}`);
             })
             .catch((error) => {
               if (
@@ -228,7 +230,7 @@ const giveupChallengeDB =
 
         dispatch(editChallengeDetail(new_challenge_info));
         window.alert("챌린지 참여취소가 완료되었습니다!");
-        history.replace("/mypage");
+        history.replace("/mypage/now");
       })
       .catch((error) => {
         if (
@@ -273,9 +275,8 @@ const takeInPartChallengeDB =
         };
 
         dispatch(editChallengeDetail(new_challenge_info));
-
         window.alert(`${challenge_detail.challengeTitle} 챌린지 신청 완료!`);
-        history.push("/mypage");
+        history.push("/mypage/now");
       })
       .catch((error) => {
         if (
