@@ -20,7 +20,18 @@ function SearchChallenge(props) {
 
   const getCategory = (e) => {
     let category = e.target.textContent;
-    dispatch(searchActions.searchAllDB(category));
+    let categoryUrl = "";
+    if (category === "#금연금주") {
+      categoryUrl = "NODRINKNOSMOKE";
+    } else if (category === "#생활챌린지") {
+      categoryUrl = "LIVINGHABITS";
+    } else if (category === "#운동") {
+      categoryUrl = "EXERCISE";
+    } else {
+      categoryUrl = category;
+    }
+    dispatch(searchActions.searchAllDB(categoryUrl));
+    history.push(`/search/1/${categoryUrl}`);
   };
 
   function search(searchList) {
@@ -90,7 +101,7 @@ function SearchChallenge(props) {
 
       <BoxContainer>
         {searchList &&
-          search(searchList).map((l, idx) => {
+          searchList.map((l, idx) => {
             return (
               <>
                 <Card
@@ -98,6 +109,7 @@ function SearchChallenge(props) {
                   title={l.challengeTitle}
                   date="2021.01.01 - 2021.01.01"
                   key={idx}
+                  onClick={() => history.push(`/challenge/${l.challengeId}`)}
                 ></Card>
               </>
             );
