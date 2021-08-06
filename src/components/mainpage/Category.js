@@ -15,7 +15,6 @@ const Category = (props) => {
 
   const ChangeTag = (e) => {
     let keyWord = e.target.textContent;
-    console.log(keyWord);
     if (keyWord === "#금연&금주") {
       setCategory("nodrinknosmoke");
     }
