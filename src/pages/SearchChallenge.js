@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../redux/modules/main";
-import { Tag } from "../elements";
+import { Tag, Card } from "../elements";
+import { changeForm } from "../components/mypage/ChallengesInProgress";
 import { history } from "../redux/configureStore";
 
 function SearchChallenge(props) {
@@ -19,9 +20,7 @@ function SearchChallenge(props) {
 
   const getCategory = (e) => {
     let category = e.target.textContent;
-    console.log(category);
     dispatch(searchActions.searchAllDB(category));
-    history.push(`/search/1/${filterParam}`);
   };
 
   function search(searchList) {
@@ -37,6 +36,24 @@ function SearchChallenge(props) {
       }
     });
   }
+
+  // const start = searchList.usermain[category]?.map(
+  //   (list) => list.challengeStartDate.split("T")[0]
+  // );
+  // const end = searchList.usermain[category]?.map(
+  //   (list) => list.challengeEndDate.split("T")[0]
+  // );
+
+  // const {
+  //   _year: start_year,
+  //   _month: start_month,
+  //   _date: start_date,
+  // } = changeForm(start);
+  // const {
+  //   _year: end_year,
+  //   _month: end_month,
+  //   _date: end_date,
+  // } = changeForm(end);
 
   return (
     <Container>
@@ -75,16 +92,14 @@ function SearchChallenge(props) {
         {searchList &&
           search(searchList).map((l, idx) => {
             return (
-              <div key={idx}>
-                <Box>
-                  <span>{l.challengeTitle}</span>
-                  <img
-                    src={l.challengeImgUrl}
-                    alt=""
-                    style={{ width: "300px", height: "300px" }}
-                  />
-                </Box>
-              </div>
+              <>
+                <Card
+                  src={l.challengeImgUrl}
+                  title={l.challengeTitle}
+                  date="2021.01.01 - 2021.01.01"
+                  key={idx}
+                ></Card>
+              </>
             );
           })}
       </BoxContainer>
@@ -144,15 +159,16 @@ const TagBox = styled.div`
 
 const BoxContainer = styled.div`
   height: 200px;
-  display: flex;
-  flex-wrap: wrap;
-`;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 40px;
+  grid-column-gap: 40px;
+  padding-top: 40px;
 
-const Box = styled.div`
-  width: 300px;
-  height: 300px;
-  margin: 10px;
-  background-color: forestgreen;
+  Card {
+    margin-right: 0px;
+  }
 `;
 
 export default SearchChallenge;

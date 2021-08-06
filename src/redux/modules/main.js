@@ -78,7 +78,7 @@ const searchAllDB = (q) => {
       query = "NODRINKNOSMOKE";
     } else if (q === "#생활챌린지") {
       query = "LIVINGHABITS";
-    } else if (q === "운동") {
+    } else if (q === "#운동") {
       query = "EXERCISE";
     } else {
       query = q;
