@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { history } from "../../redux/configureStore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { MainCreators as searchActions } from "../../redux/modules/main";
 import { getCookie } from "../../shared/Cookie";
 
 import { Tag, Card } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
 
 const Category = (props) => {
+  const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
 
   const [category, setCategory] = useState("nodrinknosmoke");
+
+  const searchAll = (e) => {
+    const CATEGORY = category.toUpperCase();
+    e.preventDefault();
+    dispatch(searchActions.searchAllDB(CATEGORY));
+    history.push(`/search/1/${CATEGORY}`);
+  };
 
   const ChangeTag = (e) => {
     let keyWord = e.target.textContent;
@@ -101,7 +110,7 @@ const Category = (props) => {
             #운동
           </Tag>
         </TagBox>
-        <ViewAll onClick={() => history.push(`/search/1/`)}>전체보기</ViewAll>
+        <ViewAll onClick={searchAll}>전체보기</ViewAll>
         <CardBox2>
           {is_login ? (
             <>

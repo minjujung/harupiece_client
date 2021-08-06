@@ -71,6 +71,29 @@ const searchDB = (q) => {
   };
 };
 
+const searchAllDB = (q) => {
+  return function (dispatch, getState, { history }) {
+    let query = "";
+    if (q === "#금연금주") {
+      query = "NODRINKNOSMOKE";
+    } else if (q === "#생활챌린지") {
+      query = "LIVINGHABITS";
+    } else if (q === "운동") {
+      query = "EXERCISE";
+    } else {
+      query = q;
+    }
+    const encode = encodeURIComponent(query);
+    MainApis.searchAll(encode)
+      .then((res) => {
+        dispatch(search(res.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // reducer
 export default handleActions(
   {
@@ -90,7 +113,8 @@ export default handleActions(
           action.payload.challenge.categoryName.toLowerCase()
         ].unshift(action.payload.challenge);
       }),
-      [SEARCH]:(state,action) => produce(state,(draft) => {
+    [SEARCH]: (state, action) =>
+      produce(state, (draft) => {
         draft.search = action.payload.search;
       }),
 
@@ -117,6 +141,7 @@ const MainCreators = {
   searchDB,
   addUserLoad,
   deleteUserLoad,
+  searchAllDB,
 };
 
 export { MainCreators };
