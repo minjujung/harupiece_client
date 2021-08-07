@@ -9,38 +9,63 @@ import { history } from "../redux/configureStore";
 function SearchChallenge(props) {
   const dispatch = useDispatch();
 
-  // 전체보기 키워드
-  const searchWord = props.match.params.searchWords;
-
   // 검색 키워드
   const searchList = useSelector((state) => state.main.search);
 
-  const [searchParam] = useState(["categoryName", "challengeTitle"]);
-  const [filterParam, setFilterParam] = useState(searchWord);
+  const [searchParam] = useState(["categoryName", "challengeTitle", "tagList"]);
+  const [filterParam, setFilterParam] = useState("All");
+  const [filterTerms, setFilterTerms] = useState("All");
+  const [filterEtc, setFilterEtc] = useState("All");
 
   const getCategory = (e) => {
     let category = e.target.textContent;
-    let categoryUrl = "";
     if (category === "#금연금주") {
-      categoryUrl = "NODRINKNOSMOKE";
+      setFilterParam("NODRINKNOSMOKE");
     } else if (category === "#생활챌린지") {
-      categoryUrl = "LIVINGHABITS";
+      setFilterParam("LIVINGHABITS");
     } else if (category === "#운동") {
-      categoryUrl = "EXERCISE";
+      setFilterParam("EXERCISE");
     } else {
-      categoryUrl = category;
+      return;
     }
-    dispatch(searchActions.searchAllDB(categoryUrl));
-    history.push(`/search/1/${categoryUrl}`);
+  };
+
+  const getTerms = (e) => {
+    let category = e.target.textContent;
+    if (category === "#1주") {
+      setFilterTerms("#1주");
+    } else if (category === "#2주") {
+      setFilterTerms("#2주");
+    } else if (category === "#3주") {
+      setFilterTerms("#3주");
+    } else if (category === "#4주 이상") {
+      setFilterTerms("#4주 이상");
+    } else {
+      return;
+    }
+  };
+
+  const getEtc = (e) => {
+    let category = e.target.textContent;
+    if (category === "#공식챌린지") {
+      setFilterEtc(["#공식챌린지"]);
+    } else if (category === "#인기챌린지") {
+      setFilterEtc(["#인기챌린지"]);
+    } else {
+      return;
+    }
   };
 
   function search(searchList) {
     return searchList.filter((searchLists) => {
-      if (searchLists.categoryName === filterParam) {
+      if (
+        searchLists.categoryName === filterParam &&
+        searchLists.tagList.includes(filterTerms)
+      ) {
         return searchParam.some((newList) => {
           return searchLists[newList].toString().toLowerCase();
         });
-      } else if (filterParam == searchWord) {
+      } else if (filterParam == "All") {
         return searchParam.some((newList) => {
           return searchLists[newList].toString().toLowerCase();
         });
@@ -87,21 +112,33 @@ function SearchChallenge(props) {
             </Tag>
           </TagBox>
           <TagBox>
-            <Tag bg="white">#1주</Tag>
-            <Tag bg="white">#2주</Tag>
-            <Tag bg="white">#3주</Tag>
-            <Tag bg="white">#4주 이상</Tag>
+            <Tag onClick={getTerms} bg="white">
+              #1주
+            </Tag>
+            <Tag onClick={getTerms} bg="white">
+              #2주
+            </Tag>
+            <Tag onClick={getTerms} bg="white">
+              #3주
+            </Tag>
+            <Tag onClick={getTerms} bg="white">
+              #4주 이상
+            </Tag>
           </TagBox>
           <TagBox>
-            <Tag bg="white">#공식챌린지</Tag>
-            <Tag bg="white">#인기챌린지</Tag>
+            <Tag onClick={getEtc} bg="white">
+              #공식챌린지
+            </Tag>
+            <Tag onClick={getEtc} bg="white">
+              #인기챌린지
+            </Tag>
           </TagBox>
         </CategoryRightBox>
       </CategoryContainer>
 
       <BoxContainer>
         {searchList &&
-          searchList.map((l, idx) => {
+          search(searchList).map((l, idx) => {
             return (
               <>
                 <Card

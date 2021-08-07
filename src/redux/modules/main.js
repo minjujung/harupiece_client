@@ -6,7 +6,7 @@ import { MainApis } from "../../shared/api";
 const G_LOAD = "main/G_LOAD";
 const M_LOAD = "main/M_LOAD";
 const SEARCH = "SEARCH";
-const SEARCHALL = "SEARCHALL";
+// const SEARCHALL = "SEARCHALL";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 
@@ -14,7 +14,7 @@ const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
 const search = createAction(SEARCH, (search) => ({ search }));
-const searchAll = createAction(SEARCHALL, (searchAll) => ({ searchAll }));
+// const searchAll = createAction(SEARCHALL, (searchAll) => ({ searchAll }));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -32,6 +32,7 @@ const initialState = {
   guestmain: [],
   usermain: [],
   search: [],
+  // searchAll: [],
 };
 
 //유저가 로그인 안했을 때 메인에서 불러와야하는 것
@@ -103,7 +104,8 @@ const searchAllDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.searchAll()
       .then((res) => {
-        dispatch(search(res.data.result));
+        
+        dispatch(search(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -134,6 +136,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.search = action.payload.search;
       }),
+    // [SEARCHALL]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.searchAll = action.payload.searchAll;
+    //   }),
 
     [DELETE_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
