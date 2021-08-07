@@ -44,6 +44,12 @@ const ShotList = (props) => {
           is_next={paging.next ? true : false}
           loading={is_loading}
         >
+          {list.length === 0 ? (
+            <NoListMent>
+              챌린지의 첫 인증샷을 <br />
+              남겨보세요!
+            </NoListMent>
+          ) : null}
           <PostList
             list={list}
             challengeStatus={challenge.challengeProgress}
@@ -86,4 +92,11 @@ const Section = styled.section`
     font-weight: bold;
     margin: 1.2em 0;
   }
+`;
+
+const NoListMent = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: ${({ theme }) => theme.colors.gray};
+  font-weight: bold;
+  line-height: normal;
 `;

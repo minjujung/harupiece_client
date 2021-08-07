@@ -18,7 +18,7 @@ const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
   const user_info = useSelector((state) => state.user.userInfo);
-  const path = useSelector((state) => state.router.location.pathname);
+  const pathname = useSelector((state) => state.router.location.pathname);
 
   const challengeId = props.match.params.id;
 
@@ -84,7 +84,7 @@ const ChallengeDetail = (props) => {
   };
 
   const {
-    match: { url },
+    match: { path, url },
   } = props;
 
   return (
@@ -101,18 +101,18 @@ const ChallengeDetail = (props) => {
           </Banner>
           <NavBar>
             <ul>
-              <Item selected={path.includes("/intro")}>
+              <Item selected={pathname.includes("/intro")}>
                 <Link to={`${url}/intro`}>챌린지 소개</Link>
               </Item>
-              <Item selected={path.includes("/post")}>
+              <Item selected={pathname.includes("/post")}>
                 <Link to={`${url}/post`}>인증목록</Link>
               </Item>
             </ul>
           </NavBar>
         </ChallengeHeader>
         <Switch>
-          <Route path={`${url}/intro`} component={ChallengeInfo} />
-          <Route path={`${url}/post`} component={ShotList} />
+          <Route path={`${path}/intro`} component={ChallengeInfo} />
+          <Route path={`${path}/post`} component={ShotList} />
         </Switch>
       </StateContainer>
       {/* 오른쪽 사용자 상태박스 & 버튼 */}
@@ -127,6 +127,7 @@ const ChallengeDetail = (props) => {
           >
             관리자 권한 삭제
           </Button> */}
+
           {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
           {user_info?.memberId === challenge.memberId &&
           today < challenge.challengeStartDate.split("T")[0] ? (
