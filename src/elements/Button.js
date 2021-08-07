@@ -76,6 +76,6 @@ const ElButton = styled.button`
   font-weight: bold;
   ${(props) =>
     props.chat
-      ? `position: absolute; top: 88.88vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px;`
+      ? `position: fixed; bottom: 14.81vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px;`
       : null}
 `;

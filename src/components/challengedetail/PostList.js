@@ -179,9 +179,30 @@ const PostList = (props) => {
                   </Button>
                 </MeBtn>
               ) : null}
+              {!list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
+                <Button
+                  borderRadius="16px"
+                  width="100%"
+                  height="5.93vh"
+                  border="white"
+                  bg="white"
+                  margin="4.07vh 0 0 0"
+                  color="mainGreen"
+                >
+                  인증샷을 올린 다음 날에는 수정과 삭제가 어려워요!
+                </Button>
+              ) : null}
               {challengeStatus === 2 &&
               list[clicked]?.memberId !== user_info.memberId ? (
-                <button onClick={check}>인증 확인</button>
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  margin="4.07vh 0 0 0"
+                  _onClick={check}
+                >
+                  인증 확인
+                </Button>
               ) : null}
             </div>
           </>
