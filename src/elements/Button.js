@@ -1,4 +1,3 @@
-import { PortableWifiOffSharp } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 
@@ -13,6 +12,8 @@ const Button = ({
   _onClick,
   text,
   border,
+  chat,
+  borderRadius,
   children,
 }) => {
   const styles = {
@@ -24,6 +25,8 @@ const Button = ({
     margin,
     border,
     fontsize,
+    borderRadius,
+    chat,
   };
   return (
     <ElButton onClick={_onClick} {...styles}>
@@ -43,6 +46,8 @@ Image.defaultProps = {
   fontsize: false,
   border: false,
   margin: false,
+  chat: false,
+  borderRadius: false,
   _onClick: () => {},
 
   type: "",
@@ -55,7 +60,7 @@ const ElButton = styled.button`
   height: ${(props) => (props.height ? props.height : "auto")};
   margin: ${(props) => (props.margin ? props.margin : "auto")};
   border: ${(props) =>
-    props.border ? `2px solid ${props.theme.colors[props.border]};` : "none"};
+    props.border ? `2px solid ${props.theme.colors[props.border]}` : "none"};
   padding: ${(props) => (props.padding ? props.padding : "auto")};
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.mainGreen};
@@ -65,7 +70,12 @@ const ElButton = styled.button`
     props.fontsize
       ? props.theme.fontSizes[props.fontSizes]
       : props.theme.fontSizes.md};
-  border-radius: 8px;
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "8px"};
   text-align: center;
   font-weight: bold;
+  ${(props) =>
+    props.chat
+      ? `position: absolute; top: 88.88vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px;`
+      : null}
 `;

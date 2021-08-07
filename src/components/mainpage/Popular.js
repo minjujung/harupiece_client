@@ -2,12 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { history } from "../../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
 const Popular = (props) => {
-  const dispatch = useDispatch();
-
   const hot_list = useSelector((state) => state.main);
 
   const is_login = getCookie("token") ? true : false;
@@ -27,7 +25,7 @@ const Popular = (props) => {
                     <div
                       key={idx}
                       onClick={() =>
-                        history.push(`/challenge/${l.challengeId}`)
+                        history.push(`/challenge/${l.challengeId}/intro`)
                       }
                     >
                       <CardBox>
@@ -51,7 +49,7 @@ const Popular = (props) => {
                     <div
                       key={idx}
                       onClick={() =>
-                        history.push(`/challenge/${l.challengeId}`)
+                        history.push(`/challenge/${l.challengeId}/intro`)
                       }
                     >
                       <CardBox>
