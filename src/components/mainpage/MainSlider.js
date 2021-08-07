@@ -25,106 +25,53 @@ const MainSlider = (props) => {
     transitionDuration: 500,
     infinite: true,
     prevArrow: (
-      <PrevArrowBox>
-        <img src="https://i.ibb.co/nMW8sSq/banner-arrow-left.png" alt="" />
-      </PrevArrowBox>
+      <div
+        style={{
+          width: "48px",
+          marginRight: "-50px",
+        }}
+      >
+        <img
+          style={{ paddingLeft: "15px" }}
+          src="https://i.ibb.co/nMW8sSq/banner-arrow-left.png"
+          alt=""
+        />
+      </div>
     ),
     nextArrow: (
-      <NextArrowBox>
+      <div
+        style={{
+          width: "48px",
+          marginLeft: "-60px",
+        }}
+      >
         <img src="https://i.ibb.co/hM4W1HZ/banner-arrow-right.png" alt="" />
-      </NextArrowBox>
+      </div>
     ),
   };
 
   return (
     <>
       <Contain>
-        <Slide style={{ borderRadius: "10px" }} easing="ease" {...properties}>
-          <div
-            style={{ height: "250px", borderRadius: "10px" }}
-            className="each-slide"
-          >
-            <SliderBox
-              style={{
-                background: `url(${slideImages[0]}) no-repeat center center`,
-              }}
-            >
-              <TagBox>
-                <Tag bg="none" color="white">
-                  #2주
-                </Tag>
-                <Tag bg="none" color="white">
-                  #인기챌린지
-                </Tag>
-              </TagBox>
-              <TitleBox>주 2회 1만보 걷기</TitleBox>
-              <SubTitleBox>
-                <span>10일째</span> 진행중!
-              </SubTitleBox>
-            </SliderBox>
-          </div>
-          <div className="each-slide">
-            <SliderBox
-              style={{
-                background: `url(${slideImages[1]}) no-repeat center center`,
-              }}
-            >
-              <TagBox>
-                <Tag bg="none" color="white">
-                  #2주
-                </Tag>
-                <Tag bg="none" color="white">
-                  #인기챌린지
-                </Tag>
-              </TagBox>
-              <TitleBox>주 2회 1만보 걷기</TitleBox>
-              <SubTitleBox>
-                <span>10일째</span> 진행중!
-              </SubTitleBox>
-            </SliderBox>
-          </div>
-          <div className="each-slide" style={{ borderRadius: "10px" }}>
-            <SliderBox
-              style={{
-                borderRadius: "10px",
-                background: `url(${slideImages[2]}) no-repeat center center`,
-              }}
-            >
-              <TagBox>
-                <Tag bg="none" color="white">
-                  #2주
-                </Tag>
-                <Tag bg="none" color="white">
-                  #인기챌린지
-                </Tag>
-              </TagBox>
-              <TitleBox>주 2회 1만보 걷기</TitleBox>
-              <SubTitleBox>
-                <span>10일째</span> 진행중!
-              </SubTitleBox>
-            </SliderBox>
-          </div>
-          <div className="each-slide" style={{ borderRadius: "10px" }}>
-            <SliderBox
-              style={{
-                borderRadius: "10px",
-                background: `url(${slideImages[3]}) no-repeat center center`,
-              }}
-            >
-              <TagBox>
-                <Tag bg="none" color="white">
-                  #2주
-                </Tag>
-                <Tag bg="none" color="white">
-                  #인기챌린지
-                </Tag>
-              </TagBox>
-              <TitleBox>주 2회 1만보 걷기</TitleBox>
-              <SubTitleBox>
-                <span>10일째</span> 진행중!
-              </SubTitleBox>
-            </SliderBox>
-          </div>
+        <Slide easing="ease" {...properties}>
+          {slideImages.map((l, idx) => (
+            <div key={idx} className="each-slide">
+              <SliderBox style={{ backgroundImage: `url(${l})` }}>
+                <TagBox>
+                  <Tag bg="none" color="white">
+                    #2주
+                  </Tag>
+                  <Tag bg="none" color="white">
+                    #인기챌린지
+                  </Tag>
+                </TagBox>
+                <TitleBox>주 2회 1만보 걷기</TitleBox>
+                <SubTitleBox>
+                  <span>10일째</span> 진행중!
+                </SubTitleBox>
+              </SliderBox>
+            </div>
+          ))}
         </Slide>
       </Contain>
     </>
@@ -139,47 +86,7 @@ const Contain = styled.div`
   height: 25.77vh;
   border-radius: 8px;
   flex-direction: column;
-  & > div > p {
-    margin: 0px;
-  }
-
-  & > div {
-    width: 100%;
-    text-align: center;
-  }
   margin-bottom: 20px;
-`;
-
-const PrevArrowBox = styled.button`
-  width: 34px;
-  height: 32px;
-  background-color: white;
-  border-radius: 50%;
-  margin-left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.5;
-  svg {
-    font-size: 12px;
-    width: 14px;
-  }
-`;
-
-const NextArrowBox = styled.button`
-  width: 34px;
-  height: 32px;
-  background-color: white;
-  border-radius: 50%;
-  margin-right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.5;
-  svg {
-    font-size: 12px;
-    width: 14px;
-  }
 `;
 
 const SliderBox = styled.div`
@@ -188,9 +95,9 @@ const SliderBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   height: 250px;
-  background-size: cover;
-  padding: 0px 15px;
+  padding: 0px 80px;
   font-size: 16px;
+  border-radius: 10px;
 `;
 
 const TagBox = styled.div`

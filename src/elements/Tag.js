@@ -31,6 +31,6 @@ const TagFrame = styled.div`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   border-radius: 27px;
-  padding: 10px;
+  padding: 7px;
   margin-right: 0.5em;
 `;
