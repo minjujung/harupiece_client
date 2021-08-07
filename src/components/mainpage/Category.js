@@ -44,13 +44,6 @@ const Category = (props) => {
     (list) => list.challengeEndDate.split("T")[0]
   );
 
-  // const guestStart = main_list.guestmain[category]?.map(
-  //   (list) => list.challengeStartDate.split("T")[0]
-  // );
-  // const guestEnd = main_list.guestmain[category]?.map(
-  //   (list) => list.challengeEndDate.split("T")[0]
-  // );
-
   const {
     _year: start_year,
     _month: start_month,
@@ -61,17 +54,6 @@ const Category = (props) => {
     _month: end_month,
     _date: end_date,
   } = changeForm(end);
-
-  // const {
-  //   _year: guestStart_year,
-  //   _month: guestStart_month,
-  //   _date: guestStart_date,
-  // } = changeForm(guestStart);
-  // const {
-  //   _year: guestEnd_year,
-  //   _month: guestEnd_month,
-  //   _date: guestEnd_date,
-  // } = changeForm(guestEnd);
 
   return (
     <>
@@ -124,7 +106,7 @@ const Category = (props) => {
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                         key={idx}
                         onClick={() =>
-                          history.push(`/challenge/${l.challengeId}`)
+                          history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       ></Card>
                     </>
@@ -144,7 +126,7 @@ const Category = (props) => {
                         // ${guestEnd_year[idx]}.${guestEnd_month[idx]}.${guestEnd_date[idx]}`}
                         key={idx}
                         onClick={() =>
-                          history.push(`/challenge/${l.challengeId}`)
+                          history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       ></Card>
                     </>

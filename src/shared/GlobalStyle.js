@@ -9,6 +9,11 @@ ${reset};
     transition: all .5s;
 }
 
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
 
 body {
     /* padding-top: 5em;
