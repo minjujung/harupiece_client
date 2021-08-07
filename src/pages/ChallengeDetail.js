@@ -1,27 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { RadioButtonUnchecked, NotInterested } from "@material-ui/icons";
-
-import InfinityScroll from "../shared/InfinityScroll";
-import PostList from "../components/challengedetail/PostList";
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
-import { Image, Tag } from "../elements/index";
+import { Button } from "../elements/index";
+import StateBox from "../components/challengedetail/StateBox";
+import ChallengeInfo from "../components/challengedetail/ChallengeInfo";
+import ShotList from "../components/challengedetail/ShotList";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
-import StateBox from "../components/challengedetail/StateBox";
-import Button from "../elements/Button";
+import { Link, Route, Switch } from "react-router-dom";
+import Chat from "../components/challengedetail/Chat";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
   const user_info = useSelector((state) => state.user.userInfo);
-  const { list, paging, is_loading } = useSelector((state) => state.post);
+  const path = useSelector((state) => state.router.location.pathname);
 
-  console.log(list);
   const challengeId = props.match.params.id;
 
   // challenge상세 내용과 인증샷 목록 불러오기
@@ -29,11 +27,18 @@ const ChallengeDetail = (props) => {
     if (!challengeId) {
       return;
     }
-    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.getPostDB(challengeId));
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
   }, []);
 
-  //포인트 계산을 위한 challenge날짜수 계산
+  //관리자 권한 삭제
+  const adminDelete = () => {
+    dispatch(
+      challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
+    );
+  };
+
+  //challenge날짜수 계산
   const start = challenge.challengeStartDate.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
 
@@ -42,13 +47,6 @@ const ChallengeDetail = (props) => {
 
   const totalSecond = date2.getTime() - date1.getTime();
   const totalDay = totalSecond / 1000 / 60 / 60 / 24;
-
-  //관리자 권한 삭제
-  const adminDelete = () => {
-    dispatch(
-      challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
-    );
-  };
 
   //오늘 날짜를 특정 날짜와 비교하기 위해 형태 변경해주는 함수
   // 2021-07-06 이런 형태로 만들어줌
@@ -85,41 +83,14 @@ const ChallengeDetail = (props) => {
     dispatch(challengeDetailActions.challengeDeleteDB(challenge.challengeId));
   };
 
-  //챌린지 상태 문자로 표현 해주기
-  let status = "";
-  if (challenge.challengeProgress === 1) {
-    status = "진행 예정";
-  } else if (challenge.challengeProgress === 2) {
-    status = "진행 중";
-  } else {
-    status = "진행 종료";
-  }
-
-  //카테고리 이름 한글로 변경
-  let category = "";
-  if (challenge.categoryName === "EXERCISE") {
-    category = "운동";
-  } else if (challenge.categoryName === "NODRINKNOSMOKE") {
-    category = "금연 / 금주";
-  } else {
-    category = "생활습관";
-  }
-
-  //navbar 지금 클릭되어 있는 거 확인할 수 있는 hash
   const {
-    location: { hash },
+    match: { url },
   } = props;
-
-  // 스크롤 함수
-  const info = useRef(null);
-  const shotList = useRef(null);
-
-  const scrollToInfo = () => info.current.scrollIntoView();
-  const scrollToList = () => shotList.current.scrollIntoView();
 
   return (
     <Area>
       <StateContainer>
+        {/* banner 랑 navbar */}
         <ChallengeHeader>
           <Banner bgImg={challenge.challengeImgUrl}>
             <Title>{challenge.challengeTitle}</Title>
@@ -130,134 +101,21 @@ const ChallengeDetail = (props) => {
           </Banner>
           <NavBar>
             <ul>
-              <Item
-                selected={hash === "#intro" || hash === ""}
-                onClick={scrollToInfo}
-              >
-                <a href="#intro">챌린지 소개</a>
+              <Item selected={path.includes("/intro")}>
+                <Link to={`${url}/intro`}>챌린지 소개</Link>
               </Item>
-              <Item selected={hash === "#shot_list"} onClick={scrollToList}>
-                <a href="#shot_list">인증목록</a>
+              <Item selected={path.includes("/post")}>
+                <Link to={`${url}/post`}>인증목록</Link>
               </Item>
             </ul>
           </NavBar>
         </ChallengeHeader>
-
-        <ChallengeDesc>
-          <div
-            style={{
-              height: "42vh",
-              width: "60vw",
-              marginTop: "3vh",
-              backgroundColor: "white",
-            }}
-          ></div>
-          <div
-            style={{
-              position: "relative",
-              width: "100vw",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <span
-              id="intro"
-              style={{ position: "absolute", left: "0", top: "-52vh" }}
-            >
-              &nbsp;
-            </span>
-
-            <SectionTitle ref={info}> 챌린지 소개</SectionTitle>
-          </div>
-          <Section>
-            <h3>기본정보</h3>
-            <Info>
-              <span>카테고리</span>
-              {category}
-            </Info>
-            <Info>
-              <span>인증기간</span>
-              {challenge.challengeStartDate.split("T")[0]} ~{" "}
-              {challenge.challengeEndDate.split("T")[0]} (
-              {challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"}
-              )
-            </Info>
-            <Info>
-              <span>모집방식</span>
-              {challenge.challengePassword === "" ? "공개" : "비공개"}
-            </Info>
-            {/* <p>개시자: {challenge.memberName}</p> */}
-            {/* <p>{status}</p> */}
-            <Info>
-              <span>진행상태</span>
-              {status}
-            </Info>
-            <Example>
-              <span>인증샷예시</span>
-              <div>
-                <Image
-                  width="10em"
-                  height="10em"
-                  borderRadius="16px"
-                  border
-                  src={challenge.challengeGood}
-                  alt="vegan_diet"
-                />
-                <ExTitle good>
-                  <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
-                  인증샷
-                </ExTitle>
-              </div>
-              <div>
-                <Image
-                  width="10em"
-                  height="10em"
-                  borderRadius="16px"
-                  border
-                  src={challenge.challengeBad}
-                  alt="nonvegan_diet"
-                />
-                <ExTitle>
-                  <NotInterested style={{ marginRight: "8px" }} />
-                  나쁜 인증샷
-                </ExTitle>
-              </div>
-            </Example>
-            <h3>소개글</h3>
-            <Desc>{challenge.challengeContent}</Desc>
-            <TagFrame>
-              <Tag bg="mainGreen" color="white">
-                #2주
-              </Tag>
-              <Tag bg="mainGreen" color="white">
-                #인기챌린지
-              </Tag>
-            </TagFrame>
-          </Section>
-        </ChallengeDesc>
-        <ChallengeDesc list>
-          <SectionTitle list ref={shotList}>
-            인증 목록
-          </SectionTitle>
-          <Section list>
-            <InfinityScroll
-              callNext={() => {
-                dispatch(postActions.getPostDB(challengeId, paging.next));
-              }}
-              is_next={paging.next ? true : false}
-              loading={is_loading}
-            >
-              <PostList
-                list={list}
-                challengeStatus={challenge.challengeProgress}
-                challengeId={challenge.challengeId}
-                totalNumber={challenge.challengeMember.length}
-                totalDay={totalDay}
-              />
-            </InfinityScroll>
-          </Section>
-        </ChallengeDesc>
+        <Switch>
+          <Route path={`${url}/intro`} component={ChallengeInfo} />
+          <Route path={`${url}/post`} component={ShotList} />
+        </Switch>
       </StateContainer>
+      {/* 오른쪽 사용자 상태박스 & 버튼 */}
       <RightNav>
         <StateBox />
         <Btns>
@@ -275,19 +133,19 @@ const ChallengeDetail = (props) => {
             <>
               <Button
                 width="16.15vw"
+                height="5.93vh"
                 bg="white"
                 color="mainGreen"
-                padding="21px 64px"
                 border="lightGray"
-                margin="0 0 20px 0"
+                margin="0 0 1.48vh 0"
                 _onClick={editChallenge}
               >
                 챌린지 수정하기
               </Button>
               <Button
                 width="16.15vw"
-                padding="21px 64px"
-                margin="0 0 20px 0"
+                height="5.93vh"
+                margin="0 0 1.48vh 0"
                 _onClick={deleteChallenge}
               >
                 {/* (챌린지 개설한 사용자) */}
@@ -299,6 +157,7 @@ const ChallengeDetail = (props) => {
             <ConditionBtn {...challenge} />
           </div>
         </Btns>
+        <Chat />
       </RightNav>
     </Area>
   );
@@ -344,7 +203,8 @@ const Btns = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 45.8vh;
+  top: 43.52vh;
+  margin-top: 2.59vh;
 `;
 
 const RightNav = styled.div`
@@ -403,78 +263,4 @@ const Item = styled.li`
     props.selected
       ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
       : null}
-`;
-
-const ChallengeDesc = styled.section`
-  width: 49.48vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const SectionTitle = styled.h3`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: bold;
-  width: 49.48vw;
-  height: 10vh;
-  text-align: left;
-  padding-top: 2.4%;
-`;
-
-const Section = styled.section`
-  width: 49.48vw;
-  padding-bottom: ${(props) => (props.list ? "10vh" : "0")};
-  ${(props) =>
-    props.list
-      ? "display: grid; gap: 20px; grid-template-columns: repeat(3, 15.83vw);grid-template-rows: repeat(3, 28.15vh);"
-      : null};
-  h3 {
-    font-size: ${({ theme }) => theme.fontSizes.md};
-    font-weight: bold;
-    margin: 1.2em 0;
-  }
-`;
-
-const Info = styled.p`
-  margin-bottom: 0.8em;
-  span {
-    font-size: ${({ theme }) => theme.fontSizes.ms};
-    color: ${({ theme }) => theme.colors.gray};
-    margin-right: 2em;
-    font-weight: bold;
-  }
-`;
-
-const Example = styled.article`
-  display: flex;
-
-  span {
-    font-size: ${({ theme }) => theme.fontSizes.ms};
-    color: ${({ theme }) => theme.colors.gray};
-    margin-right: 2em;
-    font-weight: bold;
-  }
-  div {
-    margin-right: 2em;
-  }
-`;
-
-const ExTitle = styled.h4`
-  height: 2em;
-  display: flex;
-  align-items: center;
-  color: ${(props) =>
-    props.good ? props.theme.colors.mainGreen : props.theme.colors.mainOrange};
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSizes.ms};
-`;
-
-const Desc = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  margin-bottom: 1.2em;
-`;
-
-const TagFrame = styled.div`
-  display: flex;
-  margin-bottom: 80px;
 `;
