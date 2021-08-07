@@ -103,8 +103,9 @@ export const MainApis = {
   guestMain: () => instance.get(`api/guest/main`),
   userMain: () => instance.get(`api/member/main`),
   search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
-  searchAll: (categoryName) =>
+  searchCategory: (categoryName) =>
     instance.get(`/api/guest/challenge/category/1/${categoryName}`),
+  searchAll: () => instance.get(`/api/guest/challenge`),
 };
 
 export const PostApis = {

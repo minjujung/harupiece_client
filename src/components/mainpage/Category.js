@@ -16,10 +16,9 @@ const Category = (props) => {
   const [category, setCategory] = useState("nodrinknosmoke");
 
   const searchAll = (e) => {
-    const CATEGORY = category.toUpperCase();
     e.preventDefault();
-    dispatch(searchActions.searchAllDB(CATEGORY));
-    history.push(`/search/1/${CATEGORY}`);
+    dispatch(searchActions.searchAllDB());
+    history.push(`/search/1/all`);
   };
 
   const ChangeTag = (e) => {
