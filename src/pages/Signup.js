@@ -37,6 +37,7 @@ const Signup = (props) => {
               .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
             nickname: Yup.string()
+            // .matches(/\W|\s/g, "특수문자 또는 공백은 사용할 수 없습니다")
             .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
 
             password: Yup.string()

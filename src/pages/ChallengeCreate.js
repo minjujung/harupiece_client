@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
+// import { Input } from "../elements";
+import Down from "../images/icons/arrow/down.svg";
+import { Button } from "../elements";
+
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
@@ -129,60 +133,64 @@ function ChallengeCreate(props) {
 
   return (
     <>
-      <h2>챌린지 개설</h2>
-
-      <CreateContainer>
-        <GuideLine>개설 가이드라인</GuideLine>
-        <CreateContents>
-          <Contents>
-            <label style={{ width: "100%" }}>
-              제목
-              <input
+      <Container>
+        <LeftContainer>
+          <Title>
+            <p>챌린지 개설</p>
+          </Title>
+          <GuideLine/>
+        </LeftContainer>
+        <RightContainer>
+          <InputLeftContainer>
+            <div>
+              <Label>제목</Label><br />
+              <Input
                 onChange={saveTitle}
                 placeholder={
                   edit_mode
                     ? challenge_info.challengeTitle
-                    : "제목을 입력해주세요"
+                    : "챌린지의 제목을 입력해주세요"
                 }
               />
-            </label>
-          </Contents>
-          <ContentsContainer>
-            <Contents>
-              {/* 카테고리 */}
-              <>
-                <label htmlFor="category">카테고리</label>
-                <select id="category" onChange={chooseCategory}>
-                  <option value="CATEGORY">카테고리</option>
-                  <option value="NODRINKNOSMOKE">금연/금주</option>
-                  <option value="EXERCISE">운동</option>
-                  <option value="LIVINGHABITS">생활습관</option>
-                </select>
-              </>
-              {/* 대표 이미지 */}
-              <CreateImgSelect
-                challengeInfo={challengeInfo}
-                setChallengeInfo={setChallengeInfo}
-              />
-              {/* 인증샷 예시 */}
-              <CreateCertification
-                challengeInfo={challengeInfo}
-                setChallengeInfo={setChallengeInfo}
-              />
-            </Contents>
-            <Contents>
-              {/* date picker */}
+            </div>
+            {/* 카테고리 */}
+            <div>
+              <Label htmlFor="category">카테고리</Label><br />
+              <SelectBox id="category" onChange={chooseCategory}>
+                <option value="CATEGORY">주제</option>
+                <option value="NODRINKNOSMOKE">금연/금주</option>
+                <option value="EXERCISE">운동</option>
+                <option value="LIVINGHABITS">생활습관</option>
+              </SelectBox>
+            </div>
+            {/* 대표 이미지 */}
+            <CreateImgSelect
+              challengeInfo={challengeInfo}
+              setChallengeInfo={setChallengeInfo}
+            />
+            {/* 인증샷 예시 */}
+            <CreateCertification
+              challengeInfo={challengeInfo}
+              setChallengeInfo={setChallengeInfo}
+            />
+          </InputLeftContainer>
+          <InputRightContainer>
+            {/* date picker */}
+            <div>
+              <SubT>인증 기간</SubT>
               <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
               />
-              {/* 모집형식 */}
-              <label htmlFor="category">카테고리</label>
-              <select id="category" onChange={choosePublic}>
+            </div>
+            {/* 모집형식 */}
+            <div>
+              <Label htmlFor="category">모집 방식</Label><br />
+              <SelectBox id="category" onChange={choosePublic}>
                 <option value="CATEGORY">카테고리</option>
                 <option value="PUBLIC">공개</option>
                 <option value="PRIVATE">비공개</option>
-              </select>
+              </SelectBox>
               {pwdCheck ? (
                 <input
                   type="password"
@@ -190,67 +198,132 @@ function ChallengeCreate(props) {
                   onChange={savePwd}
                 />
               ) : null}
-              {/* 챌린지 설명 */}
-              <label>
-                챌린지 설명
-                <div>
-                  <input
-                    onChange={saveDesc}
-                    placeholder="챌린지를 설명해주세요."
-                  />
-                </div>
-              </label>
-            </Contents>
-          </ContentsContainer>
-          <button onClick={createChallenge}>챌린지 개설하기</button>
-        </CreateContents>
-      </CreateContainer>
+            </div>
+            {/* 챌린지 설명 */}
+            <div>
+              <Label>챌린지 설명</Label><br />
+              <Textarea
+                onChange={saveDesc}
+                placeholder="챌린지를 설명해주세요."
+              />
+            </div>
+            <Button width="15.00vw" height="5.92vh" margin="7.03vh 0 0"
+            onClick={createChallenge}>챌린지 개설하기</Button>
+          </InputRightContainer>
+        </RightContainer>
+      </Container>
     </>
   );
 }
 
-const CreateContainer = styled.div`
-  background-color: orange;
+
+
+const Container = styled.div`
   display: flex;
+  align-items: center;
   width: 100vw;
   height: 100vh;
-  padding-top: 5.37vh;
   padding-bottom: 23.24vh;
   padding-left: 16.66vw;
   padding-right: 16.66vw;
 `;
 
+const LeftContainer = styled.div`
+  flex-direction : column;
+`;
+
+const Title = styled.div`
+  & > p{
+    font-size : 36px;
+    font-weight : 700;
+    width: 10.04vw;
+    height: 4.81vh
+  }
+`;
+
 const GuideLine = styled.div`
-  background-color: coral;
-  width: 50%;
-  height: 100%;
-  padding: 20px;
+  background-color: ${({theme}) => theme.colors.lightGray};
+  border-radius : 8px;
+  width: 32.81vw;
+  height: 53.79vh;
+  margin-right: 2.92vh;
 `;
 
-const CreateContents = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
-  background-color: palegreen;
-  padding: 20px;
+const InputLeftContainer = styled.div`
+  flex-direction : column;
+  margin-right: 0.94vw;
 `;
 
-const ContentsContainer = styled.div`
-  display: flex;
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
+const InputRightContainer = styled.div`
+  flex-direction : column;
 `;
 
-const Contents = styled.div`
-  width: 100%;
+const RightContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  width: 30.93vw;
+  height: 53.79vh;
+  margin-top: 5.00vh;
+
 `;
+
+const Input = styled.input`
+  width : 15.00vw;
+  height: 3.7vh;
+  margin-top: 0.74vh;
+  margin-bottom: 2.96vh;
+  background-color: ${({theme}) => theme.colors.lightGray};
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  padding-left: 0.83vw;
+  padding-top: 1.01vh;
+  padding-bottom: 1.01vh;
+  border-radius : 8px;
+`;
+
+const Textarea = styled.textarea`
+  width : 15.00vw;
+  height: 12.59vh;
+  resize:none;
+  margin-top: 0.74vh;
+  margin-bottom: 2.96vh;
+  padding-left: 0.83vw;
+  padding-right: 0.83vw;
+  padding-top: 1.01vh;
+  background-color: ${({theme}) => theme.colors.lightGray};
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  font-weight:400;
+  border-radius : 8px;
+`;
+
+const Label = styled.label`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+`;
+
+const SubT = styled.p`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  margin-bottom : 8px;
+`;
+
+const SelectBox = styled.select`
+  width: 15.00vw; /* 원하는 너비설정 */
+  padding: 0.75vh; /* 여백으로 높이 설정 */
+  padding-left: 0.83vw;
+  margin-top: 0.74vh;
+  margin-bottom: 2.96vh;
+  font-family: inherit;  /* 폰트 상속 */
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  color: ${({theme}) => theme.colors.darkGray};
+  background: url("../images/icons/arrow/down.svg") no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+  background-color: ${({theme}) => theme.colors.lightGray};
+  border: none;
+  border-radius: 8px; /* iOS 둥근모서리 제거 */
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+`;
+
 
 export default ChallengeCreate;

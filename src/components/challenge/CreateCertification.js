@@ -6,6 +6,8 @@ import { actionCreators as imageActions } from "../../redux/modules/challengeCre
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
+import { Image } from "../../elements/";
+
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
 
@@ -51,13 +53,13 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   return (
     <>
       <Certification>
-        <div>인증샷 예시 등록</div>
+        <SubT>인증샷 예시 등록</SubT>
         <CertificationBox>
           <Good>
             <label htmlFor="ex_file">
               <PhotoCameraIcon />
             </label>
-            {goodPreview ? <img src={goodPreview} alt="goodPreview" /> : null}
+            {goodPreview ? <Image width="7.08vw" height="12.59vh" src={goodPreview} alt="goodPreview" /> : null}
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
@@ -69,7 +71,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
             <label htmlFor="ex_files">
               <PhotoCameraIcon />
             </label>
-            {badPreview ? <img src={badPreview} alt="badPreveiew" /> : null}
+            {badPreview ? <Image width="7.08vw" height="12.59vh" src={badPreview} alt="badPreveiew" /> : null}
             <input
               onChange={badSelectFile}
               ref={badFileInput}
@@ -92,6 +94,13 @@ const CertificationBox = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+`;
+
+const SubT = styled.p`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  margin-bottom : 8px;
 `;
 
 const Good = styled.div`
