@@ -66,8 +66,8 @@ const PostList = (props) => {
       {list.map((l, idx) => (
         <ImageList key={l.postingId}>
           <Image
-            width="19em"
-            height="19em"
+            width="15.83vw"
+            height="28.15vh"
             borderRadius="12px"
             src={l.postingImg}
             onClick={() => handleClickOpen(l.postingId)}
@@ -142,7 +142,9 @@ const PostList = (props) => {
 export default PostList;
 
 const ImageList = styled.article`
-  /* display: flex; */
+  display: flex;
+  width: 15.83vw;
+  height: 28.15vh;
 `;
 
 const Profile = styled.img`

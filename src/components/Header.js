@@ -6,7 +6,7 @@ import { Image } from "../elements/index";
 import levelData from "../shared/level";
 
 import logo from "../images/logo/large.png";
-import login from "../images/icons/login.svg"
+import login from "../images/icons/login.svg";
 import myPage from "../images/icons/profile.svg";
 import Search from "../images/icons/search.svg";
 import profile from "../images/logo/profile.png";
@@ -53,40 +53,37 @@ const Header = (props) => {
           {getCookie("token") && userInfo ? (
             <>
               {" "}
-              <HeaderLogBtn onClick={() => {
-              dispatch(userCreators.logOutDB());}}
+              <HeaderLogBtn
+                onClick={() => {
+                  dispatch(userCreators.logOutDB());
+                }}
               >
-                <Image
-                  width="22px"
-                  height="23px"
-                  cursor
-                  src={login}
-                />
+                <Image width="22px" height="23px" cursor src={login} />
                 <p>로그아웃</p>
               </HeaderLogBtn>
-              <HeaderMyBtn onClick={() => {
-              history.push("/mypage/now");}}
+              <HeaderMyBtn
+                onClick={() => {
+                  history.push("/mypage/now");
+                }}
               >
-                <Image
-                  width="22px"
-                  height="23px"
-                  cursor
-                  src={myPage}
-                />
+                <Image width="22px" height="23px" cursor src={myPage} />
                 <p>마이페이지</p>
               </HeaderMyBtn>
-              <Image src={userInfo.profileImg === "" ? profile : userInfo.profileImg } alt="profile" width="42px" height="42px" />
+              <Image
+                src={userInfo.profileImg === "" ? profile : userInfo.profileImg}
+                alt="profile"
+                width="42px"
+                height="42px"
+                borderRadius="8px"
+              />
             </>
           ) : (
-            <HeaderLogBtn onClick={() => {
-              history.push("/login");}}
-              >
-              <Image
-                width="22px"
-                height="23px"
-                cursor
-                src={login}
-              />
+            <HeaderLogBtn
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              <Image width="22px" height="23px" cursor src={login} />
               <p>로그인</p>
             </HeaderLogBtn>
           )}

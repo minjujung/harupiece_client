@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+
 import { getCookie } from "../../shared/Cookie";
 import { useSelector } from "react-redux";
+
+import level from "../../images/icons/level.svg";
+import completed from "../../images/icons/completed.svg";
+import levelData from "../../shared/level";
+import { Image } from "../../elements";
 
 function Info() {
   const is_login = getCookie("token") ? true : false;
   const user = useSelector((state) => state.user.userInfo);
+  const levelState = parseInt((user?.memberLevel - 1) / 5);
 
   return (
     <>
@@ -14,19 +21,36 @@ function Info() {
           <>
             <InfoBox>
               <div>
-                <span style={{ fontWeight: "bold" }}>{user.nickname}</span>님은
+                <span style={{ fontWeight: "bold" }}>{user?.nickname}</span>님은
               </div>
-              <div>{user.challengeCount}개의 챌린지를 진행중!</div>
+              <div>{user?.challengeCount}개의 챌린지를 진행중!</div>
             </InfoBox>
             <InfoBox2>
               <LeftBox>
-                <img src="" alt="" />
-                {/* 민주님 dev pull 받은 뒤 재 설정 필요함 */}
-                <div>등급:노랑</div>
+                <p>
+                  <Image
+                    width="1.5em"
+                    height="1.5em"
+                    margin="2%"
+                    src={level}
+                    alt="level"
+                  />
+                  등급:{" "}
+                  {levelData[levelState] &&
+                    levelData[levelState].name.split(" ")[0]}
+                </p>
               </LeftBox>
               <RightBox>
-                <img src="" alt="" />
-                <div>총 조각:{user.point}개</div>
+                <p>
+                  <Image
+                    width="1.5em"
+                    height="1.5em"
+                    margin="3%"
+                    src={completed}
+                    alt="level"
+                  />
+                  조각: {user.point}개
+                </p>
               </RightBox>
             </InfoBox2>
           </>
@@ -80,12 +104,21 @@ const InfoBox2 = styled.div`
 
 const LeftBox = styled.div`
   width: 8.05vw;
+  height: 100%;
   border-radius: 0px 0px 8px 8px / 0px 0px 0px 0px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-right: 1px solid ${({ theme }) => theme.colors.lightGray};
   color: ${({ theme }) => theme.colors.gray};
+  p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const RightBox = styled.div`
   width: 8.05vw;
@@ -94,6 +127,13 @@ const RightBox = styled.div`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.gray};
+  p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const GuestBox = styled.div`

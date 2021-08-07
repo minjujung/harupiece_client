@@ -424,6 +424,10 @@ const SectionTitle = styled.h3`
 const Section = styled.section`
   width: 49.48vw;
   padding-bottom: ${(props) => (props.list ? "10vh" : "0")};
+  ${(props) =>
+    props.list
+      ? "display: grid; gap: 20px; grid-template-columns: repeat(3, 15.83vw);grid-template-rows: repeat(3, 28.15vh);"
+      : null};
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;

@@ -14,9 +14,10 @@ const MainSlider = (props) => {
   const main_list = useSelector((state) => state.main);
 
   const slideImages = [
-    "https://images.theconversation.com/files/35050/original/hws8ftp8-1384300615.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop",
-    "https://live-production.wcms.abc-cdn.net.au/3ddf1568faa0c258bf2a734aafbeeb68?impolicy=wcms_crop_resize&cropH=1688&cropW=3000&xPos=0&yPos=0&width=862&height=485",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Mmg90FMgb9CTBC3ft6h0RPjrdsqeHZ5TWA&usqp=CAU",
+    "https://i.ibb.co/YQCrYJR/banner-01.png",
+    "https://i.ibb.co/0KmsdWb/banner-02.png",
+    "https://i.ibb.co/rcfQJhp/banner-03.png",
+    "https://i.ibb.co/y6HNN1Q/banner-04.png",
   ];
 
   const properties = {
@@ -25,16 +26,12 @@ const MainSlider = (props) => {
     infinite: true,
     prevArrow: (
       <PrevArrowBox>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-        </svg>
+        <img src="https://i.ibb.co/nMW8sSq/banner-arrow-left.png" alt="" />
       </PrevArrowBox>
     ),
     nextArrow: (
       <NextArrowBox>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-        </svg>
+        <img src="https://i.ibb.co/hM4W1HZ/banner-arrow-right.png" alt="" />
       </NextArrowBox>
     ),
   };
@@ -42,8 +39,11 @@ const MainSlider = (props) => {
   return (
     <>
       <Contain>
-        <Slide easing="ease" {...properties}>
-          <div style={{ height: "250px" }} className="each-slide">
+        <Slide style={{ borderRadius: "10px" }} easing="ease" {...properties}>
+          <div
+            style={{ height: "250px", borderRadius: "10px" }}
+            className="each-slide"
+          >
             <SliderBox
               style={{
                 background: `url(${slideImages[0]}) no-repeat center center`,
@@ -83,10 +83,32 @@ const MainSlider = (props) => {
               </SubTitleBox>
             </SliderBox>
           </div>
-          <div className="each-slide">
+          <div className="each-slide" style={{ borderRadius: "10px" }}>
             <SliderBox
               style={{
+                borderRadius: "10px",
                 background: `url(${slideImages[2]}) no-repeat center center`,
+              }}
+            >
+              <TagBox>
+                <Tag bg="none" color="white">
+                  #2주
+                </Tag>
+                <Tag bg="none" color="white">
+                  #인기챌린지
+                </Tag>
+              </TagBox>
+              <TitleBox>주 2회 1만보 걷기</TitleBox>
+              <SubTitleBox>
+                <span>10일째</span> 진행중!
+              </SubTitleBox>
+            </SliderBox>
+          </div>
+          <div className="each-slide" style={{ borderRadius: "10px" }}>
+            <SliderBox
+              style={{
+                borderRadius: "10px",
+                background: `url(${slideImages[3]}) no-repeat center center`,
               }}
             >
               <TagBox>
@@ -122,7 +144,6 @@ const Contain = styled.div`
   }
 
   & > div {
-    background-color: #c4c4c4;
     width: 100%;
     text-align: center;
   }
