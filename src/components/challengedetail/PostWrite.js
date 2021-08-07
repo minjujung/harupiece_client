@@ -90,8 +90,9 @@ const PostWrite = ({ challengeId }) => {
             src={close}
             alt="closeBtn"
             onClick={handleClose}
-            width="1.46vw"
-            height="2.59vh"
+            width="28px"
+            height="28px"
+            borderRadius="0"
           />
         </Container>
         <InputContainer>
@@ -215,10 +216,14 @@ const InputContainer = styled.div`
 const TextInput = styled.textarea`
   width: 25.1vw;
   height: 45.09vh;
+  resize: none;
   background-color: #e5e5e5;
   border-radius: 16px;
   margin-left: 32px;
   padding: 20px;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  caret-color: ${({ theme }) => theme.colors.mainGreen};
   ::placeholder {
     font-weight: bold;
     font-size: ${({ theme }) => theme.fontSizes.md};
@@ -226,6 +231,10 @@ const TextInput = styled.textarea`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
+  }
+  :focus {
+    background-color: ${({ theme }) => theme.colors.white};
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
 `;
 

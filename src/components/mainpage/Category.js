@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { history } from "../../redux/configureStore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { MainCreators as searchActions } from "../../redux/modules/main";
 import { getCookie } from "../../shared/Cookie";
 
 import { Tag, Card } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
 
 const Category = (props) => {
+  const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
 
   const [category, setCategory] = useState("nodrinknosmoke");
+
+  const searchAll = (e) => {
+    const CATEGORY = category.toUpperCase();
+    e.preventDefault();
+    dispatch(searchActions.searchAllDB(CATEGORY));
+    history.push(`/search/1/${CATEGORY}`);
+  };
 
   const ChangeTag = (e) => {
     let keyWord = e.target.textContent;
@@ -36,13 +45,6 @@ const Category = (props) => {
     (list) => list.challengeEndDate.split("T")[0]
   );
 
-  // const guestStart = main_list.guestmain[category]?.map(
-  //   (list) => list.challengeStartDate.split("T")[0]
-  // );
-  // const guestEnd = main_list.guestmain[category]?.map(
-  //   (list) => list.challengeEndDate.split("T")[0]
-  // );
-
   const {
     _year: start_year,
     _month: start_month,
@@ -53,17 +55,6 @@ const Category = (props) => {
     _month: end_month,
     _date: end_date,
   } = changeForm(end);
-
-  // const {
-  //   _year: guestStart_year,
-  //   _month: guestStart_month,
-  //   _date: guestStart_date,
-  // } = changeForm(guestStart);
-  // const {
-  //   _year: guestEnd_year,
-  //   _month: guestEnd_month,
-  //   _date: guestEnd_date,
-  // } = changeForm(guestEnd);
 
   return (
     <>
@@ -101,7 +92,7 @@ const Category = (props) => {
             #운동
           </Tag>
         </TagBox>
-        <ViewAll onClick={() => history.push(`/search/1/`)}>전체보기</ViewAll>
+        <ViewAll onClick={searchAll}>전체보기</ViewAll>
         <CardBox2>
           {is_login ? (
             <>
@@ -116,7 +107,7 @@ const Category = (props) => {
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                         key={idx}
                         onClick={() =>
-                          history.push(`/challenge/${l.challengeId}`)
+                          history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       ></Card>
                     </>
@@ -136,7 +127,7 @@ const Category = (props) => {
                         // ${guestEnd_year[idx]}.${guestEnd_month[idx]}.${guestEnd_date[idx]}`}
                         key={idx}
                         onClick={() =>
-                          history.push(`/challenge/${l.challengeId}`)
+                          history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       ></Card>
                     </>
@@ -175,8 +166,12 @@ const TagBox = styled.div`
 `;
 
 const CardBox2 = styled.div`
-  display: flex;
-  padding-top: 10px;
+  height: 320px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  padding-top: 15px;
 `;
 
 const ViewAll = styled.span`

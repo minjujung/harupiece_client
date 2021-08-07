@@ -32,7 +32,6 @@ const CardBox = styled.div`
   width: 287px;
   height: 312px;
   border-radius: 10px;
-  margin-right: 16px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
 `;
@@ -48,7 +47,7 @@ const TagContainer = styled.div`
 const Title = styled.h4`
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.black};
-  padding: 10px;
+  padding: 10px 0px;
   font-weight: bold;
 `;
 

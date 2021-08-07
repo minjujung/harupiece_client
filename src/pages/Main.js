@@ -28,8 +28,6 @@ const Main = (props) => {
   const is_login = getCookie("token") ? true : false;
 
   const goToCreate = () => {
-    dispatch(createActions.setGoodPreview(""));
-    dispatch(createActions.setBadPreview(""));
     history.push("/challenge");
   };
 

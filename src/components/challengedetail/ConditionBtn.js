@@ -45,9 +45,9 @@ const ConditionBtn = (props) => {
         return (
           <Button
             width="16.15vw"
+            height="5.93vh"
             bg="white"
             color="mainGreen"
-            padding="21px 64px"
             border="lightGray"
             margin="0 0 20px 0"
             _onClick={giveupChallenge}

@@ -7,11 +7,12 @@ const Image = ({
   borderRadius,
   margin,
   border,
+  chatClose,
   onClick,
   src,
   alt,
 }) => {
-  const styles = { width, height, borderRadius, border, margin };
+  const styles = { width, height, borderRadius, chatClose, border, margin };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
 
@@ -21,6 +22,7 @@ Image.defaultProps = {
   borderRadius: false,
   border: false,
   margin: false,
+  chatClose: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -36,4 +38,6 @@ const ImageFrame = styled.img`
   ${(props) =>
     props.border ? `border: 1px solid ${props.theme.colors.black};` : null}
   ${(props) => (props.margin ? `margin: ${props.margin};` : null)};
+  ${(props) =>
+    props.chatClose ? `position:absolute; top: 1.3vh; right: 1.04vw;` : null};
 `;

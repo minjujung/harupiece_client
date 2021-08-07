@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
 import PostEdit from "./PostEdit";
-import { Image } from "../../elements";
+import { Button, Image } from "../../elements";
+import close from "../../images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
@@ -78,32 +79,54 @@ const PostList = (props) => {
 
       <Dialog
         open={open}
+        maxWidth={false}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
-            width: "55.21vw",
-            height: "66.66vh",
-            padding: "1em",
+            width: "36.56vw",
+            height: "60.83vh",
+            padding: "1.46vw",
             borderRadius: "0.6em ",
+            overflowY: "hidden",
           },
         }}
       >
-        <button onClick={handleClose}>모달창 닫기</button>
         {edit && list[clicked] ? (
           <PostEdit
             {...list[clicked]}
             handleClose={handleClose}
             challengeId={challengeId}
+            totalNumber={totalNumber}
+            challengeStatus={challengeStatus}
           />
         ) : (
           <>
             {" "}
             <div>
-              <Profile src={list[clicked]?.profileImg} alt="profile" />{" "}
-              {list[clicked]?.nickName}
+              <DialogInfo>
+                <UserInfo>
+                  <Image
+                    width="80px"
+                    height="80px"
+                    borderRadius="50%"
+                    margin="0 16px 0 0"
+                    src={list[clicked]?.profileImg}
+                    alt="profile"
+                  />{" "}
+                  {list[clicked]?.nickName}
+                </UserInfo>
+                <Image
+                  src={close}
+                  alt="closeBtn"
+                  onClick={handleClose}
+                  width="28px"
+                  height="28px"
+                  borderRadius="0"
+                />
+              </DialogInfo>
               {challengeStatus === 2 ? (
-                <div>
+                <StatusFrame>
                   <StatusBar>
                     <Status
                       width={`${
@@ -111,25 +134,75 @@ const PostList = (props) => {
                       }%`}
                     />
                   </StatusBar>
-                  <span>
-                    총 {(list[clicked]?.postingCount / totalNumber) * 100} %
-                  </span>
-                </div>
-              ) : null}
-              {list[clicked]?.postingModifyOk &&
-              list[clicked]?.memberId === user_info.memberId ? (
-                <button onClick={deletePost}>삭제하기</button>
+                  <StatusInfo>
+                    <span>인증상태</span>
+                    <Percent>
+                      {(list[clicked]?.postingCount / totalNumber) * 100} %
+                    </Percent>
+                  </StatusInfo>
+                </StatusFrame>
               ) : null}
             </div>
-            <p>{list[clicked]?.postingContent}</p>
-            <img src={list[clicked]?.postingImg} alt="vegan_post" />
+            <Post>
+              <Image
+                width="15.89vw"
+                height="28.24vh"
+                borderRadius="16px"
+                src={list[clicked]?.postingImg}
+                alt="clicked_img"
+              />
+              <p>{list[clicked]?.postingContent}</p>
+            </Post>
             <div>
               {list[clicked]?.postingModifyOk &&
               list[clicked]?.memberId === user_info.memberId ? (
-                <button onClick={editPost}>인증샷 수정</button>
+                <MeBtn>
+                  <Button
+                    borderRadius="16px"
+                    width="15.89vw"
+                    height="5.93vh"
+                    border="mainGreen"
+                    bg="white"
+                    color="mainGreen"
+                    _onClick={deletePost}
+                  >
+                    삭제하기
+                  </Button>
+                  <Button
+                    borderRadius="16px"
+                    width="15.89vw"
+                    height="5.93vh"
+                    margin="0 0 0 36px"
+                    _onClick={editPost}
+                  >
+                    인증샷 수정
+                  </Button>
+                </MeBtn>
               ) : null}
-              {challengeStatus === 2 ? (
-                <button onClick={check}>인증 확인</button>
+              {!list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
+                <Button
+                  borderRadius="16px"
+                  width="100%"
+                  height="5.93vh"
+                  border="white"
+                  bg="white"
+                  margin="4.07vh 0 0 0"
+                  color="mainGreen"
+                >
+                  인증샷을 올린 다음 날에는 수정과 삭제가 어려워요!
+                </Button>
+              ) : null}
+              {challengeStatus === 2 &&
+              list[clicked]?.memberId !== user_info.memberId ? (
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  margin="4.07vh 0 0 0"
+                  _onClick={check}
+                >
+                  인증 확인
+                </Button>
               ) : null}
             </div>
           </>
@@ -147,23 +220,77 @@ const ImageList = styled.article`
   height: 28.15vh;
 `;
 
-const Profile = styled.img`
-  width: 1em;
-  height: 1em;
+const DialogInfo = styled.div`
+  width: 100%;
+  height: 7.4vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: bold;
+`;
+
+const UserInfo = styled.div`
+  width: 8.85vw;
+  height: 7.4vh;
+  display: flex;
+  align-items: center;
+`;
+
+const StatusFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.33vh;
 `;
 
 const StatusBar = styled.div`
-  width: 5em;
-  height: 3em;
-  border: 1px solid grey;
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
   position: relative;
 `;
 
 const Status = styled.div`
   position: absolute;
-  background-color: gray;
+  background-color: ${({ theme }) => theme.colors.mainGreen};
   width: ${(props) => props.width};
-  height: 3em;
+  height: 8px;
+  border-radius: 10px 0 0 10px;
   top: 0;
   left: 0;
+`;
+
+const StatusInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.74vh;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.gray};
+`;
+
+const Percent = styled.span`
+  color: ${({ theme }) => theme.colors.mainGreen};
+`;
+
+const Post = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 33px;
+  p {
+    width: 15.89vw;
+    height: 28.24vh;
+    border-radius: 16px;
+    border: 2px solid ${({ theme }) => theme.colors.gray};
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    padding: 0.94vw;
+  }
+`;
+
+const MeBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 44px;
 `;

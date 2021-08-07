@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
+import styled from "styled-components";
+
 import Dialog from "@material-ui/core/Dialog";
-import { history } from "../../redux/configureStore";
+import Button from "../../elements/Button";
+import { Image } from "../../elements";
+import close from "../../images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
-import Button from "../../elements/Button";
 
 const PwdModal = (props) => {
   const { challengeTitle, challengePassword, challengeId, challengeMember } =
@@ -77,22 +80,98 @@ const PwdModal = (props) => {
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
-            padding: "1em",
-            borderRadius: "0.6em ",
+            width: "23.33vw",
+            height: "18.15vh",
+            padding: "1.46vw",
+            borderRadius: "16px",
+            overflowY: "hidden",
+            boxShadow: "rgba(0,219,154,0.2) 0px 8px 24px",
           },
         }}
       >
-        <label htmlFor="challengePwd">비밀번호</label>
-        <input
-          id="challengePwd"
-          ref={pwdInput}
-          type="password"
-          placeholder="비밀스러운 챌린지~"
-        />
-        <Button onClick={takePartInPwd}>신청하기</Button>
+        <PwdIntro>
+          <DialogInfo>
+            <label htmlFor="challengePwd">
+              챌린지의 비밀번호를 입력해주세요.
+            </label>
+            <Image
+              src={close}
+              alt="closeBtn"
+              onClick={handleClose}
+              width="28px"
+              height="28px"
+              borderRadius="0"
+            />
+          </DialogInfo>
+          <p>
+            해당 챌린지는 비공개 챌린지입니다.
+            <br />
+            비밀번호를 입력하여 챌린지에 참가해주세요.
+          </p>
+        </PwdIntro>
+        <PwdInput>
+          <Input
+            id="challengePwd"
+            ref={pwdInput}
+            type="password"
+            placeholder="1234567"
+          />
+          <Button
+            width="7.08vw"
+            height="3.7vh"
+            fontsize="sm"
+            _onClick={takePartInPwd}
+          >
+            비밀번호 입력
+          </Button>
+        </PwdInput>
       </Dialog>
     </>
   );
 };
 
 export default PwdModal;
+
+const PwdIntro = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  p {
+    color: ${({ theme }) => theme.colors.gray};
+    font-size: 12px;
+    height: 3.15vh;
+    line-height: normal;
+  }
+`;
+
+const DialogInfo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  label {
+    font-weight: bold;
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    height: 3.8vh;
+  }
+`;
+
+const PwdInput = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 2.31vh;
+`;
+
+const Input = styled.input`
+  width: 12.5vw;
+  height: 3.7vh;
+  border: none;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  caret-color: ${({ theme }) => theme.colors.mainGreen};
+  ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+  }
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+`;
