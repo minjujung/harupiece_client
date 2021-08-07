@@ -91,6 +91,13 @@ const editMyProfileDB = (content) => {
     const myProfile = getState().mypage.myInfo.memberId;
     const myProfileImg = getState().mypage.myInfo.profileImage;
 
+    const blank_check = /[\s]/g;
+
+    if (blank_check.test(content.newNickName)) {
+      window.alert("공백은 사용할 수 없습니다!");
+      return;
+    }
+
     const proFile = {
       nickname: content.newNickName,
       profileImage: content.file,
@@ -117,7 +124,7 @@ const editMyProfileDB = (content) => {
             point: user_info.point,
           };
           dispatch(userCreators.setUser(new_user_info));
-          history.push("/mypage/now");
+          dispatch(getMyInfoDB());
         })
         .catch((error) => {
           if (
@@ -170,7 +177,7 @@ const editMyProfileDB = (content) => {
               point: user_info.point,
             };
             dispatch(userCreators.setUser(new_user_info));
-            history.push("/mypage/now");
+            dispatch(getMyInfoDB());
           })
           .catch((error) => {
             if (window.confirm("test")) {

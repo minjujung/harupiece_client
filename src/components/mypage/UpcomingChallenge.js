@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { Card, Tag } from "../../elements";
+
+import { history } from "../../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 import { changeForm } from "./ChallengesInProgress";
 
@@ -20,68 +23,68 @@ function UpcomingChallenge(props) {
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]
   );
+  const end = myChallengeList?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
 
-  const { _month: start_month, _date: start_date } = changeForm(start);
+  const {
+    _year: start_year,
+    _month: start_month,
+    _date: start_date,
+  } = changeForm(start);
+  const {
+    _year: end_year,
+    _month: end_month,
+    _date: end_date,
+  } = changeForm(end);
 
   return (
-    <>
-      {myChallengeList &&
-        myChallengeList.map((list, idx) => {
-          return (
-            <ChallengeContent key={idx}>
-              <ChallengeImg>
-                <img src={list.challengeImgUrl} alt="" />
-              </ChallengeImg>
-              <div>
-                <div>
-                  <span>
-                    {" "}
-                    {start_month[idx]}월 {start_date[idx]}일 부터 시작합니다!
-                  </span>
-                </div>
-                <div>
-                  <span>{list.challengeTitle}</span>
-                </div>
-                <div>
-                  <div>
-                    <img alt="" />
-                  </div>
-                  <div>
-                    {list.participateSize && list.participateSize > 1 ? (
-                      <span>
-                        {my_info && my_info.nickname}님 외{" "}
-                        {list.participateSize - 1}명이 함께 도전 중이에요!
-                      </span>
-                    ) : (
-                      <span>
-                        혼자 도전중이에요! 친구에게 챌린지를 추천해보세요!
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </ChallengeContent>
-          );
-        })}
-    </>
+    <Container>
+      <CardGrid>
+        {myChallengeList &&
+          myChallengeList.map((list, idx) => {
+            return (
+              <Card
+                strongDate
+                key={list.challengeId}
+                onClick={() =>
+                  history.push(`/challenge/${list.challengeId}/intro`)
+                }
+                width="16.04vw"
+                height="28.89vh"
+                title={list.challengeTitle}
+                date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
+                src={list.challengeImgUrl}
+                alt="challenge"
+              >
+                <Tag bg="mainOrange" color="white" padding="8px 20px">
+                  금주
+                </Tag>
+                {my_info.memberId === list.challengeMember}
+                <Tag bg="mainGreen" color="white" padding="8px 20px">
+                  내가 만든 챌린지
+                </Tag>
+              </Card>
+            );
+          })}
+      </CardGrid>
+    </Container>
   );
 }
 
-const ChallengeContent = styled.div`
+const Container = styled.div`
   width: 100%;
-  height: 100px;
-  background-color: seashell;
   display: flex;
+  justify-content: center;
 `;
 
-const ChallengeImg = styled.div`
-  width: 30%;
-  height: 100%;
-  img {
-    background-color: blue;
-    width: 63%;
-    height: 100%;
-  }
+const CardGrid = styled.div`
+  width: 66.67vw;
+  display: grid;
+  gap: 1.04vw;
+  grid-template-columns: repeat(4, 16.04vw);
+  grid-template-rows: repeat(1, 34.63vh);
+  grid-auto-rows: 34.63vh;
 `;
 
 export default UpcomingChallenge;

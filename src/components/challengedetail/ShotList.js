@@ -86,7 +86,7 @@ const Section = styled.section`
   gap: 1.04vw;
   grid-template-columns: repeat(3, 15.78vw);
   grid-template-rows: repeat(1, 28.15vh);
-  grid-auto-rows: 100px;
+  grid-auto-rows: 28.15vh;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;

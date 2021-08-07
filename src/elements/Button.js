@@ -14,6 +14,7 @@ const Button = ({
   border,
   chat,
   borderRadius,
+  profileBtn,
   children,
 }) => {
   const styles = {
@@ -27,6 +28,7 @@ const Button = ({
     fontsize,
     borderRadius,
     chat,
+    profileBtn,
   };
   return (
     <ElButton onClick={_onClick} {...styles}>
@@ -47,6 +49,7 @@ Image.defaultProps = {
   border: false,
   margin: false,
   chat: false,
+  profileBtn: false,
   borderRadius: false,
   _onClick: () => {},
 
@@ -78,4 +81,6 @@ const ElButton = styled.button`
     props.chat
       ? `position: fixed; bottom: 14.81vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px;`
       : null}
+  ${(props) =>
+    props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
 `;
