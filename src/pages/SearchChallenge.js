@@ -6,6 +6,7 @@ import { Tag, Card } from "../elements";
 import { getCookie } from "../shared/Cookie";
 import { changeForm } from "../components/mypage/ChallengesInProgress";
 import { history } from "../redux/configureStore";
+import { TablePagination } from "@material-ui/core";
 
 function SearchChallenge(props) {
   const dispatch = useDispatch();
@@ -17,85 +18,98 @@ function SearchChallenge(props) {
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 
-  const [searchParam] = useState(["categoryName", "challengeTitle", "tagList"]);
-  const [filterParam, setFilterParam] = useState("All");
-  const [filterTerms, setFilterTerms] = useState("All");
-  const [filterEtc, setFilterEtc] = useState("All");
+  const [searchState, setSearchState] = useState({
+    userInputContainerClicked: false,
+    searchTerm: "",
+    // tags that render are inside of 'passingTags' object.
+    passingTags: {
+      search: {
+        inputTerm: "",
+      },
+      categoryName: {
+        EXERCISE: false,
+        NODRINKNOSMOKE: false,
+        LIVINGHABITS: false,
+      },
+      tagList: {
+        "#1주": false,
+        "#2주": false,
+        "#3주": false,
+        "#4주 이상": false,
+        "#공식챌린지": false,
+        "#인기챌린지": false,
+      },
+    },
+  });
 
-  const getCategory = (e) => {
-    let category = e.target.textContent;
-    if (category === "#금연금주") {
-      setFilterParam("NODRINKNOSMOKE");
-    } else if (category === "#생활챌린지") {
-      setFilterParam("LIVINGHABITS");
-    } else if (category === "#운동") {
-      setFilterParam("EXERCISE");
+  console.log(searchState.passingTags.categoryName);
+
+  const allFilterClickListener = (e, filterProp) => {
+    console.log("FILTER clicked", e.target.textContent);
+    let name = e.target.textContent;
+    if (name === "#금연금주") {
+      name = "NODRINKNOSMOKE";
+    } else if (name === "#운동") {
+      name = "EXERCISE";
+    } else if (name === "#생활챌린지") {
+      name = "LIVINGHABITS";
     } else {
-      return;
+      name = e.target.textContent;
     }
-  };
-
-  const getTerms = (e) => {
-    let category = e.target.textContent;
-    if (category === "#1주") {
-      setFilterTerms("#1주");
-    } else if (category === "#2주") {
-      setFilterTerms("#2주");
-    } else if (category === "#3주") {
-      setFilterTerms("#3주");
-    } else if (category === "#4주 이상") {
-      setFilterTerms("#4주 이상");
-    } else {
-      return;
-    }
-  };
-
-  const getEtc = (e) => {
-    let category = e.target.textContent;
-    if (category === "#공식챌린지") {
-      setFilterEtc("#공식챌린지");
-    } else if (category === "#인기챌린지") {
-      setFilterEtc("#인기챌린지");
-    } else {
-      return;
-    }
-  };
-
-  function search(searchList) {
-    return searchList.search.filter((searchLists) => {
-      if (
-        searchLists.categoryName === filterParam &&
-        searchLists.tagList.includes(filterTerms)
-      ) {
-        return searchParam.some((newList) => {
-          return searchLists[newList].toString().toLowerCase();
-        });
-      } else if (filterParam == "All") {
-        return searchParam.some((newList) => {
-          return searchLists[newList].toString().toLowerCase();
-        });
-      }
+    setSearchState({
+      passingTags: {
+        ...searchState.passingTags,
+        [filterProp]: {
+          ...searchState.passingTags[filterProp],
+          [name]: !searchState.passingTags[filterProp][name],
+        },
+      },
     });
-  }
+  };
 
-  const start = searchList.search?.map(
-    (list) => list.challengeStartDate.split("T")[0]
-  );
+  const filteredCollected = () => {
+    const collectedTrueKeys = {
+      categoryName: [],
+      tagList: [],
+    };
+    const { categoryName, tagList } = searchState.passingTags;
+    for (let categoryKey in categoryName) {
+      if (categoryName[categoryKey])
+        collectedTrueKeys.categoryName.push(categoryKey);
+    }
+    for (let tagKey in tagList) {
+      if (tagList[tagKey]) collectedTrueKeys.tagList.push(tagKey);
+    }
+    return collectedTrueKeys;
+  };
 
-  const end = searchList.search?.map(
-    (list) => list.challengeEndDate.split("T")[0]
-  );
+  // 클릭한 버튼 값을 true로 변환시켜줌
+  // console.log("선택한 필터", filteredCollected());
 
-  const {
-    _year: start_year,
-    _month: start_month,
-    _date: start_date,
-  } = changeForm(start);
-  const {
-    _year: end_year,
-    _month: end_month,
-    _date: end_date,
-  } = changeForm(end);
+  const multiPropsFilter = (challenges, filters) => {
+    const filterKeys = Object.keys(filters); //[categoryName, tags]
+    return challenges.search.filter((challenge) => {
+      return filterKeys.every((key) => {
+        if (!filters[key].length) return true;
+        if (Array.isArray(challenge[key])) {
+          return challenge[key].some((keyEle) => filters[key].includes(keyEle));
+        }
+        console.log("작동안함");
+        return filters[key].includes(challenge[key]);
+      });
+    });
+  };
+
+  const searchProducts = () => {
+    const filteredProducts = multiPropsFilter(searchList, filteredCollected());
+    console.log(filteredProducts);
+    return filteredProducts.filter((product) => {
+      console.log(product);
+      return product;
+    });
+  };
+
+  let result = searchProducts();
 
   return (
     <Container>
@@ -108,78 +122,150 @@ function SearchChallenge(props) {
         <CategoryRightBox>
           <TagBox>
             <Tag
-              onClick={getCategory}
-              bg={filterParam === "NODRINKNOSMOKE" ? "mainGreen" : "white"}
-              color={filterParam === "NODRINKNOSMOKE" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              bg={
+                searchState.passingTags.categoryName.NODRINKNOSMOKE === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.NODRINKNOSMOKE === true
+                  ? "white"
+                  : "black"
+              }
             >
               #금연금주
             </Tag>
             <Tag
-              onClick={getCategory}
-              bg={filterParam === "LIVINGHABITS" ? "mainGreen" : "white"}
-              color={filterParam === "LIVINGHABITS" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              bg={
+                searchState.passingTags.categoryName.LIVINGHABITS === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.LIVINGHABITS === true
+                  ? "white"
+                  : "black"
+              }
             >
               #생활챌린지
             </Tag>
             <Tag
-              onClick={getCategory}
-              bg={filterParam === "EXERCISE" ? "mainGreen" : "white"}
-              color={filterParam === "EXERCISE" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              bg={
+                searchState.passingTags.categoryName.EXERCISE === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.EXERCISE === true
+                  ? "white"
+                  : "black"
+              }
             >
               #운동
             </Tag>
           </TagBox>
           <TagBox>
             <Tag
-              onClick={getTerms}
-              bg={filterTerms === "#1주" ? "mainGreen" : "white"}
-              color={filterTerms === "#1주" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#1주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#1주"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #1주
             </Tag>
             <Tag
-              onClick={getTerms}
-              bg={filterTerms === "#2주" ? "mainGreen" : "white"}
-              color={filterTerms === "#2주" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#2주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#2주"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #2주
             </Tag>
             <Tag
-              onClick={getTerms}
-              bg={filterTerms === "#3주" ? "mainGreen" : "white"}
-              color={filterTerms === "#3주" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#3주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#3주"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #3주
             </Tag>
             <Tag
-              onClick={getTerms}
-              bg={filterTerms === "#4주 이상" ? "mainGreen" : "white"}
-              color={filterTerms === "#4주 이상" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#4주 이상"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#4주 이상"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #4주 이상
             </Tag>
           </TagBox>
           <TagBox>
             <Tag
-              onClick={getEtc}
-              bg={filterEtc === "#공식챌린지" ? "mainGreen" : "white"}
-              color={filterEtc === "#공식챌린지" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#공식챌린지"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#공식챌린지"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #공식챌린지
             </Tag>
             <Tag
-              onClick={getEtc}
-              bg={filterEtc === "#인기챌린지" ? "mainGreen" : "white"}
-              color={filterEtc === "#인기챌린지" ? "white" : "black"}
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              bg={
+                searchState.passingTags.tagList["#인기챌린지"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#인기챌린지"] === true
+                  ? "white"
+                  : "black"
+              }
             >
               #인기챌린지
             </Tag>
@@ -188,15 +274,13 @@ function SearchChallenge(props) {
       </CategoryContainer>
 
       <BoxContainer>
-        {searchList &&
-          search(searchList).map((l, idx) => {
+        {result &&
+          result.map((l, idx) => {
             return (
               <>
                 <Card
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
-                  date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
-                        ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                   key={idx}
                   onClick={() => history.push(`/challenge/${l.challengeId}`)}
                 ></Card>
