@@ -90,18 +90,6 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
 
   return (
     <>
-      <DatePicker
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={onChange}
-        filterDate={isWeekday}
-        dateFormat="yyyy-MM-dd"
-        locale={ko}
-        minDate={date}
-        isClearable={true}
-      />
-      
       <div>
         <Label htmlFor="checkweek">인증 기간 중 주말제외 여부</Label>
         <Holiday>
@@ -115,6 +103,20 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
           />
         </Holiday>
       </div>
+      <SubT>인증 기간</SubT>
+      <DatePicker
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={onChange}
+        filterDate={isWeekday}
+        dateFormat="yyyy-MM-dd"
+        locale={ko}
+        minDate={date}
+        isClearable={true}
+      />
+      
+
     </>
   );
 }
@@ -126,6 +128,14 @@ const Label = styled.label`
   font-weight: 400;
   color : ${({theme}) => theme.colors.darkGray};
 `;
+
+const SubT = styled.p`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  margin-bottom : 8px;
+`;
+
 
 const Holiday = styled.div`
   display: flex;

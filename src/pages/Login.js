@@ -29,7 +29,7 @@ const Login = (props) => {
           }}
           validationSchema={Yup.object({
             email: Yup.string()
-              .required(""),
+              .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
             password: Yup.string()
               .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),

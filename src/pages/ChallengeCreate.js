@@ -177,7 +177,6 @@ function ChallengeCreate(props) {
           <InputRightContainer>
             {/* date picker */}
             <div>
-              <SubT>인증 기간</SubT>
               <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
@@ -263,7 +262,7 @@ const RightContainer = styled.div`
   width: 30.93vw;
   height: 53.79vh;
   margin-top: 5.00vh;
-
+  background-color: goldenrod;
 `;
 
 const Input = styled.input`
@@ -298,13 +297,6 @@ const Label = styled.label`
   font-size: ${({theme}) => theme.fontSizes.xs};
   font-weight: 400;
   color : ${({theme}) => theme.colors.darkGray};
-`;
-
-const SubT = styled.p`
-  font-size: ${({theme}) => theme.fontSizes.xs};
-  font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
-  margin-bottom : 8px;
 `;
 
 const SelectBox = styled.select`
