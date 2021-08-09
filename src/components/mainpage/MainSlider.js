@@ -95,7 +95,7 @@ const SliderBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   height: 250px;
-  padding: 0px 80px;
+  padding: 0px 70px;
   font-size: 16px;
   border-radius: 10px;
 `;
@@ -109,11 +109,13 @@ const TitleBox = styled.div`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.white};
   padding: 15px 0;
+  letter-spacing: -0.08em;
 `;
 
 const SubTitleBox = styled.div`
   font-size: 40px;
   color: ${({ theme }) => theme.colors.white};
+  letter-spacing: -0.08em;
   span {
     border-bottom: 1px solid white;
   }
