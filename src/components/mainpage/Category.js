@@ -16,10 +16,9 @@ const Category = (props) => {
   const [category, setCategory] = useState("nodrinknosmoke");
 
   const searchAll = (e) => {
-    const CATEGORY = category.toUpperCase();
     e.preventDefault();
-    dispatch(searchActions.searchAllDB(CATEGORY));
-    history.push(`/search/1/${CATEGORY}`);
+    dispatch(searchActions.searchAllDB());
+    history.push(`/search/1/all`);
   };
 
   const ChangeTag = (e) => {
@@ -56,6 +55,24 @@ const Category = (props) => {
     _date: end_date,
   } = changeForm(end);
 
+  const GuestStart = main_list.guestmain[category]?.map(
+    (list) => list.challengeStartDate.split("T")[0]
+  );
+  const GuestEnd = main_list.guestmain[category]?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
+  const {
+    _year: GuestStart_year,
+    _month: GuestStart_month,
+    _date: GuestStart_date,
+  } = changeForm(GuestStart);
+
+  const {
+    _year: GuestEnd_year,
+    _month: GuestEnd_month,
+    _date: GuestEnd_date,
+  } = changeForm(GuestEnd);
+
   return (
     <>
       <Contain>
@@ -74,6 +91,7 @@ const Category = (props) => {
             color={category === "nodrinknosmoke" ? "white" : "black"}
             onClick={ChangeTag}
             bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
           >
             #금연&금주
           </Tag>
@@ -81,6 +99,7 @@ const Category = (props) => {
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
+            padding="10px"
           >
             #습관챌린지
           </Tag>
@@ -88,6 +107,7 @@ const Category = (props) => {
             color={category === "exercise" ? "white" : "black"}
             bg={category === "exercise" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
+            padding="10px"
           >
             #운동
           </Tag>
@@ -123,8 +143,8 @@ const Category = (props) => {
                       <Card
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
-                        // date={`${guestStart_year[idx]}.${guestStart_month[idx]}.${guestStart_date[idx]} -
-                        // ${guestEnd_year[idx]}.${guestEnd_month[idx]}.${guestEnd_date[idx]}`}
+                        date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
+                        ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
                         key={idx}
                         onClick={() =>
                           history.push(`/challenge/${l.challengeId}/intro`)

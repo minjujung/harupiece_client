@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../redux/modules/main";
@@ -9,62 +9,121 @@ import { history } from "../redux/configureStore";
 function SearchChallenge(props) {
   const dispatch = useDispatch();
 
-  // 전체보기 키워드
-  const searchWord = props.match.params.searchWords;
+  useEffect(() => {
+    dispatch(searchActions.searchAllDB());
+  }, []);
 
   // 검색 키워드
-  const searchList = useSelector((state) => state.main.search);
+  const searchList = useSelector((state) => state.main);
 
-  const [searchParam] = useState(["categoryName", "challengeTitle"]);
-  const [filterParam, setFilterParam] = useState(searchWord);
+  const [searchState, setSearchState] = useState({
+    userInputContainerClicked: false,
+    searchTerm: "",
+    passingTags: {
+      search: {
+        inputTerm: "",
+      },
+      categoryName: {
+        EXERCISE: false,
+        NODRINKNOSMOKE: false,
+        LIVINGHABITS: false,
+      },
+      tagList: {
+        "#1주": false,
+        "#2주": false,
+        "#3주": false,
+        "#4주 이상": false,
+        "#공식챌린지": false,
+        "#인기챌린지": false,
+      },
+    },
+  });
 
-  const getCategory = (e) => {
-    let category = e.target.textContent;
-    let categoryUrl = "";
-    if (category === "#금연금주") {
-      categoryUrl = "NODRINKNOSMOKE";
-    } else if (category === "#생활챌린지") {
-      categoryUrl = "LIVINGHABITS";
-    } else if (category === "#운동") {
-      categoryUrl = "EXERCISE";
+  // 필터 클릭 시 해당 필터 이름과 searchState값과 비교 후 setSearchState 재정의
+  const allFilterClickListener = (e, filterProp) => {
+    let name = e.target.textContent;
+    if (name === "#금연금주") {
+      name = "NODRINKNOSMOKE";
+    } else if (name === "#운동") {
+      name = "EXERCISE";
+    } else if (name === "#생활챌린지") {
+      name = "LIVINGHABITS";
     } else {
-      categoryUrl = category;
+      name = e.target.textContent;
     }
-    dispatch(searchActions.searchAllDB(categoryUrl));
-    history.push(`/search/1/${categoryUrl}`);
+    setSearchState({
+      passingTags: {
+        ...searchState.passingTags,
+        [filterProp]: {
+          ...searchState.passingTags[filterProp],
+          [name]: !searchState.passingTags[filterProp][name],
+        },
+      },
+    });
   };
 
-  function search(searchList) {
-    return searchList.filter((searchLists) => {
-      if (searchLists.categoryName === filterParam) {
-        return searchParam.some((newList) => {
-          return searchLists[newList].toString().toLowerCase();
-        });
-      } else if (filterParam == searchWord) {
-        return searchParam.some((newList) => {
-          return searchLists[newList].toString().toLowerCase();
-        });
-      }
+  // 선택한 필터를 빈 배열에 넣어서 새로운 배열로 만드는 함수
+  const filteredCollected = () => {
+    const collectedTrueKeys = {
+      categoryName: [],
+      tagList: [],
+    };
+    const { categoryName, tagList } = searchState.passingTags;
+    for (let categoryKey in categoryName) {
+      if (categoryName[categoryKey])
+        collectedTrueKeys.categoryName.push(categoryKey);
+    }
+    for (let tagKey in tagList) {
+      if (tagList[tagKey]) collectedTrueKeys.tagList.push(tagKey);
+    }
+    return collectedTrueKeys;
+  };
+
+  // 실질적인 필터 기능
+  // challenges = 서버로 부터 받은 전체 데이터 // filters = 선택한 필터
+  const multiPropsFilter = (challenges, filters) => {
+    const filterKeys = Object.keys(filters); //선택한 필터를 열거할 수 있는 배열로 반환 => [categoryName, tags]
+    return challenges.search.filter((challenge) => {
+      return filterKeys.every((key) => {
+        // 배열 안의 모든 요소가 주어진 key로 통과하는지 테스트 하나라도 조건에 안맞으면 false처리
+        if (!filters[key].length) return true;
+        if (Array.isArray(challenge[key])) {
+          // challenge[key] = 챌린지 태그
+          return challenge[key].some((keyEle) => filters[key].includes(keyEle)); // filters[key] = 챌린지 카테고리
+        }
+        return filters[key].includes(challenge[key]);
+      });
     });
-  }
+  };
 
-  // const start = searchList.usermain[category]?.map(
-  //   (list) => list.challengeStartDate.split("T")[0]
-  // );
-  // const end = searchList.usermain[category]?.map(
-  //   (list) => list.challengeEndDate.split("T")[0]
-  // );
+  const searchProducts = () => {
+    const filteredProducts = multiPropsFilter(searchList, filteredCollected());
+    return filteredProducts.filter((product) => {
+      return product;
+    });
+  };
 
-  // const {
-  //   _year: start_year,
-  //   _month: start_month,
-  //   _date: start_date,
-  // } = changeForm(start);
-  // const {
-  //   _year: end_year,
-  //   _month: end_month,
-  //   _date: end_date,
-  // } = changeForm(end);
+  let result = searchProducts();
+
+  // 챌린지 기간
+  const start = searchList.search?.map(
+    (list) => list.challengeStartDate.split("T")[0]
+  );
+
+  const end = searchList.search?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
+
+  const {
+    _year: start_year,
+    _month: start_month,
+    _date: start_date,
+  } = changeForm(start);
+  const {
+    _year: end_year,
+    _month: end_month,
+    _date: end_date,
+  } = changeForm(end);
 
   return (
     <Container>
@@ -76,39 +135,169 @@ function SearchChallenge(props) {
         </CategoryLeftBox>
         <CategoryRightBox>
           <TagBox>
-            <Tag onClick={getCategory} bg="white">
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
+              border="none"
+              bg={
+                searchState.passingTags.categoryName.NODRINKNOSMOKE === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.NODRINKNOSMOKE === true
+                  ? "white"
+                  : "black"
+              }
+            >
               #금연금주
             </Tag>
-            <Tag onClick={getCategory} bg="white">
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
+              border="none"
+              bg={
+                searchState.passingTags.categoryName.LIVINGHABITS === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.LIVINGHABITS === true
+                  ? "white"
+                  : "black"
+              }
+            >
               #생활챌린지
             </Tag>
-            <Tag onClick={getCategory} bg="white">
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
+              border="none"
+              bg={
+                searchState.passingTags.categoryName.EXERCISE === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.categoryName.EXERCISE === true
+                  ? "white"
+                  : "black"
+              }
+            >
               #운동
             </Tag>
           </TagBox>
           <TagBox>
-            <Tag bg="white">#1주</Tag>
-            <Tag bg="white">#2주</Tag>
-            <Tag bg="white">#3주</Tag>
-            <Tag bg="white">#4주 이상</Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#1주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#1주"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #1주
+            </Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#2주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#2주"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #2주
+            </Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#3주"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#3주"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #3주
+            </Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#4주 이상"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#4주 이상"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #4주 이상
+            </Tag>
           </TagBox>
           <TagBox>
-            <Tag bg="white">#공식챌린지</Tag>
-            <Tag bg="white">#인기챌린지</Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#공식챌린지"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#공식챌린지"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #공식챌린지
+            </Tag>
+            <Tag
+              onClick={(e) => allFilterClickListener(e, "tagList")}
+              border="none"
+              bg={
+                searchState.passingTags.tagList["#인기챌린지"] === true
+                  ? "mainGreen"
+                  : "white"
+              }
+              color={
+                searchState.passingTags.tagList["#인기챌린지"] === true
+                  ? "white"
+                  : "black"
+              }
+            >
+              #인기챌린지
+            </Tag>
           </TagBox>
         </CategoryRightBox>
       </CategoryContainer>
 
       <BoxContainer>
-        {searchList &&
-          searchList.map((l, idx) => {
+        {result &&
+          result.map((l, idx) => {
             return (
               <>
                 <Card
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
-                  date="2021.01.01 - 2021.01.01"
                   key={idx}
+                  date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
+                  ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                   onClick={() => history.push(`/challenge/${l.challengeId}`)}
                 ></Card>
               </>

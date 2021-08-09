@@ -16,13 +16,15 @@ Tag.defaultProps = {
   color: false,
   padding: false,
   onClick: () => {},
+  border: "1px solid white",
+  padding: "7px",
 };
 
 export default Tag;
 
 const TagFrame = styled.div`
   cursor: pointer;
-  border: 1px solid white;
+  border: ${(props) => props.border};
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.lightGray};
   color: ${(props) =>

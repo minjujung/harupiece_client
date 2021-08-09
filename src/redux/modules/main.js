@@ -6,6 +6,7 @@ import { MainApis } from "../../shared/api";
 const G_LOAD = "main/G_LOAD";
 const M_LOAD = "main/M_LOAD";
 const SEARCH = "SEARCH";
+// const SEARCHALL = "SEARCHALL";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 
@@ -13,6 +14,7 @@ const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
 const search = createAction(SEARCH, (search) => ({ search }));
+// const searchAll = createAction(SEARCHALL, (searchAll) => ({ searchAll }));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -58,6 +60,7 @@ const userLoadDB = () => {
   };
 };
 
+// 키워드 검색
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
     const encode = encodeURIComponent(q);
@@ -71,7 +74,8 @@ const searchDB = (q) => {
   };
 };
 
-const searchAllDB = (q) => {
+// 메인화면 카테고리
+const searchCategoryDB = (q) => {
   return function (dispatch, getState, { history }) {
     // let query = "";
     // if (q === "#금연금주") {
@@ -84,9 +88,22 @@ const searchAllDB = (q) => {
     //   query = q;
     // }
     const encode = encodeURIComponent(q);
-    MainApis.searchAll(encode)
+    MainApis.searchCategory(encode)
       .then((res) => {
         dispatch(search(res.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 모든 검색 결과
+const searchAllDB = () => {
+  return function (dispatch, getState, { history }) {
+    MainApis.searchAll()
+      .then((res) => {
+        dispatch(search(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -117,7 +134,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.search = action.payload.search;
       }),
-
     [DELETE_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
         const idx = draft.usermain[
@@ -142,6 +158,7 @@ const MainCreators = {
   addUserLoad,
   deleteUserLoad,
   searchAllDB,
+  searchCategoryDB,
 };
 
 export { MainCreators };

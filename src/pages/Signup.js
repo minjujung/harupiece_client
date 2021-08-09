@@ -36,9 +36,10 @@ const Signup = (props) => {
               .max(40, "40 글자 이상 작성이 불가능 합니다")
               .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
-            nickname: Yup.string().required(
-              "닉네임 작성칸이 빈칸 입니다 입력 해주세요."
-            ),
+            nickname: Yup.string()
+              // .matches(/\W|\s/g, "특수문자 또는 공백은 사용할 수 없습니다")
+              .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
+
             password: Yup.string()
               .max(20, "20 글자 이상 작성이 불가능 합니다")
               .matches(
@@ -48,7 +49,7 @@ const Signup = (props) => {
               .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
 
             passwordConfirm: Yup.string()
-              .max(20, " 글자 이상 작성이 불가능 합니다")
+              .max(20, " 20 글자 이상 작성이 불가능 합니다")
               .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
                 "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"

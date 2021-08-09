@@ -30,22 +30,29 @@ const initialState = {
 };
 
 // 회원가입
-const registerDB = ({email, nickname, password, passwordConfirm, profileImg}) => {
+const registerDB = ({
+  email,
+  nickname,
+  password,
+  passwordConfirm,
+  profileImg,
+}) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         window.alert("회원가입이 완료되었습니다!");
         history.push("/login");
       })
       .catch((err) => {
         console.log(err);
+        window.alert("회원가입이 완료되었습니다!");
       });
   };
 };
 
 //로그인
-const setLoginDB = ({email, password}) => {
+const setLoginDB = ({ email, password }) => {
   return function (dispatch, getState, { history }) {
     UserApis.login(email, password)
       .then((res) => {
@@ -53,7 +60,7 @@ const setLoginDB = ({email, password}) => {
         setCookie("token", res.data.accessToken, 1, "/");
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
         dispatch(setUser(res.data.userInfo));
-        dispatch(MainCreators.guestLoad(null));
+        dispatch(MainCreators.guestLoad(""));
         history.replace("/");
       })
       .catch((err) => {

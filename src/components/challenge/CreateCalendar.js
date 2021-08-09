@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -89,13 +90,20 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
 
   return (
     <>
-      <label htmlFor="checkweek">주말 체크</label>
-      <input
-        id="checkweek"
-        type="checkbox"
-        onClick={checkedWeek}
-        onChange={findCheck}
-      />
+      <div>
+        <Label htmlFor="checkweek">인증 기간 중 주말제외 여부</Label>
+        <Holiday>
+          <p>주말 제외</p>
+          <input
+            id="checkweek"
+            type="checkbox"
+            placeholder="주말 제외"
+            onClick={checkedWeek}
+            onChange={findCheck}
+          />
+        </Holiday>
+      </div>
+      <SubT>인증 기간</SubT>
       <DatePicker
         selectsRange={true}
         startDate={startDate}
@@ -107,8 +115,44 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
         minDate={date}
         isClearable={true}
       />
+      
+
     </>
   );
 }
 
 export default CreateCalendar;
+
+const Label = styled.label`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+`;
+
+const SubT = styled.p`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  margin-bottom : 8px;
+`;
+
+
+const Holiday = styled.div`
+  display: flex;
+  background-color : ${({theme}) => theme.colors.lightGray};
+  height: 3.70vh;
+  margin-bottom: 2.96vh;
+  margin-top : 8px;
+  border-radius: 8px;
+  & > p {
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  padding-left: 0.83vw;
+  padding-top: 1.01vh;
+  }
+  & > input {
+    margin-top: 1.01vh;
+  }
+  
+`;
