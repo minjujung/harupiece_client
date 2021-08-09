@@ -63,12 +63,12 @@ const getPostDB =
     // }
 
     //가져올게 있으면 loading 중이되므로 loading = true
-    dispatch(loading(true));
+    // dispatch(loading(true));
 
-    if (start) {
-      console.log("무한스크롤 코드.. 다음게 있으면 page + 1코드");
-      page = page + 1;
-    }
+    // if (start) {
+    //   console.log("무한스크롤 코드.. 다음게 있으면 page + 1코드");
+    //   page = page + 1;
+    // }
 
     PostApis.getPost(page, challengeId)
       .then((res) => {
@@ -306,6 +306,7 @@ const clickCheckDB =
       postingId: post_id,
       totalNumber,
     };
+    console.log(check_info);
     PostApis.clickCheck(check_info).then((res) => {
       consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: ", res);
 
@@ -347,9 +348,9 @@ export default handleActions(
         //   }
         // }, []);
 
-        if (action.payload.paging) {
-          draft.paging = action.payload.paging;
-        }
+        // if (action.payload.paging) {
+        //   draft.paging = action.payload.paging;
+        // }
 
         draft.is_loading = false;
       }),

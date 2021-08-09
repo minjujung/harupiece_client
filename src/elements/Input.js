@@ -1,27 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ 
-  width,
-  type, 
-  placeholder,
-  id,
-  }) => {
-  const styles =
-  { 
+const Input = ({ width, fontsize, padding, margin, type, placeholder, id }) => {
+  const styles = {
     width,
-    type,
-    placeholder,
-    id,
+    fontsize,
+    padding,
+    margin,
   };
-  return (
-    <ElInput 
-    {...styles} 
-    placeholder={placeholder} 
-    type={type} 
-    id={id}
-    /> 
-  );
+  return <ElInput {...styles} placeholder={placeholder} type={type} id={id} />;
 };
 
 Input.defaultProps = {
@@ -29,12 +16,16 @@ Input.defaultProps = {
   placeholder: "",
   type: "",
   id: "",
-  bg : "#ffffff",
+  bg: "#ffffff",
+  fontsize: false,
+  padding: false,
+  margin: false,
+  placeholderStyle: false,
 };
 
 const ElInput = styled.input`
   width: ${(props) => props.width};
-  border-bottom: 2px solid ${({theme}) => theme.colors.black}
+  border-bottom: 2px solid ${({ theme }) => theme.colors.black};
 `;
 
 export default Input;

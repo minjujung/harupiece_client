@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import camera from "../../images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 
 // icons
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import { Image } from "../../elements";
 
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
@@ -54,10 +56,29 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
         <div>인증샷 예시 등록</div>
         <CertificationBox>
           <Good>
-            <label htmlFor="ex_file">
-              <PhotoCameraIcon />
-            </label>
-            {goodPreview ? <img src={goodPreview} alt="goodPreview" /> : null}
+            {goodPreview ? (
+              <PreviewBtn htmlFor="ex_file">
+                <Image
+                  width="7.08vw"
+                  height="12.59vh"
+                  src={goodPreview}
+                  alt="goodPreview"
+                />
+              </PreviewBtn>
+            ) : (
+              <Preview>
+                {" "}
+                <PreviewBtn htmlFor="ex_file">
+                  {" "}
+                  <Image
+                    width="1.04vw"
+                    height="1.85vh"
+                    src={camera}
+                    alt="camera"
+                  />{" "}
+                </PreviewBtn>{" "}
+              </Preview>
+            )}{" "}
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
@@ -146,6 +167,18 @@ const Bad = styled.div`
     clip: rect(0, 0, 0, 0);
     border: 0;
   }
+`;
+
+const Preview = styled.div`
+  width: 7.08vw;
+  height: 12.59vh;
+  background-color: #e5e5e5;
+  border-radius: 16px;
+`;
+const PreviewBtn = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default CreateCertification;

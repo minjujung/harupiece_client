@@ -53,6 +53,7 @@ const ShotList = (props) => {
           <PostList
             list={list}
             challengeStatus={challenge.challengeProgress}
+            challengeMember={challenge.challengeMember}
             challengeId={challenge.challengeId}
             totalNumber={challenge.challengeMember.length}
             totalDay={totalDay}

@@ -26,12 +26,6 @@ function Mypage(props) {
   //   dispatch(myInfo.getMyInfoDB());
   // }, []);
 
-  //  1. 완료한 챌린지 시작날짜 끝날짜
-
-  // 2. 참여중인 인원수 보여주기(participateSize)
-
-  // 3. 참여중인 유저 이미지 들어갈 4개 원 만들기
-
   const [editMode, setEditMode] = useState(false);
 
   const myInfoList = useSelector((state) => state.mypage.myInfo);
@@ -187,7 +181,7 @@ function Mypage(props) {
           <Link to={`${path}/completed`}>완료한 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/pieces") ? true : false}>
-          <Link to={`${path}/pieces`}>조각 모음</Link>
+          <Link to={`${path}/pieces`}>조각</Link>
         </Item>
         <Item clicked={pathname.includes("/password") ? true : false}>
           <Link to={`${path}/password`}>비밀번호 변경</Link>
@@ -285,7 +279,7 @@ const Item = styled.li`
 `;
 
 const Section = styled.div`
-  width: 100%;
-  height: 100vh;
-  padding: 20px;
+  width: 66.67vw;
+  height: auto;
+  padding-top: 4.26vh;
 `;

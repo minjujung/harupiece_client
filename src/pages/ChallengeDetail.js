@@ -128,7 +128,7 @@ const ChallengeDetail = (props) => {
             관리자 권한 삭제
           </Button> */}
 
-          {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 이 버튼 띄우기 */}
+          {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
           {user_info?.memberId === challenge.memberId &&
           today < challenge.challengeStartDate.split("T")[0] ? (
             <>
@@ -155,7 +155,11 @@ const ChallengeDetail = (props) => {
             </>
           ) : null}
           <div>
-            <ConditionBtn {...challenge} />
+            <ConditionBtn
+              {...challenge}
+              today={today}
+              challengeStartDate={challenge.challengeStartDate.split("T")[0]}
+            />
           </div>
         </Btns>
         <Chat />

@@ -200,12 +200,20 @@ const changePasswordDB = (password) => {
       newPasswordCheck: password.newPasswordConfirm,
     };
     MypageApis.changePassword(passwordList)
-      .then((res) => console.log(res))
+      .then((res) => {
+        consoleLogger("비밀번호 변경 후 응답", res);
+        window.alert("비밀번호 변경이 완료되었습니다!");
+        history.replace("/");
+      })
       .catch((error) => {
-        if (window.confirm("test")) {
-          history.push("/");
+        if (
+          error.response.data.message === "현재 비밀번호가 일치하지 않습니다."
+        ) {
+          window.alert("현재 비밀번호가 일치하지 않습니다.");
         } else {
-          history.goBack();
+          window.alert(
+            "비밀번호 변경 중 오류가 발생했어요! 새로고침 후 다시 시도해주세요!"
+          );
         }
         console.log(error);
       });

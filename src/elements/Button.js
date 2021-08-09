@@ -16,6 +16,7 @@ const Button = ({
   borderRadius,
   profileBtn,
   children,
+  type,
 }) => {
   const styles = {
     width,
@@ -31,7 +32,7 @@ const Button = ({
     profileBtn,
   };
   return (
-    <ElButton onClick={_onClick} {...styles}>
+    <ElButton onClick={_onClick} type={type} {...styles}>
       {text ? text : children}
     </ElButton>
   );
@@ -51,6 +52,7 @@ Image.defaultProps = {
   chat: false,
   profileBtn: false,
   borderRadius: false,
+  type: false,
   _onClick: () => {},
 
   type: "",
@@ -71,7 +73,7 @@ const ElButton = styled.button`
     props.color ? props.theme.colors[props.color] : props.theme.colors.white};
   font-size: ${(props) =>
     props.fontsize
-      ? props.theme.fontSizes[props.fontSizes]
+      ? props.theme.fontSizes[props.fontsize]
       : props.theme.fontSizes.md};
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "8px"};
@@ -83,4 +85,5 @@ const ElButton = styled.button`
       : null}
   ${(props) =>
     props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
+  line-height: normal;
 `;
