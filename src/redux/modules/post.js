@@ -29,32 +29,34 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: [
-    {
-      postingId: 1,
-      memberId: 1,
-      nickName: "만주리아",
-      profileImg:
-        "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
-      postingImg:
-        "https://user-images.githubusercontent.com/75834421/127076481-90fdc5d8-7461-4d87-83ef-608697e4f2eb.png",
-      postingContent: "처음으로 해봤는 데 나름 괜찮았음",
-      postingCount: 3,
-      memberResponseDto: [],
-      postingApproval: true,
-      postingModifyOk: true,
-    },
+    // {
+    //   postingId: 1,
+    //   memberId: 1,
+    //   nickName: "만주리아",
+    //   profileImg:
+    //     "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
+    //   postingImg:
+    //     "https://user-images.githubusercontent.com/75834421/127076481-90fdc5d8-7461-4d87-83ef-608697e4f2eb.png",
+    //   postingContent: "처음으로 해봤는 데 나름 괜찮았음",
+    //   postingCount: 3,
+    //   memberResponseDto: [],
+    //   postingApproval: true,
+    //   postingModifyOk: true,
+    // },
   ],
-  paging: { start: null, next: null, size: 6, page: 1 },
+  paging: { page: 1, next: null, size: 6 },
   is_loading: false,
 };
 
 //챌린지 상세 페이지에서 인증샷 목록 불러오기
 const getPostDB =
-  (challengeId, start = null, size = 6) =>
+  (challengeId, paging) =>
   (dispatch, getState, { history }) => {
-    let _paging = getState().post.paging;
-    let page = _paging.page;
+    const _paging = getState().post.paging;
 
+    if (_paging.page === false && _paging.next === false) return;
+
+    dispatch(loading(true));
     //start는 있는데 next가 없다는 건 더이상 가져올 인증샷이
     //없다는 의미이므로 목록을 불러오지 않음!
     // if (_paging.start && !_paging.next) {
@@ -70,22 +72,23 @@ const getPostDB =
     //   page = page + 1;
     // }
 
-    PostApis.getPost(page, challengeId)
+    PostApis.getPost(_paging.page, challengeId)
       .then((res) => {
         consoleLogger("인증샷 불러올때 응답", res);
-        let post_list = [];
+
+        // const totalPages = parseInt(res.data.totalCount / 6) + 1;
 
         let paging = {
-          start: res.data[0],
-          next:
-            res.data.length === size + 1 ? res.data[res.data.length - 1] : null,
-          size,
-          page,
+          page:
+            res.data.postList.length < _paging.size ? false : _paging.page + 1,
+          next: res.data.hasNext,
+
+          size: _paging.size,
         };
 
-        post_list.push(...res.data);
-        // post_list.pop();
-        dispatch(setPost(post_list, paging));
+        console.log(res.data.postList);
+
+        dispatch(setPost(res.data.postList, paging));
       })
       .catch((error) => {
         // if (
@@ -335,23 +338,8 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.post_list;
-
-        // draft.list.push(...action.payload.post_list);
-
-        // draft.list = draft.list.reduce((acc, cur) => {
-        //   if (acc.findIndex((a) => a.id === cur.id) === -1) {
-        //     return [...acc, cur];
-        //   } else {
-        //     acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-        //     return acc;
-        //   }
-        // }, []);
-
-        // if (action.payload.paging) {
-        //   draft.paging = action.payload.paging;
-        // }
-
+        draft.list.push(...action.payload.post_list);
+        draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),
 
