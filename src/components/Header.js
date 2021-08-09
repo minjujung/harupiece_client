@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MainCreators as searchActions } from "../redux/modules/main";
-
+// image
 import { Image } from "../elements/index";
 import levelData from "../shared/level";
-
 import logo from "../images/logo/large.png";
 import login from "../images/icons/login.svg";
 import myPage from "../images/icons/profile.svg";
 import Search from "../images/icons/search.svg";
 import profile from "../images/logo/profile.png";
+// modal
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
@@ -20,6 +22,17 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
 
+  // modal state
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // search state
   const [q, setQ] = useState("");
 
   const search = (e) => {
@@ -35,24 +48,33 @@ const Header = (props) => {
           <Image width="220px" height="34px" cursor src={logo} />
         </div>
         <Container1>
-          <Form>
-            <label htmlFor="search-form">
-              <input
-                type="search"
-                id="search-form"
-                placeholder="Search for..."
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-              />
-            </label>
-            <HeaderSerBtn type="submit" onClick={search}>
+          <div>
+            <HeaderSerBtn onClick={handleClickOpen}>
               <Image width="22px" height="23px" cursor src={Search} />
               <p>검색</p>
             </HeaderSerBtn>
-          </Form>
+            <Dialog
+              fullWidth={true}
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogContent>
+                <label htmlFor="search-form">
+                  <input
+                    type="search"
+                    id="search-form"
+                    placeholder="Search for..."
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                  />
+                </label>
+              </DialogContent>
+            </Dialog>
+          </div>
           {getCookie("token") && userInfo ? (
             <>
-              {" "}
               <HeaderLogBtn
                 onClick={() => {
                   dispatch(userCreators.logOutDB());
@@ -78,14 +100,23 @@ const Header = (props) => {
               />
             </>
           ) : (
-            <HeaderLogBtn
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              <Image width="22px" height="23px" cursor src={login} />
-              <p>로그인</p>
-            </HeaderLogBtn>
+            <>
+              <HeaderLogBtn
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                <Image width="22px" height="23px" cursor src={login} />
+                <p>로그인</p>
+              </HeaderLogBtn>
+              <Image
+                src={profile}
+                alt="profile"
+                width="42px"
+                height="42px"
+                borderRadius="8px"
+              />
+            </>
           )}
         </Container1>
       </HeaderBox>
@@ -124,7 +155,6 @@ const HeaderSerBtn = styled.button`
 const HeaderLogBtn = styled.button`
   width: 56px;
   height: 37px;
-  margin-right: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,7 +166,6 @@ const HeaderLogBtn = styled.button`
 const HeaderMyBtn = styled.button`
   width: 70px;
   height: 37px;
-  margin-right: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,8 +177,17 @@ const HeaderMyBtn = styled.button`
 
 const Form = styled.form`
   display: flex;
+  label {
+    input {
+      width: 100px;
+      height: 37px;
+    }
+  }
 `;
 
 const Container1 = styled.div`
+  width: 350px;
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
