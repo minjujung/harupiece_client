@@ -66,7 +66,13 @@ const Header = (props) => {
                 </LogoBox>
                 <SearchBox>
                   <SearchLeftBox>
-                    <Image width="22px" height="23px" cursor src={Search} />
+                    <Image
+                      width="22px"
+                      height="23px"
+                      cursor
+                      src={Search}
+                      onClick={search}
+                    />
                     <label htmlFor="search-form">
                       <input
                         type="search"
@@ -167,6 +173,11 @@ const SearchBox = styled.div`
 const SearchLeftBox = styled.div`
   display: flex;
   align-items: center;
+  label {
+    input {
+      width: 100vw;
+    }
+  }
 `;
 const SearchRightBox = styled.div``;
 
