@@ -10,7 +10,7 @@ import { userCreators } from "../redux/modules/user";
 
 import Green from "../images/level/green.svg";
 
-import { Button , Image } from "../elements";
+import { Button, Image } from "../elements";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Signup = (props) => {
       <Header />
       <Container>
         <div>
-          <Image width ="162px" height ="155px" src={Green} />
+          <Image width="162px" height="155px" src={Green} />
         </div>
         <p>매일 달성하는 나만의 하루 조각</p>
         <Formik
@@ -37,7 +37,9 @@ const Signup = (props) => {
               .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
 
             nickname: Yup.string()
-            .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
+              // .matches(/\W|\s/g, "특수문자 또는 공백은 사용할 수 없습니다")
+              .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
+
             password: Yup.string()
               .max(20, "20 글자 이상 작성이 불가능 합니다")
               .matches(
@@ -47,7 +49,7 @@ const Signup = (props) => {
               .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
 
             passwordConfirm: Yup.string()
-              .max(20, " 글자 이상 작성이 불가능 합니다")
+              .max(20, " 20 글자 이상 작성이 불가능 합니다")
               .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
                 "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
@@ -59,7 +61,6 @@ const Signup = (props) => {
               ),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
             dispatch(userCreators.registerDB(values));
             setSubmitting(false);
           }}
@@ -104,14 +105,24 @@ const Signup = (props) => {
                 formik.errors.passwordConfirm ? (
                   <ErrorMsg>{formik.errors.passwordConfirm}</ErrorMsg>
                 ) : null}
-                  <Button width="100%" padding= "16px 148px" bg="black" color="white" fontsize = "ms" type="submit">
-                    회원가입
-                  </Button>
+                <Button
+                  width="100%"
+                  padding="16px 148px"
+                  bg="black"
+                  color="white"
+                  fontsize="ms"
+                  type="submit"
+                >
+                  회원가입
+                </Button>
               </div>
             </form>
           )}
         </Formik>
-        <LoginText onClick={() => {props.history.push("/login");}}
+        <LoginText
+          onClick={() => {
+            props.history.push("/login");
+          }}
         >
           로그인 하러 가기
         </LoginText>
@@ -124,7 +135,7 @@ export default Signup;
 
 const Container = styled.div`
   position: absolute;
-  width: 19.58vW;
+  width: 19.58vw;
   top: 16.38vh;
   align-items: center;
   justify-content: center;
@@ -133,29 +144,29 @@ const Container = styled.div`
   left: 50%;
   transform: translateX(-50%);
   & > p {
-    margin-top : 26px;
+    margin-top: 26px;
     margin-bottom: 73px;
   }
 `;
 
 const Input = styled.input`
   margin-bottom: 22px;
-  width:100%;
+  width: 100%;
   padding: 14px;
-  background-color: ${({theme}) => theme.colors.white};
-  border-bottom: 2px solid ${({theme}) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.black};
 `;
 
 const ErrorMsg = styled.p`
   margin-bottom: 10px;
-  text-align :center;
+  text-align: center;
   color: red;
   font-size: 12px;
 `;
 
 const LoginText = styled.p`
-  text-align :center;
-  margin-top : 31px;
-  font-size: ${({theme}) => theme.fontSizes.sm};
-  color: ${({theme}) => theme.colors.gray};
+  text-align: center;
+  margin-top: 31px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.gray};
 `;

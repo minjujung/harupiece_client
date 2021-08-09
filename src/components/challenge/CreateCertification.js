@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import camera from "../../images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
-
-// icons
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import { Image } from "../../elements/";
 
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
@@ -51,31 +50,69 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   return (
     <>
       <Certification>
-        <div>인증샷 예시 등록</div>
+        <SubT>인증샷 예시 등록</SubT>
         <CertificationBox>
           <Good>
-            <label htmlFor="ex_file">
-              <PhotoCameraIcon />
-            </label>
-            {goodPreview ? <img src={goodPreview} alt="goodPreview" /> : null}
+            {goodPreview ? (
+              <PreviewBtn htmlFor="ex_file">
+                <Image
+                  width="7.08vw"
+                  height="12.59vh"
+                  src={goodPreview}
+                  alt="goodPreview"
+                />
+              </PreviewBtn>
+            ) : (
+              <Preview>
+                <PreviewBtn htmlFor="ex_file">
+                  <Image
+                    width="1.04vw"
+                    height="1.85vh"
+                    src={camera}
+                    alt="camera"
+                  />
+                </PreviewBtn>
+              </Preview>
+            )}
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
+              style={{ display: "none" }}
               id="ex_file"
               type="file"
             />
+            <BottomT>좋은 인증샷 예시</BottomT>
           </Good>
           <Bad>
-            <label htmlFor="ex_files">
-              <PhotoCameraIcon />
-            </label>
-            {badPreview ? <img src={badPreview} alt="badPreveiew" /> : null}
+            {badPreview ? (
+              <PreviewBtn htmlFor="ex_files">
+                <Image
+                  width="7.08vw"
+                  height="12.59vh"
+                  src={badPreview}
+                  alt="badPreview"
+                />
+              </PreviewBtn>
+            ) : (
+              <Preview>
+                <PreviewBtn htmlFor="ex_files">
+                  <Image
+                    width="1.04vw"
+                    height="1.85vh"
+                    src={camera}
+                    alt="camera"
+                  />
+                </PreviewBtn>
+              </Preview>
+            )}
             <input
               onChange={badSelectFile}
               ref={badFileInput}
+              style={{ display: "none" }}
               id="ex_files"
               type="file"
             />
+            <BottomT>나쁜 인증샷 예시</BottomT>
           </Bad>
         </CertificationBox>
       </Certification>
@@ -94,58 +131,40 @@ const CertificationBox = styled.div`
   display: flex;
 `;
 
+const SubT = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.darkGray};
+  margin-bottom: 8px;
+`;
+
+const BottomT = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.darkGray};
+  margin-top: 8px;
+`;
+
 const Good = styled.div`
-  label {
-    display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 0.25em;
-  }
-
-  input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
+  margin-right: 0.73vw;
 `;
 
-const Bad = styled.div`
-  label {
-    display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 0.25em;
-  }
-
-  input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
+const Preview = styled.div`
+  width: 7.08vw;
+  height: 12.59vh;
+  background-color: #e5e5e5;
+  border-radius: 16px;
 `;
+
+const PreviewBtn = styled.label`
+  width: 7.08vw;
+  height: 12.59vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+`;
+
+const Bad = styled.div``;
 
 export default CreateCertification;

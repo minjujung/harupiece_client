@@ -57,16 +57,18 @@ const getPostDB =
 
     //start는 있는데 next가 없다는 건 더이상 가져올 인증샷이
     //없다는 의미이므로 목록을 불러오지 않음!
-    if (_paging.start && !_paging.next) {
-      return;
-    }
+    // if (_paging.start && !_paging.next) {
+    //   console.log("무한스크롤 코드 시도 오류...");
+    //   return;
+    // }
 
     //가져올게 있으면 loading 중이되므로 loading = true
-    dispatch(loading(true));
+    // dispatch(loading(true));
 
-    if (start) {
-      page = page + 1;
-    }
+    // if (start) {
+    //   console.log("무한스크롤 코드.. 다음게 있으면 page + 1코드");
+    //   page = page + 1;
+    // }
 
     PostApis.getPost(page, challengeId)
       .then((res) => {
@@ -304,6 +306,7 @@ const clickCheckDB =
       postingId: post_id,
       totalNumber,
     };
+    console.log(check_info);
     PostApis.clickCheck(check_info).then((res) => {
       consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: ", res);
 
@@ -332,7 +335,9 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(...action.payload.post_list);
+        draft.list = action.payload.post_list;
+
+        // draft.list.push(...action.payload.post_list);
 
         // draft.list = draft.list.reduce((acc, cur) => {
         //   if (acc.findIndex((a) => a.id === cur.id) === -1) {
@@ -343,9 +348,9 @@ export default handleActions(
         //   }
         // }, []);
 
-        if (action.payload.paging) {
-          draft.paging = action.payload.paging;
-        }
+        // if (action.payload.paging) {
+        //   draft.paging = action.payload.paging;
+        // }
 
         draft.is_loading = false;
       }),
@@ -382,6 +387,7 @@ export default handleActions(
 );
 
 const actionCreator = {
+  setPost,
   editPost,
   getPostDB,
   addPostDB,

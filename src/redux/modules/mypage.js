@@ -91,6 +91,13 @@ const editMyProfileDB = (content) => {
     const myProfile = getState().mypage.myInfo.memberId;
     const myProfileImg = getState().mypage.myInfo.profileImage;
 
+    const blank_check = /[\s]/g;
+
+    if (blank_check.test(content.newNickName)) {
+      window.alert("공백은 사용할 수 없습니다!");
+      return;
+    }
+
     const proFile = {
       nickname: content.newNickName,
       profileImage: content.file,
@@ -117,7 +124,7 @@ const editMyProfileDB = (content) => {
             point: user_info.point,
           };
           dispatch(userCreators.setUser(new_user_info));
-          history.push("/mypage/now");
+          dispatch(getMyInfoDB());
         })
         .catch((error) => {
           if (
@@ -170,7 +177,7 @@ const editMyProfileDB = (content) => {
               point: user_info.point,
             };
             dispatch(userCreators.setUser(new_user_info));
-            history.push("/mypage/now");
+            dispatch(getMyInfoDB());
           })
           .catch((error) => {
             if (window.confirm("test")) {
@@ -193,12 +200,20 @@ const changePasswordDB = (password) => {
       newPasswordCheck: password.newPasswordConfirm,
     };
     MypageApis.changePassword(passwordList)
-      .then((res) => console.log(res))
+      .then((res) => {
+        consoleLogger("비밀번호 변경 후 응답", res);
+        window.alert("비밀번호 변경이 완료되었습니다!");
+        history.replace("/");
+      })
       .catch((error) => {
-        if (window.confirm("test")) {
-          history.push("/");
+        if (
+          error.response.data.message === "현재 비밀번호가 일치하지 않습니다."
+        ) {
+          window.alert("현재 비밀번호가 일치하지 않습니다.");
         } else {
-          history.goBack();
+          window.alert(
+            "비밀번호 변경 중 오류가 발생했어요! 새로고침 후 다시 시도해주세요!"
+          );
         }
         console.log(error);
       });
