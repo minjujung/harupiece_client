@@ -3,10 +3,8 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../redux/modules/main";
 import { Tag, Card } from "../elements";
-import { getCookie } from "../shared/Cookie";
 import { changeForm } from "../components/mypage/ChallengesInProgress";
 import { history } from "../redux/configureStore";
-import { TablePagination } from "@material-ui/core";
 
 function SearchChallenge(props) {
   const dispatch = useDispatch();
@@ -21,7 +19,6 @@ function SearchChallenge(props) {
   const [searchState, setSearchState] = useState({
     userInputContainerClicked: false,
     searchTerm: "",
-    // tags that render are inside of 'passingTags' object.
     passingTags: {
       search: {
         inputTerm: "",
@@ -42,10 +39,8 @@ function SearchChallenge(props) {
     },
   });
 
-  console.log(searchState.passingTags.categoryName);
-
+  // 필터 클릭 시 해당 필터 이름과 searchState값과 비교 후 setSearchState 재정의
   const allFilterClickListener = (e, filterProp) => {
-    console.log("FILTER clicked", e.target.textContent);
     let name = e.target.textContent;
     if (name === "#금연금주") {
       name = "NODRINKNOSMOKE";
@@ -67,6 +62,7 @@ function SearchChallenge(props) {
     });
   };
 
+  // 선택한 필터를 빈 배열에 넣어서 새로운 배열로 만드는 함수
   const filteredCollected = () => {
     const collectedTrueKeys = {
       categoryName: [],
@@ -83,18 +79,18 @@ function SearchChallenge(props) {
     return collectedTrueKeys;
   };
 
-  // 클릭한 버튼 값을 true로 변환시켜줌
-  // console.log("선택한 필터", filteredCollected());
-
+  // 실질적인 필터 기능
+  // challenges = 서버로 부터 받은 전체 데이터 // filters = 선택한 필터
   const multiPropsFilter = (challenges, filters) => {
-    const filterKeys = Object.keys(filters); //[categoryName, tags]
+    const filterKeys = Object.keys(filters); //선택한 필터를 열거할 수 있는 배열로 반환 => [categoryName, tags]
     return challenges.search.filter((challenge) => {
       return filterKeys.every((key) => {
+        // 배열 안의 모든 요소가 주어진 key로 통과하는지 테스트 하나라도 조건에 안맞으면 false처리
         if (!filters[key].length) return true;
         if (Array.isArray(challenge[key])) {
-          return challenge[key].some((keyEle) => filters[key].includes(keyEle));
+          // challenge[key] = 챌린지 태그
+          return challenge[key].some((keyEle) => filters[key].includes(keyEle)); // filters[key] = 챌린지 카테고리
         }
-        console.log("작동안함");
         return filters[key].includes(challenge[key]);
       });
     });
@@ -102,15 +98,14 @@ function SearchChallenge(props) {
 
   const searchProducts = () => {
     const filteredProducts = multiPropsFilter(searchList, filteredCollected());
-    console.log(filteredProducts);
     return filteredProducts.filter((product) => {
-      console.log(product);
       return product;
     });
   };
 
   let result = searchProducts();
 
+  // 챌린지 기간
   const start = searchList.search?.map(
     (list) => list.challengeStartDate.split("T")[0]
   );
