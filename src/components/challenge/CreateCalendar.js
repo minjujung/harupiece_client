@@ -104,13 +104,14 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
         </Holiday>
       </div>
       <SubT>인증 기간</SubT>
-      <DatePicker
+      <SDatePicker
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
         onChange={onChange}
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
+        placeholderText="체크인 날짜 선택"
         locale={ko}
         minDate={date}
         isClearable={true}
@@ -138,6 +139,7 @@ const SubT = styled.p`
 
 
 const Holiday = styled.div`
+  width: 15.00vw;
   display: flex;
   background-color : ${({theme}) => theme.colors.lightGray};
   height: 3.70vh;
@@ -145,14 +147,30 @@ const Holiday = styled.div`
   margin-top : 8px;
   border-radius: 8px;
   & > p {
-  font-size: ${({theme}) => theme.fontSizes.ms};
+  width: 3.70vw;
+  font-size: ${({theme}) => theme.fontSizes.sm};
   font-weight: 400;
   color : ${({theme}) => theme.colors.darkGray};
-  padding-left: 0.83vw;
+  margin-left: 0.83vw;
   padding-top: 1.01vh;
   }
   & > input {
     margin-top: 1.01vh;
+    margin-left: 8.49vw;
   }
   
+`;
+
+const SDatePicker = styled(DatePicker)`
+  width: 15.00vw;
+  height: 3.70vh;
+  border-radius: 8px;
+  margin-bottom: 2.96vh;
+  padding-left: 0.83vw;
+  padding-top: 1.01vh;
+  background-color : ${({theme}) => theme.colors.lightGray};
+  ::placeholder {
+    font-size: ${({theme}) => theme.fontSizes.ms};
+    color : ${({theme}) => theme.colors.darkGray};
+  }
 `;

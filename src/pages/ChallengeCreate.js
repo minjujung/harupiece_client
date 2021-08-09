@@ -183,7 +183,7 @@ function ChallengeCreate(props) {
               />
             </div>
             {/* 모집형식 */}
-            <div>
+            <SelectContainer>
               <Label htmlFor="category">모집 방식</Label><br />
               <SelectBox id="category" onChange={choosePublic}>
                 <option value="CATEGORY">카테고리</option>
@@ -197,7 +197,7 @@ function ChallengeCreate(props) {
                   onChange={savePwd}
                 />
               ) : null}
-            </div>
+            </SelectContainer>
             {/* 챌린지 설명 */}
             <div>
               <Label>챌린지 설명</Label><br />
@@ -262,7 +262,6 @@ const RightContainer = styled.div`
   width: 30.93vw;
   height: 53.79vh;
   margin-top: 5.00vh;
-  background-color: goldenrod;
 `;
 
 const Input = styled.input`
@@ -283,14 +282,21 @@ const Textarea = styled.textarea`
   height: 12.59vh;
   resize:none;
   margin-top: 0.74vh;
-  margin-bottom: 2.96vh;
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
   background-color: ${({theme}) => theme.colors.lightGray};
-  font-size: ${({theme}) => theme.fontSizes.ms};
-  font-weight:400;
   border-radius : 8px;
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  color : ${({theme}) => theme.colors.darkGray};
+  font-weight:400;
+  ::placeholder {
+    font-size: ${({theme}) => theme.fontSizes.ms};
+    color : ${({theme}) => theme.colors.darkGray};
+    font-weight:400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+  
 `;
 
 const Label = styled.label`
@@ -299,8 +305,13 @@ const Label = styled.label`
   color : ${({theme}) => theme.colors.darkGray};
 `;
 
-const SelectBox = styled.select`
+const SelectContainer = styled.div`
   width: 15.00vw; /* 원하는 너비설정 */
+  background: no-repeat 95% 50% url("../images/icons/arrow/down.svg") ; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+`;
+
+const SelectBox = styled.select`
+  width: 100%;
   padding: 0.75vh; /* 여백으로 높이 설정 */
   padding-left: 0.83vw;
   margin-top: 0.74vh;
@@ -308,7 +319,6 @@ const SelectBox = styled.select`
   font-family: inherit;  /* 폰트 상속 */
   font-size: ${({theme}) => theme.fontSizes.ms};
   color: ${({theme}) => theme.colors.darkGray};
-  background: url("../images/icons/arrow/down.svg") no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
   background-color: ${({theme}) => theme.colors.lightGray};
   border: none;
   border-radius: 8px; /* iOS 둥근모서리 제거 */
