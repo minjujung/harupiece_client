@@ -15,3 +15,8 @@ export const emailCheck = (email) => {
 
     return _reg.test(email);
 }
+
+export const spaceCheck = (nickname) => {
+    const blank_check = /[\s]/g; 
+    if (blank_check.test(nickname)) { window.alert("공백은 사용할 수 없습니다!"); return; }
+}

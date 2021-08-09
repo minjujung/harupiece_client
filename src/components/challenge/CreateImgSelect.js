@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
+import styled from "styled-components";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import { Button } from "@material-ui/core";
+
 
 function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
@@ -47,9 +48,10 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
 
   return (
     <>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        대표 이미지 업로드 / 선택{" "}
-      </Button>
+    <SubT>대표 이미지 업로드 / 선택</SubT>
+      <ImageBtn onClick={handleClickOpen}>
+        이미지를 선택해주세요.{" "}
+      </ImageBtn>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -82,3 +84,22 @@ const Preview = ({ id, preview, challenge_info }) => {
 };
 
 export default CreateImgSelect;
+
+
+const SubT = styled.p`
+  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-weight: 400;
+  color : ${({theme}) => theme.colors.darkGray};
+  margin-bottom : 8px;
+`;
+
+const ImageBtn = styled.button`
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  background-color: ${({theme}) => theme.colors.lightGray};
+  color: ${({theme}) => theme.colors.darkGray};
+  width: 15.00vw;
+  padding: 1.018vh;
+  padding-left: 0.83vw;
+  border-radius: 8px;
+  margin-bottom: 2.96vh;
+`;
