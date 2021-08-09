@@ -32,7 +32,6 @@ const initialState = {
   guestmain: [],
   usermain: [],
   search: [],
-  // searchAll: [],
 };
 
 //유저가 로그인 안했을 때 메인에서 불러와야하는 것
@@ -104,7 +103,6 @@ const searchAllDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.searchAll()
       .then((res) => {
-        
         dispatch(search(res.data));
       })
       .catch((err) => {
