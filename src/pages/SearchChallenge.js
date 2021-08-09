@@ -111,6 +111,25 @@ function SearchChallenge(props) {
 
   let result = searchProducts();
 
+  const start = searchList.search?.map(
+    (list) => list.challengeStartDate.split("T")[0]
+  );
+
+  const end = searchList.search?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
+
+  const {
+    _year: start_year,
+    _month: start_month,
+    _date: start_date,
+  } = changeForm(start);
+  const {
+    _year: end_year,
+    _month: end_month,
+    _date: end_date,
+  } = changeForm(end);
+
   return (
     <Container>
       <CategoryContainer>
@@ -282,6 +301,8 @@ function SearchChallenge(props) {
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
+                  date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
+                  ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                   onClick={() => history.push(`/challenge/${l.challengeId}`)}
                 ></Card>
               </>
