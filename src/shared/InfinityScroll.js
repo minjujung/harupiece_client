@@ -26,21 +26,21 @@ const InfinityScroll = (props) => {
 
   const handleScroll = useCallback(_handleScroll, [loading]);
 
-  useEffect(() => {
-    //자료를 받아오는 loading 중에는 이벤트 발생하지 않도록
-    //꼭 잘 막아주기!
-    if (loading) {
-      return;
-    }
+  // useEffect(() => {
+  //   //자료를 받아오는 loading 중에는 이벤트 발생하지 않도록
+  //   //꼭 잘 막아주기!
+  //   if (loading) {
+  //     return;
+  //   }
 
-    if (is_next) {
-      window.addEventListener("scroll", handleScroll);
-    } else {
-      window.removeEventListener("scroll", handleScroll);
-    }
+  //   if (is_next) {
+  //     window.addEventListener("scroll", handleScroll);
+  //   } else {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   }
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [is_next, loading]);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [is_next, loading]);
 
   return (
     <>

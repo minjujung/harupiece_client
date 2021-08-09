@@ -1,12 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import camera from "../../images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
-
-// icons
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-
-import camera from "../../images/icons/camera.svg";
 import { Image } from "../../elements/";
 
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
@@ -58,25 +54,26 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
         <CertificationBox>
           <Good>
             {goodPreview ? (
-            <PreviewBtn htmlFor="ex_file">
-              <Image width="7.08vw" 
-              height="12.59vh" 
-              src={goodPreview} 
-              alt="goodPreview" 
-              />
-            </PreviewBtn>
+              <PreviewBtn htmlFor="ex_file">
+                <Image
+                  width="7.08vw"
+                  height="12.59vh"
+                  src={goodPreview}
+                  alt="goodPreview"
+                />
+              </PreviewBtn>
             ) : (
               <Preview>
                 <PreviewBtn htmlFor="ex_file">
                   <Image
-                  width="1.04vw"
-                  height="1.85vh"
-                  src={camera} 
-                  alt="camera"
+                    width="1.04vw"
+                    height="1.85vh"
+                    src={camera}
+                    alt="camera"
                   />
                 </PreviewBtn>
               </Preview>
-              )}
+            )}
             <input
               onChange={goodSelectFile}
               ref={goodFileInput}
@@ -87,22 +84,23 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
             <BottomT>좋은 인증샷 예시</BottomT>
           </Good>
           <Bad>
-            {badPreview ?( 
-            <PreviewBtn htmlFor="ex_files">
-              <Image width="7.08vw" 
-              height="12.59vh" 
-              src={badPreview} 
-              alt="badPreview"
-              />      
-            </PreviewBtn>
-            ): (
+            {badPreview ? (
+              <PreviewBtn htmlFor="ex_files">
+                <Image
+                  width="7.08vw"
+                  height="12.59vh"
+                  src={badPreview}
+                  alt="badPreview"
+                />
+              </PreviewBtn>
+            ) : (
               <Preview>
                 <PreviewBtn htmlFor="ex_files">
                   <Image
-                  width="1.04vw"
-                  height="1.85vh"
-                  src={camera} 
-                  alt="camera"
+                    width="1.04vw"
+                    height="1.85vh"
+                    src={camera}
+                    alt="camera"
                   />
                 </PreviewBtn>
               </Preview>
@@ -134,22 +132,21 @@ const CertificationBox = styled.div`
 `;
 
 const SubT = styled.p`
-  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
-  margin-bottom : 8px;
+  color: ${({ theme }) => theme.colors.darkGray};
+  margin-bottom: 8px;
 `;
 
 const BottomT = styled.p`
-  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
-  margin-top : 8px;
+  color: ${({ theme }) => theme.colors.darkGray};
+  margin-top: 8px;
 `;
 
-
 const Good = styled.div`
-  margin-right:0.73vw;
+  margin-right: 0.73vw;
 `;
 
 const Preview = styled.div`
@@ -158,7 +155,6 @@ const Preview = styled.div`
   background-color: #e5e5e5;
   border-radius: 16px;
 `;
-
 
 const PreviewBtn = styled.label`
   width: 7.08vw;
@@ -169,8 +165,6 @@ const PreviewBtn = styled.label`
   border-radius: 16px;
 `;
 
-const Bad = styled.div`
-
-`;
+const Bad = styled.div``;
 
 export default CreateCertification;

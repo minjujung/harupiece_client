@@ -6,27 +6,25 @@ import UpcomingChallenge from "../components/mypage/UpcomingChallenge";
 import CompletedChallenge from "../components/mypage/CompletedChallenge";
 import MyPassword from "../components/mypage/MyPassword";
 import MyPieces from "../components/mypage/MyPieces";
+import camera from "../images/icons/camera.svg";
+import { Button, Image } from "../elements";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as myInfo } from "../redux/modules/mypage";
 import { Link, Route, Switch } from "react-router-dom";
+import levelData from "../shared/level";
 
 function Mypage(props) {
   const dispatch = useDispatch();
   const {
-    match: { path },
+    match: { path, url },
+    location: { pathname },
   } = props;
 
   // 유저의 챌린지들 가져오기
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
-
-  //   1. 완료한 챌린지 시작날짜 끝날짜
-
-  // 2. 참여중인 인원수 보여주기(participateSize)
-
-  // 3. 참여중인 유저 이미지 들어갈 4개 원 만들기
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -79,71 +77,115 @@ function Mypage(props) {
       dispatch(myInfo.editMyProfileDB({ newNickName, file }));
       dispatch(myInfo.setPreview(""));
     }
-    dispatch(myInfo.getMyInfoDB());
     convertEditMode();
   };
 
-  return (
-    <div style={{ paddingTop: "4em" }}>
-      <UserInfoContainer>
-        <UserInfoBox>
-          <UserImg>
-            {editMode ? (
-              <>
-                <img src={preview ? preview : myInfoList.profileImage} alt="" />
-                <label htmlFor="ex_file">프로필 사진 수정</label>
-                <input
-                  ref={fileInput}
-                  onChange={selectFile}
-                  type="file"
-                  id="ex_file"
-                ></input>
-              </>
-            ) : (
-              <img src={myInfoList.profileImage} alt="" />
-            )}
-          </UserImg>
+  console.log(pathname.includes("/now"));
 
-          <UserInfo>
-            {editMode ? (
-              <input
+  return (
+    <Container>
+      <UserInfoContainer>
+        {!editMode ? (
+          <>
+            {" "}
+            <Image
+              width="9.69vw"
+              height="17.13vh"
+              borderRadius="50%"
+              margin="0 0 0 4.38vw"
+              src={
+                myInfoList.profileImage
+                  ? myInfoList.profileImage
+                  : levelData[9].img
+              }
+              alt="defaultProfile"
+            />
+            <UserInfo>
+              <strong>{myInfoList.nickname}</strong>님<br />
+              현재 등급은 노랑 입니다.
+            </UserInfo>
+            <Button
+              width="16.15vw"
+              height="5.93vh"
+              color="white"
+              bg="mainGreen"
+              margin="0 3.23vw 0 2.08vw"
+              _onClick={convertEditMode}
+            >
+              프로필 수정하기
+            </Button>
+          </>
+        ) : (
+          <>
+            {" "}
+            <EditProfile>
+              <Image
+                width="9.69vw"
+                height="17.13vh"
+                borderRadius="50%"
+                margin="0 0 0 4.38vw"
+                src={preview ? preview : myInfoList.profileImage}
+                alt="editProfile"
+              />
+              <Button width="56px" height="56px" borderRadius="50%" bg="white">
+                <label htmlFor="ex_file">
+                  <Image
+                    width="27px"
+                    height="26px"
+                    src={camera}
+                    alt="cameraBtn"
+                  />
+                </label>
+              </Button>
+            </EditProfile>
+            <UserInfo>
+              <NickInput
                 type="text"
-                value={newNickName}
+                placeholder={newNickName}
+                // value={newNickName}
+                maxLength="20"
                 onChange={(e) => setNewNickName(e.target.value)}
                 onSubmit={editComment}
               />
-            ) : (
-              <span>{myInfoList.nickname}</span>
-            )}
-
-            <span>챌린지를 열심히 참여하고 계시군요!</span>
-          </UserInfo>
-        </UserInfoBox>
-
-        <EditBox>
-          {editMode ? (
-            <button onClick={editProfile}>완료</button>
-          ) : (
-            <button onClick={convertEditMode}>수정</button>
-          )}
-        </EditBox>
+              님 <br />
+              현재 등급은 노랑 입니다.
+            </UserInfo>
+            <input
+              ref={fileInput}
+              onChange={selectFile}
+              type="file"
+              id="ex_file"
+              style={{ display: "none" }}
+            />
+            <Button
+              width="16.15vw"
+              height="5.93vh"
+              color="white"
+              bg="mainGreen"
+              margin="0 3.23vw 0 2.08vw"
+              _onClick={editProfile}
+            >
+              프로필 저장하기
+            </Button>
+          </>
+        )}
       </UserInfoContainer>
       <ChallengeCategory>
-        <li>
+        <Item clicked={pathname.includes("/now") ? true : false}>
           <Link to={`${path}/now`}>진행중인 챌린지</Link>
-        </li>
-        <li>
+        </Item>
+        <Item clicked={pathname.includes("/upcoming") ? true : false}>
           <Link to={`${path}/upcoming`}>진행 예정 챌린지</Link>
-        </li>
-        <li>
+        </Item>
+        <Item clicked={pathname.includes("/completed") ? true : false}>
           <Link to={`${path}/completed`}>완료한 챌린지</Link>
-        </li>
-        <li>
-          <Link to={`${path}/pieces`}>조각 모음</Link>
-        </li>
-        <li>
+        </Item>
+        <Item clicked={pathname.includes("/pieces") ? true : false}>
+          <Link to={`${path}/pieces`}>조각</Link>
+        </Item>
+        <Item clicked={pathname.includes("/password") ? true : false}>
           <Link to={`${path}/password`}>비밀번호 변경</Link>
-        </li>
+        </Item>
       </ChallengeCategory>
       <Section>
         <Switch>
@@ -154,73 +196,90 @@ function Mypage(props) {
           <Route path={`${path}/password`} component={MyPassword} />
         </Switch>
       </Section>
-    </div>
+    </Container>
   );
 }
 
-const UserInfoContainer = styled.div`
-  width: 100%;
-  height: 150px;
-  background-color: firebrick;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
+export default Mypage;
 
-const UserInfoBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-
-const UserImg = styled.div`
-  width: 50px;
-  height: 50px;
-  img {
-    background-color: blue;
-    width: 50px;
-    height: 50px;
-  }
-  label {
-    border: none;
-    color: #0095f6;
-    cursor: pointer;
-  }
-  input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-`;
-
-const UserInfo = styled.div`
+const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-top: 9.44vh;
 `;
 
-const EditBox = styled.div``;
-
-const ChallengeCategory = styled.ul`
-  width: 100%;
-  height: 100px;
+const UserInfoContainer = styled.div`
+  width: 66.67vw;
+  height: 26.85vh;
+  background-color: #2c2c2c;
+  border-radius: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: blanchedalmond;
+`;
+
+const UserInfo = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  line-height: normal;
+  font-size: 42px;
+  strong {
+    font-weight: bold;
+  }
+`;
+
+const EditProfile = styled.p`
+  position: relative;
+  line-height: normal;
+  button {
+    position: absolute;
+    bottom: 0;
+    left: 11.35vw;
+  }
+`;
+
+const NickInput = styled.input`
+  width: 20vw;
+  height: 4.5vh;
+  padding: 2vh;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    color: ${({ theme }) => theme.colors.gray};
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+`;
+
+const ChallengeCategory = styled.ul`
+  width: 66.67vw;
+  height: 7.04vh;
+  display: flex;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
   margin: 0;
   list-style: none;
 `;
 
-const Section = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: chartreuse;
-  padding: 20px;
+const Item = styled.li`
+  width: 29.84vw;
+  height: 100%;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  border-bottom: 4px solid
+    ${(props) =>
+      props.clicked ? props.theme.colors.mainGreen : props.theme.colors.gray};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export default Mypage;
+const Section = styled.div`
+  width: 66.67vw;
+  height: auto;
+  padding-top: 4.26vh;
+`;

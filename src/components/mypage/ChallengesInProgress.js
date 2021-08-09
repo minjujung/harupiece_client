@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { Button, Card, Tag } from "../../elements";
 import { history } from "../../redux/configureStore";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
@@ -11,19 +12,11 @@ const changeForm = (dates) => {
   });
 
   let _month = dates?.map((m) => {
-    if (m.split("-")[1][0] === "0") {
-      return m.split("-")[1][1];
-    } else {
-      return m.split("-")[1];
-    }
+    return m.split("-")[1];
   });
 
   let _date = dates?.map((d) => {
-    if (d.split("-")[2][0] === "0") {
-      return d.split("-")[2][1];
-    } else {
-      return d.split("-")[2];
-    }
+    return d.split("-")[2];
   });
 
   return { _year, _month, _date };
@@ -43,91 +36,104 @@ function ChallengesInProgress(props) {
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]
   );
+  const end = myChallengeList?.map(
+    (list) => list.challengeEndDate.split("T")[0]
+  );
 
-  const { _month: start_month, _date: start_date } = changeForm(start);
+  const {
+    _year: start_year,
+    _month: start_month,
+    _date: start_date,
+  } = changeForm(start);
+  const {
+    _year: end_year,
+    _month: end_month,
+    _date: end_date,
+  } = changeForm(end);
 
-  const profileArray = Array.from({ length: 10 }, (item, idx) => {
-    return idx;
-  });
+  console.log(myChallengeList);
 
   return (
-    <>
-      {myChallengeList &&
-        myChallengeList.map((list, idx) => {
-          return (
-            <ChallengeContent
-              key={idx}
-              onClick={() => history.push(`/challenge/${list.challengeId}`)}
+    <Container>
+      {myChallengeList && myChallengeList.length !== 0 ? (
+        <CardGrid>
+          {myChallengeList.map((list, idx) => (
+            <Card
+              key={list.challengeId}
+              inProcess={list.participateSize}
+              onClick={() =>
+                history.push(`/challenge/${list.challengeId}/intro`)
+              }
+              width="16.04vw"
+              height="34.63vh"
+              title={list.challengeTitle}
+              date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
+              src={list.challengeImgUrl}
+              alt="challenge"
             >
-              <ChallengeImg>
-                <img src={list.challengeImgUrl} alt="" />
-              </ChallengeImg>
-              <div>
-                <div>
-                  <span>
-                    {start_month[idx]}월 {start_date[idx]}일 부터 시작했어요!
-                  </span>
-                </div>
-                <div>
-                  <span>{list.challengeTitle}</span>
-                </div>
-                <div>
-                  <div>
-                    {/* {profileArray.map((profile, idx) => {
-                      if (idx < 4) {
-                        return (
-                          <img
-                            key={my_info.memberId}
-                            src={my_info.profileImage}
-                            alt="profile_list"
-                            style={{
-                              width: "2em",
-                              height: "2em",
-                              borderRadius: "2em",
-                              marginRight: "-1em",
-                            }}
-                          />
-                        );
-                      }
-                    })} */}
-                  </div>
-                  <div>
-                    {list.participateSize && list.participateSize > 1 ? (
-                      <span>
-                        {my_info && my_info.nickname}님 외{" "}
-                        {list.participateSize - 1}명이 함께 도전 중이에요!
-                      </span>
-                    ) : (
-                      <span>
-                        혼자 도전중이에요! 친구에게 챌린지를 추천해보세요!
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </ChallengeContent>
-          );
-        })}
-    </>
+              <Tag bg="mainOrange" color="white" padding="8px 20px">
+                금주
+              </Tag>
+              {my_info.memberId === list.challengeMember}
+              <Tag bg="mainGreen" color="white" padding="8px 20px">
+                내가 만든 챌린지
+              </Tag>
+            </Card>
+          ))}
+        </CardGrid>
+      ) : (
+        <NoListMent>
+          <p>
+            아직 진행중인 챌린지가 없어요!
+            <br /> 새로운 챌린지를 찾아 볼까요?
+          </p>
+          <Button
+            width="16.15vw"
+            height="5.93vh"
+            color="white"
+            bg="mainGreen"
+            margin="0 3.23vw 0 2.08vw"
+            _onClick={() => history.push(`/search/1/NODRINKNOSMOKE`)}
+          >
+            챌린지 둘러보기!
+          </Button>
+        </NoListMent>
+      )}
+    </Container>
   );
 }
-const ChallengeContent = styled.div`
-  width: 100%;
-  height: 100px;
-  background-color: seashell;
-  display: flex;
-`;
-
-const ChallengeImg = styled.div`
-  width: 30%;
-  height: 100%;
-  img {
-    background-color: blue;
-    width: 63%;
-    height: 100%;
-  }
-`;
 
 export { changeForm };
 
 export default ChallengesInProgress;
+
+const Container = styled.div`
+  width: 100%;
+`;
+
+const CardGrid = styled.div`
+  width: 66.67vw;
+  display: grid;
+  gap: 1.04vw;
+  grid-template-columns: repeat(4, 16.04vw);
+  grid-template-rows: repeat(1, 34.63vh);
+  grid-auto-rows: 34.63vh;
+`;
+
+const NoListMent = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  color: ${({ theme }) => theme.colors.gray};
+  font-weight: bold;
+  line-height: normal;
+  p {
+    margin-bottom: 10%;
+    line-height: 2.5;
+  }
+`;

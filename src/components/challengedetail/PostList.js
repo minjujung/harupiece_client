@@ -13,10 +13,38 @@ const PostList = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const { list, totalNumber, totalDay, challengeId, challengeStatus } = props;
+  const {
+    list,
+    totalNumber,
+    totalDay,
+    challengeId,
+    challengeStatus,
+    challengeMember,
+  } = props;
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);
+
+  //오늘 날짜를 특정 날짜와 비교하기 위해 형태 변경해주는 함수
+  const leadingZeros = (n, digits) => {
+    let zero = "";
+    n = n.toString();
+
+    if (n.length < digits) {
+      for (let i = 0; i < digits - n.length; i++) zero += "0";
+    }
+    return zero + n;
+  };
+
+  let today = new Date();
+
+  // 2021-07-06 이런 형태로 만들어줌
+  today =
+    leadingZeros(today.getFullYear(), 4) +
+    "-" +
+    leadingZeros(today.getMonth() + 1, 2) +
+    "-" +
+    leadingZeros(today.getDate(), 2);
 
   //인증샷 클릭시 인증샷 상세페이지 modal 열기
   const handleClickOpen = (id) => {
@@ -36,13 +64,15 @@ const PostList = (props) => {
   //인증 버튼 눌렀을 때
   const check = () => {
     window.alert(
-      `한번 인증을 확인하시면 최소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
+      `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
     );
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
     if ((list[clicked]?.postingCount / totalNumber) * 100 === 50) {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
       // dispatch(userActions.editUserDB(totalDay * 50))
-      // window.alert(`${user_info.nickName}님의 인증으로 ${list[clicked]?.nickName}이 ${totalDay * 50}조각을 획득하셨어요!!`)
+      window.alert(
+        `${user_info.nickName}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+      );
     }
   };
 
@@ -125,23 +155,21 @@ const PostList = (props) => {
                   borderRadius="0"
                 />
               </DialogInfo>
-              {challengeStatus === 2 ? (
-                <StatusFrame>
-                  <StatusBar>
-                    <Status
-                      width={`${
-                        (list[clicked]?.postingCount / totalNumber) * 100
-                      }%`}
-                    />
-                  </StatusBar>
-                  <StatusInfo>
-                    <span>인증상태</span>
-                    <Percent>
-                      {(list[clicked]?.postingCount / totalNumber) * 100} %
-                    </Percent>
-                  </StatusInfo>
-                </StatusFrame>
-              ) : null}
+              <StatusFrame>
+                <StatusBar>
+                  <Status
+                    width={`${
+                      (list[clicked]?.postingCount / totalNumber) * 100
+                    }%`}
+                  />
+                </StatusBar>
+                <StatusInfo>
+                  <span>인증상태</span>
+                  <Percent>
+                    {(list[clicked]?.postingCount / totalNumber) * 100} %
+                  </Percent>
+                </StatusInfo>
+              </StatusFrame>
             </div>
             <Post>
               <Image
@@ -190,26 +218,131 @@ const PostList = (props) => {
                   margin="4.07vh 0 0 0"
                   color="mainGreen"
                 >
-                  인증샷을 올린 다음 날에는 수정과 삭제가 어려워요!
+                  인증샷을 올린 당일에만 수정과 삭제가 가능합니다!
                 </Button>
               ) : null}
-              {challengeStatus === 2 &&
-              list[clicked]?.memberId !== user_info.memberId ? (
-                <Button
-                  width="100%"
-                  height="5.93vh"
-                  margin="4.07vh 0 0 0"
-                  _onClick={check}
-                >
-                  인증 확인
-                </Button>
-              ) : null}
+              <CertifiCheckBtn
+                challengeStatus={challengeStatus}
+                challengeMember={challengeMember}
+                postingMember={list[clicked]?.memberId}
+                loginUser={user_info.memberId}
+                checkedMembers={list[clicked]?.memberResponseDto}
+                today={today}
+                postingCreatedAt={list[clicked]?.createdAt}
+                check={check}
+              />
             </div>
           </>
         )}
       </Dialog>
     </>
   );
+};
+
+const CertifiCheckBtn = (props) => {
+  const {
+    challengeStatus,
+    challengeMember,
+    postingMember,
+    loginUser,
+    checkedMembers,
+    today,
+    postingCreatedAt,
+    check,
+  } = props;
+  if (challengeStatus === 2) {
+    console.log(challengeMember);
+    if (challengeMember.includes(loginUser)) {
+      if (postingMember === loginUser) {
+        return (
+          <Button
+            borderRadius="16px"
+            width="100%"
+            height="5.93vh"
+            border="white"
+            bg="white"
+            margin="4.07vh 0 0 0"
+            color="mainGreen"
+          >
+            본인의 인증샷은 인증 할 수 없어요^^ <br /> 다른 참가자들의 인증샷을
+            인증해주세요!
+          </Button>
+        );
+      } else {
+        if (postingCreatedAt.split("T")[0] < today) {
+          return (
+            <Button
+              borderRadius="16px"
+              width="100%"
+              height="5.93vh"
+              border="white"
+              bg="white"
+              margin="4.07vh 0 0 0"
+              color="mainGreen"
+            >
+              인증이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을
+              확인해 주세요😆
+            </Button>
+          );
+        } else {
+          if (checkedMembers.includes(loginUser)) {
+            return (
+              <Button
+                borderRadius="16px"
+                width="100%"
+                height="5.93vh"
+                border="white"
+                bg="white"
+                margin="4.07vh 0 0 0"
+                color="mainGreen"
+              >
+                이미 인증해주신 게시물이에요😊
+              </Button>
+            );
+          } else {
+            return (
+              <Button
+                width="100%"
+                height="5.93vh"
+                margin="4.07vh 0 0 0"
+                _onClick={check}
+              >
+                인증 확인
+              </Button>
+            );
+          }
+        }
+      }
+    } else {
+      return (
+        <Button
+          borderRadius="16px"
+          width="100%"
+          height="5.93vh"
+          border="white"
+          bg="white"
+          margin="4.07vh 0 0 0"
+          color="mainGreen"
+        >
+          챌린지에 참여한 사람만 인증 버튼을 누를 수 있어요!
+        </Button>
+      );
+    }
+  } else {
+    return (
+      <Button
+        borderRadius="16px"
+        width="100%"
+        height="5.93vh"
+        border="white"
+        bg="white"
+        margin="4.07vh 0 0 0"
+        color="mainGreen"
+      >
+        이미 종료된 챌린지 입니다!
+      </Button>
+    );
+  }
 };
 
 export default PostList;

@@ -16,7 +16,9 @@ const ConditionBtn = (props) => {
     challengeMember,
     challengePassword,
     challengeTitle,
+    challengeStartDate,
     memberId,
+    today,
   } = props;
 
   //챌린지 포기하기
@@ -70,6 +72,25 @@ const ConditionBtn = (props) => {
       <>
         <PostWrite challengeId={challengeId} />
       </>
+    );
+  } else if (
+    challengeProgress === 2 &&
+    !challengeMember.includes(user_info.memberId)
+  ) {
+    return (
+      <Button
+        borderRadius="16px"
+        width="16.15vw"
+        height="5.93vh"
+        border="white"
+        bg="white"
+        margin="4.07vh 0 0 0"
+        color="mainGreen"
+        fontsize="lg"
+      >
+        챌린지 시작이후에는
+        <br /> 신청이 어려워요😂
+      </Button>
     );
   } else if (challengeProgress === 3) {
     return <Button>진행이 완료된 챌린지 입니다!</Button>;

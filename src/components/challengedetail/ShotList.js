@@ -44,9 +44,16 @@ const ShotList = (props) => {
           is_next={paging.next ? true : false}
           loading={is_loading}
         >
+          {list.length === 0 ? (
+            <NoListMent>
+              챌린지의 첫 인증샷을 <br />
+              남겨보세요!
+            </NoListMent>
+          ) : null}
           <PostList
             list={list}
             challengeStatus={challenge.challengeProgress}
+            challengeMember={challenge.challengeMember}
             challengeId={challenge.challengeId}
             totalNumber={challenge.challengeMember.length}
             totalDay={totalDay}
@@ -80,10 +87,17 @@ const Section = styled.section`
   gap: 1.04vw;
   grid-template-columns: repeat(3, 15.78vw);
   grid-template-rows: repeat(1, 28.15vh);
-  grid-auto-rows: 100px;
+  grid-auto-rows: 28.15vh;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;
     margin: 1.2em 0;
   }
+`;
+
+const NoListMent = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: ${({ theme }) => theme.colors.gray};
+  font-weight: bold;
+  line-height: normal;
 `;

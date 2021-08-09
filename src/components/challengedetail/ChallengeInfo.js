@@ -6,6 +6,7 @@ import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
+import { actionCreator as postActions } from "../../redux/modules/post";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
