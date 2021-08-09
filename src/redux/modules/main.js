@@ -134,11 +134,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.search = action.payload.search;
       }),
-    // [SEARCHALL]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.searchAll = action.payload.searchAll;
-    //   }),
-
     [DELETE_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
         const idx = draft.usermain[

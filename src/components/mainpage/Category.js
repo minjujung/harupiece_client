@@ -91,6 +91,7 @@ const Category = (props) => {
             color={category === "nodrinknosmoke" ? "white" : "black"}
             onClick={ChangeTag}
             bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
           >
             #금연&금주
           </Tag>
@@ -98,6 +99,7 @@ const Category = (props) => {
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
+            padding="10px"
           >
             #습관챌린지
           </Tag>
@@ -105,6 +107,7 @@ const Category = (props) => {
             color={category === "exercise" ? "white" : "black"}
             bg={category === "exercise" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
+            padding="10px"
           >
             #운동
           </Tag>
