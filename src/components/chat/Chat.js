@@ -134,7 +134,7 @@ const Chat = (props) => {
   };
 
   return (
-    <>
+    <Container>
       <Button
         chat
         width="80px"
@@ -163,11 +163,22 @@ const Chat = (props) => {
           <MessageWrite sendMessage={sendMessage} />
         </ChatBox>
       ) : null}
-    </>
+    </Container>
   );
 };
 
 export default Chat;
+
+const Container = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    button {
+      position: fixed;
+      right: 32px;
+      bottom: 17.03vh;
+      z-index: 10;
+    }
+  }
+`;
 
 const ChatBox = styled.div`
   width: 16.15vw;

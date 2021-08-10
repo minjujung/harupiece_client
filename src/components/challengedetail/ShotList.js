@@ -45,7 +45,6 @@ const ShotList = (props) => {
 
   return (
     <ChallengeDesc>
-      <SectionTitle>인증 목록</SectionTitle>
       <Section>
         <InfinityScroll
           callNext={callNext}
@@ -79,14 +78,6 @@ const ChallengeDesc = styled.section`
   margin-top: 40.55vh;
   display: flex;
   flex-direction: column;
-`;
-
-const SectionTitle = styled.h3`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: bold;
-  width: 49.48vw;
-  text-align: left;
-  margin: 40px 0 32px 0;
 `;
 
 const Section = styled.section`

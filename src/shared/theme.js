@@ -30,7 +30,7 @@ const fontSizes = {
 };
 
 const theme = {
-  // device,
+  device,
   colors,
   paddings,
   fontSizes,

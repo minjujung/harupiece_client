@@ -25,16 +25,17 @@ export default Footer;
 const FooterBox = styled.div`
   height: 22.22vh;
   width: 100%;
+  position: relative;
   bottom: 0;
   border-top: 1px solid #efefef;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   z-index: 10;
   margin-top: 11.76vh;
 `;
 
 const LeftBox = styled.div`
-  width: 50vw;
+  width: 100%;
   height: 9.25vh;
   font-size: 16px;
   display: flex;
@@ -50,10 +51,23 @@ const LeftBox = styled.div`
       margin-bottom: 1.8vh;
     }
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-left: 20px;
+    div {
+      width: 100%;
+      img {
+        width: 126px;
+        height: 20px;
+        margin-bottom: 40px;
+      }
+    }
+  }
 `;
 
 const RightBox = styled.div`
-  width: 25vw;
-  height: 9.25vh;
-  padding-top: 12vh;
+  div {
+    position: absolute;
+    right: 16.67vw;
+    bottom: 5vh;
+  }
 `;

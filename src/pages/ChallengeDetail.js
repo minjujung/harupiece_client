@@ -130,9 +130,9 @@ const ChallengeDetail = (props) => {
           {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
           {user_info?.memberId === challenge.memberId &&
           today < challenge.challengeStartDate.split("T")[0] ? (
-            <>
+            <MobilBtns>
               <Button
-                width="16.15vw"
+                width="100%"
                 height="5.93vh"
                 bg="white"
                 color="mainGreen"
@@ -143,7 +143,7 @@ const ChallengeDetail = (props) => {
                 챌린지 수정하기
               </Button>
               <Button
-                width="16.15vw"
+                width="100%"
                 height="5.93vh"
                 margin="0 0 1.48vh 0"
                 _onClick={deleteChallenge}
@@ -151,15 +151,15 @@ const ChallengeDetail = (props) => {
                 {/* (챌린지 개설한 사용자) */}
                 챌린지 없애기
               </Button>
-            </>
+            </MobilBtns>
           ) : null}
-          <div>
+          <MobilBtns>
             <ConditionBtn
               {...challenge}
               today={today}
               challengeStartDate={challenge.challengeStartDate.split("T")[0]}
             />
-          </div>
+          </MobilBtns>
         </Btns>
         <Chat />
       </RightNav>
@@ -171,7 +171,7 @@ export default ChallengeDetail;
 
 const Area = styled.div`
   display: grid;
-  margin: 0 auto;
+  margin: 3vh auto 0 auto;
   width: 66.67vw;
   height: 100vh;
   grid-template-rows: 1fr 3fr;
@@ -179,7 +179,13 @@ const Area = styled.div`
     "banner nav"
     "banner btns";
   grid-gap: 20px;
-  margin-top: 3vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 4.44vw;
+  }
 `;
 
 const ChallengeHeader = styled.div`
@@ -191,7 +197,12 @@ const ChallengeHeader = styled.div`
   position: fixed;
   z-index: 9;
   padding-top: 5.37vh;
+  margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 4.44vw;
+  }
 `;
 
 const StateContainer = styled.div`
@@ -201,20 +212,52 @@ const StateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   grid-area: banner;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+  }
 `;
 
 const Btns = styled.div`
+  width: 16.15vw;
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 43.52vh;
   margin-top: 2.59vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 120px;
+    flex-direction: row;
+    position: fixed;
+    z-index: 20;
+    top: auto;
+    bottom: 0;
+    margin-top: 0;
+  }
+`;
+
+const MobilBtns = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: white;
+    button {
+      margin: 0;
+      height: 80px;
+    }
+  }
 `;
 
 const RightNav = styled.div`
   width: 16.15vw;
   padding-top: 5.47vh;
   grid-area: nav;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+  }
 `;
 
 const Banner = styled.div`
@@ -267,4 +310,8 @@ const Item = styled.li`
     props.selected
       ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
       : null}
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 50%;
+    margin: 0;
+  }
 `;
