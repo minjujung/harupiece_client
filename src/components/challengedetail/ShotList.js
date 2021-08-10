@@ -10,18 +10,21 @@ import { actionCreator as postActions } from "../../redux/modules/post";
 const ShotList = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
-
+  const { list, paging, is_loading } = useSelector((state) => state.post);
+  console.log(paging);
   const challengeId = props.match.params.id;
 
-  //인증샷 목록 불러오기
-  // useEffect(() => {
-  //   if (!challengeId) {
-  //     return;
-  //   }
-  //   dispatch(postActions.getPostDB(challengeId));
-  // }, []);
-
-  const { list, paging, is_loading } = useSelector((state) => state.post);
+  console.log(props);
+  // 인증샷 목록 불러오기
+  useEffect(() => {
+    if (!challengeId) {
+      return;
+    }
+    //
+    dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
+    dispatch(postActions.getPostDB(challengeId));
+    console.log("doing dispatch!");
+  }, []);
 
   //challenge날짜수 계산
   const start = challenge.challengeStartDate.split("T")[0].split("-");
@@ -37,11 +40,7 @@ const ShotList = (props) => {
     if (paging.next === false) {
       return;
     }
-    dispatch(postActions.getPostDB(challengeId, paging));
-
-    // setTimeout(() => {
-    //   dispatch(postActions.getPostDB(challengeId, paging));
-    // }, 500);
+    dispatch(postActions.getPostDB(challengeId));
   };
 
   return (
