@@ -276,7 +276,6 @@ const RightContainer = styled.div`
   width: 30.93vw;
   height: 53.79vh;
   margin-top: 5vh;
-  background-color: goldenrod;
 `;
 
 const Input = styled.input`
