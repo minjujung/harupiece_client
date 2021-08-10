@@ -1,5 +1,5 @@
 const device = {
-  mobileLg: `@media screen and (min-width: 550px)`,
+  mobileLg: `@media screen and (min-width: 360px) and (max-width: 720px)`,
   tablet: `@media screen and (min-width: 768px)`,
   desktop: `@media screen and (min-width: 1024px)`,
 };
