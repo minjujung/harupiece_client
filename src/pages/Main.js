@@ -77,13 +77,13 @@ const Container = styled.div`
   justify-content: center;
   width: 100vw;
   height: 78vh;
-  margin-top: 70px;
+  margin-top: 7.5vh;
 `;
 
 const ContainerLeft = styled.div`
   width: 49.48vw;
   height: 77.22vh;
-  margin-right: 20px;
+  margin-right: 1.04vw;
 `;
 
 const ContainerRight = styled.div`

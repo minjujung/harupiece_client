@@ -219,16 +219,16 @@ const Contain = styled.div`
 
 const TagBox = styled.div`
   display: flex;
-  padding-bottom: 15px;
+  padding-bottom: 1.38vh;
 `;
 
 const CardBox2 = styled.div`
-  height: 320px;
+  height: 34vh;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
-  padding-top: 15px;
+  padding-top: 1.6vh;
 `;
 
 const ViewAll = styled.span`

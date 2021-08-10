@@ -344,8 +344,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 200px;
-  padding-bottom: 400px;
+  margin-top: 21.5vh;
+  padding-bottom: 42.5vh;
 `;
 
 const CategoryContainer = styled.div`

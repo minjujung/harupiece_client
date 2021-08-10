@@ -53,4 +53,5 @@ const ImageFrame = styled.img`
     props.chatClose ? `position:absolute; top: 1.3vh; right: 1.04vw;` : null};
   padding: 0;
   object-fit: fill;
+  cursor: pointer;
 `;
