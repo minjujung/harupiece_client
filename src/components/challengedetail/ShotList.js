@@ -14,12 +14,12 @@ const ShotList = (props) => {
   const challengeId = props.match.params.id;
 
   //인증샷 목록 불러오기
-  useEffect(() => {
-    if (!challengeId) {
-      return;
-    }
-    dispatch(postActions.getPostDB(challengeId));
-  }, []);
+  // useEffect(() => {
+  //   if (!challengeId) {
+  //     return;
+  //   }
+  //   dispatch(postActions.getPostDB(challengeId));
+  // }, []);
 
   const { list, paging, is_loading } = useSelector((state) => state.post);
 
@@ -33,14 +33,23 @@ const ShotList = (props) => {
   const totalSecond = date2.getTime() - date1.getTime();
   const totalDay = totalSecond / 1000 / 60 / 60 / 24;
 
+  const callNext = () => {
+    if (paging.next === false) {
+      return;
+    }
+    dispatch(postActions.getPostDB(challengeId, paging));
+
+    // setTimeout(() => {
+    //   dispatch(postActions.getPostDB(challengeId, paging));
+    // }, 500);
+  };
+
   return (
     <ChallengeDesc>
       <SectionTitle>인증 목록</SectionTitle>
       <Section>
         <InfinityScroll
-          callNext={() => {
-            dispatch(postActions.getPostDB(challengeId, paging.next));
-          }}
+          callNext={callNext}
           is_next={paging.next ? true : false}
           loading={is_loading}
         >

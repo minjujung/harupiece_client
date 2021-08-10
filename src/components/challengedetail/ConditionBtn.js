@@ -86,14 +86,26 @@ const ConditionBtn = (props) => {
         bg="white"
         margin="4.07vh 0 0 0"
         color="mainGreen"
-        fontsize="lg"
+        fontsize="md"
       >
         챌린지 시작이후에는
         <br /> 신청이 어려워요😂
       </Button>
     );
   } else if (challengeProgress === 3) {
-    return <Button>진행이 완료된 챌린지 입니다!</Button>;
+    return (
+      <Button
+        borderRadius="16px"
+        width="16.15vw"
+        height="5.93vh"
+        border="white"
+        bg="white"
+        margin="4.07vh 0 0 0"
+        color="mainGreen"
+      >
+        진행이 완료된 챌린지 입니다!
+      </Button>
+    );
   } else {
     return null;
   }

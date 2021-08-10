@@ -116,8 +116,6 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
         minDate={date}
         isClearable={true}
       />
-      
-
     </>
   );
 }
@@ -125,34 +123,32 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
 export default CreateCalendar;
 
 const Label = styled.label`
-  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 const SubT = styled.p`
-  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
-  margin-bottom : 8px;
+  color: ${({ theme }) => theme.colors.darkGray};
+  margin-bottom: 8px;
 `;
-
 
 const Holiday = styled.div`
   width: 15.00vw;
   display: flex;
-  background-color : ${({theme}) => theme.colors.lightGray};
-  height: 3.70vh;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  height: 3.7vh;
   margin-bottom: 2.96vh;
-  margin-top : 8px;
+  margin-top: 8px;
   border-radius: 8px;
   & > p {
-  width: 3.70vw;
-  font-size: ${({theme}) => theme.fontSizes.sm};
-  font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
-  margin-left: 0.83vw;
-  padding-top: 1.01vh;
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.darkGray};
+    padding-left: 0.83vw;
+    padding-top: 1.01vh;
   }
   & > input {
     margin-top: 1.01vh;
