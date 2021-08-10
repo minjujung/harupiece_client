@@ -194,11 +194,24 @@ const Category = (props) => {
           )}
         </CardBox2>
       </Contain>
+      {/* <MobileBox>asdasd</MobileBox> */}
     </>
   );
 };
 
 export default Category;
+
+// const MobileBox = styled.div`
+//   ${({ theme }) => theme.device.mobileLg} {
+//     background-color: yellow;
+//     width: 200px;
+//     height: 200px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//   }
+// `;
 
 const Contain = styled.div`
   display: flex;
@@ -214,6 +227,10 @@ const Contain = styled.div`
     span {
       color: ${({ theme }) => theme.colors.mainGreen};
     }
+  }
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
   }
 `;
 

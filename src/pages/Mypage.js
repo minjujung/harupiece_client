@@ -82,12 +82,35 @@ function Mypage(props) {
 
   console.log(pathname.includes("/now"));
 
+  const myChallengeList = useSelector(
+    (state) => state.mypage.myInfo.challengeList
+  );
+
+  const [livingCategory, setLivingCategory] = useState("");
+
+  const nameOfCategory = myChallengeList?.map((list) => list.categoryName);
+  const changeName = () => {
+    if (nameOfCategory === "LIVINGHABITS") {
+      setLivingCategory("생활챌린지");
+    }
+    //  else if (nameOfCategory === "NODRINKNOSMOKE") {
+    //   setLivingCategory("금연금주");
+    // } else if (nameOfCategory === "EXERCISE") {
+    //   setLivingCategory("운동");
+    // } else {
+    //   return;
+    // }
+  };
+
+  console.log(changeName());
+
+  console.log(livingCategory);
+
   return (
     <Container>
       <UserInfoContainer>
         {!editMode ? (
           <>
-            {" "}
             <Image
               width="9.69vw"
               height="17.13vh"
@@ -172,13 +195,19 @@ function Mypage(props) {
       </UserInfoContainer>
       <ChallengeCategory>
         <Item clicked={pathname.includes("/now") ? true : false}>
-          <Link to={`${path}/now`}>진행 예정 챌린지</Link>
+          <Link onClick={changeName} to={`${path}/now`}>
+            진행 예정 챌린지
+          </Link>
         </Item>
         <Item clicked={pathname.includes("/upcoming") ? true : false}>
-          <Link to={`${path}/upcoming`}>진행중인 챌린지</Link>
+          <Link onClick={changeName} to={`${path}/upcoming`}>
+            진행중인 챌린지
+          </Link>
         </Item>
         <Item clicked={pathname.includes("/completed") ? true : false}>
-          <Link to={`${path}/completed`}>완료한 챌린지</Link>
+          <Link onClick={changeName} to={`${path}/completed`}>
+            완료한 챌린지
+          </Link>
         </Item>
         <Item clicked={pathname.includes("/pieces") ? true : false}>
           <Link to={`${path}/pieces`}>조각</Link>
