@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Tag = ({ children, bg, color, padding, onClick }) => {
-  const styles = { bg, color, padding };
+const Tag = ({ children, bg, color, padding, onClick, border }) => {
+  const styles = { bg, color, padding, border };
   return (
     <TagFrame onClick={onClick} {...styles}>
       {children}
@@ -17,7 +17,6 @@ Tag.defaultProps = {
   padding: false,
   onClick: () => {},
   border: "1px solid white",
-  padding: "7px",
 };
 
 export default Tag;

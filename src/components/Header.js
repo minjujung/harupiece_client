@@ -4,12 +4,12 @@ import { MainCreators as searchActions } from "../redux/modules/main";
 // image
 import { Image } from "../elements/index";
 import levelData from "../shared/level";
-import logo from "../images/logo/large.png";
-import close from "../images/icons/close.svg";
-import login from "../images/icons/login.svg";
-import myPage from "../images/icons/profile.svg";
-import Search from "../images/icons/search.svg";
-import profile from "../images/logo/profile.png";
+import logo from "../assets/images/logo/large.png";
+import close from "../assets/images/icons/close.svg";
+import login from "../assets/images/icons/login.svg";
+import myPage from "../assets/images/icons/profile.svg";
+import Search from "../assets/images/icons/search.svg";
+import profile from "../assets/images/logo/profile.png";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
