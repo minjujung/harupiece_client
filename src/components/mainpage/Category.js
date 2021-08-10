@@ -92,6 +92,7 @@ const Category = (props) => {
             onClick={ChangeTag}
             bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
             padding="10px"
+            fontWeight="500"
           >
             #금연&금주
           </Tag>
@@ -100,6 +101,7 @@ const Category = (props) => {
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
             padding="10px"
+            fontWeight="500"
           >
             #습관챌린지
           </Tag>
@@ -108,6 +110,7 @@ const Category = (props) => {
             bg={category === "exercise" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
             padding="10px"
+            fontWeight="500"
           >
             #운동
           </Tag>
@@ -129,7 +132,24 @@ const Category = (props) => {
                         onClick={() =>
                           history.push(`/challenge/${l.challengeId}/intro`)
                         }
-                      ></Card>
+                      >
+                        <Tag
+                          fontWeight="500"
+                          bg="lightGray"
+                          color="black"
+                          padding="8px 20px"
+                        >
+                          #금주
+                        </Tag>
+                        <Tag
+                          fontWeight="500"
+                          bg="lightGray"
+                          color="black"
+                          padding="8px 20px"
+                        >
+                          1/10
+                        </Tag>
+                      </Card>
                     </>
                   );
                 })}
@@ -149,7 +169,24 @@ const Category = (props) => {
                         onClick={() =>
                           history.push(`/challenge/${l.challengeId}/intro`)
                         }
-                      ></Card>
+                      >
+                        <Tag
+                          fontWeight="500"
+                          bg="lightGray"
+                          color="black"
+                          padding="8px 20px"
+                        >
+                          #금주
+                        </Tag>
+                        <Tag
+                          fontWeight="500"
+                          bg="lightGray"
+                          color="black"
+                          padding="8px 20px"
+                        >
+                          1/10
+                        </Tag>
+                      </Card>
                     </>
                   );
                 })}
@@ -196,7 +233,7 @@ const CardBox2 = styled.div`
 
 const ViewAll = styled.span`
   font-size: 15px;
-  padding-left: 44vw;
+  padding-left: 43vw;
   color: #a9a9a9;
   cursor: pointer;
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
 import PostEdit from "./PostEdit";
 import { Button, Image } from "../../elements";
-import close from "../../images/icons/close.svg";
+import close from "../../assets/images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";

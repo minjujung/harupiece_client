@@ -84,7 +84,7 @@ function ChallengesInProgress(props) {
       ) : (
         <NoListMent>
           <p>
-            아직 진행중인 챌린지가 없어요!
+            아직 참여중인 챌린지가 없어요!{/* 아직 진행중인 챌린지가 없어요! */}
             <br /> 새로운 챌린지를 찾아 볼까요?
           </p>
           <Button

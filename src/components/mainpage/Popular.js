@@ -34,7 +34,9 @@ const Popular = (props) => {
                         </div>
                         <CardTitle>
                           <div>{l.challengeTitle}</div>
-                          <div>{l.challengeMember.length}명이 참여중</div>
+                          <div>
+                            {l.challengeMember.length}명이 대화에 참여중
+                          </div>
                         </CardTitle>
                       </CardBox>
                     </div>
@@ -58,7 +60,9 @@ const Popular = (props) => {
                         </div>
                         <CardTitle>
                           <div>{l.challengeTitle}</div>
-                          <div>{l.challengeMember.length}명이 참여중</div>
+                          <div>
+                            {l.challengeMember.length}명이 대화에 참여중
+                          </div>
                         </CardTitle>
                       </CardBox>
                     </div>

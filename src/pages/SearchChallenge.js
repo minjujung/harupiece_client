@@ -131,11 +131,15 @@ function SearchChallenge(props) {
         <CategoryLeftBox>
           <CategoryTitle>카테고리</CategoryTitle>
           <CategoryTitle>도전기간</CategoryTitle>
-          <CategoryTitle>기타</CategoryTitle>
+          <CategoryTitle>
+            <div>기</div>
+            <div>타</div>
+          </CategoryTitle>
         </CategoryLeftBox>
         <CategoryRightBox>
           <TagBox>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
               bg={
@@ -152,6 +156,7 @@ function SearchChallenge(props) {
               #금연금주
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
               bg={
@@ -168,6 +173,7 @@ function SearchChallenge(props) {
               #생활챌린지
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
               bg={
@@ -186,6 +192,7 @@ function SearchChallenge(props) {
           </TagBox>
           <TagBox>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -202,6 +209,7 @@ function SearchChallenge(props) {
               #1주
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -218,6 +226,7 @@ function SearchChallenge(props) {
               #2주
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -234,6 +243,7 @@ function SearchChallenge(props) {
               #3주
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -252,6 +262,7 @@ function SearchChallenge(props) {
           </TagBox>
           <TagBox>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -268,6 +279,7 @@ function SearchChallenge(props) {
               #공식챌린지
             </Tag>
             <Tag
+              fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
               bg={
@@ -298,10 +310,25 @@ function SearchChallenge(props) {
                   key={idx}
                   date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                   ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                  onClick={() =>
-                    history.push(`/challenge/${l.challengeId}/intro`)
-                  }
-                ></Card>
+                  onClick={() => history.push(`/challenge/${l.challengeId}`)}
+                >
+                  <Tag
+                    fontWeight="500"
+                    bg="lightGray"
+                    color="black"
+                    padding="8px 20px"
+                  >
+                    #금주
+                  </Tag>
+                  <Tag
+                    fontWeight="500"
+                    bg="lightGray"
+                    color="black"
+                    padding="8px 20px"
+                  >
+                    1/10
+                  </Tag>
+                </Card>
               </>
             );
           })}
@@ -352,6 +379,8 @@ const CategoryTitle = styled.div`
   width: 100px;
   text-align: justify;
   font-weight: bold;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const TagBox = styled.div`
@@ -368,10 +397,6 @@ const BoxContainer = styled.div`
   grid-row-gap: 40px;
   grid-column-gap: 40px;
   padding-top: 40px;
-
-  Card {
-    margin-right: 0px;
-  }
 `;
 
 export default SearchChallenge;
