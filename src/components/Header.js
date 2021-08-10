@@ -36,16 +36,28 @@ const Header = (props) => {
   // search state
   const [q, setQ] = useState("");
 
+  const onCheckEnter = (e) => {
+    if (e.key === "Enter") {
+      search();
+    }
+  };
+
+  const goHome = () => {
+    history.push("/");
+    handleClose();
+  };
+
   const search = (e) => {
-    e.preventDefault();
     dispatch(searchActions.searchDB(q));
     history.push(`/search/1/${q}`);
+    setQ("");
+    handleClose();
   };
 
   return (
     <React.Fragment>
       <HeaderBox>
-        <div onClick={() => history.push("/")}>
+        <div onClick={goHome}>
           <Image width="220px" height="40px" cursor src={logo} />
         </div>
         <Container1>
@@ -62,17 +74,14 @@ const Header = (props) => {
             >
               <SDialogContent>
                 <LogoBox>
-                  <Image width="220px" height="40px" cursor src={logo} />
+                  <div onClick={() => history.push("/")}>
+                    <Image width="220px" height="40px" cursor src={logo} />
+                  </div>
                 </LogoBox>
                 <SearchBox>
                   <SearchLeftBox>
-                    <Image
-                      width="22px"
-                      height="23px"
-                      cursor
-                      src={Search}
-                      onClick={search}
-                    />
+                    <button onClick={search}></button>
+                    <Image width="22px" height="23px" cursor src={Search} />
                     <label htmlFor="search-form">
                       <input
                         type="search"
@@ -80,6 +89,7 @@ const Header = (props) => {
                         placeholder="검색어를 입력해주세요."
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
+                        onKeyPress={onCheckEnter}
                       />
                     </label>
                   </SearchLeftBox>
@@ -174,8 +184,9 @@ const SearchLeftBox = styled.div`
   display: flex;
   align-items: center;
   label {
+    padding-left: 0.5vw;
     input {
-      width: 100vw;
+      width: 42vw;
     }
   }
 `;

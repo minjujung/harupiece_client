@@ -23,15 +23,35 @@ const Footer = (props) => {
 export default Footer;
 
 const FooterBox = styled.div`
-  height: 10vh;
+  height: 22.22vh;
   width: 100vw;
   bottom: 0;
-  margin-top: 10px;
-  background-color: #c4c4c4;
+  border-top: 1px solid #efefef;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 `;
 
-const LeftBox = styled.div``;
+const LeftBox = styled.div`
+  width: 50vw;
+  height: 9.25vh;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding-top: 3.7vh;
+  margin-left: 16vw;
+  div {
+    img {
+      width: 250px;
+      height: 40px;
+    }
+  }
+`;
 
-const RightBox = styled.div``;
+const RightBox = styled.div`
+  width: 25vw;
+  height: 9.25vh;
+  padding-top: 12vh;
+`;
