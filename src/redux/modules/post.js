@@ -48,7 +48,7 @@ const initialState = {
   is_loading: false,
 };
 
-//챌린지 상세 페이지에서 인증샷 목록 불러오기
+//챌린지 상세 페이지에서 인증샷 목록 불러오기(InfinityScroll)
 const getPostDB =
   (challengeId, paging) =>
   (dispatch, getState, { history }) => {
@@ -57,49 +57,30 @@ const getPostDB =
     if (_paging.page === false && _paging.next === false) return;
 
     dispatch(loading(true));
-    //start는 있는데 next가 없다는 건 더이상 가져올 인증샷이
-    //없다는 의미이므로 목록을 불러오지 않음!
-    // if (_paging.start && !_paging.next) {
-    //   console.log("무한스크롤 코드 시도 오류...");
-    //   return;
-    // }
-
-    //가져올게 있으면 loading 중이되므로 loading = true
-    // dispatch(loading(true));
-
-    // if (start) {
-    //   console.log("무한스크롤 코드.. 다음게 있으면 page + 1코드");
-    //   page = page + 1;
-    // }
 
     PostApis.getPost(_paging.page, challengeId)
       .then((res) => {
         consoleLogger("인증샷 불러올때 응답", res);
 
-        // const totalPages = parseInt(res.data.totalCount / 6) + 1;
-
         let paging = {
           page:
             res.data.postList.length < _paging.size ? false : _paging.page + 1,
           next: res.data.hasNext,
-
           size: _paging.size,
         };
-
-        console.log(res.data.postList);
 
         dispatch(setPost(res.data.postList, paging));
       })
       .catch((error) => {
-        // if (
-        //   window.confirm(
-        //     "인증샷 목록을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
-        //   )
-        // ) {
-        //   history.push("/");
-        // } else {
-        //   history.goBack();
-        // }
+        if (
+          window.confirm(
+            "인증샷 목록을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          )
+        ) {
+          history.push("/");
+        } else {
+          history.goBack();
+        }
         consoleLogger("인증샷 목록 불러올 때: ", error);
       });
   };
