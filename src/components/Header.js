@@ -4,12 +4,12 @@ import { MainCreators as searchActions } from "../redux/modules/main";
 // image
 import { Image } from "../elements/index";
 import levelData from "../shared/level";
-import logo from "../images/logo/large.png";
-import close from "../images/icons/close.svg";
-import login from "../images/icons/login.svg";
-import myPage from "../images/icons/profile.svg";
-import Search from "../images/icons/search.svg";
-import profile from "../images/logo/profile.png";
+import logo from "../assets/images/logo/large.png";
+import close from "../assets/images/icons/close.svg";
+import login from "../assets/images/icons/login.svg";
+import myPage from "../assets/images/icons/profile.svg";
+import Search from "../assets/images/icons/search.svg";
+import profile from "../assets/images/logo/profile.png";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -36,16 +36,28 @@ const Header = (props) => {
   // search state
   const [q, setQ] = useState("");
 
+  const onCheckEnter = (e) => {
+    if (e.key === "Enter") {
+      search();
+    }
+  };
+
+  const goHome = () => {
+    history.push("/");
+    handleClose();
+  };
+
   const search = (e) => {
-    e.preventDefault();
     dispatch(searchActions.searchDB(q));
     history.push(`/search/1/${q}`);
+    setQ("");
+    handleClose();
   };
 
   return (
     <React.Fragment>
       <HeaderBox>
-        <div onClick={() => history.push("/")}>
+        <div onClick={goHome}>
           <Image width="220px" height="40px" cursor src={logo} />
         </div>
         <Container1>
@@ -62,10 +74,13 @@ const Header = (props) => {
             >
               <SDialogContent>
                 <LogoBox>
-                  <Image width="220px" height="40px" cursor src={logo} />
+                  <div onClick={() => history.push("/")}>
+                    <Image width="220px" height="40px" cursor src={logo} />
+                  </div>
                 </LogoBox>
                 <SearchBox>
                   <SearchLeftBox>
+                    <button onClick={search}></button>
                     <Image width="22px" height="23px" cursor src={Search} />
                     <label htmlFor="search-form">
                       <input
@@ -74,6 +89,7 @@ const Header = (props) => {
                         placeholder="검색어를 입력해주세요."
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
+                        onKeyPress={onCheckEnter}
                       />
                     </label>
                   </SearchLeftBox>
@@ -167,6 +183,12 @@ const SearchBox = styled.div`
 const SearchLeftBox = styled.div`
   display: flex;
   align-items: center;
+  label {
+    padding-left: 0.5vw;
+    input {
+      width: 42vw;
+    }
+  }
 `;
 const SearchRightBox = styled.div``;
 

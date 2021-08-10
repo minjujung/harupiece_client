@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-import { history } from "../../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "../../shared/Cookie";
-
+import { useSelector } from "react-redux";
+// slide 라이브러리
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-
 import { Tag } from "../../elements";
 
 const MainSlider = (props) => {
@@ -29,6 +25,7 @@ const MainSlider = (props) => {
         style={{
           width: "48px",
           marginRight: "-50px",
+          zIndex: "0",
         }}
       >
         <img
@@ -43,6 +40,7 @@ const MainSlider = (props) => {
         style={{
           width: "48px",
           marginLeft: "-60px",
+          zIndex: "0",
         }}
       >
         <img src="https://i.ibb.co/hM4W1HZ/banner-arrow-right.png" alt="" />

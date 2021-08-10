@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-import send from "../../images/icons/send.svg";
+import send from "../../assets/images/icons/send.svg";
 import { Image } from "../../elements";
 
 import { useDispatch, useSelector } from "react-redux";

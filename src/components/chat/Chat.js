@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Button, Image } from "../../elements";
-import chat from "../../images/icons/chat.svg";
-import close from "../../images/icons/whiteClose.svg";
+import chat from "../../assets/images/icons/chat.svg";
+import close from "../../assets/images/icons/whiteClose.svg";
 import MessageWrite from "./MessageWrite";
 import MessageList from "./MessageList";
 

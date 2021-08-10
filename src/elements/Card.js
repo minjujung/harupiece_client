@@ -68,7 +68,7 @@ export default Card;
 
 const CardBox = styled.div`
   width: ${(props) => (props.width ? props.width : "14.95vw")};
-  height: ${(props) => (props.height ? props.height : "28.88vh")};
+  height: ${(props) => (props.height ? props.height : "31vh")};
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;

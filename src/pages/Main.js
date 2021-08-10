@@ -66,7 +66,6 @@ const Main = (props) => {
           <Popular />
         </ContainerRight>
       </Container>
-      <Footer />
     </>
   );
 };
@@ -77,7 +76,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: 80vh;
+  height: 78vh;
   margin-top: 70px;
 `;
 
