@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useState } from "react";
 import styled from "styled-components";
 import CreateImgSelect from "../components/challenge/CreateImgSelect";
 import CreateCertification from "../components/challenge/CreateCertification";
@@ -11,7 +11,7 @@ import { actionCreator as challengeDetailActions } from "../redux/modules/challe
 
 // import { Input } from "../elements";
 import Down from "../images/icons/arrow/down.svg";
-import { Button, Image } from "../elements";
+import { Button } from "../elements";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
@@ -276,7 +276,6 @@ const RightContainer = styled.div`
   width: 30.93vw;
   height: 53.79vh;
   margin-top: 5vh;
-  background-color: goldenrod;
 `;
 
 const Input = styled.input`
@@ -297,14 +296,21 @@ const Textarea = styled.textarea`
   height: 12.59vh;
   resize: none;
   margin-top: 0.74vh;
-  margin-bottom: 2.96vh;
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
-  background-color: ${({ theme }) => theme.colors.lightGray};
-  font-size: ${({ theme }) => theme.fontSizes.ms};
-  font-weight: 400;
-  border-radius: 8px;
+  background-color: ${({theme}) => theme.colors.lightGray};
+  border-radius : 8px;
+  font-size: ${({theme}) => theme.fontSizes.ms};
+  color : ${({theme}) => theme.colors.darkGray};
+  font-weight:400;
+  ::placeholder {
+    font-size: ${({theme}) => theme.fontSizes.ms};
+    color : ${({theme}) => theme.colors.darkGray};
+    font-weight:400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+  
 `;
 
 const Label = styled.label`
