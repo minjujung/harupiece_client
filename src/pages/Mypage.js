@@ -172,10 +172,10 @@ function Mypage(props) {
       </UserInfoContainer>
       <ChallengeCategory>
         <Item clicked={pathname.includes("/now") ? true : false}>
-          <Link to={`${path}/now`}>진행중인 챌린지</Link>
+          <Link to={`${path}/now`}>진행 예정 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/upcoming") ? true : false}>
-          <Link to={`${path}/upcoming`}>진행 예정 챌린지</Link>
+          <Link to={`${path}/upcoming`}>진행중인 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/completed") ? true : false}>
           <Link to={`${path}/completed`}>완료한 챌린지</Link>
