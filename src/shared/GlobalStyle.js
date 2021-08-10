@@ -18,7 +18,7 @@ html {
 body {
     /* padding-top: 5em;
     padding-bottom:50px; */
-    padding: 70px 0px 50px 0px;
+    padding: 70px 0px 0px 0px;
 }
 
 
