@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../redux/modules/post";
 import { Link, Route, Switch } from "react-router-dom";
-import Chat from "../components/challengedetail/Chat";
+import Chat from "../components/chat/Chat";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -23,13 +23,12 @@ const ChallengeDetail = (props) => {
   const challengeId = props.match.params.id;
 
   // challenge상세 내용과 인증샷 목록 불러오기
-  useEffect(() => {
-    if (!challengeId) {
-      return;
-    }
-    dispatch(postActions.getPostDB(challengeId));
-    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  }, []);
+  // useEffect(() => {
+  //   if (!challengeId) {
+  //     return;
+  //   }
+  //   dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
+  // }, []);
 
   //관리자 권한 삭제
   const adminDelete = () => {

@@ -15,6 +15,7 @@ import Post from "./modules/post";
 import Image from "./modules/image";
 import Create from "./modules/challengeCreate";
 import mypage from "./modules/mypage";
+import Chat from "./modules/chat";
 
 export const history = createBrowserHistory();
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   main,
   user,
   mypage,
+  chat: Chat,
   router: connectRouter(history),
 });
 
