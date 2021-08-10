@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 // slide 라이브러리
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import leftArrow from "../../assets/images/icons/arrow/left.svg";
 import { Tag } from "../../elements";
 
 const MainSlider = (props) => {
@@ -28,7 +27,11 @@ const MainSlider = (props) => {
           marginRight: "-50px",
         }}
       >
-        <img style={{ paddingLeft: "15px" }} src={leftArrow} alt="" />
+        <img
+          style={{ paddingLeft: "15px" }}
+          src="https://i.ibb.co/nMW8sSq/banner-arrow-left.png"
+          alt=""
+        />
       </div>
     ),
     nextArrow: (

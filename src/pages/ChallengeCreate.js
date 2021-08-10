@@ -10,7 +10,7 @@ import { actionCreators as createActions } from "../redux/modules/challengeCreat
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
 // import { Input } from "../elements";
-import Down from "../images/icons/arrow/down.svg";
+import Down from "../assets/images/icons/arrow/down.svg";
 import { Button } from "../elements";
 
 function ChallengeCreate(props) {
@@ -138,12 +138,13 @@ function ChallengeCreate(props) {
           <Title>
             <p>챌린지 개설</p>
           </Title>
-          <GuideLine/>
+          <GuideLine />
         </LeftContainer>
         <RightContainer>
           <InputLeftContainer>
             <div>
-              <Label>제목</Label><br />
+              <Label>제목</Label>
+              <br />
               <Input
                 onChange={saveTitle}
                 placeholder={
@@ -155,7 +156,8 @@ function ChallengeCreate(props) {
             </div>
             {/* 카테고리 */}
             <div>
-              <Label htmlFor="category">카테고리</Label><br />
+              <Label htmlFor="category">카테고리</Label>
+              <br />
               <SelectBox id="category" onChange={chooseCategory}>
                 <option value="CATEGORY">주제</option>
                 <option value="NODRINKNOSMOKE">금연/금주</option>
@@ -184,7 +186,8 @@ function ChallengeCreate(props) {
             </div>
             {/* 모집형식 */}
             <div>
-              <Label htmlFor="category">모집 방식</Label><br />
+              <Label htmlFor="category">모집 방식</Label>
+              <br />
               <SelectBox id="category" onChange={choosePublic}>
                 <option value="CATEGORY">카테고리</option>
                 <option value="PUBLIC">공개</option>
@@ -200,22 +203,27 @@ function ChallengeCreate(props) {
             </div>
             {/* 챌린지 설명 */}
             <div>
-              <Label>챌린지 설명</Label><br />
+              <Label>챌린지 설명</Label>
+              <br />
               <Textarea
                 onChange={saveDesc}
                 placeholder="챌린지를 설명해주세요."
               />
             </div>
-            <Button width="15.00vw" height="5.92vh" margin="7.03vh 0 0"
-            onClick={createChallenge}>챌린지 개설하기</Button>
+            <Button
+              width="15.00vw"
+              height="5.92vh"
+              margin="7.03vh 0 0"
+              onClick={createChallenge}
+            >
+              챌린지 개설하기
+            </Button>
           </InputRightContainer>
         </RightContainer>
       </Container>
     </>
   );
 }
-
-
 
 const Container = styled.div`
   display: flex;
@@ -228,94 +236,93 @@ const Container = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  flex-direction : column;
+  flex-direction: column;
 `;
 
 const Title = styled.div`
-  & > p{
-    font-size : 36px;
-    font-weight : 700;
+  & > p {
+    font-size: 36px;
+    font-weight: 700;
     width: 10.04vw;
-    height: 4.81vh
+    height: 4.81vh;
   }
 `;
 
 const GuideLine = styled.div`
-  background-color: ${({theme}) => theme.colors.lightGray};
-  border-radius : 8px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  border-radius: 8px;
   width: 32.81vw;
   height: 53.79vh;
   margin-right: 2.92vh;
 `;
 
 const InputLeftContainer = styled.div`
-  flex-direction : column;
+  flex-direction: column;
   margin-right: 0.94vw;
 `;
 
 const InputRightContainer = styled.div`
-  flex-direction : column;
+  flex-direction: column;
 `;
 
 const RightContainer = styled.div`
   display: flex;
   width: 30.93vw;
   height: 53.79vh;
-  margin-top: 5.00vh;
+  margin-top: 5vh;
   background-color: goldenrod;
 `;
 
 const Input = styled.input`
-  width : 15.00vw;
+  width: 15vw;
   height: 3.7vh;
   margin-top: 0.74vh;
   margin-bottom: 2.96vh;
-  background-color: ${({theme}) => theme.colors.lightGray};
-  font-size: ${({theme}) => theme.fontSizes.ms};
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
   padding-left: 0.83vw;
   padding-top: 1.01vh;
   padding-bottom: 1.01vh;
-  border-radius : 8px;
+  border-radius: 8px;
 `;
 
 const Textarea = styled.textarea`
-  width : 15.00vw;
+  width: 15vw;
   height: 12.59vh;
-  resize:none;
+  resize: none;
   margin-top: 0.74vh;
   margin-bottom: 2.96vh;
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
-  background-color: ${({theme}) => theme.colors.lightGray};
-  font-size: ${({theme}) => theme.fontSizes.ms};
-  font-weight:400;
-  border-radius : 8px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  font-weight: 400;
+  border-radius: 8px;
 `;
 
 const Label = styled.label`
-  font-size: ${({theme}) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
-  color : ${({theme}) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 const SelectBox = styled.select`
-  width: 15.00vw; /* 원하는 너비설정 */
+  width: 15vw; /* 원하는 너비설정 */
   padding: 0.75vh; /* 여백으로 높이 설정 */
   padding-left: 0.83vw;
   margin-top: 0.74vh;
   margin-bottom: 2.96vh;
-  font-family: inherit;  /* 폰트 상속 */
-  font-size: ${({theme}) => theme.fontSizes.ms};
-  color: ${({theme}) => theme.colors.darkGray};
-  background: url("../images/icons/arrow/down.svg") no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
-  background-color: ${({theme}) => theme.colors.lightGray};
+  font-family: inherit; /* 폰트 상속 */
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  color: ${({ theme }) => theme.colors.darkGray};
+  background: url("../assets/images/icons/arrow/down.svg") no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+  background-color: ${({ theme }) => theme.colors.lightGray};
   border: none;
   border-radius: 8px; /* iOS 둥근모서리 제거 */
   -webkit-appearance: none; /* 네이티브 외형 감추기 */
   -moz-appearance: none;
   appearance: none;
 `;
-
 
 export default ChallengeCreate;

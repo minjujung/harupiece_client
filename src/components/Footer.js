@@ -40,12 +40,13 @@ const LeftBox = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  padding-top: 3.7vh;
+  padding-top: 5.7vh;
   margin-left: 16vw;
   div {
     img {
       width: 250px;
       height: 40px;
+      margin-bottom: 1.8vh;
     }
   }
 `;

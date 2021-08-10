@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Button, Image } from "../../elements";
-import chat from "../../images/icons/chat.svg";
-import close from "../../images/icons/whiteClose.svg";
-import send from "../../images/icons/send.svg";
+import chat from "../../assets/images/icons/chat.svg";
+import close from "../../assets/images/icons/whiteClose.svg";
+import send from "../../assets/images/icons/send.svg";
 
 const Chat = (props) => {
   const [open, setOpen] = useState(false);
