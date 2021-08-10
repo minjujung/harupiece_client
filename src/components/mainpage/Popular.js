@@ -98,8 +98,12 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  letter-spacing: -1.92px;
+  line-height: 1.5;
+  padding-left: 1vw;
 
   span {
+    padding-right: 0.4vw;
     color: ${({ theme }) => theme.colors.mainGreen};
   }
 `;

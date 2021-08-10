@@ -318,7 +318,7 @@ function SearchChallenge(props) {
                     color="black"
                     padding="8px 20px"
                   >
-                    #금주
+                    {l.tagList[0]}
                   </Tag>
                   <Tag
                     fontWeight="500"
@@ -326,7 +326,7 @@ function SearchChallenge(props) {
                     color="black"
                     padding="8px 20px"
                   >
-                    1/10
+                    {l.challengeMember.length}/10명
                   </Tag>
                 </Card>
               </>
@@ -339,12 +339,13 @@ function SearchChallenge(props) {
 
 const Container = styled.div`
   width: 100vw;
-  height: 400px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 78px;
+  margin-top: 200px;
+  padding-bottom: 400px;
 `;
 
 const CategoryContainer = styled.div`
@@ -390,7 +391,7 @@ const TagBox = styled.div`
 `;
 
 const BoxContainer = styled.div`
-  height: 200px;
+  height: 70vh;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(4, 1fr);

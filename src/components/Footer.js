@@ -27,9 +27,10 @@ const FooterBox = styled.div`
   width: 100vw;
   bottom: 0;
   border-top: 1px solid #efefef;
-  margin-top: 30px;
   display: flex;
   justify-content: space-between;
+  z-index: 10;
+  margin-top: 11.76vh;
 `;
 
 const LeftBox = styled.div`
