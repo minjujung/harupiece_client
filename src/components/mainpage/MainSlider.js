@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
-import Slide from "./Slide";
 
-const TOTAL_SLIDES = 2;
+const TOTAL_SLIDES = 3;
 
 const MainSlider = (props) => {
   const main_list = useSelector((state) => state.main);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -31,7 +31,17 @@ const MainSlider = (props) => {
   useEffect(() => {
     slideRef.current.style.transition = "all .5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
-  }, [currentSlide]);
+    let intervalId;
+    if (isFlowing) {
+      intervalId = setInterval(() => {
+        setCurrentSlide(currentSlide + 1);
+      }, 5000);
+    }
+    if (currentSlide === 4) {
+      setCurrentSlide(0);
+    }
+    return () => clearTimeout(intervalId);
+  }, [currentSlide, setCurrentSlide, isFlowing]);
 
   const slideImages = [
     "https://i.ibb.co/YQCrYJR/banner-01.png",
@@ -43,13 +53,26 @@ const MainSlider = (props) => {
   return (
     <>
       <Container>
-        <SliderContainer ref={slideRef}>
-          <Slide img={slideImages[0]}>1번</Slide>
-          <Slide img={slideImages[1]}>2번</Slide>
-          <Slide img={slideImages[2]}>3번</Slide>
+        <SliderContainer
+          onMouseOver={() => setIsFlowing(false)}
+          onMouseOut={() => setIsFlowing(true)}
+          ref={slideRef}
+        >
+          <Slide>
+            <IMG src={slideImages[0]} />
+          </Slide>
+          <Slide>
+            <IMG src={slideImages[1]} />
+          </Slide>
+          <Slide>
+            <IMG src={slideImages[2]} />
+          </Slide>
+          <Slide>
+            <IMG src={slideImages[3]} />
+          </Slide>
         </SliderContainer>
-        <Button onClick={prevSlide}>Previous Slide</Button>
-        <Button onClick={nextSlide}>Next Slide</Button>
+        <div onClick={prevSlide}>Previous Slide</div>
+        <div onClick={nextSlide}>Next Slide</div>
       </Container>
     </>
   );
@@ -58,9 +81,8 @@ const MainSlider = (props) => {
 export default MainSlider;
 
 const Container = styled.div`
-  width: 890px;
+  width: 100%;
   overflow: hidden;
-
   ${({ theme }) => theme.device.mobileLg} {
   }
 `;
@@ -72,9 +94,20 @@ const Button = styled.button`
   color: coral;
   border-radius: 10px;
 `;
+
 const SliderContainer = styled.div`
   width: 100%;
   display: flex; //이미지들을 가로로 나열합니다.
+`;
+
+const Slide = styled.div`
+  width: 950px;
+  padding-right: 10px;
+`;
+
+const IMG = styled.img`
+  width: 950px;
+  height: 30vh;
 `;
 
 const SliderBox = styled.div`
