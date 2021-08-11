@@ -161,7 +161,7 @@ const ChallengeDetail = (props) => {
               />
             </MobilBtns>
           )}
-          <Chat />
+          <Chat challengeId={challengeId} />
         </Btns>
       </RightNav>
     </Area>
@@ -265,6 +265,8 @@ const RightNav = styled.div`
 const Banner = styled.div`
   background-image: url(${(props) => props.bgImg});
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
   height: 28.7vh;
   border-radius: 8px;

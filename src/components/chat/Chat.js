@@ -16,27 +16,26 @@ import { getCookie } from "../../shared/Cookie";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 
-const Chat = (props) => {
-  // 소켓 통신 객체
-  const sock = new SockJS("http://54.180.141.39/chatting");
-  const ws = Stomp.over(sock);
-
+const Chat = ({ challengeId }) => {
   const dispatch = useDispatch();
   const chatInfo = useSelector((state) => state.chat.info);
   const challengeInfo = useSelector((state) => state.challengeDetail.detail);
   const userInfo = useSelector((state) => state.user.userInfo);
+
+  // 소켓 통신 객체
+  const sock = new SockJS("http://54.180.141.39/chatting");
+  const ws = Stomp.over(sock);
 
   const [open, setOpen] = useState(false);
 
   const token = getCookie("token");
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
-    console.log(challengeInfo.challengeId);
-    console.log(token);
+    console.log(challengeId);
     try {
       ws.connect({ token }, () => {
         ws.subscribe(
-          `/sub/api/chatroom/${challengeInfo.challengeId}`,
+          `/sub/api/chatroom/${challengeId}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
             console.log(newMessage);
@@ -67,7 +66,7 @@ const Chat = (props) => {
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
     wsConnectSubscribe();
-    dispatch(chatActions.getMessagesDB(challengeInfo.challengeId));
+    dispatch(chatActions.getMessagesDB(challengeId));
     return () => {
       wsDisConnectUnsubscribe();
     };
@@ -111,7 +110,7 @@ const Chat = (props) => {
       // 로딩 중
       // dispatch(chatActions.loading());
       waitForConnection(ws, function () {
-        ws.send("/pub/api/chat/message", data);
+        ws.send("/pub/api/chat/message", { token }, JSON.stringify(data));
         console.log(ws.ws.readyState);
         console.log(data);
         dispatch(chatActions.writeMessage(""));

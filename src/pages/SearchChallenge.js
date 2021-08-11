@@ -9,10 +9,6 @@ import { history } from "../redux/configureStore";
 function SearchChallenge(props) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(searchActions.searchAllDB());
-  }, []);
-
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 
@@ -311,7 +307,9 @@ function SearchChallenge(props) {
                   key={idx}
                   date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                   ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                  onClick={() => history.push(`/challenge/${l.challengeId}`)}
+                  onClick={() =>
+                    history.push(`/challenge/${l.challengeId}/intro`)
+                  }
                 >
                   <Tag
                     fontWeight="500"

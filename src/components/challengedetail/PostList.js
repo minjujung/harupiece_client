@@ -67,7 +67,7 @@ const PostList = (props) => {
       `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
     );
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
-    if ((list[clicked]?.postingCount / totalNumber) * 100 === 50) {
+    if ((list[clicked]?.postingCount / totalNumber - 1) * 100 === 50) {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
       // dispatch(userActions.editUserDB(totalDay * 50))
       window.alert(
@@ -97,6 +97,7 @@ const PostList = (props) => {
       {list.map((l, idx) => (
         <ImageList key={l.postingId}>
           <Image
+            post
             width="15.83vw"
             height="28.15vh"
             borderRadius="12px"

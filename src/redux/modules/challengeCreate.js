@@ -113,7 +113,7 @@ const createChDB =
               })
               .catch((error) => {
                 if (
-                  error.response.data.message ===
+                  error.response?.data.message ===
                   "이미 해당 카테고리에 챌린지를 생성한 유저입니다."
                 ) {
                   window.alert(
