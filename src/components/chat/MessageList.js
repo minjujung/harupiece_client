@@ -25,7 +25,7 @@ const MessageList = (props) => {
 
   return (
     <Chat>
-      {msgList.map((msg) => (
+      {/* {msgList.map((msg) => (
         <>
           <Sender>
             <Image src={msg.profileImg} alt="msgSender" />
@@ -34,7 +34,8 @@ const MessageList = (props) => {
           <Message>{msg.text}</Message>
         </>
       ))}
-      <div ref={scrollTo}></div>
+      <div ref={scrollTo}></div> */}
+      {msgList[0].message}
     </Chat>
   );
 };

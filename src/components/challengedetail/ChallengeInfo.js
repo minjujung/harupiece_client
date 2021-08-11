@@ -6,7 +6,6 @@ import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
-import { actionCreator as postActions } from "../../redux/modules/post";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
@@ -44,7 +43,6 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <SectionTitle> 챌린지 소개</SectionTitle>
         <h3>기본정보</h3>
         <Info>
           <span>카테고리</span>
@@ -53,8 +51,11 @@ const ChallengeInfo = (props) => {
         <Info>
           <span>인증기간</span>
           {challenge.challengeStartDate.split("T")[0]} ~{" "}
-          {challenge.challengeEndDate.split("T")[0]} (
-          {challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"})
+          {challenge.challengeEndDate.split("T")[0]}{" "}
+          <p>
+            {" "}
+            ({challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"})
+          </p>
         </Info>
         <Info>
           <span>모집방식</span>
@@ -68,34 +69,36 @@ const ChallengeInfo = (props) => {
         </Info>
         <Example>
           <span>인증샷예시</span>
-          <div>
-            <Image
-              width="10em"
-              height="10em"
-              borderRadius="16px"
-              border
-              src={challenge.challengeGood}
-              alt="vegan_diet"
-            />
-            <ExTitle good>
-              <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
-              인증샷
-            </ExTitle>
-          </div>
-          <div>
-            <Image
-              width="10em"
-              height="10em"
-              borderRadius="16px"
-              border
-              src={challenge.challengeBad}
-              alt="nonvegan_diet"
-            />
-            <ExTitle>
-              <NotInterested style={{ marginRight: "8px" }} />
-              나쁜 인증샷
-            </ExTitle>
-          </div>
+          <MobileFrame>
+            <div>
+              <Image
+                width="8.33vw"
+                height="14.81vh"
+                borderRadius="16px"
+                border
+                src={challenge.challengeGood}
+                alt="vegan_diet"
+              />
+              <ExTitle good>
+                <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
+                인증샷
+              </ExTitle>
+            </div>
+            <div>
+              <Image
+                width="8.33vw"
+                height="14.81vh"
+                borderRadius="16px"
+                border
+                src={challenge.challengeBad}
+                alt="nonvegan_diet"
+              />
+              <ExTitle>
+                <NotInterested style={{ marginRight: "8px" }} />
+                나쁜 인증샷
+              </ExTitle>
+            </div>
+          </MobileFrame>
         </Example>
         <h3>소개글</h3>
         <Desc>{challenge.challengeContent}</Desc>
@@ -116,26 +119,31 @@ export default ChallengeInfo;
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;
-  margin-top: 40.55vh;
+  margin: 40.55vh 0 14.81vh 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const SectionTitle = styled.h1`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  font-weight: bold;
-  width: 49.48vw;
-  text-align: left;
-  margin: 40px 0 32px 0;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-bottom: 200px;
+  }
 `;
 
 const Section = styled.section`
   width: 49.48vw;
+  margin-top: 3.7vh;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;
-    margin: 1.2em 0;
+    margin-bottom: 16px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 0 4.44vw;
+    h3 {
+      margin-bottom: 24px;
+      font-size: 32px;
+    }
   }
 `;
 
@@ -144,14 +152,23 @@ const Info = styled.p`
   span {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.gray};
-    margin-right: 2em;
+    margin-right: 32px;
     font-weight: bold;
+  }
+  p {
+    line-height: normal;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 28px;
+    span {
+      font-size: 28px;
+    }
   }
 `;
 
 const Example = styled.article`
   display: flex;
-
+  margin-bottom: 4.44vh;
   span {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.gray};
@@ -160,6 +177,26 @@ const Example = styled.article`
   }
   div {
     margin-right: 2em;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    flex-direction: column;
+    div {
+      margin-right: 0;
+    }
+  }
+`;
+
+const MobileFrame = styled.div`
+  display: flex;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.66vh;
+    img {
+      width: 43.33vw;
+      height: 43.33vw;
+    }
   }
 `;
 
@@ -171,6 +208,9 @@ const ExTitle = styled.h4`
     props.good ? props.theme.colors.mainGreen : props.theme.colors.mainOrange};
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.ms};
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 0.74vh;
+  }
 `;
 
 const Desc = styled.p`
@@ -180,5 +220,4 @@ const Desc = styled.p`
 
 const TagFrame = styled.div`
   display: flex;
-  margin-bottom: 80px;
 `;
