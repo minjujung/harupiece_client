@@ -84,7 +84,8 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 400px;
+    height: 100vh;
+    margin-top: 10px;
   }
 `;
 
@@ -100,7 +101,6 @@ const ContainerLeft = styled.div`
     align-items: center;
     width: 100%;
     height: 100vh;
-    
   }
 `;
 

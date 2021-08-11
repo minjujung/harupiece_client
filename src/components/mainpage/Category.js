@@ -5,6 +5,9 @@ import { history } from "../../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../../redux/modules/main";
 import { getCookie } from "../../shared/Cookie";
+// slide 라이브러리
+import { Slide } from "react-slideshow-image";
+import "../../assets/styles/Slider.css";
 
 import { Tag, Card } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
@@ -194,25 +197,18 @@ const Category = (props) => {
           )}
         </CardBox2>
       </Contain>
-      {/* <MobileBox>asdasd</MobileBox> */}
+      {/* Mobile */}
+      <MobileBox></MobileBox>
     </>
   );
 };
 
 export default Category;
 
-// const MobileBox = styled.div`
-//   ${({ theme }) => theme.device.mobileLg} {
-//     background-color: yellow;
-//     width: 200px;
-//     height: 200px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     flex-direction: column;
-//   }
-// `;
+// mobile
+const MobileBox = styled.div``;
 
+// desktop
 const Contain = styled.div`
   display: flex;
   align-items: center;
