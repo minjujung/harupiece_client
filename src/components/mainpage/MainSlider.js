@@ -96,7 +96,6 @@ const MainSlider = (props) => {
           <img style={{ width: "50%" }} src={Right} alt="" />
         </NextBtn>
       </Container>
-      {/* Moblie */}
     </>
   );
 };
@@ -108,7 +107,7 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
-    display: none;
+    width: 100%;
   }
 `;
 
@@ -124,6 +123,12 @@ const PrevBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 40px;
+    height: 40px;
+    top: 45%;
+    border-radius: 50%;
+  }
 `;
 
 const NextBtn = styled.button`
@@ -138,28 +143,50 @@ const NextBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 40px;
+    height: 40px;
+    top: 45%;
+    border-radius: 50%;
+  }
 `;
 
 const SliderContainer = styled.div`
   width: 100%;
   display: flex; //이미지들을 가로로 나열합니다.
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+  }
 `;
 
 const Slide = styled.div`
   width: 950px;
   border-radius: 10px;
   padding-right: 10px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    border-radius: 10px;
+    padding-left: 10px;
+  }
 `;
 
 const SliderBox = styled.div`
   width: 950px;
-  height: 30vh;
+  height: 27.5vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding-left: 100px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `;
 
 const TagBox = styled.div`
