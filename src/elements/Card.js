@@ -72,6 +72,9 @@ const CardBox = styled.div`
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100vw;
+  }
 `;
 
 const TagContainer = styled.div`

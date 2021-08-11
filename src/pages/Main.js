@@ -43,14 +43,17 @@ const Main = (props) => {
         <ContainerRight>
           <Info />
           {is_login ? (
-            <Button
-              width="16.15vw"
-              height="6.27vh"
-              margin="0px 0px 20px 0px"
-              _onClick={goToCreate}
-            >
-              챌린지등록하기+
-            </Button>
+            <>
+              <Button
+                width="16.15vw"
+                height="6.27vh"
+                margin="0px 0px 20px 0px"
+                _onClick={goToCreate}
+              >
+                챌린지등록하기+
+              </Button>
+              <MButton _onClick={goToCreate}>+</MButton>
+            </>
           ) : (
             <Button
               width="16.15vw"
@@ -82,7 +85,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 360px;
     height: 100vh;
     margin-top: 10px;
   }
@@ -98,12 +101,37 @@ const ContainerLeft = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
+    margin-right: 0px;
   }
 `;
 
 const ContainerRight = styled.div`
   width: 16.15vw;
   height: 77.22vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin-right: 0px;
+  }
+`;
+
+const MButton = styled.button`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 10vh;
+    right: 10vw;
+    z-index: 100;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
 `;

@@ -7,7 +7,7 @@ import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 import { useSelector } from "react-redux";
 
-import Calendar from "../../images/icons/calendar.svg";
+import Calendar from "../../assets/images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -105,22 +105,22 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
           />
         </Holiday>
       </div>
-        <CalendarContainer>
-          <img src={Calendar} alt="calendar" />
-          <SubT>인증 기간</SubT>
-        </CalendarContainer>
-        <SDatePicker
-          selectsRange={true}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={onChange}
-          filterDate={isWeekday}
-          dateFormat="yyyy-MM-dd"
-          placeholderText="체크인 날짜 선택"
-          locale={ko}
-          minDate={date}
-          isClearable={true}
-        />
+      <CalendarContainer>
+        <img src={Calendar} alt="calendar" />
+        <SubT>인증 기간</SubT>
+      </CalendarContainer>
+      <SDatePicker
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={onChange}
+        filterDate={isWeekday}
+        dateFormat="yyyy-MM-dd"
+        placeholderText="체크인 날짜 선택"
+        locale={ko}
+        minDate={date}
+        isClearable={true}
+      />
     </>
   );
 }
@@ -163,7 +163,7 @@ const Holiday = styled.div`
     height: 24px;
     margin-top: 0.78vh;
     margin-left: 8.11vw;
-  }  
+  }
 `;
 
 const SDatePicker = styled(DatePicker)`

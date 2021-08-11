@@ -9,10 +9,6 @@ import { history } from "../redux/configureStore";
 function SearchChallenge(props) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(searchActions.searchAllDB());
-  }, []);
-
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 
