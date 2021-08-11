@@ -17,9 +17,9 @@ const Signup = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <div>
+        <ImageMobile>
           <Image width="162px" height="155px" src={Green} />
-        </div>
+        </ImageMobile>
         <p>매일 달성하는 나만의 하루 조각</p>
         <Formik
           initialValues={{
@@ -102,11 +102,11 @@ const Signup = (props) => {
                 />
                 {formik.touched.passwordConfirm &&
                 formik.errors.passwordConfirm ? (
-                  <ErrorMsg>{formik.errors.passwordConfirm}</ErrorMsg>
+                  <ErrorMsgBO>{formik.errors.passwordConfirm}</ErrorMsgBO>
                 ) : null}
                 <Button
                   width="100%"
-                  padding="16px 148px"
+                  padding="1.48vh 7.71vw"
                   bg="black"
                   color="white"
                   fontsize="ms"
@@ -139,11 +139,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 10vh;
+  margin-top: 10.833vh;
 
   & > p {
-    margin-top: 3vh;
-    margin-bottom: 6vh;
+    margin-top: 2.40vh;
+    margin-bottom: 5.37vh;
     font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.54;
     letter-spacing: -1.32px;
@@ -152,31 +152,65 @@ const Container = styled.div`
   form {
     width: 19.58vw;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
+    padding: 0 4.44vw 0 4.44vw;
+    form {
+    width: 100vw;
+    padding: 0 4.44vw 0 4.44vw;
+  }
+}
 `;
 
 const Input = styled.input`
-  margin-bottom: 2.34vh;
+  margin-bottom: 0.92vh;
   width: 100%;
-  padding: 14px;
+  padding: 1.35vw 1.20vh 0.83vw 1.20vh;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   ::placeholder {
     color: rgba(0, 0, 0, 0.4);
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    padding: 3.06vw;
+  }
 `;
 
 const ErrorMsg = styled.p`
   margin-bottom: 1vh;
-  text-align: center;
+  margin-left: 1.11vw;
   color: red;
   font-size: ${({ theme }) => theme.fontSizes.xs};
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-left: 3.06vw;
+  }
+`;
+
+const ErrorMsgBO = styled.p`
+  margin-bottom: 2.96vh;
+  margin-left: 0.68vw;
+  color: red;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-left: 3.06vw;
+  }
 `;
 
 const LoginText = styled.div`
   text-align: center;
-  margin-top: 3.5vh;
+  margin-top: 2.96vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   cursor: pointer;
   font-size: ${({ theme }) => theme.fontSizes.sm};
+`;
+
+const ImageMobile = styled.div`
+  & > Image {
+    ${({ theme }) => theme.device.mobileLg}{
+      width:31.94vw;
+    }
+  }
+
 `;
