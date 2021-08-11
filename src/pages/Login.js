@@ -16,7 +16,6 @@ const Login = (props) => {
   const dispatch = useDispatch();
   return (
     <React.Fragment>
-      <Header />
       <Container>
         <div>
           <Image width="162px" height="155px" src={Green} />
@@ -92,39 +91,48 @@ const Login = (props) => {
 export default Login;
 
 const Container = styled.div`
-  position: absolute;
-  width: 19.58vw;
-  top: 16.38vh;
+  width: 100vw;
+  height: 70vh;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 5vh;
   & > p {
-    margin-top: 26px;
-    margin-bottom: 73px;
+    margin-top: 3vh;
+    margin-bottom: 6vh;
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    line-height: 1.54;
+    letter-spacing: -1.32px;
+  }
+  form {
+    width: 19.58vw;
   }
 `;
 
 const Input = styled.input`
-  margin-bottom: 22px;
+  margin-bottom: 2.34vh;
   width: 100%;
   padding: 14px;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
+  ::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
 `;
 
 const ErrorMsg = styled.p`
-  margin-bottom: 10px;
+  margin-bottom: 1vh;
   text-align: center;
   color: red;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
 `;
 
-const LoginText = styled.p`
+const LoginText = styled.div`
   text-align: center;
-  margin-top: 31px;
+  margin-top: 3.5vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;

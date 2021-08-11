@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import Footer from "../components/Footer";
 import MainSlider from "../components/mainpage/MainSlider";
 import Category from "../components/mainpage/Category";
 import Popular from "../components/mainpage/Popular";
@@ -77,13 +76,32 @@ const Container = styled.div`
   justify-content: center;
   width: 100vw;
   height: 78vh;
-  margin-top: 70px;
+  margin-top: 7.5vh;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    margin-top: 10px;
+  }
 `;
 
 const ContainerLeft = styled.div`
   width: 49.48vw;
   height: 77.22vh;
-  margin-right: 20px;
+  margin-right: 1.04vw;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
 `;
 
 const ContainerRight = styled.div`

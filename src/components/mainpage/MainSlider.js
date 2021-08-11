@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-// slide 라이브러리
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
 import { Tag } from "../../elements";
+import Slide from "./Slide";
+
+const TOTAL_SLIDES = 2;
 
 const MainSlider = (props) => {
   const main_list = useSelector((state) => state.main);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideRef = useRef(null);
+
+  const nextSlide = () => {
+    if (currentSlide >= TOTAL_SLIDES) {
+      setCurrentSlide(0);
+    } else {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide === 0) {
+      setCurrentSlide(TOTAL_SLIDES);
+    } else {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  useEffect(() => {
+    slideRef.current.style.transition = "all .5s ease-in-out";
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+  }, [currentSlide]);
 
   const slideImages = [
     "https://i.ibb.co/YQCrYJR/banner-01.png",
@@ -16,75 +40,41 @@ const MainSlider = (props) => {
     "https://i.ibb.co/y6HNN1Q/banner-04.png",
   ];
 
-  const properties = {
-    duration: 5000,
-    transitionDuration: 500,
-    infinite: true,
-    prevArrow: (
-      <div
-        style={{
-          width: "48px",
-          marginRight: "-50px",
-          zIndex: "0",
-        }}
-      >
-        <img
-          style={{ paddingLeft: "15px" }}
-          src="https://i.ibb.co/nMW8sSq/banner-arrow-left.png"
-          alt=""
-        />
-      </div>
-    ),
-    nextArrow: (
-      <div
-        style={{
-          width: "48px",
-          marginLeft: "-60px",
-          zIndex: "0",
-        }}
-      >
-        <img src="https://i.ibb.co/hM4W1HZ/banner-arrow-right.png" alt="" />
-      </div>
-    ),
-  };
-
   return (
     <>
-      <Contain>
-        <Slide easing="ease" {...properties}>
-          {slideImages.map((l, idx) => (
-            <div key={idx} className="each-slide">
-              <SliderBox style={{ backgroundImage: `url(${l})` }}>
-                <TagBox>
-                  <Tag bg="none" color="white">
-                    #2주
-                  </Tag>
-                  <Tag bg="none" color="white">
-                    #인기챌린지
-                  </Tag>
-                </TagBox>
-                <TitleBox>주 2회 1만보 걷기</TitleBox>
-                <SubTitleBox>
-                  <span>10일째</span> 진행중!
-                </SubTitleBox>
-              </SliderBox>
-            </div>
-          ))}
-        </Slide>
-      </Contain>
+      <Container>
+        <SliderContainer ref={slideRef}>
+          <Slide img={slideImages[0]}>1번</Slide>
+          <Slide img={slideImages[1]}>2번</Slide>
+          <Slide img={slideImages[2]}>3번</Slide>
+        </SliderContainer>
+        <Button onClick={prevSlide}>Previous Slide</Button>
+        <Button onClick={nextSlide}>Next Slide</Button>
+      </Container>
     </>
   );
 };
 
 export default MainSlider;
 
-const Contain = styled.div`
-  display: flex;
-  width: 49.48vw;
-  height: 25.77vh;
-  border-radius: 8px;
-  flex-direction: column;
-  margin-bottom: 20px;
+const Container = styled.div`
+  width: 890px;
+  overflow: hidden;
+
+  ${({ theme }) => theme.device.mobileLg} {
+  }
+`;
+
+const Button = styled.button`
+  all: unset;
+  border: 1px solid coral;
+  padding: 0.5em 2em;
+  color: coral;
+  border-radius: 10px;
+`;
+const SliderContainer = styled.div`
+  width: 100%;
+  display: flex; //이미지들을 가로로 나열합니다.
 `;
 
 const SliderBox = styled.div`
@@ -92,6 +82,7 @@ const SliderBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
   height: 250px;
   padding: 0px 70px;
   font-size: 16px;
