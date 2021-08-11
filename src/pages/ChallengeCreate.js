@@ -220,7 +220,7 @@ function ChallengeCreate(props) {
               width="15.00vw"
               height="5.92vh"
               margin="7.03vh 0 0"
-              onClick={createChallenge}
+              _onClick={createChallenge}
             >
               챌린지 개설하기
             </Button>

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import "../../shared/style.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 import { useSelector } from "react-redux";
+
+import Calendar from "../../images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -103,19 +105,22 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
           />
         </Holiday>
       </div>
-      <SubT>인증 기간</SubT>
-      <SDatePicker
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={onChange}
-        filterDate={isWeekday}
-        dateFormat="yyyy-MM-dd"
-        placeholderText="체크인 날짜 선택"
-        locale={ko}
-        minDate={date}
-        isClearable={true}
-      />
+        <CalendarContainer>
+          <img src={Calendar} alt="calendar" />
+          <SubT>인증 기간</SubT>
+        </CalendarContainer>
+        <SDatePicker
+          selectsRange={true}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={onChange}
+          filterDate={isWeekday}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="체크인 날짜 선택"
+          locale={ko}
+          minDate={date}
+          isClearable={true}
+        />
     </>
   );
 }
@@ -151,10 +156,14 @@ const Holiday = styled.div`
     padding-top: 1.01vh;
   }
   & > input {
-    margin-top: 1.01vh;
-    margin-left: 8.49vw;
-  }
-  
+    cursor: pointer;
+    border: 1px solid #222222;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    margin-top: 0.78vh;
+    margin-left: 8.11vw;
+  }  
 `;
 
 const SDatePicker = styled(DatePicker)`
@@ -168,5 +177,17 @@ const SDatePicker = styled(DatePicker)`
   ::placeholder {
     font-size: ${({theme}) => theme.fontSizes.ms};
     color : ${({theme}) => theme.colors.darkGray};
+  }
+`;
+
+const CalendarContainer = styled.div`
+  position: relative;
+  & > img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 16px;
+    top: 30px;
+    z-index: 10;
   }
 `;

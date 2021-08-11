@@ -147,6 +147,9 @@ const Container = styled.div`
     margin-top: 26px;
     margin-bottom: 73px;
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 91.11vw;
+  }
 `;
 
 const Input = styled.input`
@@ -159,7 +162,6 @@ const Input = styled.input`
 
 const ErrorMsg = styled.p`
   margin-bottom: 10px;
-  text-align: center;
   color: red;
   font-size: 12px;
 `;
