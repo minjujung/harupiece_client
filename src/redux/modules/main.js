@@ -103,7 +103,7 @@ const searchAllDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.searchAll()
       .then((res) => {
-        dispatch(search(res.data));
+        dispatch(search(res.data.content));
       })
       .catch((err) => {
         console.log(err);

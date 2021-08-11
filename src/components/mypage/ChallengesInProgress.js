@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button, Card, Tag } from "../../elements";
@@ -57,29 +57,31 @@ function ChallengesInProgress(props) {
     <Container>
       {myChallengeList && myChallengeList.length !== 0 ? (
         <CardGrid>
-          {myChallengeList.map((list, idx) => (
-            <Card
-              key={list.challengeId}
-              inProcess={list.participateSize}
-              onClick={() =>
-                history.push(`/challenge/${list.challengeId}/intro`)
-              }
-              width="16.04vw"
-              height="34.63vh"
-              title={list.challengeTitle}
-              date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-              src={list.challengeImgUrl}
-              alt="challenge"
-            >
-              <Tag bg="mainOrange" color="white" padding="8px 20px">
-                금주
-              </Tag>
-              {my_info.memberId === list.challengeMember}
-              <Tag bg="mainGreen" color="white" padding="8px 20px">
-                내가 만든 챌린지
-              </Tag>
-            </Card>
-          ))}
+          {myChallengeList.map((list, idx) => {
+            return (
+              <Card
+                key={list.challengeId}
+                inProcess={list.participateSize}
+                onClick={() =>
+                  history.push(`/challenge/${list.challengeId}/intro`)
+                }
+                width="16.04vw"
+                height="34.63vh"
+                title={list.challengeTitle}
+                date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
+                src={list.challengeImgUrl}
+                alt="challenge"
+              >
+                <Tag bg="mainOrange" color="white" padding="8px 20px">
+                  {list.categoryName}
+                </Tag>
+                {my_info.memberId === list.challengeMember}
+                <Tag bg="mainGreen" color="white" padding="8px 20px">
+                  내가 만든 챌린지
+                </Tag>
+              </Card>
+            );
+          })}
         </CardGrid>
       ) : (
         <NoListMent>

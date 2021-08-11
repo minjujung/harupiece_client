@@ -81,6 +81,10 @@ const InfoContainer = styled.div`
   border-radius: 8px;
   margin-bottom: 20px;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;
 
 const InfoBox = styled.div`
