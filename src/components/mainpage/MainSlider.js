@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
+import left from "../../assets/images/icons/arrow/left.svg";
+import Right from "../../assets/images/icons/arrow/right.svg";
 
 const TOTAL_SLIDES = 3;
 
@@ -58,21 +60,41 @@ const MainSlider = (props) => {
           onMouseOut={() => setIsFlowing(true)}
           ref={slideRef}
         >
-          <Slide>
-            <IMG src={slideImages[0]} />
-          </Slide>
-          <Slide>
-            <IMG src={slideImages[1]} />
-          </Slide>
-          <Slide>
-            <IMG src={slideImages[2]} />
-          </Slide>
-          <Slide>
-            <IMG src={slideImages[3]} />
-          </Slide>
+          {slideImages.map((l, idx) => {
+            return (
+              <Slide>
+                <SliderBox
+                  style={{
+                    backgroundImage: `url(${l})`,
+                  }}
+                >
+                  <TagBox>
+                    <Tag bg="none" color="white">
+                      #2주
+                    </Tag>
+                    <Tag bg="none" color="white">
+                      #인기챌린지
+                    </Tag>
+                  </TagBox>
+                  <TitleBox>
+                    <div>주 2회</div>
+                    <div>1만보 걷기</div>
+                  </TitleBox>
+                  <SubTitleBox>
+                    <span>10일째</span> 진행중!
+                  </SubTitleBox>
+                </SliderBox>
+              </Slide>
+            );
+          })}
         </SliderContainer>
-        <div onClick={prevSlide}>Previous Slide</div>
-        <div onClick={nextSlide}>Next Slide</div>
+        <PrevBtn onClick={prevSlide}>
+          <img style={{ width: "50%" }} src={left} alt="" />
+        </PrevBtn>
+
+        <NextBtn onClick={nextSlide}>
+          <img style={{ width: "50%" }} src={Right} alt="" />
+        </NextBtn>
       </Container>
     </>
   );
@@ -83,16 +105,42 @@ export default MainSlider;
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
+  position: relative;
   ${({ theme }) => theme.device.mobileLg} {
   }
 `;
 
-const Button = styled.button`
-  all: unset;
-  border: 1px solid coral;
-  padding: 0.5em 2em;
-  color: coral;
-  border-radius: 10px;
+const PrevBtn = styled.button`
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0.7;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 40%;
+  left: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PrevArrow = styled.div`
+  color: ${({ theme }) => theme.colors.mainGreen};
+  z-index: 10;
+`;
+
+const NextBtn = styled.button`
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0.7;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 40%;
+  right: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SliderContainer = styled.div`
@@ -102,24 +150,19 @@ const SliderContainer = styled.div`
 
 const Slide = styled.div`
   width: 950px;
+  border-radius: 10px;
   padding-right: 10px;
 `;
 
-const IMG = styled.img`
+const SliderBox = styled.div`
   width: 950px;
   height: 30vh;
-`;
-
-const SliderBox = styled.div`
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
-  height: 250px;
-  padding: 0px 70px;
-  font-size: 16px;
-  border-radius: 10px;
+  padding-left: 100px;
 `;
 
 const TagBox = styled.div`
@@ -132,6 +175,10 @@ const TitleBox = styled.div`
   color: ${({ theme }) => theme.colors.white};
   padding: 15px 0;
   letter-spacing: -0.08em;
+  display: flex;
+  div {
+    padding-right: 10px;
+  }
 `;
 
 const SubTitleBox = styled.div`
