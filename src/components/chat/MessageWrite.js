@@ -35,6 +35,7 @@ const MessageWrite = ({ sendMessage }) => {
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             sendMessage();
+            setMsg("");
           }
         }}
       />
@@ -43,7 +44,10 @@ const MessageWrite = ({ sendMessage }) => {
         height="24px"
         src={send}
         alt="send"
-        onClick={sendMessage}
+        onClick={() => {
+          sendMessage();
+          setMsg("");
+        }}
       />
     </InputField>
   );

@@ -24,17 +24,25 @@ export default Footer;
 
 const FooterBox = styled.div`
   height: 22.22vh;
+<<<<<<< HEAD
   width: 100%;
+  position: relative;
   bottom: 0;
+=======
+  width: 100vw;
+>>>>>>> 756126c4461f768d1bfcaf5aca87432d2e91b291
   border-top: 1px solid #efefef;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   z-index: 10;
   margin-top: 11.76vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-bottom: 40px;
+    position: inherit;
+  }
 `;
 
 const LeftBox = styled.div`
-  width: 50vw;
   height: 9.25vh;
   font-size: 16px;
   display: flex;
@@ -45,15 +53,34 @@ const LeftBox = styled.div`
   margin-left: 16vw;
   div {
     img {
-      width: 250px;
+      width: 252px;
       height: 40px;
       margin-bottom: 1.8vh;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-left: 20px;
+    div {
+      width: 100%;
+      font-size: 18px;
+      img {
+        width: 35vw;
+        height: 3.12vh;
+        margin-bottom: 40px;
+      }
     }
   }
 `;
 
 const RightBox = styled.div`
-  width: 25vw;
-  height: 9.25vh;
-  padding-top: 12vh;
+  div {
+    position: absolute;
+    right: 16.67vw;
+    bottom: 5vh;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    div {
+      display: none;
+    }
+  }
 `;

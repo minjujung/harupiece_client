@@ -351,6 +351,10 @@ const ImageList = styled.article`
   display: flex;
   width: 15.83vw;
   height: 28.15vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-bottom: 200px;
+  }
 `;
 
 const DialogInfo = styled.div`

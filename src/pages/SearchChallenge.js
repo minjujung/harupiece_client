@@ -82,6 +82,7 @@ function SearchChallenge(props) {
   // 실질적인 필터 기능
   // challenges = 서버로 부터 받은 전체 데이터 // filters = 선택한 필터
   const multiPropsFilter = (challenges, filters) => {
+    console.log(challenges);
     const filterKeys = Object.keys(filters); //선택한 필터를 열거할 수 있는 배열로 반환 => [categoryName, tags]
     return challenges.search.filter((challenge) => {
       return filterKeys.every((key) => {
@@ -98,7 +99,7 @@ function SearchChallenge(props) {
 
   const searchProducts = () => {
     const filteredProducts = multiPropsFilter(searchList, filteredCollected());
-    return filteredProducts.filter((product) => {
+    return filteredProducts?.filter((product) => {
       return product;
     });
   };

@@ -105,7 +105,7 @@ export const MainApis = {
   search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
   searchCategory: (categoryName) =>
     instance.get(`/api/guest/challenge/category/1/${categoryName}`),
-  searchAll: () => instance.get(`/api/guest/challenge`),
+  searchAll: () => instance.get(`/api/guest/challenge-all/1`),
 };
 
 // 인증샷 포스팅
@@ -148,7 +148,8 @@ export const MypageApis = {
 
 // 채팅방
 export const ChatApis = {
-  getMessages: () => {},
+  getMessages: (challenge_id) =>
+    instance.get(`/sub/api/chatroom/${challenge_id}`),
 };
 
 export default instance;

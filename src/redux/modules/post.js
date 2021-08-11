@@ -74,7 +74,7 @@ const getPostDB =
 
         let new_paging = {
           page:
-            res.data.postList.length < _paging.size ? false : _paging.page + 1,
+            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
           next: res.data.hasNext,
           size: _paging.size,
         };

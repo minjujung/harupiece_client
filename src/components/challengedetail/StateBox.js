@@ -118,6 +118,9 @@ const StateContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.lightGray};
   border-radius: 10px;
   position: fixed;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;
 
 const UserStatus = styled.p`

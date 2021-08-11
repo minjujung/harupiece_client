@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CreateImgSelect from "../components/challenge/CreateImgSelect";
 import CreateCertification from "../components/challenge/CreateCertification";
@@ -299,16 +299,18 @@ const Textarea = styled.textarea`
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
-  background-color: ${({theme}) => theme.colors.lightGray};
-  border-radius : 8px;
-  font-size: ${({theme}) => theme.fontSizes.ms};
-  color : ${({theme}) => theme.colors.darkGray};
-  font-weight:400;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  border-radius: 8px;
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  color: ${({ theme }) => theme.colors.darkGray};
+  font-weight: 400;
   ::placeholder {
-    font-size: ${({theme}) => theme.fontSizes.ms};
-    color : ${({theme}) => theme.colors.darkGray};
-    font-weight:400;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    color: ${({ theme }) => theme.colors.darkGray};
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
   }
 `;
 
@@ -332,7 +334,6 @@ const SelectBox = styled.select`
   -moz-appearance: none;
   appearance: none;
 `;
-
 
 const SelectContainer = styled.div`
   width: 15vw;

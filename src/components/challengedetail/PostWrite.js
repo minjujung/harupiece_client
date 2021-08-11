@@ -64,8 +64,8 @@ const PostWrite = ({ challengeId }) => {
   return (
     <>
       <Button
-        width="16.15vw"
-        padding="21px 64px"
+        width="100%"
+        height="5.93vh"
         margin="0 0 20px 0"
         _onClick={handleClickOpen}
       >
