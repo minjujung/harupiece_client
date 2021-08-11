@@ -8,7 +8,7 @@ import Header from "../components/Header";
 import { useDispatch } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
-import Green from "../images/level/green.svg";
+import Green from "../assets/images/level/green.svg";
 
 import { Button, Image } from "../elements";
 

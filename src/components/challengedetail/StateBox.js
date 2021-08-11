@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import level from "../../images/icons/level.svg";
-import completed from "../../images/icons/completed.svg";
+import level from "../../assets/images/icons/level.svg";
+import completed from "../../assets/images/icons/completed.svg";
 import levelData from "../../shared/level";
 import { Image } from "../../elements";
 

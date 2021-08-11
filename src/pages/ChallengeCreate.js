@@ -10,7 +10,7 @@ import { actionCreators as createActions } from "../redux/modules/challengeCreat
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
 // import { Input } from "../elements";
-import Down from "../images/icons/arrow/down.svg";
+import Down from "../assets/images/icons/arrow/down.svg";
 import { Button } from "../elements";
 
 function ChallengeCreate(props) {
@@ -310,7 +310,6 @@ const Textarea = styled.textarea`
     font-weight:400;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
-  
 `;
 
 const Label = styled.label`
@@ -334,6 +333,7 @@ const SelectBox = styled.select`
   appearance: none;
 `;
 
+
 const SelectContainer = styled.div`
   width: 15vw;
   position: relative;
@@ -345,5 +345,4 @@ const SelectContainer = styled.div`
     top: 16px;
   }
 `;
-
 export default ChallengeCreate;

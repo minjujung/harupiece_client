@@ -1,8 +1,10 @@
-const device = { 
+const device = {
   mobileLg: `@media screen and (min-width: 360px) and (max-width: 720px)`,
-  tablet: `@media screen and (min-width: 768px)`, 
+  tablet: `@media screen and (min-width: 768px)`,
   desktop: `@media screen and (min-width: 1024px)`,
-  };
+};
+
+//font-size: ${({ theme }) => theme.fontSizes.lg};
 
 const colors = {
   mainGreen: "#00DB9A",

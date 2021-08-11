@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import close from "../../images/icons/close.svg";
+import close from "../../assets/images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";

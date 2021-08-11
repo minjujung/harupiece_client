@@ -6,7 +6,7 @@ import UpcomingChallenge from "../components/mypage/UpcomingChallenge";
 import CompletedChallenge from "../components/mypage/CompletedChallenge";
 import MyPassword from "../components/mypage/MyPassword";
 import MyPieces from "../components/mypage/MyPieces";
-import camera from "../images/icons/camera.svg";
+import camera from "../assets/images/icons/camera.svg";
 import { Button, Image } from "../elements";
 
 import { useDispatch, useSelector } from "react-redux";

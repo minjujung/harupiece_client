@@ -4,6 +4,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import ChallengeDetail from "../pages/ChallengeDetail";
 import ChallengeCreate from "../pages/ChallengeCreate";
 import ChallengeEdit from "../pages/ChallengeEdit";
@@ -46,6 +47,7 @@ function App() {
         />
         <Route path="/challenge/:id" component={ChallengeDetail} />
         <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
+        <Footer />
       </ConnectedRouter>
     </ThemeProvider>
   );

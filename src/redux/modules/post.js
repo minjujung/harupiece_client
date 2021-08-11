@@ -7,11 +7,17 @@ import { PostApis } from "../../shared/api";
 
 import AWS from "aws-sdk";
 
+const RESET_POST = "RESET_POST";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
+
+const resetPost = createAction(RESET_POST, (post_list, paging) => ({
+  post_list,
+  paging,
+}));
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
@@ -50,11 +56,15 @@ const initialState = {
 
 //챌린지 상세 페이지에서 인증샷 목록 불러오기(InfinityScroll)
 const getPostDB =
-  (challengeId, paging) =>
+  (challengeId) =>
   (dispatch, getState, { history }) => {
     const _paging = getState().post.paging;
+    console.log(_paging);
 
-    if (_paging.page === false && _paging.next === false) return;
+    if (_paging.page === false && _paging.next === false) {
+      console.log("check shotlistpage");
+      return;
+    }
 
     dispatch(loading(true));
 
@@ -62,14 +72,15 @@ const getPostDB =
       .then((res) => {
         consoleLogger("인증샷 불러올때 응답", res);
 
-        let paging = {
+        let new_paging = {
           page:
             res.data.postList.length < _paging.size ? false : _paging.page + 1,
           next: res.data.hasNext,
           size: _paging.size,
         };
 
-        dispatch(setPost(res.data.postList, paging));
+        console.log(res.data.postList);
+        dispatch(setPost(res.data.postList, new_paging));
       })
       .catch((error) => {
         if (
@@ -317,6 +328,13 @@ const clickCheckDB =
 
 export default handleActions(
   {
+    [RESET_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.post_list;
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
+      }),
+
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.post_list);
@@ -356,6 +374,7 @@ export default handleActions(
 );
 
 const actionCreator = {
+  resetPost,
   setPost,
   editPost,
   getPostDB,

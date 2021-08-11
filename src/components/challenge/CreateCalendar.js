@@ -141,7 +141,7 @@ const SubT = styled.p`
 `;
 
 const Holiday = styled.div`
-  width: 15.00vw;
+  width: 15vw;
   display: flex;
   background-color: ${({ theme }) => theme.colors.lightGray};
   height: 3.7vh;
@@ -167,16 +167,16 @@ const Holiday = styled.div`
 `;
 
 const SDatePicker = styled(DatePicker)`
-  width: 15.00vw;
-  height: 3.70vh;
+  width: 15vw;
+  height: 3.7vh;
   border-radius: 8px;
   margin-bottom: 2.96vh;
   padding-left: 0.83vw;
   padding-top: 1.01vh;
-  background-color : ${({theme}) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.lightGray};
   ::placeholder {
-    font-size: ${({theme}) => theme.fontSizes.ms};
-    color : ${({theme}) => theme.colors.darkGray};
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    color: ${({ theme }) => theme.colors.darkGray};
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import camera from "../../images/icons/camera.svg";
+import camera from "../../assets/images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 import { Image } from "../../elements/";

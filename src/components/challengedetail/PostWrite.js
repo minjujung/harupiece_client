@@ -7,8 +7,8 @@ import { actionCreator as imageActions } from "../../redux/modules/image";
 import { actionCreator as postActions } from "../../redux/modules/post";
 import Button from "../../elements/Button";
 import { Image } from "../../elements";
-import camera from "../../images/icons/camera.svg";
-import close from "../../images/icons/close.svg";
+import camera from "../../assets/images/icons/camera.svg";
+import close from "../../assets/images/icons/close.svg";
 
 const PostWrite = ({ challengeId }) => {
   const dispatch = useDispatch();

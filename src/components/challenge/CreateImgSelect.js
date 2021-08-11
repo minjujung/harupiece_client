@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Image } from "../../elements";
-import close from "../../images/icons/close.svg";
+import close from "../../assets/images/icons/close.svg";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";

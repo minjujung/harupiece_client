@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Tag = ({ children, bg, color, padding, onClick }) => {
-  const styles = { bg, color, padding };
+const Tag = ({ children, bg, color, padding, onClick, border, fontWeight }) => {
+  const styles = { bg, color, padding, border, fontWeight };
   return (
     <TagFrame onClick={onClick} {...styles}>
       {children}
@@ -17,7 +17,7 @@ Tag.defaultProps = {
   padding: false,
   onClick: () => {},
   border: "1px solid white",
-  padding: "7px",
+  fontWeight: false,
 };
 
 export default Tag;
@@ -31,7 +31,7 @@ const TagFrame = styled.div`
     props.color
       ? props.theme.colors[props.color]
       : props.theme.colors.darkGray};
-  font-weight: 600;
+  font-weight: ${(props) => props.fontWeight};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   border-radius: 27px;
   padding: ${(props) => (props.padding ? props.padding : "7px")};
