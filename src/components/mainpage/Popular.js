@@ -88,6 +88,10 @@ const Contain = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;
 
 const Title = styled.div`

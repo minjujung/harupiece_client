@@ -36,4 +36,9 @@ const TagFrame = styled.div`
   border-radius: 27px;
   padding: ${(props) => (props.padding ? props.padding : "7px")};
   margin-right: 0.5em;
+
+  /* mobile */
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 13px;
+  }
 `;

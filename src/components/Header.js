@@ -58,12 +58,12 @@ const Header = (props) => {
     <React.Fragment>
       <HeaderBox>
         <div onClick={goHome}>
-          <Image width="220px" height="40px" cursor src={logo} />
+          <Image width="220px" height="40px" src={logo} />
         </div>
         <Container1>
           <div>
             <HeaderSerBtn onClick={handleClickOpen}>
-              <Image width="22px" height="23px" cursor src={Search} />
+              <Image width="22px" height="23px" src={Search} />
               <p>검색</p>
             </HeaderSerBtn>
             <Dialog
@@ -74,14 +74,14 @@ const Header = (props) => {
             >
               <SDialogContent>
                 <LogoBox>
-                  <div onClick={() => history.push("/")}>
-                    <Image width="220px" height="40px" cursor src={logo} />
+                  <div onClick={goHome}>
+                    <Image width="220px" height="40px" src={logo} />
                   </div>
                 </LogoBox>
                 <SearchBox>
                   <SearchLeftBox>
                     <button onClick={search}></button>
-                    <Image width="22px" height="23px" cursor src={Search} />
+                    <Image width="22px" height="23px" src={Search} />
                     <label htmlFor="search-form">
                       <input
                         type="search"
@@ -94,7 +94,7 @@ const Header = (props) => {
                     </label>
                   </SearchLeftBox>
                   <SearchRightBox>
-                    <Image width="18px" height="18px" cursor src={close} />
+                    <Image width="18px" height="18px" src={close} />
                   </SearchRightBox>
                 </SearchBox>
               </SDialogContent>
@@ -107,7 +107,7 @@ const Header = (props) => {
                   dispatch(userCreators.logOutDB());
                 }}
               >
-                <Image width="22px" height="23px" cursor src={login} />
+                <Image width="22px" height="23px" src={login} />
                 <p>로그아웃</p>
               </HeaderLogBtn>
               <HeaderMyBtn
@@ -115,7 +115,7 @@ const Header = (props) => {
                   history.push("/mypage/now");
                 }}
               >
-                <Image width="22px" height="23px" cursor src={myPage} />
+                <Image width="22px" height="23px" src={myPage} />
                 <p>마이페이지</p>
               </HeaderMyBtn>
               <Image
@@ -133,7 +133,7 @@ const Header = (props) => {
                   history.push("/login");
                 }}
               >
-                <Image width="22px" height="23px" cursor src={login} />
+                <Image width="22px" height="23px" src={login} />
                 <p>로그인</p>
               </HeaderLogBtn>
               <Image
