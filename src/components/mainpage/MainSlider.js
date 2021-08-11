@@ -96,6 +96,7 @@ const MainSlider = (props) => {
           <img style={{ width: "50%" }} src={Right} alt="" />
         </NextBtn>
       </Container>
+      {/* Moblie */}
     </>
   );
 };
@@ -107,6 +108,7 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
+    display: none;
   }
 `;
 
@@ -122,11 +124,6 @@ const PrevBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const PrevArrow = styled.div`
-  color: ${({ theme }) => theme.colors.mainGreen};
-  z-index: 10;
 `;
 
 const NextBtn = styled.button`
