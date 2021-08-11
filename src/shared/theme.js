@@ -2,6 +2,7 @@ const device = {
   mobileLg: `@media screen and (min-width: 360px) and (max-width:720px)`,
   tablet: `@media screen and (min-width: 720px)`,
   desktop: `@media screen and (min-width: 1000px)`,
+
 };
 
 //font-size: ${({ theme }) => theme.fontSizes.lg};
