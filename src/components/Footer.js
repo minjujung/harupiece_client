@@ -24,8 +24,7 @@ export default Footer;
 
 const FooterBox = styled.div`
   height: 22.22vh;
-  width: 100%;
-  bottom: 0;
+  width: 100vw;
   border-top: 1px solid #efefef;
   display: flex;
   justify-content: space-between;
