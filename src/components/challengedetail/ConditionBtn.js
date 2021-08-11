@@ -46,7 +46,7 @@ const ConditionBtn = (props) => {
       } else {
         return (
           <Button
-            width="16.15vw"
+            width="100%"
             height="5.93vh"
             bg="white"
             color="mainGreen"
@@ -80,7 +80,7 @@ const ConditionBtn = (props) => {
     return (
       <Button
         borderRadius="16px"
-        width="16.15vw"
+        width="100%"
         height="5.93vh"
         border="white"
         bg="white"
@@ -96,7 +96,7 @@ const ConditionBtn = (props) => {
     return (
       <Button
         borderRadius="16px"
-        width="16.15vw"
+        width="100%"
         height="5.93vh"
         border="white"
         bg="white"

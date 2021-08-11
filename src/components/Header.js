@@ -10,6 +10,7 @@ import login from "../assets/images/icons/login.svg";
 import myPage from "../assets/images/icons/profile.svg";
 import Search from "../assets/images/icons/search.svg";
 import profile from "../assets/images/logo/profile.png";
+import menu from "../assets/images/icons/menubar.svg";
 // modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -56,6 +57,23 @@ const Header = (props) => {
 
   return (
     <React.Fragment>
+      <MobileHeader>
+        <Image width="22px" height="23px" src={menu} alt="menu" />
+        <Image
+          width="220px"
+          height="35px"
+          cursor
+          src={logo}
+          onClick={() => history.push("/")}
+        />
+        <Image
+          width="22px"
+          height="23px"
+          cursor
+          src={Search}
+          onClick={handleClickOpen}
+        />
+      </MobileHeader>
       <HeaderBox>
         <div onClick={goHome}>
           <Image width="220px" height="40px" src={logo} />
@@ -153,6 +171,23 @@ const Header = (props) => {
 
 export default Header;
 
+const MobileHeader = styled.header`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 8.75vh;
+    width: 100%;
+    top: 0;
+    padding: 0 4.44vw;
+    position: fixed;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.white};
+    border-bottom: 2px solid #eeeeee;
+  }
+`;
+
 const SDialogContent = styled.div`
   width: 100vw;
   top: 0;
@@ -194,7 +229,7 @@ const SearchRightBox = styled.div``;
 
 const HeaderBox = styled.div`
   height: 10.55vh;
-  width: 100vw;
+  width: 100%;
   top: 0;
   padding: 0 16.67vw;
   position: fixed;
@@ -204,6 +239,9 @@ const HeaderBox = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid #eeeeee;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;
 
 const HeaderSerBtn = styled.button`

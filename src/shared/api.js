@@ -148,7 +148,8 @@ export const MypageApis = {
 
 // 채팅방
 export const ChatApis = {
-  getMessages: () => {},
+  getMessages: (challenge_id) =>
+    instance.get(`/sub/api/chatroom/${challenge_id}`),
 };
 
 export default instance;

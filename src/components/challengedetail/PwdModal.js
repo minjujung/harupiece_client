@@ -64,10 +64,11 @@ const PwdModal = (props) => {
   return (
     <>
       <Button
-        width="16.15vw"
+        width="100%"
+        height="5.93vh"
         bg="mainGreen"
         color="white"
-        padding="21px 64px"
+        // padding="21px 64px"
         border="lightGray"
         margin="0 0 20px 0"
         _onClick={takePartIn}
