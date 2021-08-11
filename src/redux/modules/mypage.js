@@ -207,7 +207,7 @@ const changePasswordDB = (password) => {
       })
       .catch((error) => {
         if (
-          error.response.data.message === "현재 비밀번호가 일치하지 않습니다."
+          error.response?.data?.message === "현재 비밀번호가 일치하지 않습니다."
         ) {
           window.alert("현재 비밀번호가 일치하지 않습니다.");
         } else {

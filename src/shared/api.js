@@ -108,6 +108,7 @@ export const MainApis = {
   searchAll: () => instance.get(`/api/guest/challenge-all/1`),
 };
 
+// 인증샷 포스팅
 export const PostApis = {
   getPost: (page, challengeId) =>
     instance.get(`api/posting/${page}/${challengeId}`),
@@ -118,6 +119,7 @@ export const PostApis = {
   clickCheck: (check_info) => instance.post("api/certification", check_info),
 };
 
+// 챌린지 상세페이지
 export const ChallengeDetailApis = {
   getDetail: (challenge_id) =>
     instance.get(`api/guest/challenge/${challenge_id}`),
@@ -142,6 +144,11 @@ export const MypageApis = {
   getPoint: () => instance.get(`api/member/mypage/history`),
   changePassword: (password) =>
     instance.put(`/api/member/mypage/password`, password),
+};
+
+// 채팅방
+export const ChatApis = {
+  getMessages: () => {},
 };
 
 export default instance;
