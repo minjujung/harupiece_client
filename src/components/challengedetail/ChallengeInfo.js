@@ -6,7 +6,6 @@ import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
-import { actionCreator as postActions } from "../../redux/modules/post";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
@@ -143,6 +142,7 @@ const Section = styled.section`
     padding: 0 4.44vw;
     h3 {
       margin-bottom: 24px;
+      font-size: 32px;
     }
   }
 `;
@@ -157,7 +157,12 @@ const Info = styled.p`
   }
   p {
     line-height: normal;
-    margin-left: 95px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 28px;
+    span {
+      font-size: 28px;
+    }
   }
 `;
 
@@ -215,5 +220,4 @@ const Desc = styled.p`
 
 const TagFrame = styled.div`
   display: flex;
-  margin-bottom: 80px;
 `;

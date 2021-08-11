@@ -5,25 +5,24 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import PostList from "./PostList";
 
 import { useDispatch, useSelector } from "react-redux";
+import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../../redux/modules/post";
 
 const ShotList = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
   const { list, paging, is_loading } = useSelector((state) => state.post);
-  console.log(paging);
+
   const challengeId = props.match.params.id;
 
-  console.log(props);
   // 인증샷 목록 불러오기
   useEffect(() => {
     if (!challengeId) {
       return;
     }
-    //
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
     dispatch(postActions.getPostDB(challengeId));
-    console.log("doing dispatch!");
   }, []);
 
   //challenge날짜수 계산
@@ -45,7 +44,7 @@ const ShotList = (props) => {
 
   return (
     <ChallengeDesc>
-      <Section>
+      <Section nolist={list.length === 0 ? true : false}>
         <InfinityScroll
           callNext={callNext}
           is_next={paging.next ? true : false}
@@ -75,28 +74,44 @@ export default ShotList;
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;
-  margin-top: 40.55vh;
+  margin: 40.55vh 0 14.81vh 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-bottom: 200px;
+  }
 `;
 
 const Section = styled.section`
   width: 49.48vw;
-  display: grid;
-  gap: 1.04vw;
-  grid-template-columns: repeat(3, 15.78vw);
-  grid-template-rows: repeat(1, 28.15vh);
-  grid-auto-rows: 28.15vh;
-  h3 {
-    font-size: ${({ theme }) => theme.fontSizes.md};
-    font-weight: bold;
-    margin: 1.2em 0;
+  margin-top: 3.7vh;
+  padding-bottom: 200px;
+  position: relative;
+  ${(props) =>
+    !props.nolist
+      ? "display: grid;gap: 1.04vw;grid-template-columns: repeat(3, 15.78vw);grid-template-rows: repeat(1, 28.15vh);grid-auto-rows: 28.15vh;"
+      : null}
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 0 4.44vw;
+    ${(props) =>
+      !props.nolist
+        ? "display: grid;gap: 4.44vw;grid-template-columns: repeat(2, 43.33vw);grid-template-rows: repeat(1, 43.33vw);grid-auto-rows: 43.33vw;"
+        : null}
+    img {
+      width: 43.33vw;
+      height: 43.33vw;
+    }
   }
 `;
 
 const NoListMent = styled.p`
+  margin-top: 3.7vh;
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;
+  text-align: center;
 `;

@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+
 // slide 라이브러리
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { Tag } from "../../elements";
 
 const MainSlider = (props) => {
-  const main_list = useSelector((state) => state.main);
-
   const slideImages = [
     "https://i.ibb.co/YQCrYJR/banner-01.png",
     "https://i.ibb.co/0KmsdWb/banner-02.png",
@@ -47,29 +45,29 @@ const MainSlider = (props) => {
       </div>
     ),
   };
-
   return (
     <>
       <Contain>
         <Slide easing="ease" {...properties}>
-          {slideImages.map((l, idx) => (
-            <div key={idx} className="each-slide">
-              <SliderBox style={{ backgroundImage: `url(${l})` }}>
-                <TagBox>
-                  <Tag bg="none" color="white">
-                    #2주
-                  </Tag>
-                  <Tag bg="none" color="white">
-                    #인기챌린지
-                  </Tag>
-                </TagBox>
-                <TitleBox>주 2회 1만보 걷기</TitleBox>
-                <SubTitleBox>
-                  <span>10일째</span> 진행중!
-                </SubTitleBox>
-              </SliderBox>
-            </div>
-          ))}
+          {slideImages &&
+            slideImages.map((l, idx) => (
+              <div key={idx} className="each-slide">
+                <SliderBox style={{ backgroundImage: `url(${l})` }}>
+                  <TagBox>
+                    <Tag bg="none" color="white">
+                      #2주
+                    </Tag>
+                    <Tag bg="none" color="white">
+                      #인기챌린지
+                    </Tag>
+                  </TagBox>
+                  <TitleBox>주 2회 1만보 걷기</TitleBox>
+                  <SubTitleBox>
+                    <span>10일째</span> 진행중!
+                  </SubTitleBox>
+                </SliderBox>
+              </div>
+            ))}
         </Slide>
       </Contain>
     </>

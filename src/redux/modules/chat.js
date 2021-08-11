@@ -62,7 +62,7 @@ export default handleActions(
 
     [GET_MESSAGES]: (state, action) =>
       produce(state, (draft) => {
-        draft.info.messages.push(action.payload.setMessages);
+        draft.info.messages.push(action.payload.message);
       }),
 
     [WRITE_MESSAGE]: (state, action) =>

@@ -32,10 +32,13 @@ const FooterBox = styled.div`
   justify-content: space-between; */
   z-index: 10;
   margin-top: 11.76vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-bottom: 40px;
+    position: inherit;
+  }
 `;
 
 const LeftBox = styled.div`
-  width: 100%;
   height: 9.25vh;
   font-size: 16px;
   display: flex;
@@ -46,7 +49,7 @@ const LeftBox = styled.div`
   margin-left: 16vw;
   div {
     img {
-      width: 250px;
+      width: 252px;
       height: 40px;
       margin-bottom: 1.8vh;
     }
@@ -55,9 +58,10 @@ const LeftBox = styled.div`
     margin-left: 20px;
     div {
       width: 100%;
+      font-size: 18px;
       img {
-        width: 126px;
-        height: 20px;
+        width: 35vw;
+        height: 3.12vh;
         margin-bottom: 40px;
       }
     }
@@ -69,5 +73,10 @@ const RightBox = styled.div`
     position: absolute;
     right: 16.67vw;
     bottom: 5vh;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    div {
+      display: none;
+    }
   }
 `;
