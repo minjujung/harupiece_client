@@ -54,4 +54,7 @@ const ImageFrame = styled.img`
   padding: 0;
   object-fit: fill;
   cursor: pointer;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+  }
 `;

@@ -52,7 +52,7 @@ const Main = (props) => {
               >
                 챌린지등록하기+
               </Button>
-              <MButton _onClick={goToCreate}>+</MButton>
+              <MButton onClick={goToCreate}>+</MButton>
             </>
           ) : (
             <Button
@@ -87,7 +87,7 @@ const Container = styled.div`
     align-items: center;
     width: 360px;
     height: 100vh;
-    margin-top: 10px;
+    margin-top: 10vh;
   }
 `;
 
@@ -127,8 +127,16 @@ const MButton = styled.button`
     height: 66px;
     border-radius: 50%;
     position: fixed;
+    background-color: ${({ theme }) => theme.colors.mainGreen};
     bottom: 10vh;
     right: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: ${({ theme }) => theme.colors.white};
+    font-weight: 300;
+    padding-bottom: 5px;
     z-index: 100;
   }
   ${({ theme }) => theme.device.desktop} {

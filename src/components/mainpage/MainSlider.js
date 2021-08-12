@@ -108,7 +108,7 @@ const Container = styled.div`
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    padding-top: 50px;
+    padding-top: 25vh;
   }
 `;
 
@@ -127,7 +127,7 @@ const PrevBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 45%;
+    top: 70%;
     border-radius: 50%;
   }
 `;
@@ -147,7 +147,7 @@ const NextBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 45%;
+    top: 70%;
     border-radius: 50%;
   }
 `;

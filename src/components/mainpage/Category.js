@@ -11,7 +11,7 @@ import { changeForm } from "../mypage/ChallengesInProgress";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
-const TOTAL_SLIDES = 2;
+const TOTAL_SLIDES = 1;
 const Category = (props) => {
   const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
@@ -225,17 +225,24 @@ const Category = (props) => {
       </Contain>
       {/* Mobile */}
       <MobileBox>
-        <div
-          style={{
-            paddingTop: "20px",
-            paddingBottom: "24px",
-            fontSize: "32px",
-            fontWeight: "bold",
-          }}
-        >
-          하루조각 <span>건강챌린지</span>
-        </div>
-        <img style={{ width: "40px" }} src={Right} alt="" onClick={searchAll} />
+        <TitleBox>
+          <div
+            style={{
+              paddingTop: "20px",
+              paddingBottom: "24px",
+              fontSize: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            하루조각 <span>건강챌린지</span>
+          </div>
+          <img
+            style={{ width: "20px" }}
+            src={Right}
+            alt=""
+            onClick={searchAll}
+          />
+        </TitleBox>
         <TagBox>
           <Tag
             color={category === "nodrinknosmoke" ? "white" : "black"}
@@ -319,40 +326,54 @@ const Category = (props) => {
             </>
           ) : (
             <>
-              {main_list.guestmain[category] &&
-                main_list.guestmain[category].map((l, idx) => {
-                  return (
-                    <>
-                      <Card
-                        src={l.challengeImgUrl}
-                        title={l.challengeTitle}
-                        date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
+              <SliderContainer
+                onMouseOver={() => setIsFlowing(false)}
+                onMouseOut={() => setIsFlowing(true)}
+                ref={slideRef}
+              >
+                {main_list.guestmain[category] &&
+                  main_list.guestmain[category].map((l, idx) => {
+                    return (
+                      <>
+                        <Slide key={idx}>
+                          <Card
+                            src={l.challengeImgUrl}
+                            title={l.challengeTitle}
+                            date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
                         ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
-                        key={idx}
-                        onClick={() =>
-                          history.push(`/challenge/${l.challengeId}/intro`)
-                        }
-                      >
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          #금주
-                        </Tag>
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          1/10명
-                        </Tag>
-                      </Card>
-                    </>
-                  );
-                })}
+                            key={idx}
+                            onClick={() =>
+                              history.push(`/challenge/${l.challengeId}/intro`)
+                            }
+                          >
+                            <Tag
+                              fontWeight="500"
+                              bg="lightGray"
+                              color="black"
+                              padding="8px 20px"
+                            >
+                              {l.tagList[0]}
+                            </Tag>
+                            <Tag
+                              fontWeight="500"
+                              bg="lightGray"
+                              color="black"
+                              padding="8px 20px"
+                            >
+                              {l.challengeMember.length}/10명
+                            </Tag>
+                          </Card>
+                        </Slide>
+                      </>
+                    );
+                  })}
+              </SliderContainer>
+              <PrevBtn onClick={prevSlide}>
+                <img style={{ width: "50%" }} src={left} alt="" />
+              </PrevBtn>
+              <NextBtn onClick={nextSlide}>
+                <img style={{ width: "50%" }} src={Right} alt="" />
+              </NextBtn>
             </>
           )}
         </CardBox2>
@@ -397,9 +418,9 @@ const Slide = styled.div`
   padding-bottom: 20px;
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100vw;
+    width: 60%;
     border-radius: 10px;
-    margin-left: 15px;
+    margin-left: 25px;
   }
 `;
 
@@ -418,7 +439,7 @@ const PrevBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 70%;
+    top: 65%;
     border-radius: 50%;
   }
 `;
@@ -438,9 +459,17 @@ const NextBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 70%;
+    top: 65%;
     border-radius: 50%;
   }
+`;
+
+const TitleBox = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
 `;
 
 // desktop
@@ -466,7 +495,11 @@ const Contain = styled.div`
 `;
 
 const TagBox = styled.div`
+  width: 100vw;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
   padding-bottom: 1.38vh;
 `;
 

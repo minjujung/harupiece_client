@@ -73,17 +73,27 @@ const CardBox = styled.div`
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100vw;
+    width: 60vw;
   }
 `;
 
 const TagContainer = styled.div`
   display: flex;
   margin: 2.22vh 0 1.39vh 1.04vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin: 1.22vh 0 1.39vh 4.04vw;
+  }
 `;
 
 const Container = styled.div`
   margin-left: 1.51vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const Title = styled.h4`
@@ -91,6 +101,11 @@ const Title = styled.h4`
   color: ${({ theme }) => theme.colors.black};
   margin: 1.39vh 0px 1.02vh 0;
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+  }
 `;
 
 const Date = styled.p`
@@ -101,6 +116,11 @@ const Date = styled.p`
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   width: 29.84vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+  }
 `;
 
 const UserProfile = styled.div`

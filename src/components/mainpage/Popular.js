@@ -106,7 +106,7 @@ const Popular = (props) => {
         <Title>
           <span>HOT</span>챌린지
         </Title>
-        <div>
+        <CardBox2>
           {is_login ? (
             <>
               <SliderContainer
@@ -116,6 +116,43 @@ const Popular = (props) => {
               >
                 {hot_list.usermain.popular &&
                   hot_list.usermain.popular.map((l, idx) => {
+                    return (
+                      <Slide key={idx}>
+                        <CardBox
+                          onClick={() =>
+                            history.push(`/challenge/${l.challengeId}/intro`)
+                          }
+                        >
+                          <div>
+                            <img src={l.challengeImgUrl} alt="" />
+                          </div>
+                          <CardTitle>
+                            <div>{l.challengeTitle}</div>
+                            <div>
+                              {l.challengeMember.length}명이 대화에 참여중
+                            </div>
+                          </CardTitle>
+                        </CardBox>
+                      </Slide>
+                    );
+                  })}
+              </SliderContainer>
+              <PrevBtn onClick={prevSlide}>
+                <img style={{ width: "50%" }} src={left} alt="" />
+              </PrevBtn>
+              <NextBtn onClick={nextSlide}>
+                <img style={{ width: "50%" }} src={Right} alt="" />
+              </NextBtn>
+            </>
+          ) : (
+            <>
+              <SliderContainer
+                onMouseOver={() => setIsFlowing(false)}
+                onMouseOut={() => setIsFlowing(true)}
+                ref={slideRef}
+              >
+                {hot_list.guestmain.popular &&
+                  hot_list.guestmain.popular.map((l, idx) => {
                     return (
                       <Slide key={idx}>
                         <div
@@ -147,34 +184,8 @@ const Popular = (props) => {
                 <img style={{ width: "50%" }} src={Right} alt="" />
               </NextBtn>
             </>
-          ) : (
-            <>
-              {hot_list.guestmain.popular &&
-                hot_list.guestmain.popular.map((l, idx) => {
-                  return (
-                    <div
-                      key={idx}
-                      onClick={() =>
-                        history.push(`/challenge/${l.challengeId}/intro`)
-                      }
-                    >
-                      <CardBox>
-                        <div>
-                          <img src={l.challengeImgUrl} alt="" />
-                        </div>
-                        <CardTitle>
-                          <div>{l.challengeTitle}</div>
-                          <div>
-                            {l.challengeMember.length}명이 대화에 참여중
-                          </div>
-                        </CardTitle>
-                      </CardBox>
-                    </div>
-                  );
-                })}
-            </>
           )}
-        </div>
+        </CardBox2>
       </MobileBox>
     </>
   );
@@ -190,7 +201,7 @@ const MobileBox = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100vw;
-  height: 54vh;
+  margin-bottom: 25vh;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   div {
     span {
@@ -206,7 +217,7 @@ const SliderContainer = styled.div`
   width: 100%;
   display: flex; //이미지들을 가로로 나열합니다.
   ${({ theme }) => theme.device.mobileLg} {
-    width: 330px;
+    width: 70vw;
     display: flex;
   }
 `;
@@ -217,11 +228,9 @@ const Slide = styled.div`
   padding-bottom: 20px;
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100vw;
+    width: 60%;
+    height: 50vh;
     border-radius: 10px;
-    margin-left: 15px;
-    display: flex;
-    flex-direction: column;
   }
 `;
 
@@ -240,7 +249,7 @@ const PrevBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 70%;
+    top: 105%;
     border-radius: 50%;
   }
 `;
@@ -260,7 +269,7 @@ const NextBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 30px;
     height: 30px;
-    top: 70%;
+    top: 105%;
     border-radius: 50%;
   }
 `;
@@ -298,6 +307,14 @@ const Title = styled.div`
     padding-right: 0.4vw;
     color: ${({ theme }) => theme.colors.mainGreen};
   }
+
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100vw;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
 `;
 
 const CardBox = styled.div`
@@ -313,6 +330,21 @@ const CardBox = styled.div`
       margin-top: 10px;
     }
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    div {
+      img {
+        width: 137px;
+        height: 137px;
+      }
+    }
+  }
 `;
 
 const CardTitle = styled.div`
@@ -325,4 +357,26 @@ const CardTitle = styled.div`
     padding-top: 13px;
     color: ${({ theme }) => theme.colors.gray};
   }
+
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 137px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    /* margin: 1.22vh 0 1.39vh 4.04vw; */
+  }
+  div:nth-child(2) {
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+`;
+
+const CardBox2 = styled.div`
+  height: 34vh;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  padding-top: 1.6vh;
 `;
