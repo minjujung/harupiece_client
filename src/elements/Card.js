@@ -15,10 +15,11 @@ const Card = ({
   strongDate,
   onClick,
   children,
+  search,
 }) => {
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const styles = { width, height };
+  const styles = { width, height, search };
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
@@ -57,6 +58,7 @@ Card.defaultProps = {
   date: "",
   src: "",
   alr: "",
+  search: false,
   width: false,
   height: false,
   inProcess: false,
@@ -72,15 +74,34 @@ const CardBox = styled.div`
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: ${(props) => (props.search ? "85vw" : "60vw")};
+  }
 `;
 
 const TagContainer = styled.div`
   display: flex;
   margin: 2.22vh 0 1.39vh 1.04vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin: 1.22vh 0 0 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 5px;
+  }
 `;
 
 const Container = styled.div`
   margin-left: 1.51vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 5px;
+  }
 `;
 
 const Title = styled.h4`
@@ -88,6 +109,10 @@ const Title = styled.h4`
   color: ${({ theme }) => theme.colors.black};
   margin: 1.39vh 0px 1.02vh 0;
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    font-size: 14px;
+  }
 `;
 
 const Date = styled.p`
@@ -98,6 +123,11 @@ const Date = styled.p`
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   width: 29.84vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 4vh;
+    font-size: 14px;
+  }
 `;
 
 const UserProfile = styled.div`
