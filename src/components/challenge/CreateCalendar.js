@@ -7,7 +7,7 @@ import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 import { useSelector } from "react-redux";
 
-import Calendar from "../../images/icons/calendar.svg";
+import Calendar from "../../assets/images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
   const [dateRange, setDateRange] = useState([null, null]);
