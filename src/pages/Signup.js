@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import Dialog from "@material-ui/core/Dialog";
 import Header from "../components/Header";
 
 import { useDispatch } from "react-redux";
@@ -17,9 +18,9 @@ const Signup = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <ImageMobile>
+        <div>
           <Image width="162px" height="155px" src={Green} />
-        </ImageMobile>
+        </div>
         <p>매일 달성하는 나만의 하루 조각</p>
         <Formik
           initialValues={{
@@ -31,19 +32,19 @@ const Signup = (props) => {
           }}
           validationSchema={Yup.object({
             email: Yup.string()
-              .email("올바른 이메일 형식을 작성해주세요.")
+              .email("이메일 을 입력해주세요.")
               .max(40, "40 글자 이상 작성이 불가능 합니다")
-              .required("이메일 작성칸이 빈칸 입니다 입력 해주세요."),
+              .required("아이디를 입력 해주세요."),
 
             nickname: Yup.string()
               // .matches(/\W|\s/g, "특수문자 또는 공백은 사용할 수 없습니다")
-              .required("닉네임 작성칸이 빈칸 입니다 입력 해주세요."),
+              .required("닉네임을 입력 해주세요."),
 
             password: Yup.string()
               .max(20, "20 글자 이상 작성이 불가능 합니다")
               .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
-                "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
+                "최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함하여 주십시오."
               )
               .required("비밀번호 작성칸이 빈칸 입니다 입력 해주세요."),
 
@@ -53,7 +54,7 @@ const Signup = (props) => {
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
                 "최소 8자 , 하나 이상의 문자, 하나 이상의 숫자 및 특수문자를 포함하여 주십시오"
               )
-              .required("비밀번호 확인 작성칸이 빈칸 입니다 입력 해주세요.")
+              .required("비밀번호가 일치하지 않습니다.")
               .oneOf(
                 [Yup.ref("password"), null],
                 "비밀번호가 일치하지 않습니다"
@@ -147,6 +148,9 @@ const Container = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.54;
     letter-spacing: -1.32px;
+    ${({ theme }) => theme.device.mobileLg}{
+      font-size: 17.75px;
+    }
   }
 
   form {
@@ -169,11 +173,18 @@ const Input = styled.input`
   padding: 1.35vw 1.20vh 0.83vw 1.20vh;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  
   ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
     color: rgba(0, 0, 0, 0.4);
   }
   ${({ theme }) => theme.device.mobileLg}{
     padding: 3.06vw;
+    font-size: 15.75px;
+    ::placeholder {
+      font-size: 15.75px;
+    }
   }
 `;
 
@@ -181,9 +192,10 @@ const ErrorMsg = styled.p`
   margin-bottom: 1vh;
   margin-left: 1.11vw;
   color: red;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
   ${({ theme }) => theme.device.mobileLg}{
     margin-left: 3.06vw;
+    font-size: 15.75px;
   }
 `;
 
@@ -191,9 +203,10 @@ const ErrorMsgBO = styled.p`
   margin-bottom: 2.96vh;
   margin-left: 0.68vw;
   color: red;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
   ${({ theme }) => theme.device.mobileLg}{
     margin-left: 3.06vw;
+    font-size: 15.75px;
   }
 `;
 
@@ -203,14 +216,9 @@ const LoginText = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-`;
 
-const ImageMobile = styled.div`
-  & > Image {
-    ${({ theme }) => theme.device.mobileLg}{
-      width:31.94vw;
-    }
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size:14px;
   }
-
 `;
+

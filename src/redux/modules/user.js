@@ -13,14 +13,17 @@ import { MainCreators } from "./main";
 const LOGIN = "user/LOGIN";
 const LOGOUT = "user/LOGOUT";
 const SET_USER = "user/SET_USER";
+const COMPLETE = "COMPLETE";
 
 // action creator
 const setLogin = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const setUser = createAction(SET_USER, (userInfo) => ({ userInfo }));
+const complete= createAction(COMPLETE,(is_complete) => ({is_complete}));
 
 const initialState = {
   isLogin: false,
+  is_complete: false,
   userInfo: {
     memberId: null,
     nickname: null,
@@ -41,6 +44,7 @@ const registerDB = ({
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
         console.log(res);
+        dispatch(complete(true));
         window.alert("회원가입이 완료되었습니다!");
         history.push("/login");
       })
@@ -114,6 +118,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.userInfo = action.payload.userInfo;
         draft.isLogin = true;
+      }),
+    [COMPLETE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_complete = action.payload.is_complete;
       }),
   },
   initialState
