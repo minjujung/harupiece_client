@@ -60,7 +60,7 @@ const Login = (props) => {
                   {...formik.getFieldProps("password")}
                 />
                 {formik.touched.password && formik.errors.password ? (
-                  <ErrorMsg>{formik.errors.password}</ErrorMsg>
+                  <ErrorMsgBO>{formik.errors.password}</ErrorMsgBO>
                 ) : null}
                 <Button
                   width="100%"
@@ -93,46 +93,88 @@ export default Login;
 const Container = styled.div`
   width: 100%;
   height: 70vh;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
   flex-direction: column;
-  margin-top: 5vh;
+  margin-top: 10.833vh;
+
   & > p {
-    margin-top: 3vh;
-    margin-bottom: 6vh;
+    margin-top: 2.40vh;
+    margin-bottom: 5.37vh;
     font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.54;
     letter-spacing: -1.32px;
+    ${({ theme }) => theme.device.mobileLg}{
+      font-size: 35.5px;
+    }
   }
+
   form {
     width: 19.58vw;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
+    padding: 0 4.44vw 0 4.44vw;
+    form {
+    width: 100vw;
+    padding: 0 4.44vw 0 4.44vw;
+  }
+}
 `;
 
 const Input = styled.input`
-  margin-bottom: 2.34vh;
+  margin-bottom: 0.92vh;
   width: 100%;
-  padding: 14px;
+  padding: 1.35vw 1.20vh 0.83vw 1.20vh;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+
   ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
     color: rgba(0, 0, 0, 0.4);
+  }
+  ${({ theme }) => theme.device.mobileLg}{
+    padding: 3.06vw;
+    font-size: 15.75px;
+    ::placeholder {
+      font-size: 15.75px;
+    }
   }
 `;
 
 const ErrorMsg = styled.p`
   margin-bottom: 1vh;
+  margin-left: 1.11vw;
   text-align: center;
   color: red;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-left: 3.06vw;
+    font-size: 15.75px;
+  }
+`;
+
+const ErrorMsgBO = styled.p`
+  margin-bottom: 2.96vh;
+  margin-left: 0.68vw;
+  color: red;
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-left: 3.06vw;
+    font-size: 15.75px;
+  }
 `;
 
 const LoginText = styled.div`
   text-align: center;
-  margin-top: 3.5vh;
+  margin-top: 2.96vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: 14px;
+  }
 `;
