@@ -13,6 +13,7 @@ const MainSlider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
+ 
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -62,7 +63,9 @@ const MainSlider = (props) => {
         >
           {slideImages.map((l, idx) => {
             return (
-              <Slide key={idx}>
+              <Slide
+                key={idx}
+              >
                 <SliderBox
                   style={{
                     backgroundImage: `url(${l})`,

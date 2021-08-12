@@ -426,6 +426,9 @@ const BoxContainer = styled.div`
     grid-row-gap: 30px;
     overflow: scroll;
     margin-bottom: 5vh;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
