@@ -5,6 +5,7 @@ import { consoleLogger } from "../configureStore";
 
 import AWS from "aws-sdk";
 import { MainCreators } from "./main";
+import { userCreators } from "./user";
 
 const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
@@ -180,6 +181,7 @@ const challengeDeleteDB =
       .then((res) => {
         consoleLogger("챌린지 개설한 사용자가 삭제 요청시 응답: " + res);
         const challengeInfo = getState().challengeDetail.detail;
+        const userInfo = getState().user.userInfo;
 
         if (window.confirm("정말 챌린지를 삭제하시겠어요?")) {
           dispatch(
@@ -188,6 +190,11 @@ const challengeDeleteDB =
               challenge_id
             )
           );
+          const new_userInfo = {
+            ...userInfo,
+            challengeCount: parseInt(userInfo.challengeCount) - 1,
+          };
+          dispatch(userCreators.setUser(new_userInfo));
           window.alert("챌린지 삭제 완료!");
           history.replace("/");
         }

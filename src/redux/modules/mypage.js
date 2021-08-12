@@ -106,7 +106,7 @@ const editMyProfileDB = (content) => {
     if (content.file === myProfileImg) {
       MypageApis.editProfile(proFile)
         .then((res) => {
-          console.log("글 내용만 수정하고 server에 전송후 응답: ", res);
+          consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
           const new_post = {
             ...proFile,
             nickname: content.newNickName,
@@ -127,16 +127,14 @@ const editMyProfileDB = (content) => {
           dispatch(getMyInfoDB());
         })
         .catch((error) => {
-          if (
-            window.confirm(
-              "프로필 수정에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
-            )
-          ) {
-            history.push("/");
-          } else {
-            history.goBack();
+          if (error.response?.data?.message) {
+            window.alert(error.response?.data?.message);
+          } else if (error) {
+            window.alert(
+              "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+            );
           }
-          console.log("사진은 그대로고 멘트만 수정 했을 때: ", error);
+          consoleLogger("사진은 그대로고 닉네임만 수정 했을 때: ", error);
         });
     } else {
       //프로필 사진, 닉네임 둘다 바꿀 때
@@ -159,35 +157,48 @@ const editMyProfileDB = (content) => {
       });
 
       const promise = upload.promise();
-      promise.then((data) => {
-        const newProFile = { ...proFile, profileImage: data.Location };
+      promise
+        .then((data) => {
+          const newProFile = { ...proFile, profileImage: data.Location };
 
-        MypageApis.editProfile(newProFile)
-          .then((res) => {
-            const _newProFile = { ...newProFile };
+          MypageApis.editProfile(newProFile)
+            .then((res) => {
+              const _newProFile = { ...newProFile };
 
-            dispatch(editMyProfile(_newProFile));
+              dispatch(editMyProfile(_newProFile));
 
-            const user_info = getState().user.userInfo;
+              const user_info = getState().user.userInfo;
 
-            const new_user_info = {
-              ...newProFile,
-              profileImg: newProFile.profileImage,
-              memberLevel: user_info.memberLevel,
-              point: user_info.point,
-            };
-            dispatch(userCreators.setUser(new_user_info));
-            dispatch(getMyInfoDB());
-          })
-          .catch((error) => {
-            if (window.confirm("test")) {
-              history.push("/");
-            } else {
-              history.goBack();
-            }
-            console.log(error);
-          });
-      });
+              const new_user_info = {
+                ...newProFile,
+                profileImg: newProFile.profileImage,
+                memberLevel: user_info.memberLevel,
+                point: user_info.point,
+              };
+              dispatch(userCreators.setUser(new_user_info));
+              dispatch(getMyInfoDB());
+            })
+            .catch((error) => {
+              if (error.response?.data?.message) {
+                window.alert(error.response?.data?.message);
+              } else if (error) {
+                window.alert(
+                  "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                );
+              }
+              consoleLogger("사진 닉네임 둘다 수정 했을 때: ", error);
+            });
+        })
+        .catch((error) => {
+          if (error.response?.data?.message) {
+            window.alert(error.response?.data?.message);
+          } else if (error) {
+            window.alert(
+              "이미지 업로드 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+            );
+          }
+          consoleLogger("aws이미지 업로드: ", error);
+        });
     }
   };
 };
@@ -209,7 +220,7 @@ const changePasswordDB = (password) => {
         if (
           error.response?.data?.message === "현재 비밀번호가 일치하지 않습니다."
         ) {
-          window.alert("현재 비밀번호가 일치하지 않습니다.");
+          window.alert(error.response?.data?.message);
         } else {
           window.alert(
             "비밀번호 변경 중 오류가 발생했어요! 새로고침 후 다시 시도해주세요!"
@@ -224,7 +235,15 @@ export default handleActions(
   {
     [GET_MYINFO]: (state, action) =>
       produce(state, (draft) => {
-        draft.myInfo = action.payload.myInfo;
+        let myInfo = action.payload.myInfo;
+        if (myInfo.profileImage === "") {
+          myInfo = {
+            ...action.payload.myInfo,
+            profileImage:
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+          };
+        }
+        draft.myInfo = myInfo;
       }),
     [EDIT_MYPROFILE]: (state, action) =>
       produce(state, (draft) => {

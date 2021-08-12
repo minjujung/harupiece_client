@@ -43,9 +43,14 @@ function UpcomingChallenge(props) {
       {myChallengeList && myChallengeList.length !== 0 ? (
         <CardGrid>
           {myChallengeList.map((list, idx) => {
-            // if (list.categoryName === "LIVINGHABITS") {
-            //   setLivingCategory("생활챌린지");
-            // }
+            let category = "";
+            if (list.categoryName === "NODRINKNOSMOKE") {
+              category = "금연&금주";
+            } else if (list.categoryName === "EXERCISE") {
+              category = "운동";
+            } else {
+              category = "생활습관";
+            }
             return (
               <Card
                 strongDate
@@ -61,12 +66,13 @@ function UpcomingChallenge(props) {
                 alt="challenge"
               >
                 <Tag bg="mainOrange" color="white" padding="8px 20px">
-                  as
+                  {category}
                 </Tag>
-                {my_info.memberId === list.challengeMember}
-                <Tag bg="mainGreen" color="white" padding="8px 20px">
-                  내가 만든 챌린지
-                </Tag>
+                {my_info.memberId === list.challengeMember ? (
+                  <Tag bg="mainGreen" color="white" padding="8px 20px">
+                    내가 만든 챌린지
+                  </Tag>
+                ) : null}
               </Card>
             );
           })}

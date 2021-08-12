@@ -67,7 +67,11 @@ const PostList = (props) => {
       `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
     );
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
-    if ((list[clicked]?.postingCount / totalNumber - 1) * 100 === 50) {
+    if (
+      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber) - 1) *
+        100 ===
+      50
+    ) {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
       // dispatch(userActions.editUserDB(totalDay * 50))
       window.alert(
@@ -91,6 +95,10 @@ const PostList = (props) => {
       setOpen(false);
     }
   };
+
+  console.log(
+    parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)
+  );
 
   return (
     <>
@@ -160,14 +168,23 @@ const PostList = (props) => {
                 <StatusBar>
                   <Status
                     width={`${
-                      (list[clicked]?.postingCount / totalNumber) * 100
+                      list[clicked]?.postingCount === 0 || totalNumber === 0
+                        ? 0
+                        : (parseInt(list[clicked]?.postingCount) /
+                            (parseInt(totalNumber) - 1)) *
+                          100
                     }%`}
                   />
                 </StatusBar>
                 <StatusInfo>
                   <span>인증상태</span>
                   <Percent>
-                    {(list[clicked]?.postingCount / totalNumber) * 100} %
+                    {list[clicked]?.postingCount === 0 || totalNumber === 0
+                      ? 0
+                      : (parseInt(list[clicked]?.postingCount) /
+                          (parseInt(totalNumber) - 1)) *
+                        100}{" "}
+                    %
                   </Percent>
                 </StatusInfo>
               </StatusFrame>

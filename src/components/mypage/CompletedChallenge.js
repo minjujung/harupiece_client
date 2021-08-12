@@ -59,10 +59,11 @@ function CompletedChallenge() {
                 <Tag bg="mainOrange" color="white" padding="8px 20px">
                   완료
                 </Tag>
-                {my_info.memberId === list.challengeMember}
-                <Tag bg="mainGreen" color="white" padding="8px 20px">
-                  내가 만든 챌린지
-                </Tag>
+                {my_info.memberId === list.challengeMember ? (
+                  <Tag bg="mainGreen" color="white" padding="8px 20px">
+                    내가 만든 챌린지
+                  </Tag>
+                ) : null}
               </Card>
             </CardGrid>
           );

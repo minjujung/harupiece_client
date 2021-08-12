@@ -189,11 +189,11 @@ function ChallengeCreate(props) {
             </div>
             {/* 모집형식 */}
             <div>
-              <Label htmlFor="category">모집 방식</Label>
+              <Label htmlFor="isPwd">모집 방식</Label>
               <br />
               <SelectContainer>
                 <img src={Down} alt="down" />
-                <SelectBox id="category" onChange={choosePublic}>
+                <SelectBox id="isPwd" onChange={choosePublic}>
                   <option value="CATEGORY">카테고리</option>
                   <option value="PUBLIC">공개</option>
                   <option value="PRIVATE">비공개</option>
@@ -234,7 +234,7 @@ function ChallengeCreate(props) {
 const Container = styled.div`
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding-bottom: 23.24vh;
   padding-left: 16.66vw;

@@ -46,7 +46,7 @@ function App() {
           component={SearchChallenge}
         />
         <Route path="/challenge/:id" component={ChallengeDetail} />
-        <Route exact path="/challenge/:id/edit" component={ChallengeEdit} />
+        <Route exact path="/:id/edit" component={ChallengeEdit} />
         <Footer />
       </ConnectedRouter>
     </ThemeProvider>

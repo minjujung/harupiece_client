@@ -75,7 +75,7 @@ const ChallengeDetail = (props) => {
 
   //사용자가 자기가 만든 챌린지 수정 => 챌린지 시작전에만 수정 가능
   const editChallenge = () => {
-    history.push(`/challenge/${challenge.challengeId}/edit`);
+    history.push(`/${challenge.challengeId}/edit`);
   };
   //사용자가 자기가 만든 챌린지 삭제 => 챌린지 시작전에만 삭제 가능
   const deleteChallenge = () => {
@@ -110,8 +110,8 @@ const ChallengeDetail = (props) => {
           </NavBar>
         </ChallengeHeader>
         <Switch>
-          <Route path={`${path}/intro`} component={ChallengeInfo} />
-          <Route path={`${path}/post`} component={ShotList} />
+          <Route exact path={`${path}/intro`} component={ChallengeInfo} />
+          <Route exact path={`${path}/post`} component={ShotList} />
         </Switch>
       </StateContainer>
       {/* 오른쪽 사용자 상태박스 & 버튼 */}
@@ -129,7 +129,7 @@ const ChallengeDetail = (props) => {
 
           {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
           {user_info?.memberId === challenge.memberId &&
-          today <= challenge.challengeStartDate.split("T")[0] ? (
+          today < challenge.challengeStartDate.split("T")[0] ? (
             <MobilBtns half>
               <Button
                 width="100%"

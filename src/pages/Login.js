@@ -64,7 +64,7 @@ const Login = (props) => {
                 ) : null}
                 <Button
                   width="100%"
-                  padding="16px 156px"
+                  height="48px"
                   bg="black"
                   color="white"
                   fontsize="ms"
@@ -91,7 +91,7 @@ const Login = (props) => {
 export default Login;
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 70vh;
   align-items: center;
   justify-content: center;

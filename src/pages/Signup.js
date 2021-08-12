@@ -27,7 +27,8 @@ const Signup = (props) => {
             nickname: "",
             password: "",
             passwordConfirm: "",
-            profileImg: "",
+            profileImg:
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
           }}
           validationSchema={Yup.object({
             email: Yup.string()
@@ -106,7 +107,7 @@ const Signup = (props) => {
                 ) : null}
                 <Button
                   width="100%"
-                  padding="1.48vh 7.71vw"
+                  height="48px"
                   bg="black"
                   color="white"
                   fontsize="ms"
@@ -133,7 +134,7 @@ const Signup = (props) => {
 export default Signup;
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 70vh;
   display: flex;
   align-items: center;
@@ -142,7 +143,7 @@ const Container = styled.div`
   margin-top: 10.833vh;
 
   & > p {
-    margin-top: 2.40vh;
+    margin-top: 2.4vh;
     margin-bottom: 5.37vh;
     font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.54;
@@ -157,22 +158,22 @@ const Container = styled.div`
     height: 100%;
     padding: 0 4.44vw 0 4.44vw;
     form {
-    width: 100vw;
-    padding: 0 4.44vw 0 4.44vw;
+      width: 100vw;
+      padding: 0 4.44vw 0 4.44vw;
+    }
   }
-}
 `;
 
 const Input = styled.input`
   margin-bottom: 0.92vh;
   width: 100%;
-  padding: 1.35vw 1.20vh 0.83vw 1.20vh;
+  padding: 1.35vw 1.2vh 0.83vw 1.2vh;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   ::placeholder {
     color: rgba(0, 0, 0, 0.4);
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     padding: 3.06vw;
   }
 `;
@@ -182,7 +183,7 @@ const ErrorMsg = styled.p`
   margin-left: 1.11vw;
   color: red;
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-left: 3.06vw;
   }
 `;
@@ -192,7 +193,7 @@ const ErrorMsgBO = styled.p`
   margin-left: 0.68vw;
   color: red;
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-left: 3.06vw;
   }
 `;
@@ -208,9 +209,8 @@ const LoginText = styled.div`
 
 const ImageMobile = styled.div`
   & > Image {
-    ${({ theme }) => theme.device.mobileLg}{
-      width:31.94vw;
+    ${({ theme }) => theme.device.mobileLg} {
+      width: 31.94vw;
     }
   }
-
 `;

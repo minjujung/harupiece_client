@@ -122,8 +122,8 @@ const Category = (props) => {
         <CardBox2>
           {is_login ? (
             <>
-              {main_list.usermain[category] &&
-                main_list.usermain[category].map((l, idx) => {
+              {main_list &&
+                main_list.usermain[category]?.map((l, idx) => {
                   return (
                     <>
                       <Card
@@ -142,7 +142,7 @@ const Category = (props) => {
                           color="black"
                           padding="8px 20px"
                         >
-                          {l.tagList[0]}
+                          {l.tagList && l.tagList[0]}
                         </Tag>
                         <Tag
                           fontWeight="500"

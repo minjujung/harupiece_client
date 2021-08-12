@@ -25,7 +25,10 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
       setOpen(true);
       dispatch(imageActions.getThumnailDb(challenge_info.categoryName));
     } else {
-      if (!challengeInfo.categoryName) {
+      if (
+        !challengeInfo.categoryName ||
+        challengeInfo.categoryName === "CATEGORY"
+      ) {
         window.alert("카테고리를 먼저 정해주세요!");
         return;
       }
