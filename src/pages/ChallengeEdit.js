@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import Down from "../assets/images/icons/arrow/down.svg";
+import greenclose from "../assets/images/icons/greenclose.svg";
 import CreateImgSelect from "../components/challenge/CreateImgSelect";
 import CreateCertification from "../components/challenge/CreateCertification";
 import CreateCalendar from "../components/challenge/CreateCalendar";
@@ -8,6 +11,8 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
+import { Button, Image } from "../elements";
+import PwdModal from "../components/challenge/PwdModal";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
@@ -34,6 +39,7 @@ function ChallengeCreate(props) {
   // 모집 형식
   const [pwdCheck, setPwdCheck] = useState(false);
   const [pwd, setPwd] = useState("");
+  const [open, setOpen] = useState(false);
 
   const choosePublic = (e) => {
     console.log(e.target.value);
@@ -47,6 +53,13 @@ function ChallengeCreate(props) {
     }
   };
 
+  // 하단 이미지 안내 뱃지
+  const [badge, setBadge] = useState(true);
+
+  const hideBadge = () => {
+    setBadge(false);
+  };
+
   //모집형식이 비공개일때 비밀번호 설정
   const savePwd = (e) => {
     setPwd(e.target.value);
@@ -57,6 +70,10 @@ function ChallengeCreate(props) {
   const saveDesc = (e) => {
     setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
   };
+
+  // 챌린지  수정 전 날짜
+  const oldDate = `${challenge_info.challengeStartDate.split("T")[0]} ~ 
+  ${challenge_info.challengeEndDate.split("T")[0]}`;
 
   // 챌린지 수정
   const editChallenge = () => {
@@ -95,31 +112,32 @@ function ChallengeCreate(props) {
 
   return (
     <>
-      <h2>챌린지 수정</h2>
-
-      <CreateContainer>
-        <GuideLine>개설 가이드라인</GuideLine>
-
-        <CreateContents>
-          <Contents>
-            <label style={{ width: "100%" }}>
-              제목
-              <input
-                onChange={saveTitle}
-                placeholder={challenge_info.challengeTitle}
-              />
-            </label>
-          </Contents>
-
-          <ContentsContainer>
-            <Contents>
+      <Container>
+        <LeftContainer isBadge={badge}>
+          <Title>
+            <h2>챌린지 수정</h2>
+          </Title>
+          <GuideLine />
+        </LeftContainer>
+        <RightContainer>
+          <AllInputContainer isBadge={badge}>
+            <InputLeftContainer>
+              <div>
+                <Label>제목</Label>
+                <br />
+                <Input
+                  onChange={saveTitle}
+                  placeholder={challenge_info.challengeTitle}
+                />
+              </div>
               {/* 카테고리 */}
-              <p>{challenge_info.categoryName}</p>
-              <p>
-                카테고리는 수정이 불가해요! 다른 카테고리의 챌린지를 원하시면
-                삭제하고 다시 만들어주세요!
-              </p>
-
+              <CategoryInfo>
+                <h4>{challenge_info.categoryName}</h4>
+                <p>
+                  카테고리는 수정이 불가해요! 다른 카테고리의 챌린지를 원하시면
+                  삭제하고 다시 만들어주세요!
+                </p>
+              </CategoryInfo>
               {/* 대표 이미지 */}
               <CreateImgSelect
                 challengeInfo={challengeInfo}
@@ -131,95 +149,222 @@ function ChallengeCreate(props) {
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
               />
-            </Contents>
-
-            <Contents>
+            </InputLeftContainer>
+            <InputRightContainer>
               {/* date picker */}
-              <p>원래 선택하셨던 날짜</p>
-              <p>
-                {challenge_info.challengeStartDate.split("T")[0]} ~{" "}
-                {challenge_info.challengeEndDate.split("T")[0]}
-              </p>
-
-              <CreateCalendar
-                challengeInfo={challengeInfo}
-                setChallengeInfo={setChallengeInfo}
-                id={challenge_id}
-              />
-
-              {/* 모집형식 */}
-              <label htmlFor="category">카테고리</label>
-              <select id="category" onChange={choosePublic}>
-                <option value="CATEGORY">카테고리</option>
-                <option value="PUBLIC">공개</option>
-                <option value="PRIVATE">비공개</option>
-              </select>
-              {pwdCheck ? (
-                <input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  onChange={savePwd}
+              <div>
+                <CreateCalendar
+                  challengeInfo={challengeInfo}
+                  setChallengeInfo={setChallengeInfo}
+                  id={challenge_id}
+                  oldDate={oldDate}
                 />
-              ) : null}
-
-              {/* 챌린지 설명 */}
-              <label>
-                챌린지 설명
-                <div>
-                  <input
-                    onChange={saveDesc}
-                    placeholder={challenge_info.challengeContent}
+              </div>
+              {/* 모집형식 */}
+              <div>
+                <Label htmlFor="isPwd">모집 방식</Label>
+                <br />
+                <SelectContainer>
+                  <img src={Down} alt="down" />
+                  <SelectBox id="isPwd" onChange={choosePublic}>
+                    <option value="CATEGORY">비밀번호 설정</option>
+                    <option value="PUBLIC">공개</option>
+                    <option value="PRIVATE">비공개</option>
+                  </SelectBox>
+                  <PwdModal
+                    pwd={pwd}
+                    setPwd={setPwd}
+                    savePwd={savePwd}
+                    open={open}
+                    setOpen={setOpen}
                   />
-                </div>
-              </label>
-            </Contents>
-          </ContentsContainer>
-          <button onClick={editChallenge}>챌린지 수정하기</button>
-          <button onClick={() => history.goBack()}>챌린지 수정취소</button>
-        </CreateContents>
-      </CreateContainer>
+                </SelectContainer>
+              </div>
+              {/* 챌린지 설명 */}
+              <div>
+                <Label>챌린지 설명</Label>
+                <br />
+                <Textarea
+                  onChange={saveDesc}
+                  placeholder={challenge_info.challengeContent}
+                />
+              </div>
+              <Button
+                width="15.00vw"
+                height="5.92vh"
+                margin="7.03vh 0 0 0"
+                _onClick={editChallenge}
+              >
+                챌린지 수정하기
+              </Button>
+            </InputRightContainer>
+          </AllInputContainer>
+          {badge ? (
+            <Button
+              width="100%"
+              height="64px"
+              margin="7.4vh 0 0 0"
+              bg="white"
+              color="mainGreen"
+              border="mainGreen"
+              shadow
+            >
+              <BadgeText>
+                이미지를 변경하려면 다시 선택해 주세요.
+                <Image
+                  width="20px"
+                  height="20px"
+                  src={greenclose}
+                  alt="closeBtn"
+                  borderRadius="0"
+                  onClick={hideBadge}
+                />
+              </BadgeText>
+            </Button>
+          ) : null}
+        </RightContainer>
+      </Container>
     </>
   );
 }
 
-const CreateContainer = styled.div`
-  background-color: orange;
+const Container = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
   height: 100vh;
+  justify-content: center;
+  /* padding: 0 16.66vw 23.24vh 16.66vw; */
+`;
+
+const LeftContainer = styled.div`
+  flex-direction: column;
+  ${(props) =>
+    !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
+`;
+
+const Title = styled.div`
+  & > h2 {
+    font-size: 36px;
+    font-weight: 700;
+    width: 10.04vw;
+    height: 4.81vh;
+  }
 `;
 
 const GuideLine = styled.div`
-  background-color: coral;
-  width: 50%;
-  height: 100%;
-  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  border-radius: 8px;
+  width: 32.81vw;
+  height: 53.79vh;
+  margin-right: 2.92vh;
 `;
 
-const CreateContents = styled.div`
-  display: flex;
+const InputLeftContainer = styled.div`
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
-  background-color: palegreen;
-  padding: 20px;
+  margin-right: 0.94vw;
 `;
 
-const ContentsContainer = styled.div`
-  display: flex;
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-`;
-
-const Contents = styled.div`
-  width: 100%;
-  display: flex;
+const InputRightContainer = styled.div`
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
 `;
 
+const BadgeText = styled.div`
+  display: flex;
+  width: 27.66vw;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 29px;
+`;
+
+const RightContainer = styled.div``;
+
+const AllInputContainer = styled.div`
+  display: flex;
+  width: 30.93vw;
+  height: 53.79vh;
+  margin-top: 5vh;
+  ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
+`;
+
+const Input = styled.input`
+  width: 15vw;
+  height: 3.7vh;
+  margin-top: 0.74vh;
+  margin-bottom: 2.96vh;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  padding-left: 0.83vw;
+  padding-top: 1.01vh;
+  padding-bottom: 1.01vh;
+  border-radius: 8px;
+`;
+
+const Textarea = styled.textarea`
+  width: 15vw;
+  height: 12.59vh;
+  resize: none;
+  margin-top: 0.74vh;
+  padding-left: 0.83vw;
+  padding-right: 0.83vw;
+  padding-top: 1.01vh;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  border-radius: 8px;
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  color: ${({ theme }) => theme.colors.darkGray};
+  font-weight: 400;
+  ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    color: ${({ theme }) => theme.colors.darkGray};
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+`;
+
+const Label = styled.label`
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.darkGray};
+`;
+
+const SelectBox = styled.select`
+  width: 100%; /* 원하는 너비설정 */
+  padding: 0.75vh 0.83vw; /* 여백으로 높이 설정 */
+  margin: 0.74vh 0 2.96vh 0;
+  font-family: inherit; /* 폰트 상속 */
+  font-size: ${({ theme }) => theme.fontSizes.ms};
+  color: ${({ theme }) => theme.colors.darkGray};
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  border: none;
+  border-radius: 8px; /* iOS 둥근모서리 제거 */
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+`;
+
+const SelectContainer = styled.div`
+  width: 15vw;
+  position: relative;
+  & > img {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+`;
+
+const CategoryInfo = styled.div`
+  height: 10vh;
+  h4 {
+    font-weight: bold;
+    line-height: normal;
+  }
+  p {
+    color: ${({ theme }) => theme.colors.mainGreen};
+  }
+`;
 export default ChallengeCreate;

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 import Calendar from "../../assets/images/icons/calendar.svg";
 
-function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
+function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [checkweek, setCheckweek] = useState(false);
@@ -115,7 +115,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
         onChange={onChange}
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
-        placeholderText="체크인 날짜 선택"
+        placeholderText={oldDate}
         locale={ko}
         minDate={date}
         isClearable={true}

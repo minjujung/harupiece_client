@@ -11,7 +11,8 @@ import { actionCreator as challengeDetailActions } from "../redux/modules/challe
 
 // import { Input } from "../elements";
 import Down from "../assets/images/icons/arrow/down.svg";
-import { Button } from "../elements";
+import greenclose from "../assets/images/icons/greenclose.svg";
+import { Button, Image } from "../elements";
 import PwdModal from "../components/challenge/PwdModal";
 
 function ChallengeCreate(props) {
@@ -73,6 +74,13 @@ function ChallengeCreate(props) {
       setPwdCheck(false);
       setPwd("");
     }
+  };
+
+  // 하단 이미지 안내 뱃지
+  const [badge, setBadge] = useState(true);
+
+  const hideBadge = () => {
+    setBadge(false);
   };
 
   //모집형식이 비공개일때 비밀번호 설정
@@ -145,95 +153,116 @@ function ChallengeCreate(props) {
       <Container>
         <LeftContainer>
           <Title>
-            <p>챌린지 개설</p>
+            <h2>챌린지 개설</h2>
           </Title>
           <GuideLine />
         </LeftContainer>
         <RightContainer>
-          <InputLeftContainer>
-            <div>
-              <Label>제목</Label>
-              <br />
-              <Input
-                onChange={saveTitle}
-                placeholder={
-                  edit_mode
-                    ? challenge_info.challengeTitle
-                    : "챌린지의 제목을 입력해주세요"
-                }
-              />
-            </div>
-            {/* 카테고리 */}
-            <div>
-              <Label htmlFor="category">카테고리</Label>
-              <br />
-              <SelectContainer>
-                <img src={Down} alt="down" />
-                <SelectBox id="category" onChange={chooseCategory}>
-                  <option value="CATEGORY">주제</option>
-                  <option value="NODRINKNOSMOKE">금연/금주</option>
-                  <option value="EXERCISE">운동</option>
-                  <option value="LIVINGHABITS">생활습관</option>
-                </SelectBox>
-              </SelectContainer>
-            </div>
-            {/* 대표 이미지 */}
-            <CreateImgSelect
-              challengeInfo={challengeInfo}
-              setChallengeInfo={setChallengeInfo}
-            />
-            {/* 인증샷 예시 */}
-            <CreateCertification
-              challengeInfo={challengeInfo}
-              setChallengeInfo={setChallengeInfo}
-            />
-          </InputLeftContainer>
-          <InputRightContainer>
-            {/* date picker */}
-            <div>
-              <CreateCalendar
+          <AllInputContainer isBadge={badge}>
+            <InputLeftContainer>
+              <div>
+                <Label>제목</Label>
+                <br />
+                <Input
+                  onChange={saveTitle}
+                  placeholder="챌린지의 제목을 입력해주세요"
+                />
+              </div>
+              {/* 카테고리 */}
+              <div>
+                <Label htmlFor="category">카테고리</Label>
+                <br />
+                <SelectContainer>
+                  <img src={Down} alt="down" />
+                  <SelectBox id="category" onChange={chooseCategory}>
+                    <option value="CATEGORY">주제</option>
+                    <option value="NODRINKNOSMOKE">금연/금주</option>
+                    <option value="EXERCISE">운동</option>
+                    <option value="LIVINGHABITS">생활습관</option>
+                  </SelectBox>
+                </SelectContainer>
+              </div>
+              {/* 대표 이미지 */}
+              <CreateImgSelect
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
               />
-            </div>
-            {/* 모집형식 */}
-            <div>
-              <Label htmlFor="isPwd">모집 방식</Label>
-              <br />
-              <SelectContainer>
-                <img src={Down} alt="down" />
-                <SelectBox id="isPwd" onChange={choosePublic}>
-                  <option value="CATEGORY">비밀번호 설정</option>
-                  <option value="PUBLIC">공개</option>
-                  <option value="PRIVATE">비공개</option>
-                </SelectBox>
-                <PwdModal
-                  pwd={pwd}
-                  setPwd={setPwd}
-                  savePwd={savePwd}
-                  open={open}
-                  setOpen={setOpen}
-                />
-              </SelectContainer>
-            </div>
-            {/* 챌린지 설명 */}
-            <div>
-              <Label>챌린지 설명</Label>
-              <br />
-              <Textarea
-                onChange={saveDesc}
-                placeholder="챌린지를 설명해주세요."
+              {/* 인증샷 예시 */}
+              <CreateCertification
+                challengeInfo={challengeInfo}
+                setChallengeInfo={setChallengeInfo}
               />
-            </div>
+            </InputLeftContainer>
+            <InputRightContainer>
+              {/* date picker */}
+              <div>
+                <CreateCalendar
+                  challengeInfo={challengeInfo}
+                  setChallengeInfo={setChallengeInfo}
+                />
+              </div>
+              {/* 모집형식 */}
+              <div>
+                <Label htmlFor="isPwd">모집 방식</Label>
+                <br />
+                <SelectContainer>
+                  <img src={Down} alt="down" />
+                  <SelectBox id="isPwd" onChange={choosePublic}>
+                    <option value="CATEGORY">비밀번호 설정</option>
+                    <option value="PUBLIC">공개</option>
+                    <option value="PRIVATE">비공개</option>
+                  </SelectBox>
+                  <PwdModal
+                    pwd={pwd}
+                    setPwd={setPwd}
+                    savePwd={savePwd}
+                    open={open}
+                    setOpen={setOpen}
+                  />
+                </SelectContainer>
+              </div>
+              {/* 챌린지 설명 */}
+              <div>
+                <Label>챌린지 설명</Label>
+                <br />
+                <Textarea
+                  onChange={saveDesc}
+                  placeholder="챌린지를 설명해주세요."
+                />
+              </div>
+              <Button
+                width="15.00vw"
+                height="5.92vh"
+                margin="7.03vh 0 0 0"
+                _onClick={createChallenge}
+              >
+                챌린지 개설하기
+              </Button>
+            </InputRightContainer>
+          </AllInputContainer>
+          {badge ? (
             <Button
-              width="15.00vw"
-              height="5.92vh"
-              margin="7.03vh 0 0"
-              _onClick={createChallenge}
+              width="100%"
+              height="64px"
+              margin="7.4vh 0 0 0"
+              bg="white"
+              color="mainGreen"
+              border="mainGreen"
+              shadow
             >
-              챌린지 개설하기
+              <BadgeText>
+                이미지를 변경하려면 다시 선택해 주세요.
+                <Image
+                  width="20px"
+                  height="20px"
+                  src={greenclose}
+                  alt="closeBtn"
+                  borderRadius="0"
+                  onClick={hideBadge}
+                />
+              </BadgeText>
             </Button>
-          </InputRightContainer>
+          ) : null}
         </RightContainer>
       </Container>
     </>
@@ -245,17 +274,18 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding-bottom: 23.24vh;
-  padding-left: 16.66vw;
-  padding-right: 16.66vw;
+  justify-content: center;
+  /* padding: 0 16.66vw 23.24vh 16.66vw; */
 `;
 
 const LeftContainer = styled.div`
   flex-direction: column;
+  ${(props) =>
+    !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
 `;
 
 const Title = styled.div`
-  & > p {
+  & > h2 {
     font-size: 36px;
     font-weight: 700;
     width: 10.04vw;
@@ -280,11 +310,23 @@ const InputRightContainer = styled.div`
   flex-direction: column;
 `;
 
-const RightContainer = styled.div`
+const BadgeText = styled.div`
+  display: flex;
+  width: 27.66vw;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 29px;
+`;
+
+const RightContainer = styled.div``;
+
+const AllInputContainer = styled.div`
   display: flex;
   width: 30.93vw;
   height: 53.79vh;
   margin-top: 5vh;
+  ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
 `;
 
 const Input = styled.input`
