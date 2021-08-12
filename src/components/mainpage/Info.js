@@ -35,9 +35,7 @@ function Info() {
                     src={level}
                     alt="level"
                   />
-                  등급:{" "}
-                  {levelData[levelState] &&
-                    levelData[levelState].name.split(" ")[0]}
+                  등급: {levelData[levelState] && levelData[levelState].level}
                 </p>
               </LeftBox>
               <RightBox>

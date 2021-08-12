@@ -16,25 +16,22 @@ import levelData from "../shared/level";
 
 function Mypage(props) {
   const dispatch = useDispatch();
+  const myInfoList = useSelector((state) => state.mypage.myInfo);
+  // 프로필 preview 상태 값
+  const preview = useSelector((state) => state.mypage.preview);
+
+  const levelState = parseInt((myInfoList?.level - 1) / 5);
+
   const {
-    match: { path, url },
+    match: { path },
     location: { pathname },
   } = props;
 
-  // 유저의 챌린지들 가져오기
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
-
   const [editMode, setEditMode] = useState(false);
-
-  const myInfoList = useSelector((state) => state.mypage.myInfo);
-  const nickName = myInfoList.nickname;
-
-  const [newNickName, setNewNickName] = useState(nickName);
+  const [newNickName, setNewNickName] = useState(myInfoList.nickname);
 
   const convertEditMode = () => {
-    setNewNickName(nickName);
+    setNewNickName(myInfoList.nickname);
     setEditMode(!editMode);
   };
 
@@ -60,14 +57,11 @@ function Mypage(props) {
     };
   };
 
-  // 프로필 preview 상태 값
-  const preview = useSelector((state) => state.mypage.preview);
-
   // 수정 완료 버튼
   const editProfile = () => {
     const file = fileInput.current.files[0];
-    if (newNickName === nickName) {
-      setNewNickName(nickName);
+    if (newNickName === myInfoList.nickname) {
+      setNewNickName(myInfoList.nickname);
     }
     if (!file) {
       dispatch(
@@ -79,32 +73,6 @@ function Mypage(props) {
     }
     convertEditMode();
   };
-
-  console.log(pathname.includes("/now"));
-
-  const myChallengeList = useSelector(
-    (state) => state.mypage.myInfo.challengeList
-  );
-
-  const [livingCategory, setLivingCategory] = useState("");
-
-  const nameOfCategory = myChallengeList?.map((list) => list.categoryName);
-  const changeName = () => {
-    if (nameOfCategory === "LIVINGHABITS") {
-      setLivingCategory("생활챌린지");
-    }
-    //  else if (nameOfCategory === "NODRINKNOSMOKE") {
-    //   setLivingCategory("금연금주");
-    // } else if (nameOfCategory === "EXERCISE") {
-    //   setLivingCategory("운동");
-    // } else {
-    //   return;
-    // }
-  };
-
-  console.log(changeName());
-
-  console.log(livingCategory);
 
   return (
     <Container>
@@ -125,7 +93,7 @@ function Mypage(props) {
             />
             <UserInfo>
               <strong>{myInfoList.nickname}</strong>님<br />
-              현재 등급은 노랑 입니다.
+              현재 등급은 {levelData[levelState]?.level} 입니다.
             </UserInfo>
             <Button
               width="16.15vw"
@@ -165,13 +133,12 @@ function Mypage(props) {
               <NickInput
                 type="text"
                 placeholder={newNickName}
-                // value={newNickName}
                 maxLength="20"
                 onChange={(e) => setNewNickName(e.target.value)}
                 onSubmit={editComment}
               />
               님 <br />
-              현재 등급은 노랑 입니다.
+              현재 등급은 {levelData[levelState]?.level} 입니다.
             </UserInfo>
             <input
               ref={fileInput}
@@ -195,19 +162,13 @@ function Mypage(props) {
       </UserInfoContainer>
       <ChallengeCategory>
         <Item clicked={pathname.includes("/now") ? true : false}>
-          <Link onClick={changeName} to={`${path}/now`}>
-            진행 예정 챌린지
-          </Link>
+          <Link to={`${path}/now`}>진행 예정 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/upcoming") ? true : false}>
-          <Link onClick={changeName} to={`${path}/upcoming`}>
-            진행중인 챌린지
-          </Link>
+          <Link to={`${path}/upcoming`}>진행중인 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/completed") ? true : false}>
-          <Link onClick={changeName} to={`${path}/completed`}>
-            완료한 챌린지
-          </Link>
+          <Link to={`${path}/completed`}>완료한 챌린지</Link>
         </Item>
         <Item clicked={pathname.includes("/pieces") ? true : false}>
           <Link to={`${path}/pieces`}>조각</Link>

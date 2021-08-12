@@ -1,8 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
+
 import { consoleLogger } from "../configureStore";
 import { ChallengeCreateApis } from "../../shared/api";
 import { MainCreators } from "./main";
+import { userCreators } from "./user";
 
 import AWS from "aws-sdk";
 
@@ -108,19 +110,25 @@ const createChDB =
                   challengeMember: [user_info.memberId],
                 };
                 dispatch(MainCreators.addUserLoad(new_challenge));
+
+                const new_userInfo = {
+                  ...user_info,
+                  challengeCount: parseInt(user_info.challengeCount) + 1,
+                };
+                dispatch(userCreators.setUser(new_userInfo));
                 window.alert("챌린지 개설 완료!");
                 history.push("/");
               })
               .catch((error) => {
                 if (
-                  error.response.data.message ===
+                  error.response?.data?.message ===
                   "이미 해당 카테고리에 챌린지를 생성한 유저입니다."
                 ) {
                   window.alert(
                     "한 사람당 카테고리 별로 하나씩만 챌린지 생성이 가능해요!!"
                   );
                 }
-                consoleLogger(error.response.data.message);
+                consoleLogger("챌린지 생성 요청시 error: ", error);
               });
           })
           .catch((error) => {

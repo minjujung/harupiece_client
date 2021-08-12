@@ -9,6 +9,7 @@ const Image = ({
   border,
   marbleBorder,
   chatClose,
+  post,
   onClick,
   src,
   alt,
@@ -21,6 +22,7 @@ const Image = ({
     border,
     margin,
     marbleBorder,
+    post,
   };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
@@ -33,6 +35,7 @@ Image.defaultProps = {
   margin: false,
   marbleBorder: false,
   chatClose: false,
+  post: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -54,7 +57,8 @@ const ImageFrame = styled.img`
   padding: 0;
   object-fit: fill;
   cursor: pointer;
-  ${({ theme }) => theme.device.mobileLg} {
+  ${(props) => (props.post ? `object-fit: cover` : null)};
+  /* ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-  }
+  } */
 `;

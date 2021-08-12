@@ -9,12 +9,10 @@ import { useSelector } from "react-redux";
 
 import Calendar from "../../assets/images/icons/calendar.svg";
 
-function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
+function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [checkweek, setCheckweek] = useState(false);
-
-  const challenge_info = useSelector((state) => state.challengeDetail.detail);
 
   const findCheck = (e) => {
     if (e.target.checked) {
@@ -105,18 +103,19 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id }) {
           />
         </Holiday>
       </div>
-      <CalendarContainer>
-        <img src={Calendar} alt="calendar" />
+      <CalendarContainer htmlFor="calendar">
         <SubT>인증 기간</SubT>
+        <img src={Calendar} alt="calendar" />
       </CalendarContainer>
       <SDatePicker
+        id="calendar"
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
         onChange={onChange}
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
-        placeholderText="체크인 날짜 선택"
+        placeholderText={oldDate ? oldDate : "0000.00.00 ~ 0000.00.00"}
         locale={ko}
         minDate={date}
         isClearable={true}
@@ -180,14 +179,14 @@ const SDatePicker = styled(DatePicker)`
   }
 `;
 
-const CalendarContainer = styled.div`
+const CalendarContainer = styled.label`
   position: relative;
   & > img {
     width: 20px;
     height: 20px;
     position: absolute;
-    right: 16px;
-    top: 30px;
+    right: -14.3vw;
+    bottom: 5px;
     z-index: 10;
   }
 `;

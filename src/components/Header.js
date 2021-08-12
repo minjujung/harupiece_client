@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MainCreators as searchActions } from "../redux/modules/main";
+
 // image
 import { Image } from "../elements/index";
-import levelData from "../shared/level";
 import logo from "../assets/images/logo/large.png";
 import close from "../assets/images/icons/close.svg";
 import login from "../assets/images/icons/login.svg";
@@ -11,12 +10,13 @@ import myPage from "../assets/images/icons/profile.svg";
 import Search from "../assets/images/icons/search.svg";
 import profile from "../assets/images/logo/profile.png";
 import menu from "../assets/images/icons/menubar.svg";
+
 // modal
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
+import { MainCreators as searchActions } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 
@@ -142,6 +142,7 @@ const Header = (props) => {
                 width="42px"
                 height="42px"
                 borderRadius="8px"
+                post
               />
             </>
           ) : (

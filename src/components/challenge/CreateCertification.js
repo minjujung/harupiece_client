@@ -56,8 +56,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
             {goodPreview ? (
               <PreviewBtn htmlFor="ex_file">
                 <Image
+                  post
                   width="7.08vw"
                   height="12.59vh"
+                  borderRadius="8px"
                   src={goodPreview}
                   alt="goodPreview"
                 />
@@ -87,8 +89,10 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
             {badPreview ? (
               <PreviewBtn htmlFor="ex_files">
                 <Image
+                  post
                   width="7.08vw"
                   height="12.59vh"
+                  borderRadius="8px"
                   src={badPreview}
                   alt="badPreview"
                 />

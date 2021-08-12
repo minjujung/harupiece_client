@@ -17,6 +17,7 @@ const Button = ({
   profileBtn,
   children,
   type,
+  shadow,
 }) => {
   const styles = {
     width,
@@ -30,6 +31,7 @@ const Button = ({
     borderRadius,
     chat,
     profileBtn,
+    shadow,
   };
   return (
     <ElButton onClick={_onClick} type={type} {...styles}>
@@ -53,9 +55,8 @@ Image.defaultProps = {
   profileBtn: false,
   borderRadius: false,
   type: false,
+  shadow: false,
   _onClick: () => {},
-
-  type: "",
 };
 
 export default Button;
@@ -86,8 +87,11 @@ const ElButton = styled.button`
   ${(props) =>
     props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
   line-height: normal;
+  align-self: flex-end;
+  ${(props) =>
+    props.shadow ? "box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px" : null};
 
-  ${({ theme }) => theme.device.mobileLg} {
+  /* ${({ theme }) => theme.device.mobileLg} {
     display: none;
-  }
+  } */
 `;

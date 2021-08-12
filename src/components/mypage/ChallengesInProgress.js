@@ -27,6 +27,8 @@ function ChallengesInProgress(props) {
     dispatch(myInfo.getMyInfoDB());
   }, []);
 
+  const [category, setCategory] = useState("");
+
   const dispatch = useDispatch();
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.challengeList
@@ -51,13 +53,19 @@ function ChallengesInProgress(props) {
     _date: end_date,
   } = changeForm(end);
 
-  console.log(myChallengeList);
-
   return (
     <Container>
       {myChallengeList && myChallengeList.length !== 0 ? (
         <CardGrid>
           {myChallengeList.map((list, idx) => {
+            let category = "";
+            if (list.categoryName === "NODRINKNOSMOKE") {
+              category = "금연&금주";
+            } else if (list.categoryName === "EXERCISE") {
+              category = "운동";
+            } else {
+              category = "생활습관";
+            }
             return (
               <Card
                 key={list.challengeId}
@@ -73,12 +81,13 @@ function ChallengesInProgress(props) {
                 alt="challenge"
               >
                 <Tag bg="mainOrange" color="white" padding="8px 20px">
-                  {list.categoryName}
+                  {category}
                 </Tag>
-                {my_info.memberId === list.challengeMember}
-                <Tag bg="mainGreen" color="white" padding="8px 20px">
-                  내가 만든 챌린지
-                </Tag>
+                {my_info.memberId === list.challengeMember ? (
+                  <Tag bg="mainGreen" color="white" padding="8px 20px">
+                    내가 만든 챌린지
+                  </Tag>
+                ) : null}
               </Card>
             );
           })}

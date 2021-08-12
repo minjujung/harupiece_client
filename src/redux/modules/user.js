@@ -8,6 +8,7 @@ import {
 } from "../../shared/Cookie";
 import instance, { UserApis } from "../../shared/api";
 import { MainCreators } from "./main";
+import { consoleLogger } from "../configureStore";
 
 // action
 const LOGIN = "user/LOGIN";
@@ -19,7 +20,7 @@ const COMPLETE = "COMPLETE";
 const setLogin = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const setUser = createAction(SET_USER, (userInfo) => ({ userInfo }));
-const complete= createAction(COMPLETE,(is_complete) => ({is_complete}));
+const complete = createAction(COMPLETE, (is_complete) => ({ is_complete }));
 
 const initialState = {
   isLogin: false,
@@ -38,7 +39,7 @@ const registerDB = ({
   nickname,
   password,
   passwordConfirm,
-  profileImg,
+  profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
 }) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
@@ -48,9 +49,15 @@ const registerDB = ({
         window.alert("회원가입이 완료되었습니다!");
         history.push("/login");
       })
-      .catch((err) => {
-        console.log(err);
-        window.alert("회원가입이 완료되었습니다!");
+      .catch((error) => {
+        if (error.response?.data?.message) {
+          window.alert(error.response?.data?.message);
+        } else if (error) {
+          window.alert(
+            "회원가입중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+          );
+        }
+        consoleLogger("회원가입 요청 실패시 error: ", error);
       });
   };
 };
@@ -60,16 +67,21 @@ const setLoginDB = ({ email, password }) => {
   return function (dispatch, getState, { history }) {
     UserApis.login(email, password)
       .then((res) => {
-        console.log(res);
         setCookie("token", res.data.accessToken, 1, "/");
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
+
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(""));
         history.replace("/");
       })
-      .catch((err) => {
-        console.log(err);
-        window.alert("회원정보가 없거나 아이디 비밀번호가 일치 하지 않습니다");
+      .catch((error) => {
+        if (error.response.status === 401 || error.response.status === 500) {
+          window.alert(
+            "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
+          );
+          window.location.reload();
+        }
+        consoleLogger("로그인 요청 실패시 error: ", error);
       });
   };
 };
@@ -116,7 +128,15 @@ export default handleActions(
       }),
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.userInfo = action.payload.userInfo;
+        let myInfo = action.payload.userInfo;
+        if (myInfo.profileImage === "") {
+          myInfo = {
+            ...action.payload.userInfo,
+            profileImg:
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+          };
+        }
+        draft.userInfo = myInfo;
         draft.isLogin = true;
       }),
     [COMPLETE]: (state, action) =>

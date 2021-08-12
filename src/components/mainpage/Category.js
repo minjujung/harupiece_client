@@ -41,10 +41,10 @@ const Category = (props) => {
   const is_login = getCookie("token") ? true : false;
 
   const start = main_list.usermain[category]?.map(
-    (list) => list.challengeStartDate.split("T")[0]
+    (list) => list.challengeStartDate?.split("T")[0]
   );
   const end = main_list.usermain[category]?.map(
-    (list) => list.challengeEndDate.split("T")[0]
+    (list) => list.challengeEndDate?.split("T")[0]
   );
 
   const {
@@ -59,10 +59,10 @@ const Category = (props) => {
   } = changeForm(end);
 
   const GuestStart = main_list.guestmain[category]?.map(
-    (list) => list.challengeStartDate.split("T")[0]
+    (list) => list.challengeStartDate?.split("T")[0]
   );
   const GuestEnd = main_list.guestmain[category]?.map(
-    (list) => list.challengeEndDate.split("T")[0]
+    (list) => list.challengeEndDate?.split("T")[0]
   );
   const {
     _year: GuestStart_year,
@@ -148,8 +148,8 @@ const Category = (props) => {
         <CardBox2>
           {is_login ? (
             <>
-              {main_list.usermain[category] &&
-                main_list.usermain[category].map((l, idx) => {
+              {main_list &&
+                main_list.usermain[category]?.map((l, idx) => {
                   return (
                     <>
                       <Card
@@ -168,7 +168,7 @@ const Category = (props) => {
                           color="black"
                           padding="8px 20px"
                         >
-                          {l.tagList[0]}
+                          {l.tagList && l.tagList[0]}
                         </Tag>
                         <Tag
                           fontWeight="500"
