@@ -86,4 +86,8 @@ const ElButton = styled.button`
   ${(props) =>
     props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
   line-height: normal;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;

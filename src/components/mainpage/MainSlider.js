@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
 import left from "../../assets/images/icons/arrow/left.svg";
@@ -13,6 +13,7 @@ const MainSlider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
+ 
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -62,7 +63,9 @@ const MainSlider = (props) => {
         >
           {slideImages.map((l, idx) => {
             return (
-              <Slide>
+              <Slide
+                key={idx}
+              >
                 <SliderBox
                   style={{
                     backgroundImage: `url(${l})`,
@@ -96,7 +99,6 @@ const MainSlider = (props) => {
           <img style={{ width: "50%" }} src={Right} alt="" />
         </NextBtn>
       </Container>
-      {/* Moblie */}
     </>
   );
 };
@@ -108,7 +110,8 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
-    display: none;
+    width: 100%;
+    padding-top: 25vh;
   }
 `;
 
@@ -124,6 +127,12 @@ const PrevBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 30px;
+    height: 30px;
+    top: 70%;
+    border-radius: 50%;
+  }
 `;
 
 const NextBtn = styled.button`
@@ -138,28 +147,56 @@ const NextBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 30px;
+    height: 30px;
+    top: 70%;
+    border-radius: 50%;
+  }
 `;
 
 const SliderContainer = styled.div`
   width: 100%;
   display: flex; //이미지들을 가로로 나열합니다.
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    margin-right: 10px;
+  }
 `;
 
 const Slide = styled.div`
   width: 950px;
   border-radius: 10px;
+  padding-bottom: 20px;
   padding-right: 10px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    border-radius: 10px;
+    margin-left: 10px;
+  }
 `;
 
 const SliderBox = styled.div`
   width: 950px;
-  height: 30vh;
+  height: 25.5vh;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding-left: 100px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 94vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 40px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 `;
 
 const TagBox = styled.div`
@@ -176,6 +213,11 @@ const TitleBox = styled.div`
   div {
     padding-right: 10px;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SubTitleBox = styled.div`
@@ -184,5 +226,8 @@ const SubTitleBox = styled.div`
   letter-spacing: -0.08em;
   span {
     border-bottom: 1px solid white;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 24px;
   }
 `;
