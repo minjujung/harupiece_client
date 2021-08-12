@@ -7,7 +7,6 @@ import CreateImgSelect from "../components/challenge/CreateImgSelect";
 import CreateCertification from "../components/challenge/CreateCertification";
 import CreateCalendar from "../components/challenge/CreateCalendar";
 
-import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";

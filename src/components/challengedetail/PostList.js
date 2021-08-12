@@ -13,14 +13,8 @@ const PostList = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const {
-    list,
-    totalNumber,
-    totalDay,
-    challengeId,
-    challengeStatus,
-    challengeMember,
-  } = props;
+  const { list, totalNumber, challengeId, challengeStatus, challengeMember } =
+    props;
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);

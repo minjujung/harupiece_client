@@ -1,12 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import {
-  deleteCookie,
-  setCookie,
-  getCookie,
-  multiCookie,
-} from "../../shared/Cookie";
-import instance, { UserApis } from "../../shared/api";
+import { deleteCookie, setCookie, getCookie } from "../../shared/Cookie";
+import { UserApis } from "../../shared/api";
 import { MainCreators } from "./main";
 import { consoleLogger } from "../configureStore";
 
@@ -17,7 +12,6 @@ const SET_USER = "user/SET_USER";
 const COMPLETE = "COMPLETE";
 
 // action creator
-const setLogin = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const setUser = createAction(SET_USER, (userInfo) => ({ userInfo }));
 const complete = createAction(COMPLETE, (is_complete) => ({ is_complete }));

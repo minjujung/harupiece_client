@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
-  const levelState = parseInt((user_info.memberLevel - 1) / 5);
+  const levelState = parseInt((user_info?.memberLevel - 1) / 5);
 
   if (user_info.memberId === null) {
     return (

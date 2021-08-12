@@ -9,7 +9,7 @@ import Info from "../components/mainpage/Info";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button } from "../elements";
 
 const Main = (props) => {

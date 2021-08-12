@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "../../shared/style.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
-import { useSelector } from "react-redux";
 
 import Calendar from "../../assets/images/icons/calendar.svg";
 

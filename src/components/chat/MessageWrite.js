@@ -4,12 +4,11 @@ import styled from "styled-components";
 import send from "../../assets/images/icons/send.svg";
 import { Image } from "../../elements";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreator as chatActions } from "../../redux/modules/chat";
 
 const MessageWrite = ({ sendMessage }) => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.chat.info.is_loading);
 
   const [msg, setMsg] = useState("");
 

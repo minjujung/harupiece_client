@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import Header from "../components/Header";
-
 import { useDispatch } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
@@ -100,12 +98,12 @@ const Container = styled.div`
   margin-top: 10.833vh;
 
   & > p {
-    margin-top: 2.40vh;
+    margin-top: 2.4vh;
     margin-bottom: 5.37vh;
     font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.54;
     letter-spacing: -1.32px;
-    ${({ theme }) => theme.device.mobileLg}{
+    ${({ theme }) => theme.device.mobileLg} {
       font-size: 35.5px;
     }
   }
@@ -118,16 +116,16 @@ const Container = styled.div`
     height: 100%;
     padding: 0 4.44vw 0 4.44vw;
     form {
-    width: 100vw;
-    padding: 0 4.44vw 0 4.44vw;
+      width: 100vw;
+      padding: 0 4.44vw 0 4.44vw;
+    }
   }
-}
 `;
 
 const Input = styled.input`
   margin-bottom: 0.92vh;
   width: 100%;
-  padding: 1.35vw 1.20vh 0.83vw 1.20vh;
+  padding: 1.35vw 1.2vh 0.83vw 1.2vh;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.ms};
@@ -136,7 +134,7 @@ const Input = styled.input`
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: rgba(0, 0, 0, 0.4);
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     padding: 3.06vw;
     font-size: 15.75px;
     ::placeholder {
@@ -151,7 +149,7 @@ const ErrorMsg = styled.p`
   text-align: center;
   color: red;
   font-size: ${({ theme }) => theme.fontSizes.ms};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-left: 3.06vw;
     font-size: 15.75px;
   }
@@ -162,7 +160,7 @@ const ErrorMsgBO = styled.p`
   margin-left: 0.68vw;
   color: red;
   font-size: ${({ theme }) => theme.fontSizes.ms};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-left: 3.06vw;
     font-size: 15.75px;
   }
@@ -174,7 +172,7 @@ const LoginText = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   cursor: pointer;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 14px;
   }
 `;

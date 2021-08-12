@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getCookie, multiCookie } from "./Cookie";
-import { history } from "../redux/configureStore";
 
 const instance = axios.create({
   baseURL: "http://54.180.141.39/",

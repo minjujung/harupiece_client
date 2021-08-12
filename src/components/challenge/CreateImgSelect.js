@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 // modal
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
 
@@ -13,8 +12,6 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
   const select = useSelector((state) => state.create.thumnailList);
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
-
-  const [preview, setPreview] = useState("");
 
   // modal state
   const [open, setOpen] = useState(false);
@@ -101,20 +98,9 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
           })}
         </ThumbnailModal>
       </Dialog>
-      {/* <Preview id={id} preview={preview} challenge_info={challenge_info} /> */}
     </>
   );
 }
-
-const Preview = ({ id, preview, challenge_info }) => {
-  if (id && !preview) {
-    return <img src={challenge_info.challengeImgUrl} alt="thumbnail" />;
-  } else if (!id && !preview) {
-    return null;
-  } else {
-    return <img src={preview} alt="thumbnail_preview" />;
-  }
-};
 
 export default CreateImgSelect;
 

@@ -60,8 +60,8 @@ const Header = (props) => {
       <MobileHeader>
         <Image width="22px" height="23px" src={menu} alt="menu" />
         <Image
-          width="220px"
-          height="35px"
+          width="110px"
+          height="17.5px"
           cursor
           src={logo}
           onClick={() => history.push("/")}
@@ -277,16 +277,6 @@ const HeaderMyBtn = styled.button`
   & > p {
     margin-top: 8px;
     font-size: 14px;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  label {
-    input {
-      width: 100px;
-      height: 37px;
-    }
   }
 `;
 

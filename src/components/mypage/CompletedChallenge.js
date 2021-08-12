@@ -42,10 +42,9 @@ function CompletedChallenge() {
       {myChallengeList && myChallengeList.length !== 0 ? (
         myChallengeList.map((list, idx) => {
           return (
-            <CardGrid>
+            <CardGrid key={list.challengeId}>
               <Card
                 strongDate
-                key={list.challengeId}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }

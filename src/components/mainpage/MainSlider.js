@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
@@ -8,12 +7,9 @@ import Right from "../../assets/images/icons/arrow/right.svg";
 const TOTAL_SLIDES = 3;
 
 const MainSlider = (props) => {
-  const main_list = useSelector((state) => state.main);
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
- 
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -63,9 +59,7 @@ const MainSlider = (props) => {
         >
           {slideImages.map((l, idx) => {
             return (
-              <Slide
-                key={idx}
-              >
+              <Slide key={idx}>
                 <SliderBox
                   style={{
                     backgroundImage: `url(${l})`,

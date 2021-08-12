@@ -87,11 +87,14 @@ const ElButton = styled.button`
   ${(props) =>
     props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
   line-height: normal;
-  align-self: flex-end;
   ${(props) =>
     props.shadow ? "box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px" : null};
 
   /* ${({ theme }) => theme.device.mobileLg} {
     display: none;
   } */
+
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 17px;
+  }
 `;
