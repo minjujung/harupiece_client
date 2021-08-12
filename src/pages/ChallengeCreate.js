@@ -12,6 +12,7 @@ import { actionCreator as challengeDetailActions } from "../redux/modules/challe
 // import { Input } from "../elements";
 import Down from "../assets/images/icons/arrow/down.svg";
 import { Button } from "../elements";
+import PwdModal from "../components/challenge/PwdModal";
 
 function ChallengeCreate(props) {
   const dispatch = useDispatch();
@@ -58,23 +59,27 @@ function ChallengeCreate(props) {
   // 모집 형식
   const [pwdCheck, setPwdCheck] = useState(false);
   const [pwd, setPwd] = useState("");
+  const [open, setOpen] = useState(false);
 
   const choosePublic = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "PRIVATE") {
+      setPwd("");
       setPwdCheck(true);
+      setOpen(true);
     } else if (e.target.value === "PUBLIC") {
       setPwdCheck(false);
       setPwd("PUBLIC");
     } else {
       setPwdCheck(false);
+      setPwd("");
     }
   };
 
   //모집형식이 비공개일때 비밀번호 설정
-  const savePwd = (e) => {
-    setPwd(e.target.value);
-    setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
+  const savePwd = () => {
+    setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
+    setOpen(false);
+    setPwd("");
   };
 
   // 챌린지 설명
@@ -122,8 +127,12 @@ function ChallengeCreate(props) {
       return;
     }
 
-    if (pwdCheck && pwd === "") {
+    if (
+      (pwdCheck && pwd === "") ||
+      (pwdCheck && challengeInfo.challengePassword === "")
+    ) {
       window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
+      setOpen(true);
       return;
     }
     dispatch(createActions.createChDB(challengeInfo));
@@ -194,18 +203,18 @@ function ChallengeCreate(props) {
               <SelectContainer>
                 <img src={Down} alt="down" />
                 <SelectBox id="isPwd" onChange={choosePublic}>
-                  <option value="CATEGORY">카테고리</option>
+                  <option value="CATEGORY">비밀번호 설정</option>
                   <option value="PUBLIC">공개</option>
                   <option value="PRIVATE">비공개</option>
                 </SelectBox>
-              </SelectContainer>
-              {pwdCheck ? (
-                <input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  onChange={savePwd}
+                <PwdModal
+                  pwd={pwd}
+                  setPwd={setPwd}
+                  savePwd={savePwd}
+                  open={open}
+                  setOpen={setOpen}
                 />
-              ) : null}
+              </SelectContainer>
             </div>
             {/* 챌린지 설명 */}
             <div>

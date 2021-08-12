@@ -19,10 +19,6 @@ const PwdModal = (props) => {
   const [open, setOpen] = useState(false);
   const pwdInput = useRef();
 
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-
   // modal창 닫기,
   const handleClose = () => {
     setOpen(false);
