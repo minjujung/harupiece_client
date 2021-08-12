@@ -85,7 +85,6 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 360px;
     height: 100vh;
     margin-top: 10vh;
   }

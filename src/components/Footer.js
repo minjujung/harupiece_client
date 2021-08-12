@@ -4,7 +4,7 @@ import logo from "../assets/images/logo/large.png";
 
 const Footer = (props) => {
   return (
-    <React.Fragment>
+    <>
       <FooterBox>
         <LeftBox>
           <div>
@@ -16,7 +16,7 @@ const Footer = (props) => {
           <div>공식계정</div>
         </RightBox>
       </FooterBox>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -24,20 +24,20 @@ export default Footer;
 
 const FooterBox = styled.div`
   height: 22.22vh;
-  width: 100vw;
+  width: 100%;
   border-top: 1px solid #efefef;
-  /* display: flex;
-  justify-content: space-between; */
   z-index: 10;
   margin-top: 11.76vh;
+
   ${({ theme }) => theme.device.mobileLg} {
-    margin-bottom: 40px;
+    margin: 0vh 0 3vh 0;
     position: inherit;
+    height: 180px;
   }
 `;
 
 const LeftBox = styled.div`
-  height: 9.25vh;
+  height: 12vh;
   font-size: 16px;
   display: flex;
   flex-direction: column;
@@ -67,10 +67,13 @@ const LeftBox = styled.div`
 `;
 
 const RightBox = styled.div`
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 25vw;
   div {
-    position: absolute;
-    right: 16.67vw;
-    bottom: 5vh;
   }
   ${({ theme }) => theme.device.mobileLg} {
     div {

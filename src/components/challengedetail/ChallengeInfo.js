@@ -140,6 +140,7 @@ const Section = styled.section`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     padding: 0 4.44vw;
+    overflow: scroll;
     h3 {
       margin-bottom: 24px;
       font-size: 32px;

@@ -302,6 +302,7 @@ function SearchChallenge(props) {
             return (
               <>
                 <Card
+                  search
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
@@ -343,6 +344,12 @@ const Container = styled.div`
   align-items: center;
   margin-top: 21.5vh;
   padding-bottom: 42.5vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 360px;
+    height: 100vh;
+    padding: 0px;
+    margin: 5vh 0 0 0;
+  }
 `;
 
 const CategoryContainer = styled.div`
@@ -353,6 +360,11 @@ const CategoryContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 360px;
+    font-size: 16px;
+  }
 `;
 
 const CategoryLeftBox = styled.div`
@@ -361,6 +373,10 @@ const CategoryLeftBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-left: 48px;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 16px;
+    padding-left: 12px;
+  }
 `;
 
 const CategoryRightBox = styled.div`
@@ -369,6 +385,10 @@ const CategoryRightBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-left: 24px;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 16px;
+    padding-left: 12px;
+  }
 `;
 
 const CategoryTitle = styled.div`
@@ -379,6 +399,9 @@ const CategoryTitle = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: space-around;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 16px;
+  }
 `;
 
 const TagBox = styled.div`
@@ -395,6 +418,15 @@ const BoxContainer = styled.div`
   grid-row-gap: 40px;
   grid-column-gap: 40px;
   padding-top: 40px;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100vh;
+    grid-row-gap: 30px;
+    overflow: scroll;
+    margin-bottom: 5vh;
+  }
 `;
 
 export default SearchChallenge;

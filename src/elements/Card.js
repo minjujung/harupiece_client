@@ -15,10 +15,11 @@ const Card = ({
   strongDate,
   onClick,
   children,
+  search,
 }) => {
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const styles = { width, height };
+  const styles = { width, height, search };
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
@@ -57,6 +58,7 @@ Card.defaultProps = {
   date: "",
   src: "",
   alr: "",
+  search: false,
   width: false,
   height: false,
   inProcess: false,
@@ -73,7 +75,7 @@ const CardBox = styled.div`
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 60vw;
+    width: ${(props) => (props.search ? "85vw" : "60vw")};
   }
 `;
 
@@ -82,7 +84,11 @@ const TagContainer = styled.div`
   margin: 2.22vh 0 1.39vh 1.04vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin: 1.22vh 0 1.39vh 4.04vw;
+    margin: 1.22vh 0 0 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 5px;
   }
 `;
 
@@ -93,6 +99,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+    padding-left: 5px;
   }
 `;
 
@@ -104,7 +112,6 @@ const Title = styled.h4`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 14px;
-    text-align: center;
   }
 `;
 
@@ -118,8 +125,8 @@ const Date = styled.p`
   width: 29.84vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 4vh;
     font-size: 14px;
-    text-align: center;
   }
 `;
 

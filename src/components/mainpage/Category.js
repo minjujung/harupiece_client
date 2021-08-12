@@ -497,10 +497,15 @@ const Contain = styled.div`
 const TagBox = styled.div`
   width: 100vw;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding-left: 20px;
   padding-bottom: 1.38vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 `;
 
 const CardBox2 = styled.div`
