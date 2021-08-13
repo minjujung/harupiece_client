@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, multiCookie } from "./Cookie";
+import { setCookie, getCookie, multiCookie } from "./Cookie";
 
 const instance = axios.create({
   baseURL: "http://54.180.141.39/",
@@ -16,65 +16,70 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
-let isTokenRefreshing = false;
-let refreshSubscribers = [];
-
-const onTokenRefreshed = (accessToken) => {
-  refreshSubscribers.map((callback) => callback(accessToken));
+const getAccessToken = () => {
+  const accessToken = getCookie("token");
+  return accessToken;
 };
 
-const addRefreshSubscriber = (callback) => {
-  refreshSubscribers.push(callback);
+const getRefreshToken = () => {
+  const refreshToken = getCookie("refreshToken");
+  return refreshToken;
 };
 
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   async (error) => {
-//     const {
-//       config,
-//       response: { status },
-//     } = error;
-//     const originalRequest = config;
-//     if (status === 401) {
-//       if (!isTokenRefreshing) {
-//         // isTokenRefreshing이 false인 경우에만 token refresh 요청
-//         isTokenRefreshing = true;
-//         const refresh_token = getCookie("refreshToken");
-//         const token = getCookie("token");
-//         const { data } = await instance.post(`api/member/reissue`, {
-//           accessToken: token,
-//           refreshToken: refresh_token,
-//         });
+instance.interceptors.request.use(
+  (config) => {
+    const token = getAccessToken();
+    if (token) {
+      config.headers["Authorization"] = ` Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-//         const accessCookie = {
-//           name: "token",
-//           value: data.accessToken,
-//         };
-//         const refreshCookie = {
-//           name: "refreshToken",
-//           value: data.refreshToken,
-//         };
-//         multiCookie(accessCookie, refreshCookie);
-//         isTokenRefreshing = false;
-//         instance.defaults.headers.common[
-//           "Authorization"
-//         ] = `Bearer ${accessCookie.value}`;
-//         onTokenRefreshed(accessCookie.value);
-//         window.alert("로그인 시간이 만료되었습니다! 새로고침 해주세요!");
-//       }
-//       const retryOriginalRequest = new Promise((resolve) => {
-//         addRefreshSubscriber((accessToken) => {
-//           originalRequest.headers.Authorization = "Bearer " + accessToken;
-//           resolve(instance(originalRequest));
-//         });
-//       });
-//       return retryOriginalRequest;
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+instance.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (err) => {
+    const originalConfig = err.config;
+
+    if (err.response) {
+      console.log("err.response", err.response);
+      if (err.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+        try {
+          const rs = await refreshToken();
+          console.log(rs);
+          const { accessToken } = rs.data;
+          setCookie("token", accessToken);
+          instance.defaults.headers.common[
+            "Authorization"
+          ] = ` Bearer ${accessToken}`;
+          return instance(originalConfig);
+        } catch (_error) {
+          if (_error.response && _error.response.data) {
+            return Promise.reject(_error.response.data);
+          }
+          return Promise.reject(_error);
+        }
+      }
+      if (err.response.status === 403 && err.response.data) {
+        return Promise.reject(err.response.data);
+      }
+    }
+    return Promise.reject(err);
+  }
+);
+
+const refreshToken = () => {
+  return instance.post("/api/member/reissue", {
+    refreshToken: getRefreshToken(),
+    accessToken: getAccessToken(),
+  });
+};
 
 // 유저 정보
 export const UserApis = {

@@ -63,17 +63,20 @@ const setLoginDB = ({ email, password }) => {
       .then((res) => {
         setCookie("token", res.data.accessToken, 1, "/");
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
-
+        console.log(res.data);
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(""));
         history.replace("/");
       })
       .catch((error) => {
-        if (error.response?.status === 401 || error.response?.status === 400) {
-          window.alert(
-            "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
-          );
-          window.location.reload();
+        console.log(error.response);
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 400) {
+            window.alert(
+              "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
+            );
+            window.location.reload();
+          }
         }
         consoleLogger("로그인 요청 실패시 error: ", error);
       });
