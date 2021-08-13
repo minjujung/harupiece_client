@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Image } from "../../elements";
 
 const MessageList = (props) => {
-  const dispatch = useDispatch();
   const msgList = useSelector((state) => state.chat.info.messages);
 
   // 스크롤 대상(제일 마지막 메세지)
@@ -43,6 +41,6 @@ export default MessageList;
 
 const Chat = styled.div``;
 
-const Sender = styled.div``;
+// const Sender = styled.div``;
 
-const Message = styled.p``;
+// const Message = styled.p``;

@@ -87,7 +87,6 @@ function ChallengeCreate(props) {
   const savePwd = () => {
     setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
     setOpen(false);
-    setPwd("");
   };
 
   // 챌린지 설명
@@ -147,6 +146,8 @@ function ChallengeCreate(props) {
     dispatch(createActions.setGoodPreview(""));
     dispatch(createActions.setBadPreview(""));
   };
+
+  console.log(pwd, challengeInfo.challengePassword);
 
   return (
     <>

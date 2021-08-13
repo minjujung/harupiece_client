@@ -152,13 +152,12 @@ const Category = (props) => {
               {main_list &&
                 main_list.usermain[category]?.map((l, idx) => {
                   return (
-                    <>
+                    <div key={l.challengeId}>
                       <Card
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
                         date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                        key={idx}
                         onClick={() =>
                           history.push(`/challenge/${l.challengeId}/intro`)
                         }
@@ -180,7 +179,7 @@ const Category = (props) => {
                           {l.challengeMember.length}/10명
                         </Tag>
                       </Card>
-                    </>
+                    </div>
                   );
                 })}
             </>
@@ -189,7 +188,7 @@ const Category = (props) => {
               {main_list.guestmain[category] &&
                 main_list.guestmain[category].map((l, idx) => {
                   return (
-                    <>
+                    <div key={l.challengeId}>
                       <Card
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
@@ -217,7 +216,7 @@ const Category = (props) => {
                           1/10명
                         </Tag>
                       </Card>
-                    </>
+                    </div>
                   );
                 })}
             </>
@@ -288,14 +287,13 @@ const Category = (props) => {
                 {main_list.usermain[category] &&
                   main_list.usermain[category].map((l, idx) => {
                     return (
-                      <>
-                        <Slide key={idx}>
+                      <div key={l.challengeId}>
+                        <Slide>
                           <Card
                             src={l.challengeImgUrl}
                             title={l.challengeTitle}
                             date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                            key={idx}
                             onClick={() =>
                               history.push(`/challenge/${l.challengeId}/intro`)
                             }
@@ -306,7 +304,7 @@ const Category = (props) => {
                               color="black"
                               padding="8px 20px"
                             >
-                              {l.tagList[0]}
+                              {l.tagList && l.tagList[0]}
                             </Tag>
                             <Tag
                               fontWeight="500"
@@ -318,7 +316,7 @@ const Category = (props) => {
                             </Tag>
                           </Card>
                         </Slide>
-                      </>
+                      </div>
                     );
                   })}
               </SliderContainer>
@@ -337,14 +335,13 @@ const Category = (props) => {
                 {main_list.guestmain[category] &&
                   main_list.guestmain[category].map((l, idx) => {
                     return (
-                      <>
-                        <Slide key={idx}>
+                      <div key={l.challengeId}>
+                        <Slide>
                           <Card
                             src={l.challengeImgUrl}
                             title={l.challengeTitle}
                             date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
                         ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
-                            key={idx}
                             onClick={() =>
                               history.push(`/challenge/${l.challengeId}/intro`)
                             }
@@ -355,7 +352,7 @@ const Category = (props) => {
                               color="black"
                               padding="8px 20px"
                             >
-                              {l.tagList[0]}
+                              {l.tagList && l.tagList[0]}
                             </Tag>
                             <Tag
                               fontWeight="500"
@@ -367,7 +364,7 @@ const Category = (props) => {
                             </Tag>
                           </Card>
                         </Slide>
-                      </>
+                      </div>
                     );
                   })}
               </SliderContainer>

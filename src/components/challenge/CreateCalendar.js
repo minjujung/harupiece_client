@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "../../shared/style.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
-import { useSelector } from "react-redux";
 
 import Calendar from "../../assets/images/icons/calendar.svg";
 
@@ -115,7 +114,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
         onChange={onChange}
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
-        placeholderText={oldDate ? oldDate : "0000.00.00 ~ 0000.00.00"}
+        placeholderText="0000.00.00 ~ 0000.00.00"
         locale={ko}
         minDate={date}
         isClearable={true}

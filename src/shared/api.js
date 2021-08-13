@@ -1,8 +1,5 @@
 import axios from "axios";
-import { getCookie, multiCookie, setCookie } from "./Cookie";
-import { history } from "../redux/configureStore";
-import { original } from "immer";
-import { LexRuntime } from "aws-sdk";
+import { setCookie, getCookie, multiCookie } from "./Cookie";
 
 const instance = axios.create({
   // baseURL: "http://34.64.75.241/",
@@ -13,11 +10,11 @@ const instance = axios.create({
   },
 });
 
-instance.interceptors.request.use(function (config) {
-  const accessToken = getCookie("token");
-  config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
-  return config;
-});
+// instance.interceptors.request.use(function (config) {
+//   const accessToken = getCookie("token");
+//   config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
+//   return config;
+// });
 
 const getAccessToken = () => {
   const accessToken = getCookie("token");
@@ -48,29 +45,24 @@ instance.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    console.log("err", err);
-    console.log("err.config", err.config);
 
     if (err.response) {
-      console.log("err.response", err.response);
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
-        console.log("401에러받고 if문 시작");
         try {
-          const rs = await refreshToken();
+          const rs = await refreshTokens();
           console.log(rs);
-          const { accessToken } = rs.data;
-          setCookie("accessToken", accessToken);
+          const { accessToken, refreshToken } = rs.data;
+          setCookie("token", accessToken);
+          setCookie("refreshToken", refreshToken);
           instance.defaults.headers.common[
             "Authorization"
           ] = ` Bearer ${accessToken}`;
-          console.log("try");
           return instance(originalConfig);
         } catch (_error) {
           if (_error.response && _error.response.data) {
             return Promise.reject(_error.response.data);
           }
-          console.log("catch");
           return Promise.reject(_error);
         }
       }
@@ -82,7 +74,7 @@ instance.interceptors.response.use(
   }
 );
 
-const refreshToken = () => {
+const refreshTokens = () => {
   return instance.post("/api/member/reissue", {
     refreshToken: getRefreshToken(),
     accessToken: getAccessToken(),

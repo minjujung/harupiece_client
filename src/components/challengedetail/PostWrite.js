@@ -53,7 +53,8 @@ const PostWrite = ({ challengeId }) => {
   //인증샷 post게시하면서 이미지도 업로드
   const createPost = () => {
     const file = shotInput.current.files[0];
-    if (!file) {
+    if (!file || !shotText) {
+      window.alert("인증샷과 게시글 모두 작성해주세요!");
       return;
     }
     dispatch(postActions.addPostDB({ file, shotText }, challengeId));
@@ -241,9 +242,4 @@ const TextInput = styled.textarea`
 const BtnContainer = styled.div`
   display: flex;
   margin-top: 32px;
-`;
-
-const CreateBtn = styled.button`
-  color: ${(props) => (props.disabled ? "black" : "white")};
-  background-color: ${(props) => (props.disabled ? "grey" : "blue")};
 `;
