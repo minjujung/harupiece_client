@@ -63,12 +63,13 @@ const setLoginDB = ({ email, password }) => {
       .then((res) => {
         setCookie("token", res.data.accessToken, 1, "/");
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
-
+        console.log(res.data);
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(""));
         history.replace("/");
       })
       .catch((error) => {
+        console.log(error);
         if (error.response.status === 401 || error.response.status === 500) {
           window.alert(
             "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
