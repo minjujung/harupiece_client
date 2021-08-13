@@ -90,10 +90,6 @@ const PostList = (props) => {
     }
   };
 
-  console.log(
-    parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)
-  );
-
   return (
     <>
       {list.map((l, idx) => (

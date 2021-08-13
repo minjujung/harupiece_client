@@ -16,10 +16,12 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   // modal state
   const [open, setOpen] = useState(false);
   const [imgIdx, setImgIdx] = useState("");
+  const [challenge, setChallenge] = useState(challengeInfo);
 
   const handleClickOpen = () => {
     if (id) {
       setOpen(true);
+      setChallenge(challenge_info);
       dispatch(imageActions.getThumnailDb(challenge_info.categoryName));
     } else {
       if (
@@ -30,6 +32,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
         return;
       }
       setOpen(true);
+      setChallenge(challengeInfo);
       dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
     }
   };
@@ -54,8 +57,8 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
     <>
       <SubT>대표 이미지 업로드 / 선택</SubT>
       <ImageBtn onClick={handleClickOpen}>
-        {challengeInfo.challengeImgUrl
-          ? `${challengeInfo.categoryName}_${imgIdx + 1}`
+        {challenge.challengeImgUrl
+          ? `${challenge.categoryName}_${imgIdx + 1}`
           : "이미지를 선택해주세요."}
       </ImageBtn>
       <Dialog

@@ -114,7 +114,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
         onChange={onChange}
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
-        placeholderText={oldDate ? oldDate : "0000.00.00 ~ 0000.00.00"}
+        placeholderText="0000.00.00 ~ 0000.00.00"
         locale={ko}
         minDate={date}
         isClearable={true}

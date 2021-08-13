@@ -25,6 +25,8 @@ function ChallengeCreate(props) {
 
   const [challengeInfo, setChallengeInfo] = useState({
     ...challenge_info,
+    challengeStartDate: "",
+    challengeEndDate: "",
     challengeHoliday: "",
     challengeBad: "",
     challengeGood: "",
@@ -41,14 +43,16 @@ function ChallengeCreate(props) {
   const [open, setOpen] = useState(false);
 
   const choosePublic = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "PRIVATE") {
+      setPwd("");
       setPwdCheck(true);
+      setOpen(true);
     } else if (e.target.value === "PUBLIC") {
       setPwdCheck(false);
       setPwd("PUBLIC");
     } else {
       setPwdCheck(false);
+      setPwd("");
     }
   };
 
@@ -60,9 +64,9 @@ function ChallengeCreate(props) {
   };
 
   //모집형식이 비공개일때 비밀번호 설정
-  const savePwd = (e) => {
-    setPwd(e.target.value);
-    setChallengeInfo({ ...challengeInfo, challengePassword: e.target.value });
+  const savePwd = () => {
+    setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
+    setOpen(false);
   };
 
   // 챌린지 설명
@@ -71,8 +75,8 @@ function ChallengeCreate(props) {
   };
 
   // 챌린지  수정 전 날짜
-  const oldDate = `${challenge_info.challengeStartDate.split("T")[0]} ~ 
-  ${challenge_info.challengeEndDate.split("T")[0]}`;
+  // const oldDate = `${challenge_info.challengeStartDate.split("T")[0]} ~
+  // ${challenge_info.challengeEndDate.split("T")[0]}`;
 
   // 챌린지 수정
   const editChallenge = () => {
@@ -98,7 +102,10 @@ function ChallengeCreate(props) {
       return;
     }
 
-    if (pwdCheck && pwd === "") {
+    if (
+      (pwdCheck && pwd === "") ||
+      (pwdCheck && challengeInfo.challengePassword === "")
+    ) {
       window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
       return;
     }
@@ -156,7 +163,6 @@ function ChallengeCreate(props) {
                   challengeInfo={challengeInfo}
                   setChallengeInfo={setChallengeInfo}
                   id={challenge_id}
-                  oldDate={oldDate}
                 />
               </div>
               {/* 모집형식 */}

@@ -299,7 +299,7 @@ const Category = (props) => {
                               color="black"
                               padding="8px 20px"
                             >
-                              {l.tagList[0]}
+                              {l.tagList && l.tagList[0]}
                             </Tag>
                             <Tag
                               fontWeight="500"
@@ -349,7 +349,7 @@ const Category = (props) => {
                               color="black"
                               padding="8px 20px"
                             >
-                              {l.tagList[0]}
+                              {l.tagList && l.tagList[0]}
                             </Tag>
                             <Tag
                               fontWeight="500"

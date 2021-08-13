@@ -77,13 +77,23 @@ const StateBox = (props) => {
               />
               조각: {user_info.point}개
             </p>
-            <Image
-              width="1.57vw"
-              height="60%"
-              borderRadius="50%"
-              src={levelData[levelState].piece}
-              alt="level_image"
-            />
+            <div
+              sytle={{
+                display: "flex",
+                height: "60%",
+                alignItems: "center",
+                marginTop: "30px",
+              }}
+            >
+              <Image
+                width="2.08vw"
+                height="100%"
+                borderRadius="50%"
+                src={levelData[levelState].piece}
+                alt="level_image"
+              />
+              <span> X 0 개</span>
+            </div>
           </Completed>
         </UserLevel>
       </StateContainer>
@@ -165,16 +175,17 @@ const Completed = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex: 1;
+  padding-bottom: 50px;
   color: 2px solid ${({ theme }) => theme.colors.darkGray};
   p {
     display: flex;
     width: 100%;
-
-    height: 15%;
+    height: 10%;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
   }
 `;

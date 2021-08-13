@@ -61,8 +61,11 @@ const ChallengeDetail = (props) => {
   let today = new Date();
   const progress = today.getTime() - date1.getTime();
   let progressDays = progress / 1000 / 60 / 60 / 24;
-  if (progressDays < 0) {
-    progressDays = 0;
+
+  let progressPercent = parseInt(progressDays / totalDay);
+
+  if (progressDays < 0 || isNaN(progressPercent)) {
+    progressPercent = 0;
   }
 
   today =
@@ -94,7 +97,7 @@ const ChallengeDetail = (props) => {
             <Title>{challenge.challengeTitle}</Title>
             <TotalNum>
               참여 {challenge.challengeMember.length}명 | 진행률{" "}
-              {parseInt(progressDays / totalDay) * 100} %
+              {progressPercent * 100} %
             </TotalNum>
           </Banner>
           <NavBar>
@@ -231,7 +234,7 @@ const Btns = styled.div`
     height: 11vh;
     flex-direction: row;
     position: fixed;
-    z-index: 20;
+    z-index: 15;
     top: auto;
     bottom: 0;
     margin-top: 0;

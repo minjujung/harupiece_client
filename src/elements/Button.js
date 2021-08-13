@@ -89,7 +89,6 @@ const ElButton = styled.button`
   line-height: normal;
   ${(props) =>
     props.shadow ? "box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px" : null};
-
   /* ${({ theme }) => theme.device.mobileLg} {
     display: none;
   } */
