@@ -8,10 +8,8 @@ import { getCookie } from "../../shared/Cookie";
 
 import { Tag, Card } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
-import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
-const TOTAL_SLIDES = 1;
 const Category = (props) => {
   const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
@@ -86,19 +84,22 @@ const Category = (props) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
-  const nextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES) {
-      setCurrentSlide(0);
-    } else {
-      setCurrentSlide(currentSlide + 1);
-    }
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState();
+
+  const onDragStart = (e) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + slideRef.current.scrollLeft);
   };
 
-  const prevSlide = () => {
-    if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
-    } else {
-      setCurrentSlide(currentSlide - 1);
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e) => {
+    if (isDrag) {
+      slideRef.current.scrollLeft = startX - e.pageX;
     }
   };
 
@@ -279,6 +280,10 @@ const Category = (props) => {
                 onMouseOver={() => setIsFlowing(false)}
                 onMouseOut={() => setIsFlowing(true)}
                 ref={slideRef}
+                onMouseDown={onDragStart}
+                onMouseMove={onDragMove}
+                onMouseUp={onDragEnd}
+                onMouseLeave={onDragEnd}
               >
                 {main_list.usermain[category] &&
                   main_list.usermain[category].map((l, idx) => {
@@ -317,12 +322,6 @@ const Category = (props) => {
                     );
                   })}
               </SliderContainer>
-              <PrevBtn onClick={prevSlide}>
-                <img style={{ width: "50%" }} src={left} alt="" />
-              </PrevBtn>
-              <NextBtn onClick={nextSlide}>
-                <img style={{ width: "50%" }} src={Right} alt="" />
-              </NextBtn>
             </>
           ) : (
             <>
@@ -330,6 +329,10 @@ const Category = (props) => {
                 onMouseOver={() => setIsFlowing(false)}
                 onMouseOut={() => setIsFlowing(true)}
                 ref={slideRef}
+                onMouseDown={onDragStart}
+                onMouseMove={onDragMove}
+                onMouseUp={onDragEnd}
+                onMouseLeave={onDragEnd}
               >
                 {main_list.guestmain[category] &&
                   main_list.guestmain[category].map((l, idx) => {
@@ -368,12 +371,6 @@ const Category = (props) => {
                     );
                   })}
               </SliderContainer>
-              <PrevBtn onClick={prevSlide}>
-                <img style={{ width: "50%" }} src={left} alt="" />
-              </PrevBtn>
-              <NextBtn onClick={nextSlide}>
-                <img style={{ width: "50%" }} src={Right} alt="" />
-              </NextBtn>
             </>
           )}
         </CardBox2>
@@ -409,7 +406,12 @@ const SliderContainer = styled.div`
   display: flex; //이미지들을 가로로 나열합니다.
   ${({ theme }) => theme.device.mobileLg} {
     width: 100vw;
+    height: 40vh;
     display: flex;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 const Slide = styled.div`
@@ -421,46 +423,6 @@ const Slide = styled.div`
     width: 60%;
     border-radius: 10px;
     margin-left: 25px;
-  }
-`;
-
-const PrevBtn = styled.button`
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.7;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 40%;
-  left: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 30px;
-    height: 30px;
-    top: 65%;
-    border-radius: 50%;
-  }
-`;
-
-const NextBtn = styled.button`
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.7;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 40%;
-  right: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 30px;
-    height: 30px;
-    top: 65%;
-    border-radius: 50%;
   }
 `;
 

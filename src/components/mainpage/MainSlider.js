@@ -8,12 +8,11 @@ import Right from "../../assets/images/icons/arrow/right.svg";
 const TOTAL_SLIDES = 3;
 
 const MainSlider = (props) => {
-  const main_list = useSelector((state) => state.main);
+  // const main_list = useSelector((state) => state.main);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
- 
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -63,9 +62,7 @@ const MainSlider = (props) => {
         >
           {slideImages.map((l, idx) => {
             return (
-              <Slide
-                key={idx}
-              >
+              <Slide key={idx}>
                 <SliderBox
                   style={{
                     backgroundImage: `url(${l})`,
@@ -112,6 +109,10 @@ const Container = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     padding-top: 25vh;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -132,6 +133,7 @@ const PrevBtn = styled.button`
     height: 30px;
     top: 70%;
     border-radius: 50%;
+    display: none;
   }
 `;
 
@@ -152,6 +154,7 @@ const NextBtn = styled.button`
     height: 30px;
     top: 70%;
     border-radius: 50%;
+    display: none;
   }
 `;
 
