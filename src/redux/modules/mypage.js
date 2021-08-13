@@ -88,7 +88,6 @@ const getPointDB = () => {
 
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
-    const myProfile = getState().mypage.myInfo.memberId;
     const myProfileImg = getState().mypage.myInfo.profileImage;
 
     const blank_check = /[\s]/g;

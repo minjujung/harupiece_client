@@ -10,16 +10,7 @@ const ConditionBtn = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const {
-    challengeProgress,
-    challengeId,
-    challengeMember,
-    challengePassword,
-    challengeTitle,
-    challengeStartDate,
-    memberId,
-    today,
-  } = props;
+  const { challengeProgress, challengeId, challengeMember, memberId } = props;
 
   //챌린지 포기하기
   const giveupChallenge = () => {

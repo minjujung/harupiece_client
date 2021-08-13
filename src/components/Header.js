@@ -19,6 +19,7 @@ import { userCreators } from "../redux/modules/user";
 import { MainCreators as searchActions } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
+import Sidebar from "./Sidebar";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -55,13 +56,39 @@ const Header = (props) => {
     handleClose();
   };
 
+  //mobile sidebar
+  const [xPosition, setX] = useState(-100);
+
+  const toggleMenu = () => {
+    if (xPosition < 0) {
+      setX(0);
+    } else {
+      setX(-100);
+    }
+  };
+
   return (
     <React.Fragment>
+      <Sidebar
+        width="100vw"
+        height="100%"
+        xPosition={xPosition}
+        toggleMenu={toggleMenu}
+      >
+        <h1>hello</h1>
+      </Sidebar>
       <MobileHeader>
-        <Image width="22px" height="23px" src={menu} alt="menu" />
         <Image
-          width="220px"
-          height="35px"
+          width="22px"
+          height="23px"
+          src={menu}
+          alt="menu"
+          onClick={toggleMenu}
+        />
+
+        <Image
+          width="110px"
+          height="17.5px"
           cursor
           src={logo}
           onClick={() => history.push("/")}
@@ -277,16 +304,6 @@ const HeaderMyBtn = styled.button`
   & > p {
     margin-top: 8px;
     font-size: 14px;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  label {
-    input {
-      width: 100px;
-      height: 37px;
-    }
   }
 `;
 

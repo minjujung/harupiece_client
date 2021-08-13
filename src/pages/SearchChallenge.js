@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { MainCreators as searchActions } from "../redux/modules/main";
+import { useSelector } from "react-redux";
 import { Tag, Card } from "../elements";
 import { changeForm } from "../components/mypage/ChallengesInProgress";
 import { history } from "../redux/configureStore";
 
 function SearchChallenge(props) {
-  const dispatch = useDispatch();
-
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 

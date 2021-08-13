@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 // modal
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
 
@@ -14,15 +13,15 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const select = useSelector((state) => state.create.thumnailList);
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
 
-  const [preview, setPreview] = useState("");
-
   // modal state
   const [open, setOpen] = useState(false);
   const [imgIdx, setImgIdx] = useState("");
+  const [challenge, setChallenge] = useState(challengeInfo);
 
   const handleClickOpen = () => {
     if (id) {
       setOpen(true);
+      setChallenge(challenge_info);
       dispatch(imageActions.getThumnailDb(challenge_info.categoryName));
     } else {
       if (
@@ -33,6 +32,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
         return;
       }
       setOpen(true);
+      setChallenge(challengeInfo);
       dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
     }
   };
@@ -57,8 +57,8 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
     <>
       <SubT>대표 이미지 업로드 / 선택</SubT>
       <ImageBtn onClick={handleClickOpen}>
-        {challengeInfo.challengeImgUrl
-          ? `${challengeInfo.categoryName}_${imgIdx + 1}`
+        {challenge.challengeImgUrl
+          ? `${challenge.categoryName}_${imgIdx + 1}`
           : "이미지를 선택해주세요."}
       </ImageBtn>
       <Dialog
@@ -101,20 +101,9 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
           })}
         </ThumbnailModal>
       </Dialog>
-      {/* <Preview id={id} preview={preview} challenge_info={challenge_info} /> */}
     </>
   );
 }
-
-const Preview = ({ id, preview, challenge_info }) => {
-  if (id && !preview) {
-    return <img src={challenge_info.challengeImgUrl} alt="thumbnail" />;
-  } else if (!id && !preview) {
-    return null;
-  } else {
-    return <img src={preview} alt="thumbnail_preview" />;
-  }
-};
 
 export default CreateImgSelect;
 
