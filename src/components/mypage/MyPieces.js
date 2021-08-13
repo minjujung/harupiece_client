@@ -38,7 +38,7 @@ function MyPieces(props) {
     levelState = (((userLevel - 1) % 5) + 1) * (levelDivided5 * 100) + 7500;
   }
 
-  const levelDataIdx = parseInt((userLevel - 1) / 5);
+  // const levelDataIdx = parseInt((userLevel - 1) / 5);
 
   // 사용자의 level에 맞게 구슬 보여주기 위한 함수
   const levelArray = Array.from({ length: levelDivided5 }, (item, idx) => {
@@ -93,26 +93,14 @@ function MyPieces(props) {
           <>
             {props.pointHistoryList.length !== 0 ? (
               <HistoryBox>
-                {props.pointHistoryList.map((history) => (
-                  <p key={props.pointHistoryList.pointHistoryId}>
+                {point_history?.map((history) => (
+                  <p key={history.pointHistoryId}>
                     [{history.challengeTitle}]챌린지를 통해 {history.point}조각
                     획득
                   </p>
                 ))}
               </HistoryBox>
             ) : (
-              // {point_history?.length !== 0 ? (
-              //   point_history?.map((history) => (
-              //     <div key={history.pointHistoryId}>
-              //       <p>
-              //         <strong>{history.challengeTitle}</strong> 챌린지에서 조각을
-              //         획득했어요!
-              //       </p>
-              //       <p>
-              //         획득한 조각 <strong>{history.point}</strong>개!
-              //       </p>
-              //     </div>
-              //   ))
               <NoPointMent>
                 아직 모은 조각이 없어요.
                 <br /> 챌린지를 달성하고 조각을 모아서 구슬을 만들어 보세요!
@@ -276,5 +264,6 @@ const HistoryBox = styled.div`
     background-color: ${({ theme }) => theme.colors.lightGray};
     color: ${({ theme }) => theme.colors.DarkGray};
     padding: 2.13vh 0 1.85vh 0.99vw;
+    margin-bottom: 1.48vh;
   }
 `;

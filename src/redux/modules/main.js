@@ -128,7 +128,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.usermain[
           action.payload.challenge.categoryName.toLowerCase()
-        ].unshift(action.payload.challenge);
+        ]?.unshift(action.payload.challenge);
       }),
     [SEARCH]: (state, action) =>
       produce(state, (draft) => {
@@ -138,7 +138,7 @@ export default handleActions(
       produce(state, (draft) => {
         const idx = draft.usermain[
           action.payload.categoryName.toLowerCase()
-        ].findIndex((l) => l.challengeId === action.payload.challengeId);
+        ]?.findIndex((l) => l.challengeId === action.payload.challengeId);
 
         draft.usermain[action.payload.categoryName.toLowerCase()].splice(
           idx,

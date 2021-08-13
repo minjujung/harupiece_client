@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button, Card, Tag } from "../../elements";
@@ -26,8 +26,6 @@ function ChallengesInProgress(props) {
   useEffect(() => {
     dispatch(myInfo.getMyInfoDB());
   }, []);
-
-  const [category, setCategory] = useState("");
 
   const dispatch = useDispatch();
   const myChallengeList = useSelector(

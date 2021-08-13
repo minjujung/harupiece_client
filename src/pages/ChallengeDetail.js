@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
@@ -10,7 +10,6 @@ import ShotList from "../components/challengedetail/ShotList";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
-import { actionCreator as postActions } from "../redux/modules/post";
 import { Link, Route, Switch } from "react-router-dom";
 import Chat from "../components/chat/Chat";
 
@@ -31,11 +30,11 @@ const ChallengeDetail = (props) => {
   // }, []);
 
   //관리자 권한 삭제
-  const adminDelete = () => {
-    dispatch(
-      challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
-    );
-  };
+  // const adminDelete = () => {
+  //   dispatch(
+  //     challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
+  //   );
+  // };
 
   //challenge날짜수 계산
   const start = challenge.challengeStartDate.split("T")[0].split("-");
@@ -62,8 +61,11 @@ const ChallengeDetail = (props) => {
   let today = new Date();
   const progress = today.getTime() - date1.getTime();
   let progressDays = progress / 1000 / 60 / 60 / 24;
-  if (progressDays < 0) {
-    progressDays = 0;
+
+  let progressPercent = parseInt(progressDays / totalDay);
+
+  if (progressDays < 0 || isNaN(progressPercent)) {
+    progressPercent = 0;
   }
 
   today =
@@ -95,7 +97,7 @@ const ChallengeDetail = (props) => {
             <Title>{challenge.challengeTitle}</Title>
             <TotalNum>
               참여 {challenge.challengeMember.length}명 | 진행률{" "}
-              {parseInt(progressDays / totalDay) * 100} %
+              {progressPercent * 100} %
             </TotalNum>
           </Banner>
           <NavBar>
@@ -185,6 +187,8 @@ const Area = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: auto;
+    min-height: 1340px;
     padding-top: 4.44vw;
   }
 `;
@@ -230,7 +234,7 @@ const Btns = styled.div`
     height: 11vh;
     flex-direction: row;
     position: fixed;
-    z-index: 20;
+    z-index: 15;
     top: auto;
     bottom: 0;
     margin-top: 0;
@@ -239,6 +243,7 @@ const Btns = styled.div`
 
 const MobilBtns = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 17px;
     width: 100%;
     height: 11vh;
     display: flex;
@@ -282,7 +287,7 @@ const Title = styled.h1`
   font-weight: bold;
   margin-bottom: 2.5%;
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: 48px;
+    font-size: 24px;
   }
 `;
 
@@ -291,7 +296,7 @@ const TotalNum = styled.h3`
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: 32px;
+    font-size: 16px;
   }
 `;
 
@@ -324,6 +329,6 @@ const Item = styled.li`
   ${({ theme }) => theme.device.mobileLg} {
     width: 50%;
     margin: 0;
-    font-size: 32px;
+    font-size: 16px;
   }
 `;

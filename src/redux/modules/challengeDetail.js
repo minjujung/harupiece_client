@@ -128,7 +128,7 @@ const editChallengeDB =
               consoleLogger("챌린지 수정 요청 후 응답", res);
               dispatch(editChallengeDetail(challengeInfo));
               window.alert("챌린지 수정 완료!");
-              history.push(`/challenge/${challenge_id}`);
+              history.push(`/challenge/${challenge_id}/intro`);
             })
             .catch((error) => {
               if (

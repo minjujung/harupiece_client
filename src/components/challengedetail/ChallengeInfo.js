@@ -19,7 +19,8 @@ const ChallengeInfo = (props) => {
       return;
     }
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  }, []);
+  }, [challengeId]);
+
   //카테고리 이름 한글로 변경
   let category = "";
   if (challenge.categoryName === "EXERCISE") {
@@ -143,12 +144,12 @@ const Section = styled.section`
     overflow: scroll;
     h3 {
       margin-bottom: 24px;
-      font-size: 32px;
+      font-size: 16px;
     }
   }
 `;
 
-const Info = styled.p`
+const Info = styled.div`
   margin-bottom: 0.8em;
   span {
     font-size: ${({ theme }) => theme.fontSizes.ms};
@@ -160,9 +161,9 @@ const Info = styled.p`
     line-height: normal;
   }
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: 28px;
+    font-size: 14px;
     span {
-      font-size: 28px;
+      font-size: 14px;
     }
   }
 `;
@@ -180,6 +181,9 @@ const Example = styled.article`
     margin-right: 2em;
   }
   ${({ theme }) => theme.device.mobileLg} {
+    span {
+      font-size: ${({ theme }) => theme.fontSizes.xs};
+    }
     flex-direction: column;
     div {
       margin-right: 0;
@@ -210,6 +214,7 @@ const ExTitle = styled.h4`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.ms};
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     margin-top: 0.74vh;
   }
 `;

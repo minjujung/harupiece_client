@@ -17,7 +17,7 @@ Tag.defaultProps = {
   padding: false,
   onClick: () => {},
   border: "1px solid white",
-  fontWeight: false,
+  fontWeight: "",
 };
 
 export default Tag;
@@ -31,7 +31,7 @@ const TagFrame = styled.div`
     props.color
       ? props.theme.colors[props.color]
       : props.theme.colors.darkGray};
-  font-weight: ${(props) => props.fontWeight};
+  ${(props) => (props.fontWeight ? `font-weight: ${props.fontWeight};` : null)};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   border-radius: 27px;
   padding: ${(props) => (props.padding ? props.padding : "7px")};

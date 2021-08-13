@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import Dialog from "@material-ui/core/Dialog";
-import Header from "../components/Header";
-
 import { useDispatch } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
