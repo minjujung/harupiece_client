@@ -73,7 +73,7 @@ const createChDB =
     const upload2 = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "onedaypiece-shot-image",
-        Key: `${user_info.memberId}_${date.getTime()}.jpg`,
+        Key: `${user_info.memberId}_${date.getDate()}.jpg`,
         Body: challengeInfo.challengeBad,
       },
     });
