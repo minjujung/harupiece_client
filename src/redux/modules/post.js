@@ -164,11 +164,10 @@ const addPostDB =
       })
       .catch((error) => {
         if (
-          window.confirm(
-            "이미지 업로드에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
-          )
+          error.response?.data?.message ===
+          "이미 인증된 게시글은 삭제할 수 없습니다."
         ) {
-          history.push("/");
+          window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
         } else {
           history.goBack();
         }
@@ -276,11 +275,7 @@ const deletePostDB =
         dispatch(deletePost(post_id));
       })
       .catch((error) => {
-        if (
-          window.confirm(
-            "인증샷 삭제에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
-          )
-        ) {
+        if (error.response.mess) {
           history.push("/");
         } else {
           history.goBack();

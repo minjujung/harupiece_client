@@ -27,54 +27,54 @@ const addRefreshSubscriber = (callback) => {
   refreshSubscribers.push(callback);
 };
 
-instance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
-    const originalRequest = config;
-    if (status === 401) {
-      if (!isTokenRefreshing) {
-        // isTokenRefreshing이 false인 경우에만 token refresh 요청
-        isTokenRefreshing = true;
-        const refresh_token = getCookie("refreshToken");
-        const token = getCookie("token");
-        const { data } = await instance.post(`api/member/reissue`, {
-          accessToken: token,
-          refreshToken: refresh_token,
-        });
+// instance.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   async (error) => {
+//     const {
+//       config,
+//       response: { status },
+//     } = error;
+//     const originalRequest = config;
+//     if (status === 401) {
+//       if (!isTokenRefreshing) {
+//         // isTokenRefreshing이 false인 경우에만 token refresh 요청
+//         isTokenRefreshing = true;
+//         const refresh_token = getCookie("refreshToken");
+//         const token = getCookie("token");
+//         const { data } = await instance.post(`api/member/reissue`, {
+//           accessToken: token,
+//           refreshToken: refresh_token,
+//         });
 
-        const accessCookie = {
-          name: "token",
-          value: data.accessToken,
-        };
-        const refreshCookie = {
-          name: "refreshToken",
-          value: data.refreshToken,
-        };
-        multiCookie(accessCookie, refreshCookie);
-        isTokenRefreshing = false;
-        instance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessCookie.value}`;
-        onTokenRefreshed(accessCookie.value);
-        window.alert("로그인 시간이 만료되었습니다! 새로고침 해주세요!");
-      }
-      const retryOriginalRequest = new Promise((resolve) => {
-        addRefreshSubscriber((accessToken) => {
-          originalRequest.headers.Authorization = "Bearer " + accessToken;
-          resolve(instance(originalRequest));
-        });
-      });
-      return retryOriginalRequest;
-    }
-    return Promise.reject(error);
-  }
-);
+//         const accessCookie = {
+//           name: "token",
+//           value: data.accessToken,
+//         };
+//         const refreshCookie = {
+//           name: "refreshToken",
+//           value: data.refreshToken,
+//         };
+//         multiCookie(accessCookie, refreshCookie);
+//         isTokenRefreshing = false;
+//         instance.defaults.headers.common[
+//           "Authorization"
+//         ] = `Bearer ${accessCookie.value}`;
+//         onTokenRefreshed(accessCookie.value);
+//         window.alert("로그인 시간이 만료되었습니다! 새로고침 해주세요!");
+//       }
+//       const retryOriginalRequest = new Promise((resolve) => {
+//         addRefreshSubscriber((accessToken) => {
+//           originalRequest.headers.Authorization = "Bearer " + accessToken;
+//           resolve(instance(originalRequest));
+//         });
+//       });
+//       return retryOriginalRequest;
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 // 유저 정보
 export const UserApis = {

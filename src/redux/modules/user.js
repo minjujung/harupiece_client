@@ -69,7 +69,7 @@ const setLoginDB = ({ email, password }) => {
         history.replace("/");
       })
       .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 500) {
+        if (error.response?.status === 401 || error.response?.status === 400) {
           window.alert(
             "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
           );
