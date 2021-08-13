@@ -7,7 +7,6 @@ import { getCookie } from "../../shared/Cookie";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
-const TOTAL_SLIDES = 2;
 const Popular = (props) => {
   const hot_list = useSelector((state) => state.main);
 
@@ -23,19 +22,22 @@ const Popular = (props) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
-  const nextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES) {
-      setCurrentSlide(0);
-    } else {
-      setCurrentSlide(currentSlide + 1);
-    }
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState();
+
+  const onDragStart = (e) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + slideRef.current.scrollLeft);
   };
 
-  const prevSlide = () => {
-    if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
-    } else {
-      setCurrentSlide(currentSlide - 1);
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e) => {
+    if (isDrag) {
+      slideRef.current.scrollLeft = startX - e.pageX;
     }
   };
 
@@ -113,6 +115,10 @@ const Popular = (props) => {
                 onMouseOver={() => setIsFlowing(false)}
                 onMouseOut={() => setIsFlowing(true)}
                 ref={slideRef}
+                onMouseDown={onDragStart}
+                onMouseMove={onDragMove}
+                onMouseUp={onDragEnd}
+                onMouseLeave={onDragEnd}
               >
                 {hot_list.usermain.popular &&
                   hot_list.usermain.popular.map((l, idx) => {
@@ -137,12 +143,6 @@ const Popular = (props) => {
                     );
                   })}
               </SliderContainer>
-              <PrevBtn onClick={prevSlide}>
-                <img style={{ width: "50%" }} src={left} alt="" />
-              </PrevBtn>
-              <NextBtn onClick={nextSlide}>
-                <img style={{ width: "50%" }} src={Right} alt="" />
-              </NextBtn>
             </>
           ) : (
             <>
@@ -150,6 +150,10 @@ const Popular = (props) => {
                 onMouseOver={() => setIsFlowing(false)}
                 onMouseOut={() => setIsFlowing(true)}
                 ref={slideRef}
+                onMouseDown={onDragStart}
+                onMouseMove={onDragMove}
+                onMouseUp={onDragEnd}
+                onMouseLeave={onDragEnd}
               >
                 {hot_list.guestmain.popular &&
                   hot_list.guestmain.popular.map((l, idx) => {
@@ -177,12 +181,6 @@ const Popular = (props) => {
                     );
                   })}
               </SliderContainer>
-              <PrevBtn onClick={prevSlide}>
-                <img style={{ width: "50%" }} src={left} alt="" />
-              </PrevBtn>
-              <NextBtn onClick={nextSlide}>
-                <img style={{ width: "50%" }} src={Right} alt="" />
-              </NextBtn>
             </>
           )}
         </CardBox2>
@@ -217,8 +215,13 @@ const SliderContainer = styled.div`
   width: 100%;
   display: flex; //이미지들을 가로로 나열합니다.
   ${({ theme }) => theme.device.mobileLg} {
-    width: 70vw;
+    width: 100vw;
+    height: 30vh;
     display: flex;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -229,48 +232,9 @@ const Slide = styled.div`
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 60%;
-    height: 50vh;
+    height: 10vh;
     border-radius: 10px;
-  }
-`;
-
-const PrevBtn = styled.button`
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.7;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 40%;
-  left: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 30px;
-    height: 30px;
-    top: 105%;
-    border-radius: 50%;
-  }
-`;
-
-const NextBtn = styled.button`
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.7;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 40%;
-  right: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 30px;
-    height: 30px;
-    top: 105%;
-    border-radius: 50%;
+    padding: 0;
   }
 `;
 
@@ -331,7 +295,7 @@ const CardBox = styled.div`
     }
   }
   ${({ theme }) => theme.device.mobileLg} {
-    width: 50vw;
+    width: 45vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -340,8 +304,8 @@ const CardBox = styled.div`
     font-weight: bold;
     div {
       img {
-        width: 137px;
-        height: 137px;
+        width: 100%;
+        height: 12.7vh;
       }
     }
   }
@@ -359,12 +323,12 @@ const CardTitle = styled.div`
   }
 
   ${({ theme }) => theme.device.mobileLg} {
-    width: 137px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    /* margin: 1.22vh 0 1.39vh 4.04vw; */
+    margin: 1.22vh 0 1.39vh 7.04vw;
   }
   div:nth-child(2) {
     font-size: 13.5px;

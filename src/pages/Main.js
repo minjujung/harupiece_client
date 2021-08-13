@@ -44,25 +44,32 @@ const Main = (props) => {
           <Info />
           {is_login ? (
             <>
-              <Button
-                width="16.15vw"
-                height="6.27vh"
-                margin="0px 0px 20px 0px"
-                _onClick={goToCreate}
-              >
-                챌린지등록하기+
-              </Button>
+              <ButtonBox>
+                <Button
+                  width="16.15vw"
+                  height="6.27vh"
+                  margin="0px 0px 20px 0px"
+                  _onClick={goToCreate}
+                >
+                  챌린지등록하기+
+                </Button>
+              </ButtonBox>
               <MButton onClick={goToCreate}>+</MButton>
             </>
           ) : (
-            <Button
-              width="16.15vw"
-              height="6.27vh"
-              margin="0px 0px 20px 0px"
-              _onClick={goToLogin}
-            >
-              로그인 하기
-            </Button>
+            <>
+              <ButtonBox>
+                <Button
+                  width="16.15vw"
+                  height="6.27vh"
+                  margin="0px 0px 20px 0px"
+                  _onClick={goToLogin}
+                >
+                  로그인 하기
+                </Button>
+              </ButtonBox>
+              <MButton onClick={goToCreate}>+</MButton>
+            </>
           )}
           <Popular />
         </ContainerRight>
@@ -117,6 +124,12 @@ const ContainerRight = styled.div`
     width: 100vw;
     height: 100vh;
     margin-right: 0px;
+  }
+`;
+
+const ButtonBox = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
   }
 `;
 

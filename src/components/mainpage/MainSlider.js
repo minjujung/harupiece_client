@@ -106,6 +106,10 @@ const Container = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     padding-top: 25vh;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -126,6 +130,7 @@ const PrevBtn = styled.button`
     height: 30px;
     top: 70%;
     border-radius: 50%;
+    display: none;
   }
 `;
 
@@ -146,6 +151,7 @@ const NextBtn = styled.button`
     height: 30px;
     top: 70%;
     border-radius: 50%;
+    display: none;
   }
 `;
 
