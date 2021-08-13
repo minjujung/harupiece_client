@@ -31,7 +31,8 @@ const MainSlider = (props) => {
     slideRef.current.style.transition = "all .5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
     let intervalId;
-    if (isFlowing) {
+    let intViewportWidth = window.innerWidth;
+    if (isFlowing && intViewportWidth > 720) {
       intervalId = setInterval(() => {
         setCurrentSlide(currentSlide + 1);
       }, 5000);
@@ -49,6 +50,25 @@ const MainSlider = (props) => {
     "https://i.ibb.co/y6HNN1Q/banner-04.png",
   ];
 
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState();
+
+  const onDragStart = (e) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + slideRef.current.scrollLeft);
+  };
+
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e) => {
+    if (isDrag) {
+      slideRef.current.scrollLeft = startX - e.pageX;
+    }
+  };
+
   return (
     <>
       <Container>
@@ -56,6 +76,10 @@ const MainSlider = (props) => {
           onMouseOver={() => setIsFlowing(false)}
           onMouseOut={() => setIsFlowing(true)}
           ref={slideRef}
+          onMouseDown={onDragStart}
+          onMouseMove={onDragMove}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
         >
           {slideImages.map((l, idx) => {
             return (
@@ -192,7 +216,7 @@ const SliderBox = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-left: 40px;
+    padding-left: 16px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
