@@ -50,10 +50,14 @@ const Header = (props) => {
   };
 
   const search = (e) => {
-    dispatch(searchActions.searchDB(q));
-    history.push(`/search/1/${q}`);
-    setQ("");
-    handleClose();
+    if (q === "") {
+      alert("검색어를 입력해주세요");
+    } else {
+      dispatch(searchActions.searchDB(q));
+      history.push(`/search/1/${q}`);
+      setQ("");
+      handleClose();
+    }
   };
 
   //mobile sidebar

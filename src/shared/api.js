@@ -51,7 +51,6 @@ instance.interceptors.response.use(
         originalConfig._retry = true;
         try {
           const rs = await refreshTokens();
-          console.log(rs);
           const { accessToken, refreshToken } = rs.data;
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);

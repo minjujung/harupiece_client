@@ -195,7 +195,7 @@ function ChallengeCreate(props) {
               />
             </InputLeftContainer>
             <InputRightContainer>
-              {/* date picker */}
+              {/* 캘린더 */}
               <div>
                 <CreateCalendar
                   challengeInfo={challengeInfo}
@@ -396,6 +396,7 @@ const SelectContainer = styled.div`
     position: absolute;
     right: 16px;
     top: 16px;
+    pointer-events: none;
   }
 `;
 export default ChallengeCreate;
