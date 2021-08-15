@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -21,7 +21,7 @@ const Signup = (props) => {
 
   const is_complete = useSelector((state) => state.user.is_complete);
 
-  const [open, setOpen] = useState(false);
+  const [nick, setNick] = useState("");
 
   return (
     <React.Fragment>
@@ -72,9 +72,7 @@ const Signup = (props) => {
           onSubmit={(values, { setSubmitting }) => {
             dispatch(userCreators.registerDB(values));
             setSubmitting(false);
-            if (is_complete) {
-              setOpen(true);
-            }
+            setNick(values.nickname);
           }}
         >
           {(formik) => (
@@ -131,7 +129,7 @@ const Signup = (props) => {
             </form>
           )}
         </Formik>
-        <WelcomeModal open={open} />
+        <WelcomeModal nick={nick} />
         <LoginText
           onClick={() => {
             props.history.push("/login");

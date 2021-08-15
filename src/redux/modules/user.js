@@ -148,6 +148,7 @@ const userCreators = {
   logOutDB,
   loginCheckDB,
   setUser,
+  complete,
 };
 
 export { userCreators };

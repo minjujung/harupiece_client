@@ -150,8 +150,6 @@ function ChallengeCreate(props) {
     dispatch(createActions.setBadPreview(""));
   };
 
-  console.log(pwd, challengeInfo.challengePassword);
-
   return (
     <>
       <Container>

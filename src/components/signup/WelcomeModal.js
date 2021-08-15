@@ -1,55 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { Button } from "../../elements";
 import Dialog from "@material-ui/core/Dialog";
 
 import popup from "../../assets/images/logo/popup.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../../redux/modules/user";
+import { history } from "../../redux/configureStore";
+import { Image } from "../../elements";
 
-const WelcomeModal = ({ open }) => {
+const WelcomeModal = (props) => {
   const dispatch = useDispatch();
 
   const is_complete = useSelector((state) => state.user.is_complete);
-  const [complete, setComplete] = useState(false);
+
+  const goToLogin = () => {
+    history.replace("/login");
+    dispatch(userCreators.complete(false));
+  };
 
   return (
     <>
-      {/* <Button 
-            width="100%"
-            height="5.93vh"
-            margin="0 0 20px 0"
-            _onClick={handleClickOpen}
-            >
-            모달 버튼
-            </Button>
-            <Dialog
-            open={open}
-            maxWidth={false}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-            PaperProps={{
-                style: {
-                    width:"28.13vw",
-                    height: "50vh",
-                    borderRadius: "10px",
-                },
-            }}
-            >
-                <Container>
-                    <Text>
-                        <p>홍길동님!<br/>
-                        회원가입을 축하합니다.<br/>
-                        첫 만남 기념으로 노랑하루를 드릴게요 :-)<br/>
-                        챌린지를 열심히 달성하여<br/>
-                        하루 뱃지를 GET 해보세요!
-                        </p>
-                    </Text>
-                    <img src={popup} alt="popup"/>
-                </Container>
-            </Dialog> */}
+      <Dialog
+        open={is_complete}
+        maxWidth={false}
+        disableScrollLock={true}
+        aria-labelledby="form-dialog-title"
+        PaperProps={{
+          style: {
+            width: "28.13vw",
+            height: "50vh",
+            borderRadius: "10px",
+            overflowY: "hidden",
+            padding: "0px",
+          },
+        }}
+      >
+        <Container>
+          <button onClick={goToLogin}>go to login</button>
+          <Text>
+            <p>
+              {props.nick}님!
+              <br />
+              회원가입을 축하합니다.
+              <br />
+              첫 만남 기념으로 노랑하루를 드릴게요 :-)
+              <br />
+              챌린지를 열심히 달성하여
+              <br />
+              하루 뱃지를 GET 해보세요!
+            </p>
+          </Text>
+          <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
+        </Container>
+      </Dialog>
     </>
   );
 };
