@@ -76,6 +76,7 @@ const PostWrite = ({ challengeId }) => {
         open={open}
         maxWidth={false}
         onClose={handleClose}
+        disableScrollLock={true}
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {

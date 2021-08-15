@@ -20,6 +20,7 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen }) => {
     <Dialog
       open={open}
       onClose={handleClose}
+      disableScrollLock={true}
       aria-labelledby="form-dialog-title"
       PaperProps={{
         style: {
@@ -98,6 +99,7 @@ const PwdInput = styled.div`
 const Input = styled.input`
   width: 12.5vw;
   height: 3.7vh;
+  padding: 1.02vh 0.83vw;
   border: none;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.lightGray};

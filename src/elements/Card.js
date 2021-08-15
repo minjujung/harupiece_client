@@ -43,7 +43,7 @@ const Card = ({
                 <Plus>+</Plus>
               </ImageList>
               <span>
-                {user_info && user_info.nickname}님 외 {inProcess - 1}명 동참중!
+                {user_info && user_info.nickname}님 외 {inProcess - 1}명 참여중!
               </span>
             </UserProfile>
           ) : null}

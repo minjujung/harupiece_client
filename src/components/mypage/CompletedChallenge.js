@@ -40,10 +40,11 @@ function CompletedChallenge() {
   return (
     <Container>
       {myChallengeList && myChallengeList.length !== 0 ? (
-        myChallengeList.map((list, idx) => {
-          return (
-            <CardGrid key={list.challengeId}>
+        <CardGrid>
+          {myChallengeList.map((list, idx) => {
+            return (
               <Card
+                key={list.challengeId}
                 strongDate
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
@@ -64,9 +65,9 @@ function CompletedChallenge() {
                   </Tag>
                 ) : null}
               </Card>
-            </CardGrid>
-          );
-        })
+            );
+          })}
+        </CardGrid>
       ) : (
         <NoListMent>
           <p>

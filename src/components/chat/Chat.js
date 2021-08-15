@@ -29,17 +29,18 @@ const Chat = ({ challengeId }) => {
   const [open, setOpen] = useState(false);
 
   const token = getCookie("token");
+
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
     console.log(challengeId);
     try {
       ws.connect({ token }, () => {
         ws.subscribe(
-          `/sub/api/chatroom/${challengeId}`,
+          `/sub/api/chat/rooms/${challengeId}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
             console.log(newMessage);
-            dispatch(chatActions.getMessages({ ...newMessage }));
+            dispatch(chatActions.getMessages(newMessage));
           },
           { token }
         );
@@ -70,7 +71,7 @@ const Chat = ({ challengeId }) => {
     return () => {
       wsDisConnectUnsubscribe();
     };
-  }, [chatInfo.roomId]);
+  }, []);
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
   const waitForConnection = (ws, callback) => {
@@ -101,6 +102,8 @@ const Chat = ({ challengeId }) => {
       const data = {
         type: "TALK",
         roomId: challengeInfo.challengeId,
+        nickname: userInfo.nickname,
+        profileImg: userInfo.profileImg,
         message: chatInfo.messageText,
       };
       // 빈문자열이면 리턴
@@ -110,7 +113,7 @@ const Chat = ({ challengeId }) => {
       // 로딩 중
       // dispatch(chatActions.loading());
       waitForConnection(ws, function () {
-        ws.send("/pub/api/chat/message", { token }, JSON.stringify(data));
+        ws.send("/pub/message", { token }, JSON.stringify(data));
         console.log(ws.ws.readyState);
         console.log(data);
         dispatch(chatActions.writeMessage(""));
@@ -170,6 +173,7 @@ const Chat = ({ challengeId }) => {
 export default Chat;
 
 const Container = styled.div`
+  height: 100%;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
     button {

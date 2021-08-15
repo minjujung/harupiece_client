@@ -12,7 +12,7 @@ const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
   const levelState = parseInt((user_info?.memberLevel - 1) / 5);
 
-  if (user_info.memberId === null) {
+  if (user_info?.memberId === null) {
     return (
       <StateContainer>
         <UserStatus>
@@ -102,7 +102,8 @@ const StateBox = (props) => {
     return (
       <StateContainer>
         <UserStatus>
-          <Strong>{user_info.nickname}</Strong>은<br />
+          <Strong>{user_info.nickname}</Strong>님은
+          <br />
           새로운 챌린지를 찾는 중!
         </UserStatus>
         <Image
