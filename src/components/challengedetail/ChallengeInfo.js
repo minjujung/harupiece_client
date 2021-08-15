@@ -52,11 +52,8 @@ const ChallengeInfo = (props) => {
         <Info>
           <span>인증기간</span>
           {challenge.challengeStartDate.split("T")[0]} ~{" "}
-          {challenge.challengeEndDate.split("T")[0]}{" "}
-          <p>
-            {" "}
-            ({challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"})
-          </p>
+          {challenge.challengeEndDate.split("T")[0]} (
+          {challenge.challengeHoliday === "0,6" ? "주말 제외" : "주말 포함"})
         </Info>
         <Info>
           <span>모집방식</span>

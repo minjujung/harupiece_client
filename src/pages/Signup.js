@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import Dialog from "@material-ui/core/Dialog";
 import WelcomeModal from "../components/signup/WelcomeModal";
+import popup from "../assets/images/logo/popup.png";
 import Header from "../components/Header";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
 
 import Green from "../assets/images/level/green.svg";
 
 import { Button, Image } from "../elements";
+import { history } from "../redux/configureStore";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+
+  const is_complete = useSelector((state) => state.user.is_complete);
+
+  const [open, setOpen] = useState(false);
+
   return (
     <React.Fragment>
       <Container>
@@ -30,7 +37,7 @@ const Signup = (props) => {
             password: "",
             passwordConfirm: "",
             profileImg:
-              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
           }}
           validationSchema={Yup.object({
             email: Yup.string()
@@ -65,6 +72,9 @@ const Signup = (props) => {
           onSubmit={(values, { setSubmitting }) => {
             dispatch(userCreators.registerDB(values));
             setSubmitting(false);
+            if (is_complete) {
+              setOpen(true);
+            }
           }}
         >
           {(formik) => (
@@ -121,7 +131,7 @@ const Signup = (props) => {
             </form>
           )}
         </Formik>
-        <WelcomeModal/>
+        <WelcomeModal open={open} />
         <LoginText
           onClick={() => {
             props.history.push("/login");
@@ -222,5 +232,25 @@ const LoginText = styled.div`
 
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 14px;
+  }
+`;
+
+const ModalContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  & > img {
+    position: relative;
+    width: 28.13vw;
+    height: 50vh;
+  }
+`;
+
+const Text = styled.div`
+  width: 100%;
+  position: absolute;
+  padding-top: 57px;
+  z-index: 10;
+  & > p {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;

@@ -4,29 +4,20 @@ import styled from "styled-components";
 import { Button } from "../../elements";
 import Dialog from "@material-ui/core/Dialog";
 
-import popup from "../../assets/images/logo/popup.png"
+import popup from "../../assets/images/logo/popup.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../../redux/modules/user";
 
-const WelcomeModal = () => {
-    const dispatch = useDispatch();
+const WelcomeModal = ({ open }) => {
+  const dispatch = useDispatch();
 
-    const is_complete = useSelector((state) => state.is_complete);
+  const is_complete = useSelector((state) => state.user.is_complete);
+  const [complete, setComplete] = useState(false);
 
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-  // modal창 닫기,
-    const handleClose = () => {
-        setOpen(false);
-    };
-    return (
-        <>
-            <Button 
+  return (
+    <>
+      {/* <Button 
             width="100%"
             height="5.93vh"
             margin="0 0 20px 0"
@@ -58,29 +49,29 @@ const WelcomeModal = () => {
                     </Text>
                     <img src={popup} alt="popup"/>
                 </Container>
-            </Dialog>
-        </>
-    );
+            </Dialog> */}
+    </>
+  );
 };
 
 export default WelcomeModal;
 
 const Container = styled.div`
-    width: 100%;
-    text-align:center;
-    & > img{
-        position: relative;
-        width: 28.13vw;
-        height: 50vh;
-    }
+  width: 100%;
+  text-align: center;
+  & > img {
+    position: relative;
+    width: 28.13vw;
+    height: 50vh;
+  }
 `;
 
 const Text = styled.div`
-    width : 100%;
-    position: absolute;
-    padding-top:57px;
-    z-index: 10;
-    & > p{
-        font-size: ${({ theme }) => theme.fontSizes.md};
-        }
+  width: 100%;
+  position: absolute;
+  padding-top: 57px;
+  z-index: 10;
+  & > p {
+    font-size: ${({ theme }) => theme.fontSizes.md};
+  }
 `;

@@ -85,6 +85,9 @@ function ChallengeCreate(props) {
 
   //모집형식이 비공개일때 비밀번호 설정
   const savePwd = () => {
+    if (pwd.length < 4 || pwd.length > 13) {
+      window.alert("비밀번호는 최소 4글자 이상 13글자 이하로 설정해주세요!");
+    }
     setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
     setOpen(false);
   };
@@ -356,6 +359,9 @@ const Textarea = styled.textarea`
   font-size: ${({ theme }) => theme.fontSizes.ms};
   color: ${({ theme }) => theme.colors.darkGray};
   font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   ::placeholder {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.darkGray};

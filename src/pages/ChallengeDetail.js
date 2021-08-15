@@ -163,7 +163,7 @@ const ChallengeDetail = (props) => {
               />
             </MobilBtns>
           )}
-          {/* <Chat challengeId={challengeId} /> */}
+          <Chat challengeId={challengeId} />
         </Btns>
       </RightNav>
     </Area>

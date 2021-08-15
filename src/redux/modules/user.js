@@ -33,15 +33,13 @@ const registerDB = ({
   nickname,
   password,
   passwordConfirm,
-  profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+  profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
 }) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
         console.log(res);
         dispatch(complete(true));
-        window.alert("회원가입이 완료되었습니다!");
-        history.push("/login");
       })
       .catch((error) => {
         if (error.response?.data?.message) {
@@ -130,7 +128,7 @@ export default handleActions(
           myInfo = {
             ...action.payload.userInfo,
             profileImg:
-              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
           };
         }
         draft.userInfo = myInfo;

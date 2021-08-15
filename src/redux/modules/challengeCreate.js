@@ -30,6 +30,7 @@ const initialState = {
 // 대표이미지 가져오기
 const getThumnailDb = (category) => {
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
     ChallengeCreateApis.GetThumnail(category)
       .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))
       .catch((error) => {
@@ -51,6 +52,9 @@ const getThumnailDb = (category) => {
 const createChDB =
   (challengeInfo) =>
   (dispatch, getState, { history }) => {
+    if (!window.confirm("정말로 챌린지를 개설하시겠어요?")) {
+      return;
+    }
     const date = new Date();
     const user_info = getState().user.userInfo;
 
@@ -145,6 +149,7 @@ export default handleActions(
     [GET_THUMNAIL]: (state, action) =>
       produce(state, (draft) => {
         draft.thumnailList = action.payload.list;
+        draft.is_loading = false;
       }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

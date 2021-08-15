@@ -49,6 +49,7 @@ const getMessagesDB =
     ChatApis.getMessages(challengeId)
       .then((res) => {
         consoleLogger("DB에 저장되어 있는 채팅 목록 가져오는 요청의 응답", res);
+        dispatch(setMessages(res.data.chatMessages));
       })
       .catch((error) => console.log(error));
   };
