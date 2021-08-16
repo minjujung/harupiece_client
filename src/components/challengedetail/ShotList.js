@@ -74,13 +74,14 @@ export default ShotList;
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;
-  margin: 40.55vh 0 14.81vh 0;
+  margin: 0vh 0 14.81vh 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     margin-bottom: 200px;
+    margin-top: 0px;
   }
 `;
 
