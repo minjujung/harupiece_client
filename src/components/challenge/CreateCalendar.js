@@ -187,6 +187,6 @@ const CalendarContainer = styled.label`
     position: absolute;
     right: -14.3vw;
     bottom: 5px;
-    z-index: 10;
+    z-index: 2;
   }
 `;

@@ -58,7 +58,7 @@ const ImageFrame = styled.img`
   object-fit: fill;
   cursor: pointer;
   ${(props) => (props.post ? `object-fit: cover` : null)};
-  /* ${({ theme }) => theme.device.mobileLg} {
+  ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-  } */
+  }
 `;

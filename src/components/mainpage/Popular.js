@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { history } from "../../redux/configureStore";
 import { useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
-import left from "../../assets/images/icons/arrow/left.svg";
-import Right from "../../assets/images/icons/arrow/right.svg";
 
 const Popular = (props) => {
   const hot_list = useSelector((state) => state.main);
@@ -14,7 +12,6 @@ const Popular = (props) => {
 
   // slider
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
 
   useEffect(() => {
@@ -112,8 +109,6 @@ const Popular = (props) => {
           {is_login ? (
             <>
               <SliderContainer
-                onMouseOver={() => setIsFlowing(false)}
-                onMouseOut={() => setIsFlowing(true)}
                 ref={slideRef}
                 onMouseDown={onDragStart}
                 onMouseMove={onDragMove}
@@ -122,6 +117,37 @@ const Popular = (props) => {
               >
                 {hot_list.usermain.popular &&
                   hot_list.usermain.popular.map((l, idx) => {
+                    return (
+                      <Slide key={idx}>
+                        <CardBox
+                          onClick={() =>
+                            history.push(`/challenge/${l.challengeId}/intro`)
+                          }
+                        >
+                          <img src={l.challengeImgUrl} alt="" />
+                          <CardTitle>
+                            <div>{l.challengeTitle}</div>
+                            <div>
+                              {l.challengeMember.length}명이 대화에 참여중
+                            </div>
+                          </CardTitle>
+                        </CardBox>
+                      </Slide>
+                    );
+                  })}
+              </SliderContainer>
+            </>
+          ) : (
+            <>
+              <SliderContainer
+                ref={slideRef}
+                onMouseDown={onDragStart}
+                onMouseMove={onDragMove}
+                onMouseUp={onDragEnd}
+                onMouseLeave={onDragEnd}
+              >
+                {hot_list.guestmain.popular &&
+                  hot_list.guestmain.popular.map((l, idx) => {
                     return (
                       <Slide key={idx}>
                         <CardBox
@@ -139,44 +165,6 @@ const Popular = (props) => {
                             </div>
                           </CardTitle>
                         </CardBox>
-                      </Slide>
-                    );
-                  })}
-              </SliderContainer>
-            </>
-          ) : (
-            <>
-              <SliderContainer
-                onMouseOver={() => setIsFlowing(false)}
-                onMouseOut={() => setIsFlowing(true)}
-                ref={slideRef}
-                onMouseDown={onDragStart}
-                onMouseMove={onDragMove}
-                onMouseUp={onDragEnd}
-                onMouseLeave={onDragEnd}
-              >
-                {hot_list.guestmain.popular &&
-                  hot_list.guestmain.popular.map((l, idx) => {
-                    return (
-                      <Slide key={idx}>
-                        <div
-                          key={idx}
-                          onClick={() =>
-                            history.push(`/challenge/${l.challengeId}/intro`)
-                          }
-                        >
-                          <CardBox>
-                            <div>
-                              <img src={l.challengeImgUrl} alt="" />
-                            </div>
-                            <CardTitle>
-                              <div>{l.challengeTitle}</div>
-                              <div>
-                                {l.challengeMember.length}명이 대화에 참여중
-                              </div>
-                            </CardTitle>
-                          </CardBox>
-                        </div>
                       </Slide>
                     );
                   })}
@@ -232,9 +220,9 @@ const Slide = styled.div`
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 60%;
-    height: 10vh;
     border-radius: 10px;
-    padding: 0;
+    margin-left: 20px;
+    padding-right: 0px;
   }
 `;
 
@@ -294,19 +282,20 @@ const CardBox = styled.div`
       margin-top: 10px;
     }
   }
+
   ${({ theme }) => theme.device.mobileLg} {
-    width: 45vw;
+    width: 100%;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 16px;
     font-weight: bold;
-    div {
-      img {
-        width: 100%;
-        height: 12.7vh;
-      }
+
+    img {
+      border-radius: 10px;
+      height: 12.7vh;
     }
   }
 `;
@@ -328,7 +317,7 @@ const CardTitle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin: 1.22vh 0 1.39vh 7.04vw;
+    padding: 1.22vh 0 1.39vh 0vw;
   }
   div:nth-child(2) {
     font-size: 13.5px;
@@ -343,4 +332,13 @@ const CardBox2 = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
   padding-top: 1.6vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+  }
 `;

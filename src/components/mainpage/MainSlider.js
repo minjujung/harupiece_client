@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Tag } from "../../elements";
+import { getCookie } from "../../shared/Cookie";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
 const TOTAL_SLIDES = 3;
 
 const MainSlider = (props) => {
+  const is_login = getCookie("token") ? true : false;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
@@ -97,13 +99,26 @@ const MainSlider = (props) => {
                       #인기챌린지
                     </Tag>
                   </TagBox>
-                  <TitleBox>
-                    <div>주 2회</div>
-                    <div>1만보 걷기</div>
-                  </TitleBox>
-                  <SubTitleBox>
-                    <span>10일째</span> 진행중!
-                  </SubTitleBox>
+
+                  {is_login ? (
+                    <>
+                      <TitleBox>
+                        <div>주 2회</div>
+                        <div>1만보 걷기</div>
+                      </TitleBox>
+                      <SubTitleBox>
+                        <span>10일째</span> 진행중!
+                      </SubTitleBox>
+                    </>
+                  ) : (
+                    <>
+                      <TitleBox>
+                        <div>주 2회</div>
+                        <div>1만보 걷기</div>
+                      </TitleBox>
+                      <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
+                    </>
+                  )}
                 </SliderBox>
               </Slide>
             );

@@ -2,8 +2,8 @@ import axios from "axios";
 import { setCookie, getCookie, multiCookie } from "./Cookie";
 
 const instance = axios.create({
-  // baseURL: "http://34.64.75.241/",
-  baseURL: "http://54.180.141.39/",
+  baseURL: "http://34.64.75.241/",
+  // baseURL: "http://54.180.141.39/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -47,11 +47,10 @@ instance.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response) {
-      if (err.response.status === 401 && !originalConfig._retry) {
+      if (err.response.status === 500 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {
           const rs = await refreshTokens();
-          console.log(rs);
           const { accessToken, refreshToken } = rs.data;
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);
@@ -110,7 +109,7 @@ export const MainApis = {
   search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
   searchCategory: (categoryName) =>
     instance.get(`/api/guest/challenge/category/1/${categoryName}`),
-  searchAll: () => instance.get(`/api/guest/challenge-all/1`),
+  searchAll: () => instance.get(`/api/guest/challenge-all/2`),
 };
 
 // 인증샷 포스팅
