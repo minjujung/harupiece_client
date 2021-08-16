@@ -205,7 +205,8 @@ const SliderContainer = styled.div`
 `;
 
 const Slide = styled.div`
-  width: 950px;
+  width: 49.48vw;
+  height: 27.77vh;
   border-radius: 10px;
   padding-bottom: 20px;
   padding-right: 10px;
@@ -217,7 +218,7 @@ const Slide = styled.div`
 `;
 
 const SliderBox = styled.div`
-  width: 950px;
+  width: 49.48vw;
   height: 25.5vh;
   border-radius: 10px;
   display: flex;
@@ -243,7 +244,7 @@ const TagBox = styled.div`
 `;
 
 const TitleBox = styled.div`
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.white};
   padding: 15px 0;
@@ -253,7 +254,7 @@ const TitleBox = styled.div`
     padding-right: 10px;
   }
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: 24px;
+    font-size: 1.667em;
     display: flex;
     flex-direction: column;
   }

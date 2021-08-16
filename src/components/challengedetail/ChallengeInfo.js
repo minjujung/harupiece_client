@@ -117,19 +117,18 @@ export default ChallengeInfo;
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;
-  margin: 40.55vh 0 14.81vh 0;
+  margin: 0vh 0 14.81vh 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-bottom: 200px;
+    margin: 0px;
   }
 `;
 
 const Section = styled.section`
   width: 49.48vw;
-  margin-top: 3.7vh;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;
@@ -138,7 +137,7 @@ const Section = styled.section`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     padding: 0 4.44vw;
-    overflow: scroll;
+    margin: 0px;
     h3 {
       margin-bottom: 24px;
       font-size: 16px;

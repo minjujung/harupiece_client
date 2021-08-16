@@ -342,16 +342,19 @@ const Container = styled.div`
   margin-top: 21.5vh;
   padding-bottom: 42.5vh;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 360px;
+    width: 100vw;
     height: 100vh;
     padding: 0px;
     margin: 5vh 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
 const CategoryContainer = styled.div`
   width: 66.67vw;
-  height: 20.39vh;
+  height: 100vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
