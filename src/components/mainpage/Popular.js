@@ -150,24 +150,21 @@ const Popular = (props) => {
                   hot_list.guestmain.popular.map((l, idx) => {
                     return (
                       <Slide key={idx}>
-                        <div
-                          key={idx}
+                        <CardBox
                           onClick={() =>
                             history.push(`/challenge/${l.challengeId}/intro`)
                           }
                         >
-                          <CardBox>
+                          <div>
+                            <img src={l.challengeImgUrl} alt="" />
+                          </div>
+                          <CardTitle>
+                            <div>{l.challengeTitle}</div>
                             <div>
-                              <img src={l.challengeImgUrl} alt="" />
+                              {l.challengeMember.length}명이 대화에 참여중
                             </div>
-                            <CardTitle>
-                              <div>{l.challengeTitle}</div>
-                              <div>
-                                {l.challengeMember.length}명이 대화에 참여중
-                              </div>
-                            </CardTitle>
-                          </CardBox>
-                        </div>
+                          </CardTitle>
+                        </CardBox>
                       </Slide>
                     );
                   })}
@@ -277,11 +274,13 @@ const CardBox = styled.div`
   display: flex;
   cursor: pointer;
 
-  img {
-    border-radius: 10px;
-    width: 100%;
-    height: 14.81vh;
-    margin-top: 10px;
+  div {
+    img {
+      border-radius: 10px;
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
   }
 
   ${({ theme }) => theme.device.mobileLg} {
@@ -293,11 +292,10 @@ const CardBox = styled.div`
     align-items: center;
     font-size: 16px;
     font-weight: bold;
-    div {
-      img {
-        width: 100%;
-        height: 12.7vh;
-      }
+
+    img {
+      border-radius: 10px;
+      height: 12.7vh;
     }
   }
 `;
