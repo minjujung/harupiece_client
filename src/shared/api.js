@@ -47,6 +47,7 @@ instance.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response) {
+      console.log(err.response);
       if (err.response.status === 500 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {

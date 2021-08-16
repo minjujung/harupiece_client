@@ -354,7 +354,7 @@ const Container = styled.div`
 
 const CategoryContainer = styled.div`
   width: 66.67vw;
-  height: 20.39vh;
+  height: 100vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;

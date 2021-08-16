@@ -124,7 +124,9 @@ const Popular = (props) => {
                             history.push(`/challenge/${l.challengeId}/intro`)
                           }
                         >
-                          <img src={l.challengeImgUrl} alt="" />
+                          <div>
+                            <img src={l.challengeImgUrl} alt="" />
+                          </div>
                           <CardTitle>
                             <div>{l.challengeTitle}</div>
                             <div>
@@ -181,17 +183,19 @@ export default Popular;
 
 // mobile
 const MobileBox = styled.div`
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100vw;
-  margin-bottom: 25vh;
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  div {
-    span {
-      color: ${({ theme }) => theme.colors.mainGreen};
+  ${({ theme }) => theme.device.mobileLg} {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    margin-bottom: 25vh;
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    div {
+      span {
+        color: ${({ theme }) => theme.colors.mainGreen};
+      }
     }
   }
   ${({ theme }) => theme.device.desktop} {
@@ -277,8 +281,8 @@ const CardBox = styled.div`
   div {
     img {
       border-radius: 10px;
-      width: 200px;
-      height: 200px;
+      width: 100px;
+      height: 100px;
       margin-top: 10px;
     }
   }
@@ -293,9 +297,13 @@ const CardBox = styled.div`
     font-size: 16px;
     font-weight: bold;
 
-    img {
-      border-radius: 10px;
-      height: 12.7vh;
+    div {
+      img {
+        border-radius: 10px;
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+      }
     }
   }
 `;
