@@ -235,7 +235,7 @@ function ChallengeCreate(props) {
               <Button
                 width="15.00vw"
                 height="5.92vh"
-                margin="7.03vh 0 0 0"
+                margin="6.21vh 0 0 0"
                 _onClick={createChallenge}
               >
                 챌린지 개설하기
@@ -321,7 +321,10 @@ const BadgeText = styled.div`
   margin-left: 29px;
 `;
 
-const RightContainer = styled.div``;
+const RightContainer = styled.div`
+  width : 30.94vw;
+  height: 66.84vh;
+`;
 
 const AllInputContainer = styled.div`
   display: flex;
@@ -339,9 +342,12 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.ms};
   padding-left: 0.83vw;
-  padding-top: 1.01vh;
+  padding-top: 1.1vh;
   padding-bottom: 1.01vh;
   border-radius: 8px;
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -367,6 +373,9 @@ const Textarea = styled.textarea`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
+  }
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
 `;
 
@@ -399,7 +408,7 @@ const SelectContainer = styled.div`
     height: 15px;
     position: absolute;
     right: 16px;
-    top: 16px;
+    top: 22px;
   }
 `;
 export default ChallengeCreate;

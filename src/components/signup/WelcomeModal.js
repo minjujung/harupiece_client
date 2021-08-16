@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 import Dialog from "@material-ui/core/Dialog";
 
-import popup from "../../assets/images/logo/popup.png";
+import popup from "../../assets/images/logo/popup_2.png";
+import close from "../../assets/images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../../redux/modules/user";
@@ -24,6 +25,7 @@ const WelcomeModal = (props) => {
     <>
       <Dialog
         open={is_complete}
+        onClose={goToLogin}
         maxWidth={false}
         disableScrollLock={true}
         aria-labelledby="form-dialog-title"
@@ -38,7 +40,7 @@ const WelcomeModal = (props) => {
         }}
       >
         <Container>
-          <button onClick={goToLogin}>go to login</button>
+        <CloseImg src={close} alt="close" onClick={goToLogin}/>
           <Text>
             <p>
               {props.nick}님!
@@ -52,8 +54,8 @@ const WelcomeModal = (props) => {
               하루 뱃지를 GET 해보세요!
             </p>
           </Text>
-          <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
         </Container>
+        <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
       </Dialog>
     </>
   );
@@ -64,17 +66,26 @@ export default WelcomeModal;
 const Container = styled.div`
   width: 100%;
   text-align: center;
-  & > img {
-    position: relative;
-    width: 28.13vw;
-    height: 50vh;
-  }
+  /* & > img {
+    position: absolute;
+    top: 19px;
+    left: 25.84vw;
+  } */
+`;
+
+const CloseImg = styled.img`
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 19px;
+  left: 25.84vw;
+  z-index: 11px;
+  cursor: pointer;
 `;
 
 const Text = styled.div`
   width: 100%;
-  position: absolute;
-  padding-top: 57px;
+  padding: 5.55vh 0px;
   z-index: 10;
   & > p {
     font-size: ${({ theme }) => theme.fontSizes.md};
