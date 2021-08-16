@@ -21,21 +21,6 @@ const ChallengeDetail = (props) => {
 
   const challengeId = props.match.params.id;
 
-  // challenge상세 내용과 인증샷 목록 불러오기
-  // useEffect(() => {
-  //   if (!challengeId) {
-  //     return;
-  //   }
-  //   dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  // }, []);
-
-  //관리자 권한 삭제
-  // const adminDelete = () => {
-  //   dispatch(
-  //     challengeDetailActions.adminChallengeDeleteDB(challenge.challengeId)
-  //   );
-  // };
-
   //challenge날짜수 계산
   const start = challenge.challengeStartDate.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);

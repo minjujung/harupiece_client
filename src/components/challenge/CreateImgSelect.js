@@ -9,7 +9,13 @@ import close from "../../assets/images/icons/close.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 
-function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
+function CreateImgSelect({
+  challengeInfo,
+  setChallengeInfo,
+  id,
+  setPlaceholder,
+  placeholder,
+}) {
   const dispatch = useDispatch();
   const select = useSelector((state) => state.create.thumnailList);
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
@@ -50,7 +56,9 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
       challengeImgUrl: img,
     });
     setImgIdx(idx);
-
+    if (!id) {
+      setPlaceholder(`${challengeInfo.categoryName}_${idx}`);
+    }
     // setPreview(img);
     handleClose();
   };
@@ -59,9 +67,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
     <>
       <SubT>대표 이미지 업로드 / 선택</SubT>
       <ImageBtn onClick={handleClickOpen}>
-        {challenge.categoryName
-          ? `${challenge.categoryName}_${imgIdx + 1}`
-          : "이미지를 선택해주세요."}
+        {placeholder ? placeholder : `${challenge.categoryName}_${imgIdx + 1}`}
       </ImageBtn>
       <Dialog
         open={open}

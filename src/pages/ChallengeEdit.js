@@ -48,6 +48,8 @@ function ChallengeCreate(props) {
       setPwdCheck(true);
       setOpen(true);
     } else if (e.target.value === "PUBLIC") {
+      setPwd("");
+      setChallengeInfo({ ...challengeInfo, challengePassword: "" });
       setPwdCheck(false);
       setPwd("PUBLIC");
     } else {
@@ -64,10 +66,18 @@ function ChallengeCreate(props) {
   };
 
   //모집형식이 비공개일때 비밀번호 설정
+  const [pwdNumCheck, setPwdNumCheck] = useState("");
   const savePwd = () => {
+    if (pwd.length < 4 || pwd.length > 13) {
+      setPwdNumCheck("조건을 확인 해주세요!");
+      return;
+    }
+    setPwdNumCheck("");
     setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
     setOpen(false);
   };
+
+  console.log(pwd, challengeInfo.challengePassword);
 
   // 챌린지 설명
   const saveDesc = (e) => {
@@ -107,6 +117,7 @@ function ChallengeCreate(props) {
       (pwdCheck && challengeInfo.challengePassword === "")
     ) {
       window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
+      setOpen(true);
       return;
     }
     dispatch(
@@ -182,6 +193,7 @@ function ChallengeCreate(props) {
                     savePwd={savePwd}
                     open={open}
                     setOpen={setOpen}
+                    pwdNumCheck={pwdNumCheck}
                   />
                 </SelectContainer>
               </div>

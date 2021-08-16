@@ -110,6 +110,13 @@ const PostList = (props) => {
     }
   };
 
+  console.log(
+    (
+      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
+      100
+    ).toFixed(1)
+  );
+
   return (
     <>
       {list.map((l, idx) => (
@@ -181,11 +188,9 @@ const PostList = (props) => {
                     width={`${
                       list[clicked]?.postingCount === 0 || totalNumber === 0
                         ? 0
-                        : (
-                            (parseInt(list[clicked]?.postingCount) /
-                              (parseInt(totalNumber) - 1)) *
-                            100
-                          ).toFixed(1)
+                        : (parseInt(list[clicked]?.postingCount) /
+                            (parseInt(totalNumber) - 1)) *
+                          100
                     }%`}
                   />
                 </StatusBar>
@@ -194,9 +199,11 @@ const PostList = (props) => {
                   <Percent>
                     {list[clicked]?.postingCount === 0 || totalNumber === 0
                       ? 0
-                      : (parseInt(list[clicked]?.postingCount) /
-                          (parseInt(totalNumber) - 1)) *
-                        100}{" "}
+                      : (
+                          (parseInt(list[clicked]?.postingCount) /
+                            (parseInt(totalNumber) - 1)) *
+                          100
+                        ).toFixed(1)}{" "}
                     %
                   </Percent>
                 </StatusInfo>

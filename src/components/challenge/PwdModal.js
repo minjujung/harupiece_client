@@ -6,7 +6,7 @@ import Button from "../../elements/Button";
 import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
 
-const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen }) => {
+const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen, pwdNumCheck }) => {
   // modal창 닫기,
   const handleClose = () => {
     setOpen(false);
@@ -48,6 +48,7 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen }) => {
           />
         </DialogInfo>
         <p>비밀번호의 최소 길이는 4자이며, 최대 길이는 13자입니다.</p>
+        <strong>{pwdNumCheck}</strong>
       </PwdIntro>
       <PwdInput>
         <Input
@@ -74,8 +75,11 @@ const PwdIntro = styled.div`
   p {
     color: ${({ theme }) => theme.colors.gray};
     font-size: 12px;
-    height: 3.15vh;
     line-height: normal;
+  }
+  strong {
+    color: ${({ theme }) => theme.colors.mainOrange};
+    font-size: 12px;
   }
 `;
 

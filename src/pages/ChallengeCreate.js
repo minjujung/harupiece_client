@@ -53,8 +53,10 @@ function ChallengeCreate(props) {
   };
 
   // 챌린지 카테고리 설정
+  const [placeholder, setPlaceholder] = useState("이미지를 선택해주세요.");
   const chooseCategory = (e) => {
     setChallengeInfo({ ...challengeInfo, categoryName: e.target.value });
+    setPlaceholder("이미지를 선택해주세요.");
   };
 
   // 모집 형식
@@ -68,6 +70,8 @@ function ChallengeCreate(props) {
       setPwdCheck(true);
       setOpen(true);
     } else if (e.target.value === "PUBLIC") {
+      setPwd("");
+      setChallengeInfo({ ...challengeInfo, challengePassword: "" });
       setPwdCheck(false);
       setPwd("PUBLIC");
     } else {
@@ -84,10 +88,13 @@ function ChallengeCreate(props) {
   };
 
   //모집형식이 비공개일때 비밀번호 설정
+  const [pwdNumCheck, setPwdNumCheck] = useState("");
   const savePwd = () => {
     if (pwd.length < 4 || pwd.length > 13) {
-      window.alert("비밀번호는 최소 4글자 이상 13글자 이하로 설정해주세요!");
+      setPwdNumCheck("조건을 확인 해주세요!");
+      return;
     }
+    setPwdNumCheck("");
     setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
     setOpen(false);
   };
@@ -188,6 +195,8 @@ function ChallengeCreate(props) {
               <CreateImgSelect
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
+                placeholder={placeholder}
+                setPlaceholder={setPlaceholder}
               />
               {/* 인증샷 예시 */}
               <CreateCertification
@@ -220,6 +229,7 @@ function ChallengeCreate(props) {
                     savePwd={savePwd}
                     open={open}
                     setOpen={setOpen}
+                    pwdNumCheck={pwdNumCheck}
                   />
                 </SelectContainer>
               </div>
