@@ -115,6 +115,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
         filterDate={isWeekday}
         dateFormat="yyyy-MM-dd"
         placeholderText="0000.00.00 ~ 0000.00.00"
+        autoComplete="off"
         locale={ko}
         minDate={date}
         isClearable={true}
@@ -160,7 +161,7 @@ const Holiday = styled.div`
     width: 24px;
     height: 24px;
     margin-top: 0.78vh;
-    margin-left: 8.11vw;
+    margin-left: 8.69vw;
   }
 `;
 
