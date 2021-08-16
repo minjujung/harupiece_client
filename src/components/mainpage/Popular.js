@@ -277,8 +277,8 @@ const CardBox = styled.div`
   div {
     img {
       border-radius: 10px;
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
       margin-top: 10px;
     }
   }
