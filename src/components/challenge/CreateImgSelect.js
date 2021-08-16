@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 // modal
+import Spinner from "../Spinner";
 import Dialog from "@material-ui/core/Dialog";
 import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
@@ -12,6 +13,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
   const select = useSelector((state) => state.create.thumnailList);
   const challenge_info = useSelector((state) => state.challengeDetail.detail);
+  const isLoading = useSelector((state) => state.create.is_loading);
 
   // modal state
   const [open, setOpen] = useState(false);
@@ -31,8 +33,8 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
         window.alert("카테고리를 먼저 정해주세요!");
         return;
       }
-      setOpen(true);
       setChallenge(challengeInfo);
+      setOpen(true);
       dispatch(imageActions.getThumnailDb(challengeInfo.categoryName));
     }
   };
@@ -57,7 +59,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
     <>
       <SubT>대표 이미지 업로드 / 선택</SubT>
       <ImageBtn onClick={handleClickOpen}>
-        {challenge.challengeImgUrl
+        {challenge.categoryName
           ? `${challenge.categoryName}_${imgIdx + 1}`
           : "이미지를 선택해주세요."}
       </ImageBtn>
@@ -65,6 +67,7 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
         open={open}
         maxWidth={false}
         onClose={handleClose}
+        disableScrollLock={true}
         aria-labelledby="alert-dialog-title"
         PaperProps={{
           style: {
@@ -74,32 +77,39 @@ function CreateImgSelect({ challengeInfo, setChallengeInfo, id }) {
           },
         }}
       >
-        <Container>
-          <Title>대표 이미지 설정</Title>
-          <Image
-            src={close}
-            alt="closeBtn"
-            onClick={handleClose}
-            width="28px"
-            height="28px"
-            borderRadius="0"
-          />
-        </Container>
-        <ThumbnailModal>
-          {select.map((i, idx) => {
-            return (
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {" "}
+            <Container>
+              <Title>대표 이미지 설정</Title>
               <Image
-                key={idx}
-                width="16.67vw"
-                height="16.66vh"
-                borderRadius="16px"
-                src={i}
-                onClick={() => selectImg(i, idx)}
-                alt="challenge_thumbnail"
+                src={close}
+                alt="closeBtn"
+                onClick={handleClose}
+                width="28px"
+                height="28px"
+                borderRadius="0"
               />
-            );
-          })}
-        </ThumbnailModal>
+            </Container>
+            <ThumbnailModal>
+              {select.map((i, idx) => {
+                return (
+                  <Image
+                    key={idx}
+                    width="16.67vw"
+                    height="16.66vh"
+                    borderRadius="16px"
+                    src={i}
+                    onClick={() => selectImg(i, idx)}
+                    alt="challenge_thumbnail"
+                  />
+                );
+              })}
+            </ThumbnailModal>
+          </>
+        )}
       </Dialog>
     </>
   );

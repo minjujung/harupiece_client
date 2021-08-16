@@ -33,15 +33,13 @@ const registerDB = ({
   nickname,
   password,
   passwordConfirm,
-  profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+  profileImg = "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
 }) => {
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
         console.log(res);
         dispatch(complete(true));
-        window.alert("회원가입이 완료되었습니다!");
-        history.push("/login");
       })
       .catch((error) => {
         if (error.response?.data?.message) {
@@ -69,12 +67,14 @@ const setLoginDB = ({ email, password }) => {
         history.replace("/");
       })
       .catch((error) => {
-        console.log(error);
-        if (error.response.status === 401 || error.response.status === 500) {
-          window.alert(
-            "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
-          );
-          window.location.reload();
+        console.log(error.response);
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 400) {
+            window.alert(
+              "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
+            );
+            window.location.reload();
+          }
         }
         consoleLogger("로그인 요청 실패시 error: ", error);
       });
@@ -128,7 +128,7 @@ export default handleActions(
           myInfo = {
             ...action.payload.userInfo,
             profileImg:
-              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
           };
         }
         draft.userInfo = myInfo;
@@ -148,6 +148,7 @@ const userCreators = {
   logOutDB,
   loginCheckDB,
   setUser,
+  complete,
 };
 
 export { userCreators };

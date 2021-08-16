@@ -62,7 +62,7 @@ const PostList = (props) => {
     );
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
     if (
-      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber) - 1) *
+      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
         100 ===
       50
     ) {
@@ -76,11 +76,31 @@ const PostList = (props) => {
 
   //modal안의 component만 편집형태로 바꾸기
   const editPost = () => {
+    if (
+      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
+        100 >=
+      50
+    ) {
+      window.alert(
+        "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+      );
+      return;
+    }
     setEdit(true);
   };
 
   //post 삭제
   const deletePost = () => {
+    if (
+      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
+        100 >=
+      50
+    ) {
+      window.alert(
+        "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+      );
+      return;
+    }
     if (
       list[clicked]?.postingModifyOk &&
       list[clicked]?.memberId === user_info.memberId
@@ -110,6 +130,7 @@ const PostList = (props) => {
         open={open}
         maxWidth={false}
         onClose={handleClose}
+        disableScrollLock={true}
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
@@ -160,9 +181,11 @@ const PostList = (props) => {
                     width={`${
                       list[clicked]?.postingCount === 0 || totalNumber === 0
                         ? 0
-                        : (parseInt(list[clicked]?.postingCount) /
-                            (parseInt(totalNumber) - 1)) *
-                          100
+                        : (
+                            (parseInt(list[clicked]?.postingCount) /
+                              (parseInt(totalNumber) - 1)) *
+                            100
+                          ).toFixed(1)
                     }%`}
                   />
                 </StatusBar>
@@ -259,7 +282,6 @@ const CertifiCheckBtn = (props) => {
     check,
   } = props;
   if (challengeStatus === 2) {
-    console.log(challengeMember);
     if (challengeMember.includes(loginUser)) {
       if (postingMember === loginUser) {
         return (
@@ -277,7 +299,7 @@ const CertifiCheckBtn = (props) => {
           </Button>
         );
       } else {
-        if (postingCreatedAt.split("T")[0] < today) {
+        if (postingCreatedAt?.split("T")[0] < today) {
           return (
             <Button
               borderRadius="16px"
@@ -293,7 +315,7 @@ const CertifiCheckBtn = (props) => {
             </Button>
           );
         } else {
-          if (checkedMembers.includes(loginUser)) {
+          if (checkedMembers?.includes(loginUser)) {
             return (
               <Button
                 borderRadius="16px"

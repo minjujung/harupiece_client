@@ -215,7 +215,7 @@ const challengeDeleteDB =
       });
   };
 
-//사용자가 챌린지 포기 버튼 눌렀을 때
+//사용자가 챌린지 취소 버튼 눌렀을 때
 const giveupChallengeDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
@@ -236,6 +236,12 @@ const giveupChallengeDB =
         };
 
         dispatch(editChallengeDetail(new_challenge_info));
+
+        const new_userInfo = {
+          ...user_info,
+          challengeCount: parseInt(user_info.challengeCount) - 1,
+        };
+        dispatch(userCreators.setUser(new_userInfo));
         window.alert("챌린지 참여취소가 완료되었습니다!");
         history.replace("/mypage/now");
       })
@@ -283,22 +289,34 @@ const takeInPartChallengeDB =
 
         dispatch(editChallengeDetail(new_challenge_info));
         window.alert(`${challenge_detail.challengeTitle} 챌린지 신청 완료!`);
+
+        const new_userInfo = {
+          ...user_info,
+          challengeCount: parseInt(user_info.challengeCount) + 1,
+        };
+        dispatch(userCreators.setUser(new_userInfo));
         history.push("/mypage/now");
       })
       .catch((error) => {
         if (
-          window.confirm(
-            "챌린지 신청에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
-          )
+          error.response?.data?.message ===
+          "이미 해당 카테고리에 챌린지를 진행중입니다."
         ) {
-          history.push("/");
-        } else {
-          history.goBack();
+          window.alert(error.response?.data?.message);
         }
-        consoleLogger(
-          "참여신청 버튼이나 신청하기(비밀번호 있는 경우) 버튼 누른 경우: " +
-            error
-        );
+        // if (
+        //   window.confirm(
+        //     "챌린지 신청에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+        //   )
+        // ) {
+        //   history.push("/");
+        // } else {
+        //   history.goBack();
+        // }
+        // consoleLogger(
+        //   "참여신청 버튼이나 신청하기(비밀번호 있는 경우) 버튼 누른 경우: " +
+        //     error
+        // );
       });
   };
 

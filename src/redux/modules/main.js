@@ -140,7 +140,7 @@ export default handleActions(
           action.payload.categoryName.toLowerCase()
         ]?.findIndex((l) => l.challengeId === action.payload.challengeId);
 
-        draft.usermain[action.payload.categoryName.toLowerCase()].splice(
+        draft.usermain[action.payload.categoryName.toLowerCase()]?.splice(
           idx,
           1
         );
