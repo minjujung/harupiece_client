@@ -57,7 +57,7 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen }) => {
           placeholder="1234567"
           onChange={handleInput}
         />
-        <Button width="7.08vw" height="3.7vh" fontsize="sm" _onClick={savePwd}>
+        <Button width="7.08vw" height="40px" fontsize="sm" _onClick={savePwd}>
           비밀번호 입력
         </Button>
       </PwdInput>
@@ -98,7 +98,7 @@ const PwdInput = styled.div`
 
 const Input = styled.input`
   width: 12.5vw;
-  height: 3.7vh;
+  height: 40px;
   padding: 1.02vh 0.83vw;
   border: none;
   border-radius: 8px;
