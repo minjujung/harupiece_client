@@ -33,8 +33,15 @@ const Chat = ({ challengeId }) => {
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
     console.log(challengeId);
+    const data = {
+      type: "ENTER",
+      roomId: challengeId,
+      nickname: userInfo.nickname,
+      profileImg: userInfo.profileImg,
+    };
     try {
       ws.connect({ token }, () => {
+        ws.send("/pub/message", { token }, JSON.stringify(data));
         ws.subscribe(
           `/sub/api/chat/rooms/${challengeId}`,
           (data) => {
@@ -52,7 +59,14 @@ const Chat = ({ challengeId }) => {
 
   // 연결해제, 구독해제;
   const wsDisConnectUnsubscribe = () => {
+    const data = {
+      type: "QUIT",
+      roomId: challengeId,
+      nickname: userInfo.nickname,
+      profileImg: userInfo.profileImg,
+    };
     try {
+      ws.send("/pub/message", { token }, JSON.stringify(data));
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
@@ -98,27 +112,30 @@ const Chat = ({ challengeId }) => {
         alert("토큰이 없습니다. 다시 로그인 해주세요.");
         history.replace("/login");
       }
+
+      if (chatInfo.messageText === "") {
+        return;
+      }
       // send할 데이터
 
       const data = {
         type: "TALK",
-        roomId: challengeInfo.challengeId,
+        roomId: challengeId,
         nickname: userInfo.nickname,
         profileImg: userInfo.profileImg,
         message: chatInfo.messageText,
       };
+
+      ws.send("/pub/message", { token }, JSON.stringify(data));
       // 빈문자열이면 리턴
-      if (chatInfo.messageText === "") {
-        return;
-      }
       // 로딩 중
       // dispatch(chatActions.loading());
-      waitForConnection(ws, function () {
-        ws.send("/pub/message", { token }, JSON.stringify(data));
-        console.log(ws.ws.readyState);
-        console.log(data);
-        dispatch(chatActions.writeMessage(""));
-      });
+      // waitForConnection(ws, function () {
+      //   ws.send("/pub/message", { token }, JSON.stringify(data));
+      //   console.log(ws.ws.readyState);
+      //   console.log(data);
+      //   dispatch(chatActions.writeMessage(""));
+      // });
     } catch (error) {
       console.log(error);
       console.log(ws.ws.readyState);

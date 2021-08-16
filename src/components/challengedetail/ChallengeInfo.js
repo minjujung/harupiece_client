@@ -123,6 +123,7 @@ const ChallengeDesc = styled.section`
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 100vh;
     margin-bottom: 200px;
   }
 `;
@@ -137,6 +138,7 @@ const Section = styled.section`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 100vh;
     padding: 0 4.44vw;
     overflow: scroll;
     h3 {

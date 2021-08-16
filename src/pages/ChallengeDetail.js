@@ -172,8 +172,7 @@ const Area = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: auto;
-    min-height: 1340px;
+    height: 100vh;
     padding-top: 4.44vw;
   }
 `;
@@ -204,6 +203,7 @@ const StateContainer = styled.div`
   grid-area: banner;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 100vh;
   }
 `;
 

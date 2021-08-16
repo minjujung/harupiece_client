@@ -28,11 +28,11 @@ const FooterBox = styled.div`
   border-top: 1px solid #efefef;
   z-index: 10;
   margin-top: 11.76vh;
-  ${({ theme }) => theme.device.mobileLg} {
+  /* ${({ theme }) => theme.device.mobileLg} {
     margin: 5vh 0 3vh 0;
     position: inherit;
     height: 180px;
-  }
+  } */
 `;
 
 const LeftBox = styled.div`

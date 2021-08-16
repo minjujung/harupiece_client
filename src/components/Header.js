@@ -84,6 +84,7 @@ const Header = (props) => {
           height="23px"
           src={menu}
           alt="menu"
+          borderRadius="0"
           onClick={toggleMenu}
         />
 
