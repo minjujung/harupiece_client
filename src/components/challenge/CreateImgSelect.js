@@ -57,7 +57,7 @@ function CreateImgSelect({
     });
     setImgIdx(idx);
     if (!id) {
-      setPlaceholder(`${challengeInfo.categoryName}_${idx}`);
+      setPlaceholder(`${challengeInfo.categoryName}_${idx + 1}`);
     }
     // setPreview(img);
     handleClose();

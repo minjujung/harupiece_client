@@ -36,8 +36,7 @@ const Signup = (props) => {
             nickname: "",
             password: "",
             passwordConfirm: "",
-            profileImg:
-              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/profileGreen.svg",
+            profileImg: "",
           }}
           validationSchema={Yup.object({
             email: Yup.string()

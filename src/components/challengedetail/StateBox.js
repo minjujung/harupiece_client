@@ -40,7 +40,7 @@ const StateBox = (props) => {
         <UserStatus goodUser>
           <Strong>{user_info.nickname}</Strong>님은
           <br />
-          {user_info.challengeCount}의 챌린지 진행중!
+          {user_info.challengeCount}개의 챌린지 진행중!
         </UserStatus>
         <UserLevel>
           <LevelInfo>
@@ -75,7 +75,7 @@ const StateBox = (props) => {
                 src={completed}
                 alt="level"
               />
-              조각: {user_info.point}개
+              완료: {user_info.completeChallengeCount}개
             </p>
             <div
               sytle={{
@@ -92,7 +92,7 @@ const StateBox = (props) => {
                 src={levelData[levelState].piece}
                 alt="level_image"
               />
-              <span> X 0 개</span>
+              <span> X {user_info.point} 개</span>
             </div>
           </Completed>
         </UserLevel>
