@@ -6,6 +6,8 @@ import "../../shared/style.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 
+import Checkbox from '@material-ui/core/Checkbox';
+import Check from "../../assets/images/icons/check.svg";
 import Calendar from "../../assets/images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
@@ -93,10 +95,11 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
         <Label htmlFor="checkweek">인증 기간 중 주말제외 여부</Label>
         <Holiday>
           <p>주말 제외</p>
-          <input
+          <SCheckbox
             id="checkweek"
             type="checkbox"
             placeholder="주말 제외"
+            color="error"
             onClick={checkedWeek}
             onChange={findCheck}
           />
@@ -136,42 +139,50 @@ const SubT = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
-  margin-bottom: 8px;
+
 `;
 
 const Holiday = styled.div`
   width: 15vw;
   display: flex;
   background-color: ${({ theme }) => theme.colors.lightGray};
-  height: 3.7vh;
+  height: 40px;
   margin-bottom: 2.96vh;
   margin-top: 8px;
   border-radius: 8px;
+  position: relative;
   & > p {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     font-weight: 400;
     color: ${({ theme }) => theme.colors.darkGray};
     padding-left: 0.83vw;
-    padding-top: 1.01vh;
+    padding-top: 1.1vh;
   }
-  & > input {
+  /* & > input {
+    appearance: none;
+    -webkit-appearance : none;
     cursor: pointer;
     border: 1px solid #222222;
     border-radius: 4px;
-    width: 24px;
-    height: 24px;
-    margin-top: 0.78vh;
+    width: 20px;
+    height: 20px;
+    margin-top: 0.88vh; 
     margin-left: 8.69vw;
-  }
+  } */
+`;
+
+const SCheckbox = styled(Checkbox)`
+  position: absolute;
+  right: -8.25vw;
 `;
 
 const SDatePicker = styled(DatePicker)`
   width: 15vw;
-  height: 3.7vh;
+  height: 40px;
   border-radius: 8px;
   margin-bottom: 2.96vh;
-  padding-left: 0.83vw;
-  padding-top: 1.01vh;
+  margin-top:8px;
+  padding: 6.5px 0.83vw;
   background-color: ${({ theme }) => theme.colors.lightGray};
   ::placeholder {
     font-size: ${({ theme }) => theme.fontSizes.ms};

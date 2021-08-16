@@ -47,8 +47,9 @@ instance.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response) {
-      if (err.response.status === 500 && !originalConfig._retry) {
-        originalConfig._retry = true;
+      if (err.response.status === 400
+        && err.response.data.message === "리프레시 토큰 오류" && !originalConfig._retry
+        ) {
         try {
           const rs = await refreshTokens();
           const { accessToken, refreshToken } = rs.data;

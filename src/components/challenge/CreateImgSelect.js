@@ -129,8 +129,7 @@ const ImageBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.lightGray};
   color: ${({ theme }) => theme.colors.darkGray};
   width: 15vw;
-  padding: 1.018vh;
-  padding-left: 0.83vw;
+  padding: 11px 0.83vw;
   border-radius: 8px;
   margin-bottom: 2.96vh;
 `;
