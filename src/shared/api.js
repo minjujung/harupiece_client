@@ -109,7 +109,7 @@ export const MainApis = {
   search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
   searchCategory: (categoryName) =>
     instance.get(`/api/guest/challenge/category/1/${categoryName}`),
-  searchAll: () => instance.get(`/api/guest/challenge-all/1`),
+  searchAll: () => instance.get(`/api/guest/challenge-all/2`),
 };
 
 // 인증샷 포스팅
