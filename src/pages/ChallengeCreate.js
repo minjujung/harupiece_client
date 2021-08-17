@@ -346,8 +346,8 @@ const AllInputContainer = styled.div`
 
 const Input = styled.input`
   width: 15vw;
-  height: 3.7vh;
-  margin-top: 0.74vh;
+  height: 40px;
+  margin-top: 8px;
   margin-bottom: 2.96vh;
   background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.ms};
@@ -364,7 +364,7 @@ const Textarea = styled.textarea`
   width: 15vw;
   height: 12.59vh;
   resize: none;
-  margin-top: 0.74vh;
+  margin-top: 8px;
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
@@ -397,8 +397,8 @@ const Label = styled.label`
 
 const SelectBox = styled.select`
   width: 100%; /* 원하는 너비설정 */
-  padding: 0.75vh 0.83vw; /* 여백으로 높이 설정 */
-  margin: 0.74vh 0 2.96vh 0;
+  padding: 6.5px 0.83vw; /* 여백으로 높이 설정 */
+  margin: 8px 0 2.96vh 0;
   font-family: inherit; /* 폰트 상속 */
   font-size: ${({ theme }) => theme.fontSizes.ms};
   color: ${({ theme }) => theme.colors.darkGray};
