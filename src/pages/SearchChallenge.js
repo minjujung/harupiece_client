@@ -342,8 +342,8 @@ const Container = styled.div`
   margin-top: 21.5vh;
   padding-bottom: 42.5vh;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: auto;
     padding: 0px;
     margin: 0;
     display: flex;
@@ -360,10 +360,9 @@ const CategoryContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
-
   ${({ theme }) => theme.device.mobileLg} {
     width: 360px;
-    height: 155px;
+    height: auto;
     font-size: 16px;
   }
 `;
@@ -424,12 +423,12 @@ const BoxContainer = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding-top: 10vh;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 328px);
     grid-template-rows: repeat(2, 1fr);
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: auto;
     grid-row-gap: 40px;
-    overflow: scroll;
+    /* overflow: scroll; */
     margin-bottom: 5vh;
     ::-webkit-scrollbar {
       display: none;

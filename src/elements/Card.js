@@ -13,7 +13,7 @@ const Card = ({
   src,
   alt,
   inProcess,
-  main,
+  mypage,
   strongDate,
   onClick,
   children,
@@ -26,6 +26,7 @@ const Card = ({
     <>
       <CardBox {...styles} onClick={onClick}>
         <Image
+          mypage
           width="100%"
           // height="auto"
           padding="51.83% 0 0 0"
@@ -37,9 +38,7 @@ const Card = ({
           <Title>
             {title.length > 10 ? `${title.substring(0, 10)}...` : title}
           </Title>
-          <Date main strongDate={strongDate}>
-            {date}
-          </Date>
+          <Date strongDate={strongDate}>{date}</Date>
           {inProcess ? (
             <UserProfile>
               <ImageList>
@@ -75,7 +74,6 @@ Card.defaultProps = {
   height: "",
   padding: "",
   inProcess: false,
-  main: false,
   strongDate: false,
   children: null,
 };
@@ -94,8 +92,7 @@ const CardBox = styled.div`
   cursor: pointer;
   /* width: ${(props) => (props.search ? "100%" : "250px")}; */
   ${({ theme }) => theme.device.mobileLg} {
-    /* ${(props) => (props.card ? "height: 53.36vh" : null)}; */
-    width: ${(props) => (props.search ? "46.67vw" : "91.11vw")};
+    width: ${(props) => (props.search ? "55vw" : "91.11vw")};
   }
 `;
 
@@ -130,7 +127,7 @@ const Title = styled.h4`
   font-weight: bold;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
@@ -153,7 +150,6 @@ const UserProfile = styled.div`
   /* height: 4.63vh; */
   display: flex;
   align-items: center;
-
   padding: 2.22vh 0;
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
@@ -162,6 +158,7 @@ const ImageList = styled.div`
   display: flex;
   margin-right: 0.42vw;
   ${({ theme }) => theme.device.mobileLg} {
+    margin-right: 2.22vw;
     img {
       width: 12.08vw;
       height: auto;

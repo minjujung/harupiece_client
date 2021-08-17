@@ -66,13 +66,15 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
+                mypage
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
                 width="100%"
-                height="34.64vh"
+                // height="34.64vh"
+                height="auto"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}
@@ -136,7 +138,7 @@ const CardGrid = styled.div`
     gap: 3.13vh;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    grid-auto-rows: 53.36vh;
+    /* grid-auto-rows: 53.36vh; */
   }
 `;
 

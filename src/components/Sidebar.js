@@ -8,12 +8,14 @@ import Image from "../elements/Image";
 import levelData from "../shared/level";
 
 import { getCookie } from "../shared/Cookie";
-import { useSelector } from "react-redux";
+import { userCreators } from "../redux/modules/user";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
   const styles = { width, height, xPosition };
 
+  const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
   const levelState = parseInt((user_info?.memberLevel - 1) / 5);
 
@@ -27,7 +29,23 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
     } else {
       window.alert("로그인이 필요합니다!");
       history.push("/login");
+      toggleMenu();
     }
+  };
+
+  const goToLogin = () => {
+    history.push("/login");
+    toggleMenu();
+  };
+
+  const goToSignup = () => {
+    history.push("/signup");
+    toggleMenu();
+  };
+
+  const logout = () => {
+    dispatch(userCreators.logOutDB());
+    toggleMenu();
   };
 
   return (
@@ -107,16 +125,54 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
             </InfoBox>
           </>
         )}
-        <Menu onClick={goToMyPage}>
-          마이페이지
-          <Image
-            sidebar
-            width="10px"
-            height="18px"
-            src={right}
-            alt="rightArrow"
-          />
-        </Menu>
+        {is_login ? (
+          <>
+            <Menu onClick={goToMyPage}>
+              마이페이지
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+            <Menu onClick={logout}>
+              로그아웃
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Menu onClick={goToLogin}>
+              로그인
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+            <Menu onClick={goToSignup}>
+              회원가입
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+          </>
+        )}
       </SideMenu>
     </ElSidebar>
   );
@@ -218,5 +274,6 @@ const Menu = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray};
   }
 `;

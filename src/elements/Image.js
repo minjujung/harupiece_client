@@ -11,6 +11,7 @@ const Image = ({
   chatClose,
   post,
   card,
+  mypage,
   onClick,
   src,
   alt,
@@ -24,7 +25,7 @@ const Image = ({
     margin,
     marbleBorder,
     post,
-    card,
+    mypage,
   };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
@@ -38,7 +39,7 @@ Image.defaultProps = {
   marbleBorder: false,
   chatClose: false,
   post: false,
-  card: false,
+  mypage: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -62,6 +63,6 @@ const ImageFrame = styled.img`
   cursor: pointer;
   ${(props) => (props.post ? `object-fit: cover` : null)};
   ${({ theme }) => theme.device.mobileLg} {
-    /* ${(props) => (props.card ? "height: 26.56vh" : null)}; */
+    ${(props) => (props.mypage ? "height:auto" : null)};
   }
 `;

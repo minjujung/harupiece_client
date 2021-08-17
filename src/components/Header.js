@@ -93,8 +93,8 @@ const Header = (props) => {
         />
 
         <Image
-          width="110px"
-          height="17.5px"
+          width="30.56vw"
+          height="auto"
           cursor
           src={logo}
           onClick={() => history.push("/")}
@@ -126,7 +126,12 @@ const Header = (props) => {
               <SDialogContent>
                 <LogoBox>
                   <div onClick={goHome}>
-                    <Image width="220px" height="40px" src={logo} />
+                    <Image
+                      width="220px"
+                      height="40px"
+                      borderRadius="0"
+                      src={logo}
+                    />
                   </div>
                 </LogoBox>
                 <SearchBox>
@@ -145,7 +150,12 @@ const Header = (props) => {
                     </label>
                   </SearchLeftBox>
                   <SearchRightBox>
-                    <Image width="18px" height="18px" src={close} />
+                    <Image
+                      width="18px"
+                      height="18px"
+                      borderRadius="0"
+                      src={close}
+                    />
                   </SearchRightBox>
                 </SearchBox>
               </SDialogContent>
@@ -239,11 +249,19 @@ const SDialogContent = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const LogoBox = styled.div`
   width: 10vw;
   margin-left: 9.7vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
 `;
 
 const SearchBox = styled.div`
@@ -254,6 +272,10 @@ const SearchBox = styled.div`
   align-items: center;
   padding-bottom: 10px;
   margin-right: 10.3vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-right: 0;
+  }
 `;
 const SearchLeftBox = styled.div`
   display: flex;
