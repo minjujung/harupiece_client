@@ -116,17 +116,6 @@ function SearchChallenge(props) {
     return challengeDate;
   };
 
-  // const {
-  //   _year: start_year,
-  //   _month: start_month,
-  //   _date: start_date,
-  // } = changeForm(start);
-  // const {
-  //   _year: end_year,
-  //   _month: end_month,
-  //   _date: end_date,
-  // } = changeForm(end);
-
   return (
     <Container>
       <CategoryContainer>
@@ -306,7 +295,7 @@ function SearchChallenge(props) {
             return (
               <>
                 <Card
-                  search
+                  width={"100%"}
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
@@ -356,7 +345,7 @@ const Container = styled.div`
     width: 100vw;
     height: 100vh;
     padding: 0px;
-    margin: 5vh 0 0 0;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -374,6 +363,7 @@ const CategoryContainer = styled.div`
 
   ${({ theme }) => theme.device.mobileLg} {
     width: 360px;
+    height: 155px;
     font-size: 16px;
   }
 `;
@@ -422,19 +412,23 @@ const TagBox = styled.div`
 `;
 
 const BoxContainer = styled.div`
+  width: 1280px;
   height: 70vh;
   display: grid;
+  justify-content: center;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 40px;
-  grid-column-gap: 40px;
-  padding-top: 40px;
+  grid-template-columns: repeat(4, 308px);
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+  padding-top: 8.33vh;
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
+    padding-top: 10vh;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    width: 100vw;
     height: 100vh;
-    grid-row-gap: 30px;
+    grid-row-gap: 40px;
     overflow: scroll;
     margin-bottom: 5vh;
     ::-webkit-scrollbar {
