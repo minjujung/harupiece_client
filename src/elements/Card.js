@@ -75,7 +75,7 @@ const CardBox = styled.div`
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    width: ${(props) => (props.search ? "46.67vw" : "91.11vw")};
+    width: ${(props) => (props.search ? "55vw" : "91.11vw")};
   }
 `;
 
@@ -111,7 +111,7 @@ const Title = styled.h4`
   font-weight: bold;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
