@@ -23,7 +23,7 @@ const Card = ({
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
-        <Image width="100%" height="14.81vh" src={src} alt={alt} />
+        <Image width="100%" src={src} alt={alt} />
         <TagContainer>{children}</TagContainer>
         <Container>
           <Title>
@@ -59,6 +59,7 @@ Card.defaultProps = {
   src: "",
   alr: "",
   search: false,
+  card: false,
   width: "",
   height: "",
   inProcess: false,
@@ -76,6 +77,7 @@ const CardBox = styled.div`
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
     width: ${(props) => (props.search ? "100%" : "250px")};
+    ${(props) => (props.card ? "height: 53.36vh" : null)};
   }
 `;
 
@@ -125,7 +127,7 @@ const Date = styled.p`
   width: 29.84vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 4vh;
+    /* height: 4vh; */
     font-size: 14px;
   }
 `;
@@ -141,6 +143,12 @@ const UserProfile = styled.div`
 const ImageList = styled.div`
   display: flex;
   margin-right: 0.42vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 43.5px;
+      height: 43.5px;
+    }
+  }
 `;
 
 const Plus = styled.div`
@@ -155,4 +163,14 @@ const Plus = styled.div`
   border-radius: 50%;
   padding-bottom: 0.5vh;
   margin-left: -1.2vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 43.5px;
+    height: 43.5px;
+    margin-left: -22px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    width: 43.5px;
+    height: 43.5px;
+    margin-left: -22px;
+  }
 `;

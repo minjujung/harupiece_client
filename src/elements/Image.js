@@ -10,6 +10,7 @@ const Image = ({
   marbleBorder,
   chatClose,
   post,
+  card,
   onClick,
   src,
   alt,
@@ -23,6 +24,7 @@ const Image = ({
     margin,
     marbleBorder,
     post,
+    card,
   };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
@@ -36,6 +38,7 @@ Image.defaultProps = {
   marbleBorder: false,
   chatClose: false,
   post: false,
+  card: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -45,7 +48,7 @@ export default Image;
 
 const ImageFrame = styled.img`
   width: ${(props) => (props.width ? props.width : "17.8em")};
-  height: ${(props) => (props.height ? props.height : "10em")};
+  height: ${(props) => (props.height ? props.height : "14.81vh")};
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "8px 8px 0px 0px"};
   ${(props) =>
@@ -58,7 +61,7 @@ const ImageFrame = styled.img`
   object-fit: fill;
   cursor: pointer;
   ${(props) => (props.post ? `object-fit: cover` : null)};
-  /* ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-  } */
+  ${({ theme }) => theme.device.mobileLg} {
+    /* ${(props) => (props.card ? "height: 26.56vh" : null)}; */
+  }
 `;
