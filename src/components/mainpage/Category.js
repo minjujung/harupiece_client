@@ -335,36 +335,34 @@ const Category = (props) => {
                 {main_list.guestmain[category] &&
                   main_list.guestmain[category].map((l, idx) => {
                     return (
-                      <div key={l.challengeId}>
-                        <Slide>
-                          <Card
-                            src={l.challengeImgUrl}
-                            title={l.challengeTitle}
-                            date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
+                      <Slide key={l.challengeId}>
+                        <Card
+                          src={l.challengeImgUrl}
+                          title={l.challengeTitle}
+                          date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
                         ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
-                            onClick={() =>
-                              history.push(`/challenge/${l.challengeId}/intro`)
-                            }
+                          onClick={() =>
+                            history.push(`/challenge/${l.challengeId}/intro`)
+                          }
+                        >
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
                           >
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 20px"
-                            >
-                              {l.tagList && l.tagList[0]}
-                            </Tag>
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 20px"
-                            >
-                              {l.challengeMember.length}/10명
-                            </Tag>
-                          </Card>
-                        </Slide>
-                      </div>
+                            {l.tagList && l.tagList[0]}
+                          </Tag>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
+                          >
+                            {l.challengeMember.length}/10명
+                          </Tag>
+                        </Card>
+                      </Slide>
                     );
                   })}
               </SliderContainer>
@@ -417,9 +415,10 @@ const Slide = styled.div`
   padding-bottom: 20px;
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 60%;
+    width: 100%;
     border-radius: 10px;
     margin-left: 25px;
+    padding-right: 0px;
   }
 `;
 

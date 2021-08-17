@@ -173,6 +173,8 @@ const Area = styled.div`
     align-items: center;
     width: 100%;
     height: 100vh;
+    /* min-height: 1340px; */
+    overflow: scroll;
     padding-top: 4.44vw;
   }
 `;
@@ -183,8 +185,8 @@ const ChallengeHeader = styled.div`
   width: 49.48vw;
   height: 40.55vh;
   justify-content: center;
-  position: fixed;
-  z-index: 9;
+  /* position: fixed;
+  z-index: 9; */
   padding-top: 5.37vh;
   margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};

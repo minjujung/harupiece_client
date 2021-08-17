@@ -75,7 +75,7 @@ const CardBox = styled.div`
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    width: ${(props) => (props.search ? "85vw" : "60vw")};
+    width: ${(props) => (props.search ? "300px" : "250px")};
   }
 `;
 

@@ -69,7 +69,7 @@ const PostList = (props) => {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
       // dispatch(userActions.editUserDB(totalDay * 50))
       window.alert(
-        `${user_info.nickName}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+        `${user_info.nickname}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
       );
     }
   };
@@ -110,12 +110,17 @@ const PostList = (props) => {
     }
   };
 
-  console.log(
-    (
-      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
-      100
-    ).toFixed(1)
-  );
+  let postingCheckStatus = 0;
+  if (list[clicked]?.postingCount === 0 || totalNumber === 0) {
+    postingCheckStatus = 0;
+  } else if (totalNumber === 1) {
+    postingCheckStatus = 100;
+  } else {
+    postingCheckStatus =
+      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber)) * 100;
+  }
+
+  let intViewportWidth = window.innerWidth;
 
   return (
     <>
@@ -139,15 +144,27 @@ const PostList = (props) => {
         onClose={handleClose}
         disableScrollLock={true}
         aria-labelledby="form-dialog-title"
-        PaperProps={{
-          style: {
-            width: "36.56vw",
-            height: "60.83vh",
-            padding: "1.46vw",
-            borderRadius: "0.6em ",
-            overflowY: "hidden",
-          },
-        }}
+        PaperProps={
+          intViewportWidth > 720
+            ? {
+                style: {
+                  width: "36.56vw",
+                  height: "60.83vh",
+                  padding: "1.46vw",
+                  borderRadius: "0.6em ",
+                  overflowY: "hidden",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  minHeight: "38.37%",
+                  // height: "54.38%",
+                  padding: "4.44%",
+                  borderRadius: "16px",
+                },
+              }
+        }
       >
         {edit && list[clicked] ? (
           <PostEdit
@@ -184,26 +201,14 @@ const PostList = (props) => {
               </DialogInfo>
               <StatusFrame>
                 <StatusBar>
-                  <Status
-                    width={`${
-                      list[clicked]?.postingCount === 0 || totalNumber === 0
-                        ? 0
-                        : (parseInt(list[clicked]?.postingCount) /
-                            (parseInt(totalNumber) - 1)) *
-                          100
-                    }%`}
-                  />
+                  <Status width={`${postingCheckStatus}%`} />
                 </StatusBar>
                 <StatusInfo>
                   <span>인증상태</span>
                   <Percent>
-                    {list[clicked]?.postingCount === 0 || totalNumber === 0
+                    {postingCheckStatus === 0
                       ? 0
-                      : (
-                          (parseInt(list[clicked]?.postingCount) /
-                            (parseInt(totalNumber) - 1)) *
-                          100
-                        ).toFixed(1)}{" "}
+                      : postingCheckStatus.toFixed(1)}{" "}
                     %
                   </Percent>
                 </StatusInfo>
@@ -219,7 +224,7 @@ const PostList = (props) => {
               />
               <p>{list[clicked]?.postingContent}</p>
             </Post>
-            <div>
+            <BtnFrame>
               {list[clicked]?.postingModifyOk &&
               list[clicked]?.memberId === user_info.memberId ? (
                 <MeBtn>
@@ -269,7 +274,7 @@ const PostList = (props) => {
                 postingCreatedAt={list[clicked]?.createdAt}
                 check={check}
               />
-            </div>
+            </BtnFrame>
           </>
         )}
       </Dialog>
@@ -402,6 +407,9 @@ const DialogInfo = styled.div`
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 64px;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -409,12 +417,22 @@ const UserInfo = styled.div`
   height: 7.4vh;
   display: flex;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 64px;
+    img {
+      width: 42px;
+      height: 42px;
+    }
+  }
 `;
 
 const StatusFrame = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 3.33vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 4.44%;
+  }
 `;
 
 const StatusBar = styled.div`
@@ -430,7 +448,7 @@ const Status = styled.div`
   background-color: ${({ theme }) => theme.colors.mainGreen};
   width: ${(props) => props.width};
   height: 8px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px;
   top: 0;
   left: 0;
 `;
@@ -460,6 +478,21 @@ const Post = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.md};
     padding: 0.94vw;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 21.88vh;
+    margin-top: 32px;
+    p {
+      flex: 1;
+      width: 38.89vw;
+      height: 100%;
+      margin-left: 4.44%;
+    }
+    img {
+      height: 100%;
+      width: 38.89vw;
+    }
+  }
 `;
 
 const MeBtn = styled.div`
@@ -467,4 +500,19 @@ const MeBtn = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 44px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    button {
+      margin-top: 32px;
+    }
+  }
+`;
+
+const BtnFrame = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    button {
+      margin-top: 32px;
+    }
+  }
 `;

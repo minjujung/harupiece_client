@@ -122,14 +122,15 @@ export default handleActions(
       }),
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.userInfo = action.payload.userInfo;
-        // if (myInfo.profileImage === "") {
-        //   myInfo = {
-        //     ...action.payload.userInfo,
-        //     profileImg:
-        //     "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
-        //   };
-        // }
+        let myInfo = action.payload.userInfo;
+        if (myInfo.profileImage === "") {
+          myInfo = {
+            ...action.payload.userInfo,
+            profileImg:
+              "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
+          };
+        }
+        draft.userInfo = myInfo;
         draft.isLogin = true;
       }),
     [COMPLETE]: (state, action) =>
