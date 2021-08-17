@@ -9,6 +9,7 @@ import login from "../assets/images/icons/login.svg";
 import myPage from "../assets/images/icons/profile.svg";
 import Search from "../assets/images/icons/search.svg";
 import profile from "../assets/images/logo/profile.png";
+import profileGreen from "../assets/images/icons/profileGreen.svg";
 import menu from "../assets/images/icons/menubar.svg";
 
 // modal
@@ -87,6 +88,7 @@ const Header = (props) => {
           height="23px"
           src={menu}
           alt="menu"
+          borderRadius="0"
           onClick={toggleMenu}
         />
 
@@ -168,7 +170,13 @@ const Header = (props) => {
                 <p>마이페이지</p>
               </HeaderMyBtn>
               <Image
-                src={userInfo.profileImg === "" ? profile : userInfo.profileImg}
+                src={
+                  userInfo.profileImg === "" ||
+                  userInfo.profileImg ===
+                    "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg"
+                    ? profileGreen
+                    : userInfo.profileImg
+                }
                 alt="profile"
                 width="42px"
                 height="42px"

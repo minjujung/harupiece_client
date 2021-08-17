@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -9,9 +9,23 @@ import { userCreators } from "../redux/modules/user";
 import Green from "../assets/images/level/green.svg";
 
 import { Button, Image } from "../elements";
+import { history } from "../redux/configureStore";
+import { getCookie } from "../shared/Cookie";
 
 const Login = (props) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (getCookie("token")) {
+      console.log("alert");
+      window.alert(
+        "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
+      );
+      history.push("/");
+      return;
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <Container>

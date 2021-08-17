@@ -26,13 +26,8 @@ const FooterBox = styled.div`
   height: 22.22vh;
   width: 100%;
   border-top: 1px solid #efefef;
-  z-index: 10;
+  /* z-index: 10; */
   margin-top: 11.76vh;
-  ${({ theme }) => theme.device.mobileLg} {
-    margin: 5vh 0 3vh 0;
-    position: inherit;
-    height: 180px;
-  }
 `;
 
 const LeftBox = styled.div`

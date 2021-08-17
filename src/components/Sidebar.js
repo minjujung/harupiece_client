@@ -1,18 +1,40 @@
 import React from "react";
 import styled from "styled-components";
 
+import profileGreen from "../assets/images/icons/profileGreen.svg";
 import whiteClose from "../assets/images/icons/whiteClose.svg";
 import right from "../assets/images/icons/arrow/right.svg";
 import Image from "../elements/Image";
 import levelData from "../shared/level";
 
+import { getCookie } from "../shared/Cookie";
+import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+
 const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
   const styles = { width, height, xPosition };
+
+  const user_info = useSelector((state) => state.user.userInfo);
+  const levelState = parseInt((user_info?.memberLevel - 1) / 5);
+
+  const is_login =
+    getCookie("token") && user_info?.memberId !== null ? true : false;
+
+  const goToMyPage = () => {
+    if (is_login) {
+      history.push("/mypage/now");
+      toggleMenu();
+    } else {
+      window.alert("로그인이 필요합니다!");
+      history.push("/login");
+    }
+  };
 
   return (
     <ElSidebar {...styles}>
       <NavBtn>
         <Image
+          sidebar
           width="18.5px"
           height="18.5px"
           borderRadius="0"
@@ -22,25 +44,78 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
         />
       </NavBtn>{" "}
       <SideMenu>
-        <InfoBox>
-          {" "}
-          <Image
-            width="15.83vw"
-            height="29.07%"
-            borderRadius="50%"
-            margin="0 auto 1.64% auto"
-            src={levelData[9].img}
-            alt="level_image"
-          />
-          <UserStatus>
-            <Strong>로그인</Strong> 하여 자신만의 특별한
-            <br />
-            하루조각을 모아보세요!
-          </UserStatus>
-        </InfoBox>
-        <Menu>
+        {" "}
+        {is_login ? (
+          <>
+            <InfoBox login>
+              <Image
+                sidebar
+                width="12.5vw"
+                height="auto"
+                borderRadius="5px"
+                margin="0 auto 1.64% auto"
+                src={
+                  user_info?.profileImg ===
+                  "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg"
+                    ? profileGreen
+                    : user_info.profileImg
+                }
+                alt="level_image"
+              />
+              <UserStatus>
+                <Strong>{user_info?.nickname}</Strong>님
+              </UserStatus>
+            </InfoBox>
+            <UserInfoBox>
+              <Box>
+                등급
+                <br />
+                <strong>
+                  {levelData[levelState] &&
+                    levelData[levelState].name?.split(" ")[0]}
+                </strong>
+              </Box>
+              <Box center>
+                총 조각
+                <br />
+                <strong>{user_info?.point}개</strong>
+              </Box>
+              <Box>
+                진행 챌린지
+                <br />
+                <strong>{user_info?.challengeCount}개</strong>
+              </Box>
+            </UserInfoBox>
+          </>
+        ) : (
+          <>
+            <InfoBox>
+              <Image
+                sidebar
+                width="15.83vw"
+                height="29.07%"
+                borderRadius="50%"
+                margin="0 auto 1.64% auto"
+                src={levelData[9].img}
+                alt="level_image"
+              />
+              <UserStatus>
+                <Strong>로그인</Strong> 하여 자신만의 특별한
+                <br />
+                하루조각을 모아보세요!
+              </UserStatus>
+            </InfoBox>
+          </>
+        )}
+        <Menu onClick={goToMyPage}>
           마이페이지
-          <Image width="10px" height="18px" src={right} alt="rightArrow" />
+          <Image
+            sidebar
+            width="10px"
+            height="18px"
+            src={right}
+            alt="rightArrow"
+          />
         </Menu>
       </SideMenu>
     </ElSidebar>
@@ -50,56 +125,98 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
 export default Sidebar;
 
 const ElSidebar = styled.header`
-  width: ${(props) => props.width};
-  min-height: ${(props) => props.height};
-  transform: ${(props) => `translateX(${props.xPosition}vw)`};
-  background-color: #0000009c;
-  position: fixed;
-  top: 0;
-  z-index: 20;
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: block;
+    width: ${(props) => props.width};
+    padding: 0;
+    min-height: ${(props) => props.height};
+    transform: ${(props) => `translateX(${props.xPosition}vw)`};
+    background-color: #0000009c;
+    position: fixed;
+    top: 0;
+    z-index: 200;
+  }
 `;
 
 const NavBtn = styled.div`
-  width: 18.5px;
-  height: 18.5px;
-  position: absolute;
-  right: 11.25vw;
-  top: 5.09vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 18.5px;
+    height: 18.5px;
+    position: absolute;
+    right: 11.25vw;
+    top: 5.09vh;
+  }
 `;
 
 const SideMenu = styled.div`
-  width: 79.72vw;
-  height: 100vh;
-  background-color: white;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 79.72vw;
+    height: 100vh;
+    background-color: white;
+  }
 `;
 
 const InfoBox = styled.div`
-  width: 79.72vw;
-  height: 29.3%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.mainGreen};
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 79.72vw;
+    height: ${(props) => (props.login ? "18.59%" : "29.3%")};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.mainGreen};
+    position: relative;
+  }
 `;
 
 const UserStatus = styled.p`
-  color: white;
+  ${({ theme }) => theme.device.mobileLg} {
+    color: white;
+    line-height: normal;
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    text-align: center;
+  }
+`;
+
+const UserInfoBox = styled.ul`
+  display: flex;
+  width: 100%;
+  height: 10.94vh;
+  border-bottom: 8px solid #eee;
+`;
+const Box = styled.li`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.13vh 5vw;
+  font-size: 12px;
   line-height: normal;
-  font-size: ${({ theme }) => theme.fontSizes.xs};
   text-align: center;
+  strong {
+    color: ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${(props) =>
+    props.center
+      ? "border-color: #eee; border-style: solid; border-width:0 2px 0 2px;"
+      : null}
 `;
 
 const Strong = styled.strong`
-  font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-weight: bold;
+  }
 `;
 
 const Menu = styled.div`
-  width: 100%;
-  padding: 4.72vw;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 4.72vw;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;

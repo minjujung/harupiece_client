@@ -62,6 +62,8 @@ const PostWrite = ({ challengeId }) => {
     handleClose();
   };
 
+  let intViewportWidth = window.innerWidth;
+
   return (
     <>
       <Button
@@ -78,13 +80,24 @@ const PostWrite = ({ challengeId }) => {
         onClose={handleClose}
         disableScrollLock={true}
         aria-labelledby="form-dialog-title"
-        PaperProps={{
-          style: {
-            width: "55.21vw",
-            padding: "32px",
-            borderRadius: "16px",
-          },
-        }}
+        PaperProps={
+          intViewportWidth > 720
+            ? {
+                style: {
+                  width: "55.21vw",
+                  padding: "32px",
+                  borderRadius: "16px",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  height: "81.37%",
+                  padding: "32px 32px",
+                  borderRadius: "16px",
+                },
+              }
+        }
       >
         <Container>
           <Title>인증</Title>
@@ -154,7 +167,6 @@ const PostWrite = ({ challengeId }) => {
           </PreviewBtn>
           <Button
             width="25.10vw"
-            height="5.92vh"
             padding="16px 0"
             margin="0 0 0 32px"
             _onClick={createPost}
@@ -190,6 +202,11 @@ const Preview = styled.div`
   border-width: 6px;
   font-weight: bold;
   ${(props) => (props.again ? `margin-right: 32px;` : null)}
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 72.81%;
+    max-height: 592px;
+  }
 `;
 
 const PreviewBtn = styled.label`
@@ -209,10 +226,32 @@ const PreviewBtn = styled.label`
       ? `border: 2px solid ${props.theme.colors.lightGray} `
       : props.theme.colors.gray};
   ${(props) => (props.again ? `border-radius: 8px` : null)};
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 17.78%;
+      height: 21.62%;
+    }
+    p {
+      font-size: 22px;
+      line-height: normal;
+    }
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    font-size: 17px;
+  }
 `;
 
 const InputContainer = styled.div`
   display: flex;
+  ${({ theme }) => theme.device.mobileLg} {
+    flex-direction: column;
+    height: 100%;
+    img {
+      width: 100%;
+      min-height: 71.81%;
+    }
+  }
 `;
 
 const TextInput = styled.textarea`
@@ -238,9 +277,22 @@ const TextInput = styled.textarea`
     background-color: ${({ theme }) => theme.colors.white};
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 22.14%;
+    margin-left: 0;
+    margin-top: 32px;
+  }
 `;
 
 const BtnContainer = styled.div`
   display: flex;
   margin-top: 32px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-top: 32px;
+    button {
+      flex: 1;
+    }
+  }
 `;

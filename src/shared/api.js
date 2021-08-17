@@ -2,8 +2,8 @@ import axios from "axios";
 import { setCookie, getCookie, multiCookie } from "./Cookie";
 
 const instance = axios.create({
-  baseURL: "http://34.64.75.241/",
   // baseURL: "http://54.180.141.39/",
+  baseURL: "http://34.64.75.241/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -47,9 +47,12 @@ instance.interceptors.response.use(
     const originalConfig = err.config;
 
     if (err.response) {
-      if (err.response.status === 400
-        && err.response.data.message === "리프레시 토큰 오류" && !originalConfig._retry
-        ) {
+      if (
+        err.response.status === 401 &&
+        err.response.data.message === "No message available" &&
+        !originalConfig._retry
+      ) {
+        originalConfig._retry = true;
         try {
           const rs = await refreshTokens();
           const { accessToken, refreshToken } = rs.data;

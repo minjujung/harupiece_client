@@ -120,66 +120,78 @@ const addPostDB =
       },
     });
     const promise = upload.promise();
-    promise
-      .then((data) => {
-        consoleLogger(data);
-        dispatch(imageActions.uploadImage(data.Location));
+    promise.then((data) => {
+      consoleLogger(data);
+      dispatch(imageActions.uploadImage(data.Location));
 
-        let new_post = {
-          postingImg: data.Location,
-          postingContent: post.shotText,
-          challengeId,
-        };
+      let new_post = {
+        postingImg: data.Location,
+        postingContent: post.shotText,
+        challengeId,
+      };
 
-        PostApis.addPost(new_post)
-          .then((res) => {
-            consoleLogger("인증샷 추가 요청 이후 응답", res);
+      PostApis.addPost(new_post)
+        .then((res) => {
+          consoleLogger("인증샷 추가 요청 이후 응답", res);
 
-            const challengeInfo = getState().challengeDetail.detail;
+          const challengeInfo = getState().challengeDetail.detail;
 
-            const _post = {
-              ...new_post,
-              postingId: res.data,
-              memberId: user_info.memberId,
-              nickname: user_info.nickname,
-              profileImg: user_info.profileImg,
-              postingCount: 0,
-              memberResponseDto: [],
-              postingApproval: true,
-              postingModifyOk: true,
-            };
-            dispatch(addPost(_post));
-            window.alert("오늘의 인증샷 게시물 작성 완료!");
-            history.push(`/challenge/${challengeInfo.challengeId}/post`);
-            dispatch(imageActions.setPreview(null));
-          })
-          .catch((error) => {
-            if (
-              window.confirm(
-                "인증샷 등록에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
-              )
-            ) {
-              history.push("/");
-            } else {
-              history.goBack();
-            }
-            consoleLogger("인증샷 추가 요청했을 때: ", error);
-          });
-      })
-      .catch((error) => {
-        if (
-          error.response?.data?.message ===
-          "이미 인증된 게시글은 삭제할 수 없습니다."
-        ) {
-          window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
-        } else if (
-          error.response?.data?.message ===
-          "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
-        ) {
-          window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
-        }
-        consoleLogger("새로운 인증샷 추가할 때: ", error);
-      });
+          const _post = {
+            ...new_post,
+            postingId: res.data,
+            memberId: user_info.memberId,
+            nickname: user_info.nickname,
+            profileImg: user_info.profileImg,
+            postingCount: 0,
+            memberResponseDto: [],
+            postingApproval: true,
+            postingModifyOk: true,
+          };
+          dispatch(addPost(_post));
+          window.alert("오늘의 인증샷 게시물 작성 완료!");
+          history.push(`/challenge/${challengeInfo.challengeId}/post`);
+          dispatch(imageActions.setPreview(null));
+        })
+        .catch((error) => {
+          //   if (
+          //     window.confirm(
+          //       "인증샷 등록에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          //     )
+          //   ) {
+          //     history.push("/");
+          //   } else {
+          //     history.goBack();
+          //   }
+          //   consoleLogger("인증샷 추가 요청했을 때: ", error);
+          // });
+          if (
+            error.response?.data?.message ===
+            "이미 인증된 게시글은 삭제할 수 없습니다."
+          ) {
+            window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
+          } else if (
+            error.response?.data?.message ===
+            "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
+          ) {
+            window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
+          }
+          consoleLogger("새로운 인증샷 추가할 때: ", error);
+        });
+    });
+    // .catch((error) => {
+    //   if (
+    //     error.response?.data?.message ===
+    //     "이미 인증된 게시글은 삭제할 수 없습니다."
+    //   ) {
+    //     window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
+    //   } else if (
+    //     error.response?.data?.message ===
+    //     "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
+    //   ) {
+    //     window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
+    //   }
+    //   consoleLogger("새로운 인증샷 추가할 때: ", error);
+    // });
   };
 
 const editPostDB =
