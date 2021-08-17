@@ -158,17 +158,9 @@ const Holiday = styled.div`
     padding-left: 0.83vw;
     padding-top: 1.1vh;
   }
-  /* & > input {
-    appearance: none;
-    -webkit-appearance : none;
-    cursor: pointer;
-    border: 1px solid #222222;
-    border-radius: 4px;
-    width: 20px;
-    height: 20px;
-    margin-top: 0.88vh; 
-    margin-left: 8.69vw;
-  } */
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
 `;
 
 const SCheckbox = styled(Checkbox)`
@@ -188,6 +180,9 @@ const SDatePicker = styled(DatePicker)`
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.darkGray};
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100vw;
+  }
 `;
 
 const CalendarContainer = styled.label`
@@ -197,7 +192,7 @@ const CalendarContainer = styled.label`
     height: 20px;
     position: absolute;
     right: -14.3vw;
-    bottom: 5px;
+    bottom: 1px;
     z-index: 2;
   }
 `;
