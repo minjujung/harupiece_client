@@ -99,24 +99,33 @@ function SearchChallenge(props) {
   let result = searchProducts();
 
   // 챌린지 기간
-  const start = searchList.search?.map(
-    (list) => list.challengeStartDate.split("T")[0]
-  );
+  const date = searchList.search?.map((list) => {
+    let dateObj = {};
+    dateObj.id = list.challengeId;
+    dateObj.startDate = list.challengeStartDate.split("T")[0];
+    dateObj.endDate = list.challengeEndDate.split("T")[0];
+    return dateObj;
+  });
 
-  const end = searchList.search?.map(
-    (list) => list.challengeEndDate.split("T")[0]
-  );
+  const findDate = (id) => {
+    const idx = date.findIndex((d) => d.id === id);
+    const challengeDate = {
+      startDate: date[idx].startDate,
+      endDate: date[idx].endDate,
+    };
+    return challengeDate;
+  };
 
-  const {
-    _year: start_year,
-    _month: start_month,
-    _date: start_date,
-  } = changeForm(start);
-  const {
-    _year: end_year,
-    _month: end_month,
-    _date: end_date,
-  } = changeForm(end);
+  // const {
+  //   _year: start_year,
+  //   _month: start_month,
+  //   _date: start_date,
+  // } = changeForm(start);
+  // const {
+  //   _year: end_year,
+  //   _month: end_month,
+  //   _date: end_date,
+  // } = changeForm(end);
 
   return (
     <Container>
@@ -301,8 +310,10 @@ function SearchChallenge(props) {
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
-                  date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
-                  ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
+                  // date={date.filter((d) => d.id === l.challengeId)}
+                  date={`${findDate(l.challengeId).startDate} - ${
+                    findDate(l.challengeId).endDate
+                  }`}
                   onClick={() =>
                     history.push(`/challenge/${l.challengeId}/intro`)
                   }

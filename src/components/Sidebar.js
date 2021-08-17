@@ -58,7 +58,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                   user_info?.profileImg ===
                   "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg"
                     ? profileGreen
-                    : user_info.profileImg
+                    : user_info?.profileImg
                 }
                 alt="level_image"
               />
