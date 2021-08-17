@@ -338,6 +338,7 @@ const Category = (props) => {
                     return (
                       <Slide key={l.challengeId}>
                         <Card
+                          search
                           src={l.challengeImgUrl}
                           title={l.challengeTitle}
                           date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -

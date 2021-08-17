@@ -424,7 +424,7 @@ const BoxContainer = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding-top: 10vh;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 328px);
     grid-template-rows: repeat(2, 1fr);
     width: 100vw;
     height: 100vh;
