@@ -123,4 +123,11 @@ const NoListMent = styled.div`
     margin-bottom: 10%;
     line-height: 2.5;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 25vh;
+    font-size: 20px;
+    button {
+      width: 55.56vw;
+    }
+  }
 `;

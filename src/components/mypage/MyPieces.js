@@ -91,7 +91,7 @@ function MyPieces(props) {
         </Header>
         {show ? (
           <>
-            {props.pointHistoryList.length !== 0 ? (
+            {point_history.length !== 0 ? (
               <HistoryBox>
                 {point_history?.map((history) => (
                   <p key={history.pointHistoryId}>
@@ -183,6 +183,13 @@ const PointGrid = styled.section`
   grid-template-columns: repeat(4, 16.04vw);
   grid-template-rows: repeat(1, 16.11vh);
   margin-bottom: 5.55vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    gap: 4.44vw;
+    grid-template-columns: repeat(2, 43.33vw);
+    grid-template-rows: repeat(2, 13.52vh);
+    margin-bottom: 5.55vh;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -206,6 +213,20 @@ const InfoBox = styled.div`
   strong {
     font-weight: bold;
     font-size: 56px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 13.52vh;
+    max-height: 173px;
+    p {
+      text-align: center;
+      font-size: 21px;
+      margin-bottom: 2.22vh;
+    }
+    strong {
+      font-weight: bold;
+      font-size: 42px;
+    }
   }
 `;
 
@@ -250,6 +271,10 @@ const NoPointMent = styled.p`
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    height: 25vh;
+  }
 `;
 
 const HistoryBox = styled.div`

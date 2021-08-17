@@ -66,12 +66,13 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
+                search
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
-                width="16.04vw"
+                width="100%"
                 height="34.63vh"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
@@ -127,6 +128,12 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(4, 16.04vw);
   grid-template-rows: repeat(1, 34.63vh);
   grid-auto-rows: 34.63vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    gap: 3.13vh;
+    grid-template-columns: repeat(1, 91.11vw);
+    grid-template-rows: repeat(1, 558px);
+  }
 `;
 
 const NoListMent = styled.div`
@@ -144,5 +151,12 @@ const NoListMent = styled.div`
   p {
     margin-bottom: 10%;
     line-height: 2.5;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 25vh;
+    font-size: 20px;
+    button {
+      width: 55.56vw;
+    }
   }
 `;
