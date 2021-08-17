@@ -73,7 +73,18 @@ const getPointDB = () => {
     MypageApis.getPoint()
       .then((res) => {
         consoleLogger("point history 요청 후 응답", res);
-        dispatch(getInfo(res.data));
+        const pointHistoryList = [
+          ...res.data.challengeGetpoint,
+          ...res.data.postingGetpoint,
+        ];
+        const myInfo = {
+          level: res.data.level,
+          memberId: res.data.memberId,
+          nickname: res.data.nickname,
+          profileImage: res.data.profileImage,
+          pointHistoryList,
+        };
+        dispatch(getInfo(myInfo));
       })
       .catch((error) => {
         if (window.confirm("포인트 정보를 찾을수가 없어요ㅜㅜ")) {

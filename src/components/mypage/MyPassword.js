@@ -129,6 +129,10 @@ const ChangePwd = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.md};
     margin-bottom: 6.3vh;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-top: 0;
+  }
 `;
 
 const Input = styled.input`
@@ -147,7 +151,7 @@ const Input = styled.input`
 
 const ErrorMsg = styled.p`
   margin-bottom: 10px;
-  text-align: center;
   color: red;
   font-size: 12px;
+  margin-left: 2.64vw;
 `;

@@ -173,7 +173,7 @@ function Mypage(props) {
         <Item clicked={pathname.includes("/pieces") ? true : false}>
           <Link to={`${path}/pieces`}>조각</Link>
         </Item>
-        <Item clicked={pathname.includes("/password") ? true : false}>
+        <Item last clicked={pathname.includes("/password") ? true : false}>
           <Link to={`${path}/password`}>비밀번호 변경</Link>
         </Item>
       </ChallengeCategory>
@@ -198,6 +198,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 9.44vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 7.18vh;
+    overflow-x: hidden;
+    ul {
+      margin-left: 4.44vw;
+      align-self: flex-start;
+    }
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -208,6 +216,25 @@ const UserInfoContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 91.11vw;
+    height: 48.82%;
+    min-height: 625px;
+    display: flex;
+    flex-direction: column;
+    padding: 4.61%;
+    font-size: 21px;
+    text-align: center;
+    img {
+      width: 31.94vw;
+      height: 17.89%;
+      margin: 0;
+    }
+    button {
+      width: 55.56vw;
+      font-size: 20px;
+    }
+  }
 `;
 
 const UserInfo = styled.p`
@@ -227,6 +254,32 @@ const EditProfile = styled.p`
     bottom: 0;
     left: 11.35vw;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    button {
+      width: 51px;
+      height: 51px;
+      right: -10vw;
+      label {
+        img {
+          width: 25px;
+          height: 24px;
+        }
+      }
+    }
+  }
+  ${({ theme }) => theme.device.tablet} {
+    button {
+      width: 68px;
+      height: 68px;
+      right: -10vw;
+      label {
+        img {
+          width: 34px;
+          height: 32px;
+        }
+      }
+    }
+  }
 `;
 
 const NickInput = styled.input`
@@ -243,6 +296,9 @@ const NickInput = styled.input`
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 80%;
+  }
 `;
 
 const ChallengeCategory = styled.ul`
@@ -253,6 +309,25 @@ const ChallengeCategory = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
   margin: 0;
   list-style: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1.25vh;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-right: 9.44vw;
+    ::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+    li {
+      font-size: 16px;
+      width: 43.06vw;
+      height: 7.34vh;
+      min-width: 155px;
+      padding: 0 7.92vw;
+    }
+  }
 `;
 
 const Item = styled.li`
@@ -266,10 +341,21 @@ const Item = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    a {
+      display: flex;
+      justify-content: center;
+      width: 27.22vw;
+    }
+  }
 `;
 
 const Section = styled.div`
   width: 66.67vw;
   height: auto;
   padding-top: 4.26vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 5vh 4.44vw;
+  }
 `;
