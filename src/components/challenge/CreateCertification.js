@@ -126,12 +126,12 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
 
 const Certification = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
 `;
 
 const CertificationBox = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
 `;
 
@@ -151,6 +151,9 @@ const BottomT = styled.p`
 
 const Good = styled.div`
   margin-right: 0.73vw;
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-right: 4.44vw;
+  }
 `;
 
 const Preview = styled.div`
@@ -158,6 +161,10 @@ const Preview = styled.div`
   height: 12.59vh;
   background-color: #e5e5e5;
   border-radius: 16px;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 43.33vw;
+    height: 28.88vh;
+  }
 `;
 
 const PreviewBtn = styled.label`
@@ -167,6 +174,10 @@ const PreviewBtn = styled.label`
   align-items: center;
   justify-content: center;
   border-radius: 16px;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 43.33vw;
+    height: 28.88vh;
+  }
 `;
 
 const Bad = styled.div``;

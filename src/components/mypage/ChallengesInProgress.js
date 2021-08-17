@@ -66,7 +66,6 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
-                search
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
@@ -130,8 +129,8 @@ const CardGrid = styled.div`
   display: grid;
   gap: 1.04vw;
   grid-template-columns: repeat(4, 16.04vw);
-  grid-template-rows: repeat(1, 34.63vh);
-  grid-auto-rows: 34.63vh;
+  /* grid-template-rows: repeat(1, 34.64vh);
+  grid-auto-rows: 34.64vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     gap: 3.13vh;

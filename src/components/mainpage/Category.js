@@ -154,6 +154,7 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
+                        main
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
                         date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
@@ -190,6 +191,7 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
+                        main
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
                         date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
@@ -290,6 +292,7 @@ const Category = (props) => {
                       <div key={l.challengeId}>
                         <Slide>
                           <Card
+                            search
                             src={l.challengeImgUrl}
                             title={l.challengeTitle}
                             date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
@@ -302,7 +305,7 @@ const Category = (props) => {
                               fontWeight="500"
                               bg="lightGray"
                               color="black"
-                              padding="8px 20px"
+                              padding="8px 10px"
                             >
                               {l.tagList && l.tagList[0]}
                             </Tag>
@@ -310,7 +313,7 @@ const Category = (props) => {
                               fontWeight="500"
                               bg="lightGray"
                               color="black"
-                              padding="8px 20px"
+                              padding="8px 10px"
                             >
                               {l.challengeMember.length}/10명
                             </Tag>
@@ -337,6 +340,7 @@ const Category = (props) => {
                     return (
                       <Slide key={l.challengeId}>
                         <Card
+                          search
                           src={l.challengeImgUrl}
                           title={l.challengeTitle}
                           date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
@@ -349,7 +353,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 10px"
                           >
                             {l.tagList && l.tagList[0]}
                           </Tag>
@@ -357,7 +361,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 10px"
                           >
                             {l.challengeMember.length}/10명
                           </Tag>
