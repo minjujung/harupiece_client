@@ -288,12 +288,22 @@ const Container = styled.div`
   height: 100vh;
   justify-content: center;
   /* padding: 0 16.66vw 23.24vh 16.66vw; */
+  ${({ theme }) => theme.device.mobileLg}{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 0 4.44vw 0 4.44vw; 
+  }
 `;
 
 const LeftContainer = styled.div`
   flex-direction: column;
   ${(props) =>
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
+    ${({ theme }) => theme.device.mobileLg}{
+      width: 100%;
+    }
 `;
 
 const Title = styled.div`
@@ -303,6 +313,9 @@ const Title = styled.div`
     width: 10.04vw;
     height: 4.81vh;
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: 48px;
+  }
 `;
 
 const GuideLine = styled.div`
@@ -311,15 +324,48 @@ const GuideLine = styled.div`
   width: 32.81vw;
   height: 53.79vh;
   margin-right: 2.92vh;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 100%;
+  }
+`;
+
+const RightContainer = styled.div`
+  width : 30.94vw;
+  height: 66.84vh;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;
 
 const InputLeftContainer = styled.div`
   flex-direction: column;
   margin-right: 0.94vw;
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
 `;
 
 const InputRightContainer = styled.div`
   flex-direction: column;
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
+`;
+
+const AllInputContainer = styled.div`
+  display: flex;
+  width: 30.93vw;
+  height: 53.79vh;
+  margin-top: 5vh;
+  ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+    flex-direction: column;
+  }
 `;
 
 const BadgeText = styled.div`
@@ -329,19 +375,9 @@ const BadgeText = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: 29px;
-`;
-
-const RightContainer = styled.div`
-  width : 30.94vw;
-  height: 66.84vh;
-`;
-
-const AllInputContainer = styled.div`
-  display: flex;
-  width: 30.93vw;
-  height: 53.79vh;
-  margin-top: 5vh;
-  ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
 `;
 
 const Input = styled.input`
@@ -357,6 +393,14 @@ const Input = styled.input`
   border-radius: 8px;
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+    height: 88px;
+    font-size: 32px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
   }
 `;
 
@@ -387,12 +431,18 @@ const Textarea = styled.textarea`
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
 `;
 
 const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
 `;
 
 const SelectBox = styled.select`
@@ -420,6 +470,9 @@ const SelectContainer = styled.div`
     right: 16px;
     top: 22px;
     pointer-events: none;
+  }
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
   }
 `;
 export default ChallengeCreate;

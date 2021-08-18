@@ -174,8 +174,8 @@ const Area = styled.div`
     width: 100%;
     height: 100vh;
     /* min-height: 1340px; */
-    overflow: scroll;
-    padding-top: 4.44vw;
+    /* overflow-y: scroll;
+    padding-top: 4.44vw; */
   }
 `;
 

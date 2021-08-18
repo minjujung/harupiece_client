@@ -112,6 +112,13 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(4, 16.04vw);
   grid-template-rows: repeat(1, 34.63vh);
   grid-auto-rows: 34.63vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    gap: 3.13vh;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-auto-rows: 53.36vh;
+  }
 `;
 
 const NoListMent = styled.div`

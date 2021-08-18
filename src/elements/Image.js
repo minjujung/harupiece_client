@@ -10,7 +10,10 @@ const Image = ({
   marbleBorder,
   chatClose,
   post,
+  card,
+  mypage,
   onClick,
+  maxHeight,
   src,
   alt,
 }) => {
@@ -21,21 +24,25 @@ const Image = ({
     chatClose,
     border,
     margin,
+    maxHeight,
     marbleBorder,
     post,
+    mypage,
   };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
 
 Image.defaultProps = {
   width: false,
-  height: false,
+  height: "",
   borderRadius: false,
   border: false,
   margin: false,
   marbleBorder: false,
+  maxHeight: "",
   chatClose: false,
   post: false,
+  mypage: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -45,7 +52,7 @@ export default Image;
 
 const ImageFrame = styled.img`
   width: ${(props) => (props.width ? props.width : "17.8em")};
-  height: ${(props) => (props.height ? props.height : "10em")};
+  height: ${(props) => (props.height ? props.height : "14.81vh")};
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "8px 8px 0px 0px"};
   ${(props) =>
@@ -58,7 +65,7 @@ const ImageFrame = styled.img`
   object-fit: fill;
   cursor: pointer;
   ${(props) => (props.post ? `object-fit: cover` : null)};
+  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight}` : null)};
   /* ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
   } */
 `;

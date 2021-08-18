@@ -218,7 +218,8 @@ const UserInfoContainer = styled.div`
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     width: 91.11vw;
-    height: 48.82%;
+    /* height: 48.82%; */
+    height: auto;
     min-height: 625px;
     display: flex;
     flex-direction: column;

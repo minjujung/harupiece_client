@@ -138,6 +138,9 @@ const ImageBtn = styled.button`
   padding: 11px 0.83vw;
   border-radius: 8px;
   margin-bottom: 2.96vh;
+  ${({ theme }) => theme.device.mobileLg}{
+    width:100%;
+  }
 `;
 
 const Container = styled.div`
