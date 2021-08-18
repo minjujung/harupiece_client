@@ -295,7 +295,8 @@ function SearchChallenge(props) {
               <>
                 <Card
                   width="100%"
-                  height="auto"
+                  height
+                  padding="0 0 3vh 0"
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
@@ -341,7 +342,7 @@ const Container = styled.div`
   margin-top: 21.5vh;
   padding-bottom: 42.5vh;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     padding: 0px;
     margin: 0;
@@ -424,10 +425,10 @@ const BoxContainer = styled.div`
     padding-top: 10vh;
     grid-template-columns: repeat(1, 91vw);
     grid-template-rows: repeat(2, 1fr);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     grid-row-gap: 40px;
-    /* overflow: scroll; */
+    overflow: scroll;
     margin-bottom: 5vh;
     ::-webkit-scrollbar {
       display: none;

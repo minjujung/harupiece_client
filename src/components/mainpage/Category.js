@@ -341,6 +341,7 @@ const Category = (props) => {
                       <Slide key={l.challengeId}>
                         <Card
                           search
+                          height
                           src={l.challengeImgUrl}
                           title={l.challengeTitle}
                           date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
@@ -388,7 +389,7 @@ const MobileBox = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100vw;
-  height: 54vh;
+  height: auto;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   div {
     span {
@@ -405,7 +406,7 @@ const SliderContainer = styled.div`
   display: flex; //이미지들을 가로로 나열합니다.
   ${({ theme }) => theme.device.mobileLg} {
     width: 100vw;
-    height: 40vh;
+    height: auto;
     display: flex;
     overflow-x: scroll;
     ::-webkit-scrollbar {
@@ -420,6 +421,7 @@ const Slide = styled.div`
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: auto;
     border-radius: 10px;
     margin-left: 25px;
     padding-right: 0px;
@@ -432,6 +434,9 @@ const TitleBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding-left: 20px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+  }
 `;
 
 // desktop
@@ -471,12 +476,15 @@ const TagBox = styled.div`
 `;
 
 const CardBox2 = styled.div`
-  height: 34vh;
+  height: 55vh;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(3, auto);
   grid-column-gap: 10px;
   padding-top: 1.6vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: auto;
+  }
 `;
 
 const ViewAll = styled.span`
