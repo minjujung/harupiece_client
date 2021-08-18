@@ -61,6 +61,18 @@ const Chat = styled.div`
   height: 48vh;
   padding: 1.76vh 0.83vw 0 0.83vw;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    margin-left: 30px;
+    width: 5px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 `;
 
 const MsgFrame = styled.div`

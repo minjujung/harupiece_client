@@ -295,7 +295,8 @@ function SearchChallenge(props) {
             return (
               <>
                 <Card
-                  width={"100%"}
+                  width="100%"
+                  height="auto"
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
@@ -343,7 +344,7 @@ const Container = styled.div`
   padding-bottom: 42.5vh;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: auto;
+    height: 100vh;
     padding: 0px;
     margin: 0;
     display: flex;
@@ -361,8 +362,8 @@ const CategoryContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 360px;
-    height: auto;
+    width: 100%;
+    height: 155px;
     font-size: 16px;
   }
 `;
@@ -423,10 +424,10 @@ const BoxContainer = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding-top: 10vh;
-    grid-template-columns: repeat(1, 328px);
+    grid-template-columns: repeat(1, 91vw);
     grid-template-rows: repeat(2, 1fr);
     width: 100%;
-    height: auto;
+    height: 100vh;
     grid-row-gap: 40px;
     /* overflow: scroll; */
     margin-bottom: 5vh;

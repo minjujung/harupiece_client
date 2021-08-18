@@ -13,6 +13,7 @@ const Image = ({
   card,
   mypage,
   onClick,
+  maxHeight,
   src,
   alt,
 }) => {
@@ -23,6 +24,7 @@ const Image = ({
     chatClose,
     border,
     margin,
+    maxHeight,
     marbleBorder,
     post,
     mypage,
@@ -32,11 +34,12 @@ const Image = ({
 
 Image.defaultProps = {
   width: false,
-  height: false,
+  height: "",
   borderRadius: false,
   border: false,
   margin: false,
   marbleBorder: false,
+  maxHeight: "",
   chatClose: false,
   post: false,
   mypage: false,
@@ -62,7 +65,7 @@ const ImageFrame = styled.img`
   object-fit: fill;
   cursor: pointer;
   ${(props) => (props.post ? `object-fit: cover` : null)};
-  ${({ theme }) => theme.device.mobileLg} {
-    ${(props) => (props.mypage ? "height:auto" : null)};
-  }
+  ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight}` : null)};
+  /* ${({ theme }) => theme.device.mobileLg} {
+  } */
 `;
