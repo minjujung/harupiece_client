@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Button, Image } from "../../elements";
-import chat from "../../assets/images/icons/chat.svg";
+import chat from "../../assets/images/icons/chat.png";
 import close from "../../assets/images/icons/whiteClose.svg";
 import MessageWrite from "./MessageWrite";
 import MessageList from "./MessageList";
@@ -23,7 +23,7 @@ const Chat = ({ challengeId }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
 
   // 소켓 통신 객체
-  const sock = new SockJS("http://54.180.141.39/chatting");
+  const sock = new SockJS("http://34.64.75.241/chatting");
   const ws = Stomp.over(sock);
 
   const [open, setOpen] = useState(false);
@@ -164,7 +164,7 @@ const Chat = ({ challengeId }) => {
         borderRadius="50%"
         _onClick={openChat}
       >
-        <Image width="48px" height="48px" src={chat} alt="chatBtn" />
+        <Image width="40px" height="32.76px" src={chat} alt="chatBtn" />
       </Button>
       {open ? (
         <ChatBox>
