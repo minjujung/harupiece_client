@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Tag, Card } from "../elements";
-import { changeForm } from "../components/mypage/ChallengesInProgress";
 import { history } from "../redux/configureStore";
 
 function SearchChallenge(props) {
@@ -299,7 +298,6 @@ function SearchChallenge(props) {
                   src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
-                  // date={date.filter((d) => d.id === l.challengeId)}
                   date={`${findDate(l.challengeId).startDate} - ${
                     findDate(l.challengeId).endDate
                   }`}
@@ -362,7 +360,7 @@ const CategoryContainer = styled.div`
   border-radius: 8px;
 
   ${({ theme }) => theme.device.mobileLg} {
-    width: 360px;
+    width: 100%;
     height: 155px;
     font-size: 16px;
   }
@@ -424,7 +422,7 @@ const BoxContainer = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding-top: 10vh;
-    grid-template-columns: repeat(1, 328px);
+    grid-template-columns: repeat(1, 91vw);
     grid-template-rows: repeat(2, 1fr);
     width: 100vw;
     height: 100vh;
