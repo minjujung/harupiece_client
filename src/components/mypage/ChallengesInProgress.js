@@ -66,14 +66,15 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
-                search
+                mypage
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
                 width="100%"
-                height="34.63vh"
+                // height="34.64vh"
+                height="auto"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}
@@ -119,6 +120,10 @@ export default ChallengesInProgress;
 
 const Container = styled.div`
   width: 100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const CardGrid = styled.div`
@@ -126,13 +131,14 @@ const CardGrid = styled.div`
   display: grid;
   gap: 1.04vw;
   grid-template-columns: repeat(4, 16.04vw);
-  grid-template-rows: repeat(1, 34.63vh);
-  grid-auto-rows: 34.63vh;
+  /* grid-template-rows: repeat(1, 34.64vh);
+  grid-auto-rows: 34.64vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     gap: 3.13vh;
-    grid-template-columns: repeat(1, 91.11vw);
-    grid-template-rows: repeat(1, 558px);
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    /* grid-auto-rows: 53.36vh; */
   }
 `;
 

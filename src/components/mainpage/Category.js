@@ -154,6 +154,7 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
+                        main
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
                         date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
@@ -190,6 +191,7 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
+                        main
                         src={l.challengeImgUrl}
                         title={l.challengeTitle}
                         date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -

@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 const Card = ({
   width,
   height,
+  padding,
   title,
   date,
   src,
   alt,
   inProcess,
+  mypage,
   strongDate,
   onClick,
   children,
@@ -19,11 +21,18 @@ const Card = ({
 }) => {
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const styles = { width, height, search };
+  const styles = { width, height, search, padding };
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
-        <Image width="100%" height="14.81vh" src={src} alt={alt} />
+        <Image
+          mypage
+          width="100%"
+          // height="auto"
+          padding="51.83% 0 0 0"
+          src={src}
+          alt={alt}
+        />
         <TagContainer>{children}</TagContainer>
         <Container>
           <Title>
@@ -35,7 +44,8 @@ const Card = ({
               <ImageList>
                 <Image
                   width="2.60vw"
-                  height="4.63vh"
+                  // height="4.63vh"
+                  height="auto"
                   borderRadius="50%"
                   src={user_info.profileImg}
                   alt="profile"
@@ -59,8 +69,10 @@ Card.defaultProps = {
   src: "",
   alr: "",
   search: false,
+  card: false,
   width: "",
   height: "",
+  padding: "",
   inProcess: false,
   strongDate: false,
   children: null,
@@ -71,9 +83,14 @@ export default Card;
 const CardBox = styled.div`
   width: ${(props) => (props.width ? props.width : "14.95vw")};
   height: ${(props) => (props.height ? props.height : "31vh")};
+
+  /* height: auto; */
+
+  ${(props) => (props.padding ? `padding: ${props.padding};` : null)}
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
+  /* width: ${(props) => (props.search ? "100%" : "250px")}; */
   ${({ theme }) => theme.device.mobileLg} {
     width: ${(props) => (props.search ? "55vw" : "91.11vw")};
   }
@@ -84,23 +101,22 @@ const TagContainer = styled.div`
   margin: 2.22vh 0 1.39vh 1.04vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin: 1.22vh 0 0 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 5px;
+    margin: 1.22vh 0 0 4.44vw;
   }
 `;
 
 const Container = styled.div`
-  margin-left: 1.51vw;
+  margin: 0 1.77vw 0 1.51vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-left: 5px;
+    margin: 0 5.56vw;
   }
 `;
 
@@ -122,25 +138,32 @@ const Date = styled.p`
       ? props.theme.colors.mainOrange
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
-  width: 29.84vw;
+  word-break: break-all;
+  /* padding-bottom: 3.28vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 4vh;
     font-size: 14px;
   }
 `;
 
 const UserProfile = styled.div`
-  height: 4.63vh;
+  /* height: 4.63vh; */
   display: flex;
   align-items: center;
-  margin-top: 2.22vh;
+  padding: 2.22vh 0;
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const ImageList = styled.div`
   display: flex;
   margin-right: 0.42vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-right: 2.22vw;
+    img {
+      width: 12.08vw;
+      height: auto;
+    }
+  }
 `;
 
 const Plus = styled.div`
@@ -151,8 +174,13 @@ const Plus = styled.div`
   color: ${({ theme }) => theme.colors.gray};
   background-color: #e9e9e9;
   width: 2.6vw;
-  height: 4.63vh;
+  height: auto;
   border-radius: 50%;
   padding-bottom: 0.5vh;
   margin-left: -1.2vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 12.08vw;
+    height: auto;
+    margin-left: -22px;
+  }
 `;

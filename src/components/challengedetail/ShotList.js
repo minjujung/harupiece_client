@@ -74,6 +74,7 @@ export default ShotList;
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;
+  height: auto;
   margin: 0vh 0 14.81vh 0;
   display: flex;
   flex-direction: column;
@@ -87,6 +88,7 @@ const ChallengeDesc = styled.section`
 
 const Section = styled.section`
   width: 49.48vw;
+  height: auto;
   margin-top: 3.7vh;
   padding-bottom: 200px;
   position: relative;
