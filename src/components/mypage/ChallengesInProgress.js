@@ -66,7 +66,7 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
-                mypage
+                // mypage
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
@@ -75,6 +75,7 @@ function ChallengesInProgress(props) {
                 width="100%"
                 // height="34.64vh"
                 height="auto"
+                maxHeight="340px"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}

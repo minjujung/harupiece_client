@@ -12,6 +12,7 @@ const Card = ({
   date,
   src,
   alt,
+  maxHeight,
   inProcess,
   mypage,
   strongDate,
@@ -21,14 +22,14 @@ const Card = ({
 }) => {
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const styles = { width, height, search, padding };
+  const styles = { width, height, search, padding, maxHeight };
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
         <Image
-          mypage
           width="100%"
-          // height="auto"
+          height="auto"
+          maxHeight={maxHeight}
           padding="51.83% 0 0 0"
           src={src}
           alt={alt}
@@ -72,6 +73,7 @@ Card.defaultProps = {
   card: false,
   width: "",
   height: "",
+  maxHeight: "",
   padding: "",
   inProcess: false,
   strongDate: false,

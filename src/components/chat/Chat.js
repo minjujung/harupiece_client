@@ -221,7 +221,6 @@ const Header = styled.div`
   height: 4.44vh;
   object-fit: cover;
   text-align: center;
-  /* background-color: ${({ theme }) => theme.colors.mainGreen}; */
   color: ${({ theme }) => theme.colors.white};
   h1 {
     width: 16.15vw;
