@@ -95,6 +95,8 @@ const CardBox = styled.div`
   /* width: ${(props) => (props.search ? "100%" : "250px")}; */
   ${({ theme }) => theme.device.mobileLg} {
     width: ${(props) => (props.search ? "55vw" : "91.11vw")};
+    height: ${(props) => (props.height ? props.height : "auto")};
+    padding-bottom: 20px;
   }
 `;
 
