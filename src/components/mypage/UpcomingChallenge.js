@@ -53,13 +53,16 @@ function UpcomingChallenge(props) {
             }
             return (
               <Card
+                mypage
                 strongDate
                 key={list.challengeId}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
-                width="16.04vw"
-                height="28.89vh"
+                width="100%"
+                height="auto"
+                maxHeight="160px"
+                mobileMaxHeight="340px"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}
@@ -110,14 +113,13 @@ const CardGrid = styled.div`
   display: grid;
   gap: 1.04vw;
   grid-template-columns: repeat(4, 16.04vw);
-  grid-template-rows: repeat(1, 34.63vh);
-  grid-auto-rows: 34.63vh;
+  /* grid-template-rows: repeat(1, 34.63vh); */
+
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     gap: 3.13vh;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    grid-auto-rows: 53.36vh;
   }
 `;
 

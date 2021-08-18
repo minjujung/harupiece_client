@@ -74,84 +74,80 @@ const ChallengeDetail = (props) => {
   } = props;
 
   return (
-    <Area>
-      <StateContainer>
-        {/* banner 랑 navbar */}
-        <ChallengeHeader>
-          <Banner bgImg={challenge.challengeImgUrl}>
-            <Title>{challenge.challengeTitle}</Title>
-            <TotalNum>
-              참여 {challenge.challengeMember.length}명 | 진행률{" "}
-              {progressPercent * 100} %
-            </TotalNum>
-          </Banner>
-          <NavBar>
-            <ul>
-              <Item selected={pathname.includes("/intro")}>
-                <Link to={`${url}/intro`}>챌린지 소개</Link>
-              </Item>
-              <Item selected={pathname.includes("/post")}>
-                <Link to={`${url}/post`}>인증목록</Link>
-              </Item>
-            </ul>
-          </NavBar>
-        </ChallengeHeader>
-        <Switch>
-          <Route exact path={`${path}/intro`} component={ChallengeInfo} />
-          <Route exact path={`${path}/post`} component={ShotList} />
-        </Switch>
-      </StateContainer>
-      {/* 오른쪽 사용자 상태박스 & 버튼 */}
-      <RightNav>
-        <StateBox />
-        <Btns>
-          {/* <Button
-            width="16.15vw"
-            padding="21px 64px"
-            margin="0 0 20px 0"
-            _onClick={adminDelete}
-          >
-            관리자 권한 삭제
-          </Button> */}
-
-          {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
-          {user_info?.memberId === challenge.memberId &&
-          today < challenge.challengeStartDate.split("T")[0] ? (
-            <MobilBtns half>
-              <Button
-                width="100%"
-                height="5.93vh"
-                bg="white"
-                color="mainGreen"
-                border="lightGray"
-                margin="0 0 1.48vh 0"
-                _onClick={editChallenge}
-              >
-                챌린지 수정하기
-              </Button>
-              <Button
-                width="100%"
-                height="5.93vh"
-                margin="0 0 1.48vh 0"
-                _onClick={deleteChallenge}
-              >
-                {/* (챌린지 개설한 사용자) */}
-                챌린지 없애기
-              </Button>
-            </MobilBtns>
-          ) : (
-            <MobilBtns>
-              <ConditionBtn
-                {...challenge}
-                today={today}
-                challengeStartDate={challenge.challengeStartDate.split("T")[0]}
-              />
-            </MobilBtns>
-          )}
-          <Chat challengeId={challengeId} />
-        </Btns>
-      </RightNav>
-    </Area>
+    <>
+      {" "}
+      <Chat challengeId={challengeId} />
+      <Area>
+        <StateContainer>
+          {/* banner 랑 navbar */}
+          <ChallengeHeader>
+            <Banner bgImg={challenge.challengeImgUrl}>
+              <Title>{challenge.challengeTitle}</Title>
+              <TotalNum>
+                참여 {challenge.challengeMember.length}명 | 진행률{" "}
+                {progressPercent * 100} %
+              </TotalNum>
+            </Banner>
+            <NavBar>
+              <ul>
+                <Item selected={pathname.includes("/intro")}>
+                  <Link to={`${url}/intro`}>챌린지 소개</Link>
+                </Item>
+                <Item selected={pathname.includes("/post")}>
+                  <Link to={`${url}/post`}>인증목록</Link>
+                </Item>
+              </ul>
+            </NavBar>
+          </ChallengeHeader>
+          <Switch>
+            <Route exact path={`${path}/intro`} component={ChallengeInfo} />
+            <Route exact path={`${path}/post`} component={ShotList} />
+          </Switch>
+        </StateContainer>
+        {/* 오른쪽 사용자 상태박스 & 버튼 */}
+        <RightNav>
+          <StateBox />
+          <Btns>
+            {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
+            {user_info?.memberId === challenge.memberId &&
+            today < challenge.challengeStartDate.split("T")[0] ? (
+              <MobilBtns half>
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  bg="white"
+                  color="mainGreen"
+                  border="lightGray"
+                  margin="0 0 1.48vh 0"
+                  _onClick={editChallenge}
+                >
+                  챌린지 수정하기
+                </Button>
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  margin="0 0 1.48vh 0"
+                  _onClick={deleteChallenge}
+                >
+                  {/* (챌린지 개설한 사용자) */}
+                  챌린지 없애기
+                </Button>
+              </MobilBtns>
+            ) : (
+              <MobilBtns>
+                <ConditionBtn
+                  {...challenge}
+                  today={today}
+                  challengeStartDate={
+                    challenge.challengeStartDate.split("T")[0]
+                  }
+                />
+              </MobilBtns>
+            )}
+          </Btns>
+        </RightNav>
+      </Area>
+    </>
   );
 };
 
@@ -172,10 +168,9 @@ const Area = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     /* min-height: 1340px; */
-    /* overflow-y: scroll;
-    padding-top: 4.44vw; */
+    padding-top: 4.44vw;
   }
 `;
 

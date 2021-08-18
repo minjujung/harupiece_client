@@ -472,8 +472,9 @@ const TagBox = styled.div`
 
 const CardBox2 = styled.div`
   height: 34vh;
+  /* height: auto; */
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  /* grid-template-rows: repeat(3, 1fr); */
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
   padding-top: 1.6vh;

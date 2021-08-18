@@ -12,9 +12,10 @@ const Card = ({
   date,
   src,
   alt,
-  maxHeight,
-  inProcess,
   mypage,
+  maxHeight,
+  mobileMaxHeight,
+  inProcess,
   strongDate,
   onClick,
   children,
@@ -22,13 +23,21 @@ const Card = ({
 }) => {
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const styles = { width, height, search, padding, maxHeight };
+  const styles = {
+    width,
+    height,
+    search,
+    padding,
+    maxHeight,
+    mobileMaxHeight,
+  };
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
         <Image
           width="100%"
           height="auto"
+          mobileMaxHeight={mobileMaxHeight}
           maxHeight={maxHeight}
           padding="51.83% 0 0 0"
           src={src}
@@ -73,7 +82,9 @@ Card.defaultProps = {
   card: false,
   width: "",
   height: "",
+  // mypage: "",
   maxHeight: "",
+  mobileMaxHeight: "",
   padding: "",
   inProcess: false,
   strongDate: false,
@@ -85,14 +96,10 @@ export default Card;
 const CardBox = styled.div`
   width: ${(props) => (props.width ? props.width : "14.95vw")};
   height: ${(props) => (props.height ? props.height : "31vh")};
-
-  /* height: auto; */
-
   ${(props) => (props.padding ? `padding: ${props.padding};` : null)}
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
-  /* width: ${(props) => (props.search ? "100%" : "250px")}; */
   ${({ theme }) => theme.device.mobileLg} {
     width: ${(props) => (props.search ? "55vw" : "91.11vw")};
   }
@@ -141,7 +148,7 @@ const Date = styled.p`
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   word-break: break-all;
-  /* padding-bottom: 3.28vh; */
+  padding-bottom: 3.28vh;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 14px;
@@ -149,7 +156,6 @@ const Date = styled.p`
 `;
 
 const UserProfile = styled.div`
-  /* height: 4.63vh; */
   display: flex;
   align-items: center;
   padding: 2.22vh 0;

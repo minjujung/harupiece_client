@@ -14,11 +14,10 @@ const PostEdit = (props) => {
     memberId,
     postingImg,
     postingContent,
-    postingCount,
+    postingCheckStatus,
     postingModifyOk,
     challengeStatus,
     handleClose,
-    totalNumber,
   } = props;
 
   const dispatch = useDispatch();
@@ -87,19 +86,21 @@ const PostEdit = (props) => {
             src={close}
             alt="closeBtn"
             onClick={handleClose}
-            width="28px"
-            height="28px"
+            width={window.innerWidth < 720 ? "18px" : "28px"}
+            height={window.innerWidth < 720 ? "18px" : "28px"}
             borderRadius="0"
           />
         </DialogInfo>
         {challengeStatus === 2 ? (
           <StatusFrame>
             <StatusBar>
-              <Status width={`${(postingCount / totalNumber) * 100}%`} />
+              <Status width={`${postingCheckStatus}%`} />
             </StatusBar>
             <StatusInfo>
               <span>인증상태</span>
-              <Percent>{(postingCount / totalNumber) * 100} %</Percent>
+              <Percent>
+                {postingCheckStatus === 0 ? 0 : postingCheckStatus.toFixed(1)} %
+              </Percent>
             </StatusInfo>
           </StatusFrame>
         ) : null}
@@ -120,14 +121,15 @@ const PostEdit = (props) => {
           onChange={writeText}
         />
       </Post>
-      <div>
+      <BtnFrame>
         {postingModifyOk && memberId === user_info.memberId ? (
           <MeBtn>
             <Button
-              borderRadius="16px"
-              width="15.89vw"
+              borderRadius="8px"
+              width="100%"
               height="5.93vh"
               border="mainGreen"
+              margin={window.innerWidth <= 720 ? "0 2.22vw 0 0" : "0 32px 0 0"}
               bg="white"
               color="mainGreen"
             >
@@ -141,17 +143,16 @@ const PostEdit = (props) => {
               onChange={selectFile}
             />
             <Button
-              borderRadius="16px"
-              width="15.89vw"
+              borderRadius="8px"
+              width="100%"
               height="5.93vh"
-              margin="0 0 0 36px"
               _onClick={editPost}
             >
               저장 하기
             </Button>
           </MeBtn>
         ) : null}
-      </div>
+      </BtnFrame>
     </>
   );
 };
@@ -166,12 +167,21 @@ const DialogInfo = styled.div`
   align-items: center;
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 64px;
+    h3 {
+      font-size: 18px;
+    }
+  }
 `;
 
 const StatusFrame = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 3.33vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 4.44%;
+  }
 `;
 
 const StatusBar = styled.div`
@@ -199,6 +209,9 @@ const StatusInfo = styled.div`
   margin-top: 0.74vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 13px;
+  }
 `;
 
 const Percent = styled.span`
@@ -217,13 +230,32 @@ const Post = styled.div`
     border: 2px solid ${({ theme }) => theme.colors.gray};
     padding: 0.94vw;
     font-weight: bold;
+    font-family: "Noto Sans CJK KR";
     font-size: ${({ theme }) => theme.fontSizes.md};
     ::placeholder {
       font-weight: bold;
       font-size: ${({ theme }) => theme.fontSizes.md};
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+      font-family: "Noto Sans CJK KR";
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 21.88vh;
+    margin-top: 32px;
+    textarea {
+      padding: 4.44vw;
+      flex: 1;
+      width: 38.89vw;
+      height: 38.89vw;
+      margin-left: 2.22vw;
+      font-size: ${({ theme }) => theme.fontSizes.xs};
+      ::placeholder {
+        font-size: ${({ theme }) => theme.fontSizes.xs};
+      }
+    }
+    img {
+      height: 37.89vw;
+      width: 37.89vw;
     }
   }
 `;
@@ -233,4 +265,18 @@ const MeBtn = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 44px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+const BtnFrame = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    button {
+      font-size: 13px;
+      margin-top: 16px;
+    }
+  }
 `;

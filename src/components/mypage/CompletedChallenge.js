@@ -44,13 +44,16 @@ function CompletedChallenge() {
           {myChallengeList.map((list, idx) => {
             return (
               <Card
+                maypage
                 key={list.challengeId}
                 strongDate
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
-                width="16.04vw"
-                height="28.89vh"
+                width="100%"
+                height="auto"
+                maxHeight="160px"
+                mobileMaxHeight="340px"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}

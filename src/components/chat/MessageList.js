@@ -16,18 +16,20 @@ const MessageList = (props) => {
   // 스크롤 자동으로 맨마지막 채팅까지 내려가게 하기
   const scrollToBottom = () => {
     //모바일에서는 실행 X
-    if (window.innerWidth <= 375) {
+    if (window.innerWidth <= 200) {
       return;
     }
-    scrollTo.current?.scrollIntoView({ behavior: "smooth" });
+    const { scrollHeight, clientHeight } = scrollTo?.current;
+    scrollTo.current.scrollTop = scrollHeight - clientHeight;
+    // scrollTo.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  });
 
   return (
-    <Chat>
+    <Chat ref={scrollTo}>
       {msgList?.map((msg) => (
         <MsgFrame key={msg.chatMessageId}>
           {msg.sender === "[알림]" ? (
@@ -37,8 +39,8 @@ const MessageList = (props) => {
               {" "}
               <Sender me={user_info.nickname === msg.sender ? true : false}>
                 <Image
-                  width="1.25vw"
-                  height="auto"
+                  width="24px"
+                  height="24px"
                   src={msg.profileImg ? msg.profileImg : green}
                   alt="msgSender"
                 />
@@ -51,7 +53,6 @@ const MessageList = (props) => {
           )}
         </MsgFrame>
       ))}
-      <div ref={scrollTo}></div>
     </Chat>
   );
 };
@@ -60,7 +61,7 @@ export default MessageList;
 const Chat = styled.div`
   height: 48vh;
   padding: 1.76vh 0.83vw 0 0.83vw;
-  overflow-y: scroll;
+  overflow-y: auto;
   ::-webkit-scrollbar {
     margin-left: 30px;
     width: 5px;
@@ -71,23 +72,38 @@ const Chat = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: ${({ theme }) => theme.colors.gray};
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 85%;
+    padding: 4.44vw 4.44vw 0 4.44vw;
   }
 `;
 
 const MsgFrame = styled.div`
   margin-bottom: 1.76vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-bottom: 6.67vw;
+  }
 `;
 
 const EnterMsg = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
+  text-align: center;
 `;
 
 const Sender = styled.div`
   ${(props) => (props.me ? "display: none" : "display: flex")};
   p {
     margin-left: 0.42vw;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-bottom: 2.22vw;
+    p {
+      margin-left: 2.22vw;
+    }
   }
 `;
 
@@ -100,4 +116,8 @@ const Message = styled.p`
   color: ${(props) => (props.me ? "white" : "black")};
   margin-left: ${(props) => (props.me ? "4.06vw" : "1.67vw")};
   word-break: break-all;
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 2.22vw;
+    margin: ${(props) => (props.me ? "0 0 0 21.67vw" : "0 21.67vw 0 1.67vw")};
+  }
 `;

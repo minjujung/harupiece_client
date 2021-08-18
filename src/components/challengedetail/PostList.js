@@ -74,13 +74,19 @@ const PostList = (props) => {
     }
   };
 
+  let postingCheckStatus = 0;
+  if (list[clicked]?.postingCount === 0 || totalNumber === 0) {
+    postingCheckStatus = 0;
+  } else if (totalNumber === 1) {
+    postingCheckStatus = 100;
+  } else {
+    postingCheckStatus =
+      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber)) * 100;
+  }
+
   //modal안의 component만 편집형태로 바꾸기
   const editPost = () => {
-    if (
-      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
-        100 >=
-      50
-    ) {
+    if (postingCheckStatus >= 50) {
       window.alert(
         "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
       );
@@ -91,11 +97,7 @@ const PostList = (props) => {
 
   //post 삭제
   const deletePost = () => {
-    if (
-      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
-        100 >=
-      50
-    ) {
+    if (postingCheckStatus >= 50) {
       window.alert(
         "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
       );
@@ -109,16 +111,6 @@ const PostList = (props) => {
       setOpen(false);
     }
   };
-
-  let postingCheckStatus = 0;
-  if (list[clicked]?.postingCount === 0 || totalNumber === 0) {
-    postingCheckStatus = 0;
-  } else if (totalNumber === 1) {
-    postingCheckStatus = 100;
-  } else {
-    postingCheckStatus =
-      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber)) * 100;
-  }
 
   let intViewportWidth = window.innerWidth;
 
@@ -160,7 +152,7 @@ const PostList = (props) => {
                   width: "91.11vw",
                   minHeight: "38.37%",
                   // height: "54.38%",
-                  padding: "4.44%",
+                  padding: "2.22vw",
                   borderRadius: "16px",
                 },
               }
@@ -171,7 +163,7 @@ const PostList = (props) => {
             {...list[clicked]}
             handleClose={handleClose}
             challengeId={challengeId}
-            totalNumber={totalNumber}
+            postingCheckStatus={postingCheckStatus}
             challengeStatus={challengeStatus}
           />
         ) : (
@@ -194,8 +186,8 @@ const PostList = (props) => {
                   src={close}
                   alt="closeBtn"
                   onClick={handleClose}
-                  width="28px"
-                  height="28px"
+                  width={window.innerWidth < 720 ? "18px" : "28px"}
+                  height={window.innerWidth < 720 ? "18px" : "28px"}
                   borderRadius="0"
                 />
               </DialogInfo>
@@ -229,21 +221,23 @@ const PostList = (props) => {
               list[clicked]?.memberId === user_info.memberId ? (
                 <MeBtn>
                   <Button
-                    borderRadius="16px"
-                    width="15.89vw"
+                    borderRadius="8px"
+                    width="100%"
                     height="5.93vh"
                     border="mainGreen"
                     bg="white"
+                    margin={
+                      window.innerWidth <= 720 ? "0 2.22vw 0 0" : "0 32px 0 0"
+                    }
                     color="mainGreen"
                     _onClick={deletePost}
                   >
                     삭제하기
                   </Button>
                   <Button
-                    borderRadius="16px"
-                    width="15.89vw"
+                    borderRadius="8px"
+                    width="100%"
                     height="5.93vh"
-                    margin="0 0 0 36px"
                     _onClick={editPost}
                   >
                     인증샷 수정
@@ -295,7 +289,7 @@ const CertifiCheckBtn = (props) => {
   } = props;
   if (challengeStatus === 2) {
     if (challengeMember.includes(loginUser)) {
-      if (postingMember === loginUser) {
+      if (postingCreatedAt?.split("T")[0] < today) {
         return (
           <Button
             borderRadius="16px"
@@ -306,12 +300,15 @@ const CertifiCheckBtn = (props) => {
             margin="4.07vh 0 0 0"
             color="mainGreen"
           >
-            본인의 인증샷은 인증 할 수 없어요^^ <br /> 다른 참가자들의 인증샷을
-            인증해주세요!
+            인증이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을 확인해
+            주세요😆
           </Button>
         );
       } else {
-        if (postingCreatedAt?.split("T")[0] < today) {
+        if (
+          checkedMembers?.includes(loginUser) &&
+          postingMember !== loginUser
+        ) {
           return (
             <Button
               borderRadius="16px"
@@ -322,37 +319,22 @@ const CertifiCheckBtn = (props) => {
               margin="4.07vh 0 0 0"
               color="mainGreen"
             >
-              인증이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을
-              확인해 주세요😆
+              이미 인증해주신 게시물이에요😊
+            </Button>
+          );
+        } else if (postingMember !== loginUser) {
+          return (
+            <Button
+              width="100%"
+              height="5.93vh"
+              margin="4.07vh 0 0 0"
+              _onClick={check}
+            >
+              인증 확인
             </Button>
           );
         } else {
-          if (checkedMembers?.includes(loginUser)) {
-            return (
-              <Button
-                borderRadius="16px"
-                width="100%"
-                height="5.93vh"
-                border="white"
-                bg="white"
-                margin="4.07vh 0 0 0"
-                color="mainGreen"
-              >
-                이미 인증해주신 게시물이에요😊
-              </Button>
-            );
-          } else {
-            return (
-              <Button
-                width="100%"
-                height="5.93vh"
-                margin="4.07vh 0 0 0"
-                _onClick={check}
-              >
-                인증 확인
-              </Button>
-            );
-          }
+          return null;
         }
       }
     } else {
@@ -419,6 +401,7 @@ const UserInfo = styled.div`
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     height: 64px;
+    font-size: 18px;
     img {
       width: 42px;
       height: 42px;
@@ -460,6 +443,9 @@ const StatusInfo = styled.div`
   margin-top: 0.74vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 13px;
+  }
 `;
 
 const Percent = styled.span`
@@ -485,12 +471,14 @@ const Post = styled.div`
     p {
       flex: 1;
       width: 38.89vw;
-      height: 100%;
-      margin-left: 4.44%;
+      height: 38.89vw;
+      padding: 4.44vw;
+      margin-left: 2.22vw;
+      font-size: ${({ theme }) => theme.fontSizes.xs};
     }
     img {
-      height: 100%;
-      width: 38.89vw;
+      height: 37.89vw;
+      width: 37.89vw;
     }
   }
 `;
@@ -502,9 +490,7 @@ const MeBtn = styled.div`
   margin-top: 44px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    button {
-      margin-top: 32px;
-    }
+    margin: 0;
   }
 `;
 
@@ -512,7 +498,8 @@ const BtnFrame = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     button {
-      margin-top: 32px;
+      font-size: 13px;
+      margin-top: 16px;
     }
   }
 `;
