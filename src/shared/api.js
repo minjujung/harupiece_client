@@ -45,13 +45,10 @@ instance.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
+    console.log(err.config);
 
-    if (err.response) {
-      if (
-        err.response.status === 401 &&
-        err.response.data.message === "No message available" &&
-        !originalConfig._retry
-      ) {
+    if (originalConfig.url !== "api/member/login" && err.response) {
+      if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {
           const rs = await refreshTokens();
