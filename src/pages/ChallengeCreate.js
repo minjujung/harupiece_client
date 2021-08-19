@@ -307,8 +307,10 @@ const LeftContainer = styled.div`
   flex-direction: column;
   ${(props) =>
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
-  img {
-    /* border: 2px solid ${({ theme }) => theme.colors.mainGreen}; */
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      display: none;
+    }
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
