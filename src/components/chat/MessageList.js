@@ -115,6 +115,7 @@ const Message = styled.p`
     props.me ? props.theme.colors.mainGreen : props.theme.colors.lightGray};
   color: ${(props) => (props.me ? "white" : "black")};
   margin-left: ${(props) => (props.me ? "4.06vw" : "1.67vw")};
+  margin: ${(props) => (props.me ? "0 0 0 4.06vw" : "0 2.5vw 0 1.67vw")};
   word-break: break-all;
   ${({ theme }) => theme.device.mobileLg} {
     padding: 2.22vw;

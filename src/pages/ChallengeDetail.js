@@ -155,9 +155,9 @@ export default ChallengeDetail;
 
 const Area = styled.div`
   display: grid;
-  margin: 0 auto;
+  margin: 3.02vw auto 0 auto;
   width: 66.67vw;
-  height: 100vh;
+  height: 100%;
   grid-template-rows: 1fr 3fr;
   grid-template-areas:
     "banner nav"
@@ -168,9 +168,6 @@ const Area = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
-    /* min-height: 1340px; */
-    padding-top: 4.44vw;
   }
 `;
 
@@ -178,11 +175,9 @@ const ChallengeHeader = styled.div`
   display: flex;
   flex-direction: column;
   width: 49.48vw;
-  height: 40.55vh;
+  /* height: 40.55vh; */
   justify-content: center;
-  /* position: fixed;
-  z-index: 9; */
-  padding-top: 5.37vh;
+  /* margin-top: 3.02vw; */
   margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.device.mobileLg} {
@@ -193,14 +188,13 @@ const ChallengeHeader = styled.div`
 
 const StateContainer = styled.div`
   width: 49.48vw;
-  height: 40.55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   grid-area: banner;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
 `;
 
@@ -209,8 +203,8 @@ const Btns = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 43.52vh;
-  margin-top: 2.59vh;
+  top: 498px;
+  /* margin-top: 2.59vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 11vh;
@@ -242,7 +236,6 @@ const MobilBtns = styled.div`
 
 const RightNav = styled.div`
   width: 16.15vw;
-  padding-top: 5.47vh;
   grid-area: nav;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -255,12 +248,15 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 28.7vh;
+  height: 15.63vw;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 41.67vw;
+  }
 `;
 
 const Title = styled.h1`

@@ -223,9 +223,9 @@ const Slide = styled.div`
   padding-bottom: 20px;
   padding-right: 10px;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 60%;
+    width: 42%;
     border-radius: 10px;
-    margin-left: 20px;
+    padding-left: 15px;
     padding-right: 0px;
   }
 `;
@@ -269,7 +269,7 @@ const Title = styled.div`
     font-size: 20px;
     display: flex;
     justify-content: flex-start;
-    padding-left: 20px;
+    padding-left: 15px;
   }
 `;
 

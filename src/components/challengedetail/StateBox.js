@@ -46,8 +46,8 @@ const StateBox = (props) => {
           <LevelInfo>
             <p>
               <Image
-                width="1.5em"
-                height="1.5em"
+                width="1.25vw"
+                height="auto"
                 margin="2%"
                 src={level}
                 alt="level"
@@ -58,8 +58,7 @@ const StateBox = (props) => {
             </p>
             <Image
               width="6.25vw"
-              height="60%"
-              margin="1vh 0 0 0"
+              height="6.25vw"
               borderRadius="50%"
               src={levelData[levelState].img}
               alt="level_image"
@@ -69,31 +68,24 @@ const StateBox = (props) => {
           <Completed>
             <p>
               <Image
-                width="1.5em"
-                height="1.5em"
+                width="1.25vw"
+                height="auto"
                 margin="3%"
                 src={completed}
                 alt="level"
               />
               완료: {user_info.completeChallengeCount}개
             </p>
-            <div
-              sytle={{
-                display: "flex",
-                height: "60%",
-                alignItems: "center",
-                marginTop: "30px",
-              }}
-            >
+            <Piece>
               <Image
                 width="2.08vw"
-                height="100%"
+                height="auto"
                 borderRadius="50%"
                 src={levelData[levelState].piece}
                 alt="level_image"
               />
               <span> X {user_info.point} 개</span>
-            </div>
+            </Piece>
           </Completed>
         </UserLevel>
       </StateContainer>
@@ -123,7 +115,7 @@ export default StateBox;
 
 const StateContainer = styled.div`
   width: 16.15vw;
-  height: 28.7vh;
+  height: 15.63vw;
   display: flex;
   flex-direction: column;
   border: 2px solid ${({ theme }) => theme.colors.lightGray};
@@ -177,17 +169,24 @@ const Completed = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   flex: 1;
-  padding-bottom: 50px;
+
   color: 2px solid ${({ theme }) => theme.colors.darkGray};
   p {
     display: flex;
     width: 100%;
-    height: 10%;
+    height: 15%;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
   }
+`;
+
+const Piece = styled.div`
+  width: 6.25vw;
+  height: 6.25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

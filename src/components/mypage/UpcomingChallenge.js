@@ -91,7 +91,6 @@ function UpcomingChallenge(props) {
             height="5.93vh"
             color="white"
             bg="mainGreen"
-            margin="0 3.23vw 0 2.08vw"
             _onClick={() => history.push(`/search/1/NODRINKNOSMOKE`)}
           >
             챌린지 둘러보기!
@@ -104,8 +103,10 @@ function UpcomingChallenge(props) {
 
 const Container = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const CardGrid = styled.div`
@@ -141,7 +142,7 @@ const NoListMent = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     height: 25vh;
-    font-size: 20px;
+    font-size: 16px;
     button {
       width: 55.56vw;
     }

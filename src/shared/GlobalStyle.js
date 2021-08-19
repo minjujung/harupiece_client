@@ -19,9 +19,15 @@ body {
     /* padding-top: 5em;
     padding-bottom:50px; */
     font-family: "Noto Sans CJK KR";
-    padding: 70px 0px 0px 0px;
-}
+    padding: 114px 0px 0px 0px;
+    height: 100%
+  }
 
+@media screen and (min-width: 360px) and (max-width:720px) {
+    body{
+      padding: 56px 0px 0px 0px;
+    }
+}
 
 a {
     color: #222222;

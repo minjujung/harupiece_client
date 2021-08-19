@@ -109,46 +109,6 @@ function MyPieces(props) {
           </>
         ) : null}
       </PointHistory>
-      {/* <section>
-        <div>
-          <h3>나의 등급: {userLevel}</h3>
-          <img
-            src={levelData[levelDataIdx] && levelData[levelDataIdx].img}
-            alt="level_image"
-            style={{ width: "5em", height: "5em" }}
-          />{" "}
-          level {user_info.memberLevel}
-        </div>
-        <div>
-          <h3>조각 모음:</h3> 총 {user_info.point}개 / 다음 레벨 까지{" "}
-          {levelState - user_info.point} 개가 더 필요해요!{" "}
-        </div>
-        <div>
-          <h3>모은 구슬: </h3>
-          {levelArray.map((idx) => (
-            <img
-              src={levelData[idx].img}
-              alt="level_img"
-              style={{ width: "5em", height: "5em" }}
-            />
-          ))}
-        </div>
-      </section>
-      <section>
-        <h4>조각 모음 일지</h4>
-        {point_history &&
-          point_history.map((history) => (
-            <div key={history.pointHistoryId}>
-              <p>
-                <strong>{history.challengeTitle}</strong> 챌린지에서 조각을
-                획득했어요!
-              </p>
-              <p>
-                획득한 조각 <strong>{history.point}</strong>개!
-              </p>
-            </div>
-          ))}
-      </section> */}
     </Container>
   );
 }
@@ -187,7 +147,7 @@ const PointGrid = styled.section`
     width: 100%;
     gap: 4.44vw;
     grid-template-columns: repeat(2, 43.33vw);
-    grid-template-rows: repeat(2, 13.52vh);
+    grid-template-rows: repeat(2, auto);
     margin-bottom: 5.55vh;
   }
 `;
@@ -216,16 +176,16 @@ const InfoBox = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 13.52vh;
+    /* height: 13.52vh; */
     max-height: 173px;
     p {
       text-align: center;
-      font-size: 21px;
+      font-size: 14px;
       margin-bottom: 2.22vh;
     }
     strong {
       font-weight: bold;
-      font-size: 42px;
+      font-size: 28px;
     }
   }
 `;
@@ -235,6 +195,12 @@ const MarbleList = styled.div`
   display: flex;
   justify-content: center;
   margin-left: 1.56vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 8.33vw;
+      height: 8.33vw;
+    }
+  }
 `;
 
 const PointHistory = styled.section`
@@ -257,6 +223,14 @@ const Header = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.sm};
     color: ${({ theme }) => theme.colors.gray};
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    h2 {
+      font-size: 16px;
+    }
+    button {
+      font-size: 12px;
+    }
+  }
 `;
 
 const NoPointMent = styled.p`
@@ -272,7 +246,7 @@ const NoPointMent = styled.p`
   font-weight: bold;
   line-height: normal;
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: ${({ theme }) => theme.fontSizes.ms};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     height: 25vh;
   }
 `;

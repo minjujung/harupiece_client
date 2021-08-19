@@ -56,6 +56,8 @@ const PwdModal = (props) => {
     }
   };
 
+  let intViewportWidth = window.innerWidth;
+
   return (
     <>
       <Button
@@ -75,16 +77,27 @@ const PwdModal = (props) => {
         onClose={handleClose}
         disableScrollLock={true}
         aria-labelledby="form-dialog-title"
-        PaperProps={{
-          style: {
-            width: "23.33vw",
-            height: "18.15vh",
-            padding: "1.46vw",
-            borderRadius: "16px",
-            overflowY: "hidden",
-            boxShadow: "rgba(0,219,154,0.2) 0px 8px 24px",
-          },
-        }}
+        PaperProps={
+          intViewportWidth > 720
+            ? {
+                style: {
+                  width: "23.33vw",
+                  height: "18.15vh",
+                  padding: "1.46vw",
+                  borderRadius: "16px",
+                  overflowY: "hidden",
+                  boxShadow: "rgba(0,219,154,0.2) 0px 8px 24px",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  height: "45.83vw",
+                  padding: "2.22vw",
+                  borderRadius: "16px",
+                },
+              }
+        }
       >
         <PwdIntro>
           <DialogInfo>

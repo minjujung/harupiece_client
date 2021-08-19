@@ -102,6 +102,8 @@ const CardBox = styled.div`
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
     width: ${(props) => (props.search ? "55vw" : "91.11vw")};
+    height: ${(props) => (props.height ? props.height : "auto")};
+    padding-bottom: 20px;
   }
 `;
 
@@ -148,7 +150,7 @@ const Date = styled.p`
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   word-break: break-all;
-  padding-bottom: 3.28vh;
+  /* padding-bottom: 3.28vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 14px;
