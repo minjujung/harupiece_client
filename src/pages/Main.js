@@ -9,11 +9,12 @@ import Info from "../components/mainpage/Info";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../elements";
 
 const Main = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.userInfo);
 
   useEffect(() => {
     if (getCookie("token")) {

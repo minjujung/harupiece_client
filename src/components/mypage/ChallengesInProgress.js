@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Button, Card, Tag } from "../../elements";
+import { Button, Card, Image, Tag, TagContainer } from "../../elements";
 import { history } from "../../redux/configureStore";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
@@ -74,21 +74,28 @@ function ChallengesInProgress(props) {
                 }
                 width="100%"
                 height="auto"
-                maxHeight="160px"
-                mobileMaxHeight="340px"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                src={list.challengeImgUrl}
-                alt="challenge"
               >
-                <Tag bg="mainOrange" color="white" padding="8px 20px">
-                  {category}
-                </Tag>
-                {my_info.memberId === list.challengeMember ? (
-                  <Tag bg="mainGreen" color="white" padding="8px 20px">
-                    내가 만든 챌린지
+                <CardImg>
+                  <Image
+                    width="16.04vw"
+                    height="8.33vw"
+                    padding="51.83% 0 0 0"
+                    src={list.challengeImgUrl}
+                    alt="challenge"
+                  />
+                </CardImg>
+                <TagContainer>
+                  <Tag bg="mainOrange" color="white" padding="8px 20px">
+                    {category}
                   </Tag>
-                ) : null}
+                  {my_info.memberId === list.challengeMember ? (
+                    <Tag bg="mainGreen" color="white" padding="8px 20px">
+                      내가 만든 챌린지
+                    </Tag>
+                  ) : null}
+                </TagContainer>
               </Card>
             );
           })}
@@ -139,6 +146,15 @@ const CardGrid = styled.div`
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
     /* grid-auto-rows: 53.36vh; */
+  }
+`;
+
+const CardImg = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 91.11vw;
+      height: 47.22vw;
+    }
   }
 `;
 

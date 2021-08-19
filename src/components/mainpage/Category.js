@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../../redux/modules/main";
 import { getCookie } from "../../shared/Cookie";
 
-import { Tag, Card } from "../../elements";
+import { Tag, Card, Image, TagContainer } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
@@ -154,8 +154,8 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
-                        main
-                        src={l.challengeImgUrl}
+                        width="15vw"
+                        height="auto"
                         title={l.challengeTitle}
                         date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
@@ -163,22 +163,33 @@ const Category = (props) => {
                           history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       >
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          {l.tagList && l.tagList[0]}
-                        </Tag>
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          {l.challengeMember.length}/10명
-                        </Tag>
+                        <CardImg>
+                          <Image
+                            width="14.9vw"
+                            height="8.33vw"
+                            padding="51.83% 0 0 0"
+                            src={l.challengeImgUrl}
+                            alt="challenge"
+                          />
+                        </CardImg>
+                        <TagContainer>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
+                          >
+                            {l.tagList && l.tagList[0]}
+                          </Tag>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
+                          >
+                            {l.challengeMember.length}/10명
+                          </Tag>
+                        </TagContainer>
                       </Card>
                     </div>
                   );
@@ -191,8 +202,8 @@ const Category = (props) => {
                   return (
                     <div key={l.challengeId}>
                       <Card
-                        main
-                        src={l.challengeImgUrl}
+                        width="15vw"
+                        height="auto"
                         title={l.challengeTitle}
                         date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
                         ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
@@ -201,22 +212,32 @@ const Category = (props) => {
                           history.push(`/challenge/${l.challengeId}/intro`)
                         }
                       >
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          #금주
-                        </Tag>
-                        <Tag
-                          fontWeight="500"
-                          bg="lightGray"
-                          color="black"
-                          padding="8px 20px"
-                        >
-                          1/10명
-                        </Tag>
+                        <Image
+                          width="14.9vw"
+                          height="8.33vw"
+                          padding="51.83% 0 0 0"
+                          src={l.challengeImgUrl}
+                          alt="challenge"
+                        />
+
+                        <TagContainer>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
+                          >
+                            #금주
+                          </Tag>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 20px"
+                          >
+                            1/10명
+                          </Tag>
+                        </TagContainer>
                       </Card>
                     </div>
                   );
@@ -292,8 +313,8 @@ const Category = (props) => {
                       <div key={l.challengeId}>
                         <Slide>
                           <Card
-                            search
-                            src={l.challengeImgUrl}
+                            width="55vw"
+                            height="auto"
                             title={l.challengeTitle}
                             date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
@@ -301,22 +322,31 @@ const Category = (props) => {
                               history.push(`/challenge/${l.challengeId}/intro`)
                             }
                           >
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 10px"
-                            >
-                              {l.tagList && l.tagList[0]}
-                            </Tag>
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 10px"
-                            >
-                              {l.challengeMember.length}/10명
-                            </Tag>
+                            <Image
+                              width="54.5vw"
+                              height="33.33vw"
+                              padding="51.83% 0 0 0"
+                              src={l.challengeImgUrl}
+                              alt="challenge"
+                            />
+                            <TagContainer>
+                              <Tag
+                                fontWeight="500"
+                                bg="lightGray"
+                                color="black"
+                                padding="8px 10px"
+                              >
+                                {l.tagList && l.tagList[0]}
+                              </Tag>
+                              <Tag
+                                fontWeight="500"
+                                bg="lightGray"
+                                color="black"
+                                padding="8px 10px"
+                              >
+                                {l.challengeMember.length}/10명
+                              </Tag>
+                            </TagContainer>
                           </Card>
                         </Slide>
                       </div>
@@ -340,9 +370,8 @@ const Category = (props) => {
                     return (
                       <Slide key={l.challengeId}>
                         <Card
-                          search
-                          height
-                          src={l.challengeImgUrl}
+                          width="55vw"
+                          height="auto"
                           title={l.challengeTitle}
                           date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
                         ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
@@ -350,22 +379,31 @@ const Category = (props) => {
                             history.push(`/challenge/${l.challengeId}/intro`)
                           }
                         >
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 10px"
-                          >
-                            {l.tagList && l.tagList[0]}
-                          </Tag>
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 10px"
-                          >
-                            {l.challengeMember.length}/10명
-                          </Tag>
+                          <Image
+                            width="54.5vw"
+                            height="33.33vw"
+                            padding="51.83% 0 0 0"
+                            src={l.challengeImgUrl}
+                            alt="challenge"
+                          />
+                          <TagContainer>
+                            <Tag
+                              fontWeight="500"
+                              bg="lightGray"
+                              color="black"
+                              padding="8px 10px"
+                            >
+                              {l.tagList && l.tagList[0]}
+                            </Tag>
+                            <Tag
+                              fontWeight="500"
+                              bg="lightGray"
+                              color="black"
+                              padding="8px 10px"
+                            >
+                              {l.challengeMember.length}/10명
+                            </Tag>
+                          </TagContainer>
                         </Card>
                       </Slide>
                     );
@@ -484,6 +522,15 @@ const CardBox2 = styled.div`
   padding-top: 1.6vh;
   ${({ theme }) => theme.device.mobileLg} {
     height: auto;
+  }
+`;
+
+const CardImg = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 46.67vw;
+      height: 33.33vw;
+    }
   }
 `;
 
