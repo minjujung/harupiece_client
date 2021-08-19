@@ -177,7 +177,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 15px"
                           >
                             {l.tagList && l.tagList[0]}
                           </Tag>
@@ -185,7 +185,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 15px"
                           >
                             {l.challengeMember.length}/10명
                           </Tag>
@@ -227,7 +227,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 20px"
                           >
-                            #금주
+                            {l.tagList && l.tagList[0]}
                           </Tag>
                           <Tag
                             fontWeight="500"
@@ -235,7 +235,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 20px"
                           >
-                            1/10명
+                            {l.challengeMember.length}/10명
                           </Tag>
                         </TagContainer>
                       </Card>
