@@ -32,7 +32,7 @@ const MessageList = (props) => {
     <Chat ref={scrollTo}>
       {msgList?.map((msg) => (
         <MsgFrame key={msg.chatMessageId}>
-          {msg.sender === "[알림]" ? (
+          {msg.alert === "[얄림]" ? (
             <EnterMsg>{msg.message}</EnterMsg>
           ) : (
             <>

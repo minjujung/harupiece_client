@@ -1,12 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import Dialog from "@material-ui/core/Dialog";
 import WelcomeModal from "../components/signup/WelcomeModal";
-import popup from "../assets/images/logo/popup.png";
-import Header from "../components/Header";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
