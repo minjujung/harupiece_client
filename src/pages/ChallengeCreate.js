@@ -312,21 +312,24 @@ const LeftContainer = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    margin-top: 35.0vw;
+    margin-bottom: 0;
     padding: 0 4.44vw 0 4.44vw;
   }
 `;
 
 const Title = styled.div`
+  width: 10.04vw;
+  height: 4.81vh;
   & > h2 {
     font-size: 36px;
     font-weight: 700;
-    width: 10.04vw;
-    height: 4.81vh;
+    
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: auto;
-    font-size: 48px;
+    font-size: 24px;
   }
 `;
 
@@ -340,7 +343,7 @@ const GuideLine = styled.div`
   height: 53.79vh;
   margin-right: 2.92vh;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    display : none;
   }
 `;
 
@@ -389,15 +392,17 @@ const BadgeText = styled.div`
   height: 100%;
   justify-content: space-between;
   align-items: center;
-  margin-left: 29px;
+  margin-left: 16px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    font-size: 15px;
     & > img {
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       z-index: 15;
       margin-top: 0;
-      margin-right: 8.89vw;
+      margin-left: 16px;
+      margin-right: 9.5vw;
     }
   }
 `;
@@ -458,8 +463,9 @@ const Textarea = styled.textarea`
     height: 20vh;
     margin-top: 16px;
     padding: 1.48vh 4.44vw;
+    font-size: 24px;
     ::placeholder {
-      font-size: 32px;
+      font-size: 24px;
     }
   }
 `;
@@ -469,7 +475,7 @@ const Label = styled.label`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   ${({ theme }) => theme.device.mobileLg} {
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -514,7 +520,7 @@ const SelectContainer = styled.div`
       height: 30px;
       position: absolute;
       right: 16px;
-      top: 37px;
+      top: 29px;
       pointer-events: none;
     }
   }
@@ -534,6 +540,7 @@ const MobilBtns = styled.div`
     align-items: center;
     background-color: white;
     box-shadow: 0 4px 11px 0px ${({ theme }) => theme.colors.mainGreen};
+    padding: 0 4.44vw 0 4.44vw;
     & > button {
       font-size: 17px;
       width: 100%;
@@ -554,11 +561,13 @@ const MobilBadge = styled.div`
 
     display: flex;
     align-items: center;
+    padding: 0 4.44vw 0 4.44vw;
     & > button {
       font-size: 17px;
       width: 100%;
       z-index: 15;
       margin-top: 0;
+      
     }
   }
 `;

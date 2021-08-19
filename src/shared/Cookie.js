@@ -4,11 +4,6 @@ const setCookie = (name, value, exp = 1, path = "/") => {
   document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=${path}`;
 };
 
-const multiCookie = (cookie1, cookie2) => {
-  setCookie(cookie1.name, cookie1.value);
-  setCookie(cookie2.name, cookie2.value);
-};
-
 const getCookie = (name) => {
   let cookie = "; " + document.cookie;
   let parts = cookie.split(`; ${name}=`);
@@ -23,4 +18,4 @@ const deleteCookie = (name) => {
   document.cookie = name + "=; expires=" + date + "; path=/";
 };
 
-export { setCookie, deleteCookie, getCookie, multiCookie };
+export { setCookie, deleteCookie, getCookie };

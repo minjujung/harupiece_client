@@ -22,7 +22,7 @@ import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 import Sidebar from "./Sidebar";
 
-const Header = (props) => {
+const Header = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -50,7 +50,7 @@ const Header = (props) => {
     handleClose();
   };
 
-  const search = (e) => {
+  const search = () => {
     if (q === "") {
       alert("검색어를 입력해주세요");
     } else {

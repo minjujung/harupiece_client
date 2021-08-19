@@ -141,7 +141,7 @@ const SubT = styled.p`
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
   ${({ theme }) => theme.device.mobileLg}{
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 16px;
   }
 `;
@@ -152,7 +152,7 @@ const BottomT = styled.p`
   color: ${({ theme }) => theme.colors.darkGray};
   margin-top: 8px;
   ${({ theme }) => theme.device.mobileLg}{
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-top: 16px;
     margin-bottom: 5.18vh;
   }
@@ -205,8 +205,8 @@ const CameraBtn = styled.label`
     width: 43.33vw;
     height: 43.33vw;
     & > img {
-      width:4.17vw;
-      height:4.17vw;
+      width:5.56vw;
+      height:5.56vw;
     }
   }
   

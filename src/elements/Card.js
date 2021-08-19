@@ -141,6 +141,12 @@ const Title = styled.h4`
     width: 100%;
     font-size: 16px;
   }
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 20px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
 `;
 
 const Date = styled.p`

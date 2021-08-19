@@ -136,7 +136,7 @@ const Label = styled.label`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   ${({ theme }) => theme.device.mobileLg}{
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -145,7 +145,7 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   ${({ theme }) => theme.device.mobileLg}{
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -173,7 +173,7 @@ const Holiday = styled.div`
     padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
     & > P {
       font-size: 24px;
-      padding-top: 0.71vh;
+      padding-top: 0.41vh;
     }
   }
 `;
@@ -181,6 +181,13 @@ const Holiday = styled.div`
 const SCheckbox = styled(Checkbox)`
   position: absolute;
   right: -8.25vw;
+  ${({ theme }) => theme.device.mobileLg}{
+    right: -47.35vw;
+    .MuiSvgIcon-root{
+      width : 8.33vw;
+      height : 8.33vw;
+    }
+  }
 `;
 
 const SDatePicker = styled(DatePicker)`
@@ -201,9 +208,9 @@ const SDatePicker = styled(DatePicker)`
     font-size: 24px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
-    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    padding: 1.48vh 4.44vw;
     ::placeholder {
-      font-size:32px;
+      font-size:24px;
     }
   }
 `;
@@ -218,7 +225,16 @@ const CalendarContainer = styled.label`
     bottom: 1px;
     z-index: 2;
   }
-
+  ${({ theme }) => theme.device.mobileLg}{
+    & > img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: -88.3vw;
+    bottom: -1px;
+    z-index: 2;
+  }
+  }
 `;
 
 const MobileCont = styled.div`

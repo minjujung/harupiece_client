@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
+import { Helmet } from "react-helmet";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -22,6 +23,8 @@ import { getCookie } from "./Cookie";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
+import favicon from "../assets/images/logo/favicon.svg";
+import ogImg from "../assets/images/logo/og_image.png";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +38,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <ConnectedRouter history={history}>
+        <Helmet
+          meta={[
+            { property: "og:title", content: "하루조각" },
+            { property: "og:description", content: "포스트의 설명입니다." },
+            { property: "og:image", content: { ogImg } },
+          ]}
+        >
+          <link rel="icon" href={favicon} />
+        </Helmet>
         <Container>
           <Header />
           <Route exact path="/" component={Main} />
