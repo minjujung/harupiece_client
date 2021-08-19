@@ -202,8 +202,8 @@ const Btns = styled.div`
   width: 16.15vw;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 498px;
+  position: absolute;
+  top: 17.08vw;
   /* margin-top: 2.59vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -213,6 +213,7 @@ const Btns = styled.div`
     z-index: 15;
     top: auto;
     bottom: 0;
+    right: 0;
     margin-top: 0;
   }
 `;
@@ -236,6 +237,7 @@ const MobilBtns = styled.div`
 
 const RightNav = styled.div`
   width: 16.15vw;
+  position: relative;
   grid-area: nav;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;

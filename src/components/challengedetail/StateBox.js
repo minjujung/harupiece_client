@@ -120,7 +120,7 @@ const StateContainer = styled.div`
   flex-direction: column;
   border: 2px solid ${({ theme }) => theme.colors.lightGray};
   border-radius: 10px;
-  position: fixed;
+  position: absolute;
   ${({ theme }) => theme.device.mobileLg} {
     display: none;
   }
@@ -134,6 +134,13 @@ const UserStatus = styled.p`
     props.goodUser
       ? `border-bottom: 2px solid ${props.theme.colors.lightGray};`
       : null};
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 12px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
+  }
 `;
 
 const Strong = styled.strong`
@@ -162,6 +169,14 @@ const LevelInfo = styled.section`
     justify-content: center;
     align-items: center;
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 12px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
+  }
 `;
 
 const Completed = styled.section`
@@ -180,6 +195,14 @@ const Completed = styled.section`
     height: 15%;
     justify-content: center;
     align-items: center;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 12px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
   }
 `;
 
