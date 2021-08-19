@@ -152,7 +152,16 @@ const MButton = styled.button`
     padding-bottom: 5px;
     z-index: 100;
   }
+  ${({ theme }) => theme.device.desktopXl} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    display: none;
+  }
   ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.tablet} {
     display: none;
   }
 `;

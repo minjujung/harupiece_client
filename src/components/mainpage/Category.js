@@ -177,7 +177,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 15px"
                           >
                             {l.tagList && l.tagList[0]}
                           </Tag>
@@ -185,7 +185,7 @@ const Category = (props) => {
                             fontWeight="500"
                             bg="lightGray"
                             color="black"
-                            padding="8px 20px"
+                            padding="8px 15px"
                           >
                             {l.challengeMember.length}/10명
                           </Tag>
@@ -227,7 +227,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 20px"
                           >
-                            #금주
+                            {l.tagList && l.tagList[0]}
                           </Tag>
                           <Tag
                             fontWeight="500"
@@ -235,7 +235,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 20px"
                           >
-                            1/10명
+                            {l.challengeMember.length}/10명
                           </Tag>
                         </TagContainer>
                       </Card>
@@ -421,20 +421,31 @@ export default Category;
 
 // mobile
 const MobileBox = styled.div`
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100vw;
-  height: auto;
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  div {
-    span {
-      color: ${({ theme }) => theme.colors.mainGreen};
+  ${({ theme }) => theme.device.mobileLg} {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: auto;
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    div {
+      span {
+        color: ${({ theme }) => theme.colors.mainGreen};
+      }
     }
   }
+  ${({ theme }) => theme.device.desktopXl} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    display: none;
+  }
   ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.tablet} {
     display: none;
   }
 `;
@@ -485,6 +496,7 @@ const Contain = styled.div`
   flex-direction: column;
   width: 49.48vw;
   height: 54vh;
+  padding-top: 20vh;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -539,4 +551,8 @@ const ViewAll = styled.span`
   padding-left: 43vw;
   color: #a9a9a9;
   cursor: pointer;
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+    padding-left: 40vw;
+  }
 `;

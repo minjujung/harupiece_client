@@ -225,6 +225,9 @@ const SliderBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-left: 100px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   ${({ theme }) => theme.device.mobileLg} {
     width: 94vw;
     display: flex;
@@ -232,6 +235,13 @@ const SliderBox = styled.div`
     justify-content: center;
     align-items: flex-start;
     padding-left: 16px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    width: 50vw;
+    padding-left: 80px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -257,6 +267,12 @@ const TitleBox = styled.div`
     display: flex;
     flex-direction: column;
   }
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 32px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 28px;
+  }
 `;
 
 const SubTitleBox = styled.div`
@@ -267,6 +283,12 @@ const SubTitleBox = styled.div`
     border-bottom: 1px solid white;
   }
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 24px;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 24px;
+  }
+  ${({ theme }) => theme.device.desktop} {
     font-size: 24px;
   }
 `;

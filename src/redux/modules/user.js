@@ -61,7 +61,6 @@ const setLoginDB = ({ email, password }) => {
       .then((res) => {
         setCookie("token", res.data.accessToken, 1, "/");
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
-        console.log(res.data);
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(""));
         history.replace("/");

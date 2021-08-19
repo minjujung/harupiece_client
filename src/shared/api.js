@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie, multiCookie } from "./Cookie";
+import { setCookie, getCookie } from "./Cookie";
 
 const instance = axios.create({
   // baseURL: "http://54.180.141.39/",
@@ -45,7 +45,6 @@ instance.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    console.log(err.config);
 
     if (originalConfig.url !== "api/member/login" && err.response) {
       if (err.response.status === 401 && !originalConfig._retry) {

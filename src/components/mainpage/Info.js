@@ -95,6 +95,15 @@ const InfoBox = styled.div`
   div {
     padding-bottom: 5px;
   }
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 20px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
+  }
 `;
 
 const InfoBox2 = styled.div`

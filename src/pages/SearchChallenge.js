@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Tag, Card, Image, TagContainer } from "../elements";
 import { history } from "../redux/configureStore";
+import { MainCreators as searchAll } from "../redux/modules/main";
 
 function SearchChallenge(props) {
+  const dispatch = useDispatch();
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
+
+  useEffect(() => {
+    dispatch(searchAll.searchAllDB());
+  }, []);
 
   const [searchState, setSearchState] = useState({
     userInputContainerClicked: false,
