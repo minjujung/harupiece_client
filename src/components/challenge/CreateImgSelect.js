@@ -62,6 +62,7 @@ function CreateImgSelect({
     // setPreview(img);
     handleClose();
   };
+  let intViewportWidth = window.innerWidth;
 
   return (
     <>
@@ -75,13 +76,24 @@ function CreateImgSelect({
         onClose={handleClose}
         disableScrollLock={true}
         aria-labelledby="alert-dialog-title"
-        PaperProps={{
+        PaperProps={
+          intViewportWidth > 720
+          ? {
           style: {
             width: "55.21vw",
             padding: "32px",
             borderRadius: "16px",
           },
-        }}
+        }
+        : {
+          style :{
+            width: "91.11vw",
+            height: "150.00w",
+            padding: "4.44vw",
+            borderRadius: "16px",
+          }
+        }
+      }
       >
         {isLoading ? (
           <Spinner />
@@ -129,7 +141,7 @@ const SubT = styled.p`
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
   ${({ theme }) => theme.device.mobileLg}{
-    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 0px;
   }
 `;
@@ -156,12 +168,19 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  & > img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-bottom: 32px;
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: 22px;
+  }
 `;
 
 const ThumbnailModal = styled.div`
@@ -170,4 +189,14 @@ const ThumbnailModal = styled.div`
   gap: 0.83vw;
   grid-template-columns: repeat(3, 16.67vw);
   grid-template-rows: repeat(2, 16.66vh);
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 100%;
+    gap: 3.33vw;
+    grid-template-columns: repeat(2, 35.44vw);
+    grid-template-rows: repeat(3, 22.22vw);
+    & > img {
+      width : 35.44vw;
+      height: 22.22vw;
+    }
+  }
 `;
