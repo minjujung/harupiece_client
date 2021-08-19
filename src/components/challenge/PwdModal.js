@@ -6,10 +6,19 @@ import Button from "../../elements/Button";
 import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
 
-const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen, pwdNumCheck }) => {
+const PwdModal = ({
+  pwd,
+  setPwd,
+  savePwd,
+  open,
+  setOpen,
+  pwdNumCheck,
+  setPwdNumCheck,
+}) => {
   // modal창 닫기,
   const handleClose = () => {
     setOpen(false);
+    setPwdNumCheck("");
   };
 
   const handleInput = (e) => {
@@ -40,8 +49,8 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen, pwdNumCheck }) => {
               style: {
                 width: "91.11vw",
                 height: "45.83vw",
-                padding: "2.22vw",
-                borderRadius: "16px",
+                padding: "4.44vw",
+                borderRadius: "32px",
               },
             }
       }
@@ -63,7 +72,7 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen, pwdNumCheck }) => {
         <p>비밀번호의 최소 길이는 4자이며, 최대 길이는 13자입니다.</p>
         <strong>{pwdNumCheck}</strong>
       </PwdIntro>
-      <PwdInput>
+      <PwdInput alert={pwdNumCheck !== "" ? true : false}>
         <Input
           id="challengePwd"
           value={pwd}
@@ -94,6 +103,12 @@ const PwdIntro = styled.div`
     color: ${({ theme }) => theme.colors.mainOrange};
     font-size: 12px;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    p {
+      font-size: 11px;
+      margin-top: 4.44vw;
+    }
+  }
 `;
 
 const DialogInfo = styled.div`
@@ -105,12 +120,30 @@ const DialogInfo = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.md};
     height: 3.8vh;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    label {
+      font-size: 17px;
+      height: inherit;
+    }
+    img {
+      width: 5vw;
+      height: 5vw;
+    }
+  }
 `;
 
 const PwdInput = styled.div`
   width: 100%;
   display: flex;
   margin-top: 2.31vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: ${(props) => (props.alert ? "7.28vw" : "10.28vw")};
+    button {
+      width: 33.33vw;
+      height: 12.22vw;
+      font-size: 15px;
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -126,5 +159,11 @@ const Input = styled.input`
   }
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 44.44vw;
+    height: 12.22vw;
+    margin-right: 4.44vw;
+    padding-left: 4.44vw;
   }
 `;

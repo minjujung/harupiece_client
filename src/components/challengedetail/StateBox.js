@@ -34,7 +34,7 @@ const StateBox = (props) => {
         />
       </StateContainer>
     );
-  } else if (user_info.memberId !== null && user_info.challengeCount > 0) {
+  } else if (user_info?.memberId !== null && user_info?.challengeCount > 0) {
     return (
       <StateContainer>
         <UserStatus goodUser>

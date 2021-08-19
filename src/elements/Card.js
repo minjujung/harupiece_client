@@ -34,16 +34,17 @@ const Card = ({
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
-        <Image
-          width="100%"
-          height="auto"
+        {/* <Image
+          width="91.11vw"
+          height="47.22vw"
           mobileMaxHeight={mobileMaxHeight}
           maxHeight={maxHeight}
           padding="51.83% 0 0 0"
           src={src}
           alt={alt}
         />
-        <TagContainer>{children}</TagContainer>
+        <TagContainer>{children}</TagContainer> */}
+        {children}
         <Container>
           <Title>
             {title.length > 10 ? `${title.substring(0, 10)}...` : title}
@@ -100,10 +101,10 @@ const CardBox = styled.div`
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
+  /* padding-bottom: 20px; */
   ${({ theme }) => theme.device.mobileLg} {
-    width: ${(props) => (props.search ? "55vw" : "91.11vw")};
+    /* width: ${(props) => (props.search ? "41.67vw" : "91.11vw")}; */
     height: ${(props) => (props.height ? props.height : "auto")};
-    padding-bottom: 20px;
   }
 `;
 
@@ -150,7 +151,7 @@ const Date = styled.p`
       : props.theme.colors.darkGray};
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   word-break: break-all;
-  /* padding-bottom: 3.28vh; */
+  margin-bottom: 3.28vh;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 14px;
