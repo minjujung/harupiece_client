@@ -69,7 +69,6 @@ const Main = (props) => {
                   로그인 하기
                 </Button>
               </ButtonBox>
-              <MButton onClick={goToCreate}>+</MButton>
             </>
           )}
           <Popular />
@@ -86,7 +85,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 78vh;
-  margin-top: 70px;
+  margin-top: 30px;
 
   ${({ theme }) => theme.device.mobileLg} {
     display: flex;
