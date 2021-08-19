@@ -212,7 +212,7 @@ function ChallengeCreate(props) {
               />
             </div>
             {/* 모집형식 */}
-            <div>
+            <MobileCont>
               <Label htmlFor="isPwd">모집 방식</Label>
               <br />
               <SelectContainer>
@@ -231,48 +231,52 @@ function ChallengeCreate(props) {
                   pwdNumCheck={pwdNumCheck}
                 />
               </SelectContainer>
-            </div>
+            </MobileCont>
             {/* 챌린지 설명 */}
-            <div>
+            <MobileCont>
               <Label>챌린지 설명</Label>
               <br />
               <Textarea
                 onChange={saveDesc}
                 placeholder="챌린지를 설명해주세요."
               />
-            </div>
-            <Button
-              width="15.00vw"
-              height="5.92vh"
-              margin="6.21vh 0 0 0"
-              _onClick={createChallenge}
-            >
-              챌린지 개설하기
-            </Button>
+            </MobileCont>
+            <MobilBtns>
+              <Button
+                width="15.00vw"
+                height="5.92vh"
+                margin="6.21vh 0 0 0"
+                _onClick={createChallenge}
+              >
+                챌린지 개설하기
+              </Button>
+            </MobilBtns>
           </InputRightContainer>
         </AllInputContainer>
         {badge ? (
-          <Button
-            width="100%"
-            height="64px"
-            margin="2.08vw 0 0 0"
-            bg="white"
-            color="mainGreen"
-            border="mainGreen"
-            shadow
-          >
-            <BadgeText>
-              이미지를 변경하려면 다시 선택해 주세요.
-              <Image
-                width="20px"
-                height="20px"
-                src={greenclose}
-                alt="closeBtn"
-                borderRadius="0"
-                onClick={hideBadge}
-              />
-            </BadgeText>
-          </Button>
+          <MobilBadge>
+            <Button
+              width="100%"
+              height="64px"
+              margin="7.4vh 0 0 0"
+              bg="white"
+              color="mainGreen"
+              border="mainGreen"
+              shadow
+            >
+              <BadgeText>
+                이미지를 변경하려면 다시 선택해 주세요.
+                <Image
+                  width="20px"
+                  height="20px"
+                  src={greenclose}
+                  alt="closeBtn"
+                  borderRadius="0"
+                  onClick={hideBadge}
+                />
+              </BadgeText>
+            </Button>
+          </MobilBadge>
         ) : null}
       </RightContainer>
     </Container>
@@ -288,7 +292,6 @@ const Container = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: flex;
     flex-direction: column;
-    padding: 0 4.44vw;
   }
 `;
 
@@ -298,6 +301,7 @@ const LeftContainer = styled.div`
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    padding: 0 4.44vw 0 4.44vw;
   }
 `;
 
@@ -309,6 +313,8 @@ const Title = styled.div`
     height: 4.81vh;
   }
   ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: auto;
     font-size: 48px;
   }
 `;
@@ -341,14 +347,13 @@ const InputLeftContainer = styled.div`
   flex-direction: column;
   margin-right: 0.94vw;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    padding: 0 4.44vw;
   }
 `;
 
 const InputRightContainer = styled.div`
   flex-direction: column;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
   }
 `;
 
@@ -373,6 +378,13 @@ const BadgeText = styled.div`
   margin-left: 29px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    & > img {
+      width: 30px;
+      height: 30px;
+      z-index: 15;
+      margin-top: 0;
+      margin-right: 8.89vw;
+    }
   }
 `;
 
@@ -392,8 +404,8 @@ const Input = styled.input`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 88px;
-    font-size: 32px;
+    height: 6.875vh;
+    font-size: 24px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
@@ -429,6 +441,12 @@ const Textarea = styled.textarea`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 20vh;
+    margin-top: 16px;
+    padding: 1.48vh 4.44vw;
+    ::placeholder {
+      font-size: 32px;
+    }
   }
 `;
 
@@ -454,6 +472,14 @@ const SelectBox = styled.select`
   -webkit-appearance: none; /* 네이티브 외형 감추기 */
   -moz-appearance: none;
   appearance: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -469,6 +495,64 @@ const SelectContainer = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    & > img {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 16px;
+      top: 37px;
+      pointer-events: none;
+    }
   }
 `;
+
+const MobilBtns = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 11.875vh;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 4px 11px 0px ${({ theme }) => theme.colors.mainGreen};
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+    }
+  }
+`;
+
+const MobilBadge = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 14.375vh;
+
+    display: flex;
+    align-items: center;
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+    }
+  }
+`;
+
+const MobileCont = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw 0 4.44vw;
+  }
+`;
+
 export default ChallengeCreate;

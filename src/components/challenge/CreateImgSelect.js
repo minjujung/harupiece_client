@@ -128,6 +128,10 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    margin-bottom: 0px;
+  }
 `;
 
 const ImageBtn = styled.button`
@@ -140,6 +144,11 @@ const ImageBtn = styled.button`
   margin-bottom: 2.96vh;
   ${({ theme }) => theme.device.mobileLg}{
     width:100%;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
   }
 `;
 

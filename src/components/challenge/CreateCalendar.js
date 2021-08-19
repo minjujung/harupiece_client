@@ -91,7 +91,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
 
   return (
     <>
-      <div>
+      <MobileCont>
         <Label htmlFor="checkweek">인증 기간 중 주말제외 여부</Label>
         <Holiday>
           <p>주말 제외</p>
@@ -104,25 +104,27 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
             onChange={findCheck}
           />
         </Holiday>
-      </div>
-      <CalendarContainer htmlFor="calendar">
-        <SubT>인증 기간</SubT>
-        <img src={Calendar} alt="calendar" />
-      </CalendarContainer>
-      <SDatePicker
-        id="calendar"
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={onChange}
-        filterDate={isWeekday}
-        dateFormat="yyyy-MM-dd"
-        placeholderText="0000.00.00 ~ 0000.00.00"
-        autoComplete="off"
-        locale={ko}
-        minDate={date}
-        isClearable={true}
-      />
+      </MobileCont>
+      <MobileCont>
+        <CalendarContainer htmlFor="calendar">
+          <SubT>인증 기간</SubT>
+          <img src={Calendar} alt="calendar" />
+        </CalendarContainer>
+        <SDatePicker
+          id="calendar"
+          selectsRange={true}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={onChange}
+          filterDate={isWeekday}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="0000.00.00 ~ 0000.00.00"
+          autoComplete="off"
+          locale={ko}
+          minDate={date}
+          isClearable={true}
+        />
+      </MobileCont>
     </>
   );
 }
@@ -133,13 +135,18 @@ const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
 `;
 
 const SubT = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
-
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
 `;
 
 const Holiday = styled.div`
@@ -160,6 +167,14 @@ const Holiday = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg}{
     width:100%;
+    height: 6.875vh;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    & > P {
+      font-size: 24px;
+      padding-top: 0.71vh;
+    }
   }
 `;
 
@@ -181,7 +196,15 @@ const SDatePicker = styled(DatePicker)`
     color: ${({ theme }) => theme.colors.darkGray};
   }
   ${({ theme }) => theme.device.mobileLg}{
-    width:100vw;
+    width: 91.11vw;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    ::placeholder {
+      font-size:32px;
+    }
   }
 `;
 
@@ -194,5 +217,12 @@ const CalendarContainer = styled.label`
     right: -14.3vw;
     bottom: 1px;
     z-index: 2;
+  }
+
+`;
+
+const MobileCont = styled.div`
+  ${({ theme }) => theme.device.mobileLg}{
+    padding: 0 4.44vw 0 4.44vw; 
   }
 `;
