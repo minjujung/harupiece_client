@@ -50,7 +50,7 @@ const PwdModal = ({
                 width: "91.11vw",
                 height: "45.83vw",
                 padding: "4.44vw",
-                borderRadius: "32px",
+                borderRadius: "16px",
               },
             }
       }
@@ -137,7 +137,7 @@ const PwdInput = styled.div`
   display: flex;
   margin-top: 2.31vh;
   ${({ theme }) => theme.device.mobileLg} {
-    margin-top: ${(props) => (props.alert ? "7.28vw" : "10.28vw")};
+    margin-top: ${(props) => (props.alert ? "7.5vw" : "10.28vw")};
     button {
       width: 33.33vw;
       height: 12.22vw;

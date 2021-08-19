@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
-// import { Input } from "../elements";
+import example from "../assets/images/info/example.PNG";
 import Down from "../assets/images/icons/arrow/down.svg";
 import greenclose from "../assets/images/icons/greenclose.svg";
 import { Button, Image } from "../elements";
@@ -163,7 +163,14 @@ function ChallengeCreate(props) {
         <Title>
           <h2>챌린지 개설</h2>
         </Title>
-        <GuideLine />
+        <Image
+          width="32.81vw"
+          height="28vw"
+          margin="0 2vh 0 0 "
+          borderRadius="16px"
+          src={example}
+          alt="example"
+        />
       </LeftContainer>
       <RightContainer>
         <AllInputContainer isBadge={badge}>
@@ -300,6 +307,9 @@ const LeftContainer = styled.div`
   flex-direction: column;
   ${(props) =>
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
+  img {
+    /* border: 2px solid ${({ theme }) => theme.colors.mainGreen}; */
+  }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     padding: 0 4.44vw 0 4.44vw;
@@ -321,7 +331,10 @@ const Title = styled.div`
 `;
 
 const GuideLine = styled.div`
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-image: url("https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/example.PNG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
   width: 32.81vw;
   height: 53.79vh;
