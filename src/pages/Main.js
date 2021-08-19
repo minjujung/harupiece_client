@@ -9,11 +9,12 @@ import Info from "../components/mainpage/Info";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../elements";
 
 const Main = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.userInfo);
 
   useEffect(() => {
     if (getCookie("token")) {
@@ -151,7 +152,16 @@ const MButton = styled.button`
     padding-bottom: 5px;
     z-index: 100;
   }
+  ${({ theme }) => theme.device.desktopXl} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    display: none;
+  }
   ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.tablet} {
     display: none;
   }
 `;

@@ -1,7 +1,9 @@
 const device = {
   mobileLg: `@media screen and (min-width: 360px) and (max-width:720px)`,
-  tablet: `@media screen and (min-width: 720px)`,
-  desktop: `@media screen and (min-width: 1000px)`,
+  tablet: `@media screen and (min-width: 720px) and (max-width:930px)`,
+  desktop: `@media screen and (min-width: 930px) and (max-width:1250px)`,
+  desktopLg: `@media screen and (min-width: 1250px) and (max-width:1600px)`,
+  desktopXl: `@media screen and (min-width: 1600px)`,
 };
 
 //font-size: ${({ theme }) => theme.fontSizes.lg};

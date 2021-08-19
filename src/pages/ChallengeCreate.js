@@ -229,6 +229,7 @@ function ChallengeCreate(props) {
                   open={open}
                   setOpen={setOpen}
                   pwdNumCheck={pwdNumCheck}
+                  setPwdNumCheck={setPwdNumCheck}
                 />
               </SelectContainer>
             </MobileCont>

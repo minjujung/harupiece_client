@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { Tag, Card } from "../elements";
+import { Tag, Card, Image, TagContainer } from "../elements";
 import { history } from "../redux/configureStore";
 import { MainCreators as searchAll } from "../redux/modules/main";
 
@@ -301,9 +301,8 @@ function SearchChallenge(props) {
               <>
                 <Card
                   width="100%"
-                  height
+                  height="auto"
                   padding="0 0 3vh 0"
-                  src={l.challengeImgUrl}
                   title={l.challengeTitle}
                   key={idx}
                   date={`${findDate(l.challengeId).startDate} - ${
@@ -313,22 +312,33 @@ function SearchChallenge(props) {
                     history.push(`/challenge/${l.challengeId}/intro`)
                   }
                 >
-                  <Tag
-                    fontWeight="500"
-                    bg="lightGray"
-                    color="black"
-                    padding="8px 20px"
-                  >
-                    {l.tagList[0]}
-                  </Tag>
-                  <Tag
-                    fontWeight="500"
-                    bg="lightGray"
-                    color="black"
-                    padding="8px 20px"
-                  >
-                    {l.challengeMember.length}/10명
-                  </Tag>
+                  <CardImg>
+                    <Image
+                      width="16.04vw"
+                      height="8.33vw"
+                      padding="51.83% 0 0 0"
+                      src={l.challengeImgUrl}
+                      alt="challenge"
+                    />
+                  </CardImg>
+                  <TagContainer>
+                    <Tag
+                      fontWeight="500"
+                      bg="lightGray"
+                      color="black"
+                      padding="8px 20px"
+                    >
+                      {l.tagList[0]}
+                    </Tag>
+                    <Tag
+                      fontWeight="500"
+                      bg="lightGray"
+                      color="black"
+                      padding="8px 20px"
+                    >
+                      {l.challengeMember.length}/10명
+                    </Tag>
+                  </TagContainer>
                 </Card>
               </>
             );
@@ -464,6 +474,15 @@ const BoxContainer = styled.div`
     gap: 5.56vw;
     ::-webkit-scrollbar {
       display: none;
+    }
+  }
+`;
+
+const CardImg = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 91.11vw;
+      height: 47.22vw;
     }
   }
 `;

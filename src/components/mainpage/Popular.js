@@ -61,7 +61,11 @@ const Popular = (props) => {
                           <img src={l.challengeImgUrl} alt="" />
                         </div>
                         <CardTitle>
-                          <div>{l.challengeTitle}</div>
+                          <div>
+                            {l.challengeTitle.length > 10
+                              ? `${l.challengeTitle.substring(0, 10)}...`
+                              : l.challengeTitle}
+                          </div>
                           <div>
                             {l.challengeMember.length}명이 대화에 참여중
                           </div>
@@ -87,7 +91,11 @@ const Popular = (props) => {
                           <img src={l.challengeImgUrl} alt="" />
                         </div>
                         <CardTitle>
-                          <div>{l.challengeTitle}</div>
+                          <div>
+                            {l.challengeTitle.length > 10
+                              ? `${l.challengeTitle.substring(0, 10)}...`
+                              : l.challengeTitle}
+                          </div>
                           <div>
                             {l.challengeMember.length}명이 대화에 참여중
                           </div>
@@ -128,7 +136,11 @@ const Popular = (props) => {
                             <img src={l.challengeImgUrl} alt="" />
                           </div>
                           <CardTitle>
-                            <div>{l.challengeTitle}</div>
+                            <div>
+                              {l.challengeTitle.length > 10
+                                ? `${l.challengeTitle.substring(0, 10)}...`
+                                : l.challengeTitle}
+                            </div>
                             <div>
                               {l.challengeMember.length}명이 대화에 참여중
                             </div>
@@ -161,7 +173,11 @@ const Popular = (props) => {
                             <img src={l.challengeImgUrl} alt="" />
                           </div>
                           <CardTitle>
-                            <div>{l.challengeTitle}</div>
+                            <div>
+                              {l.challengeTitle.length > 10
+                                ? `${l.challengeTitle.substring(0, 10)}...`
+                                : l.challengeTitle}
+                            </div>
                             <div>
                               {l.challengeMember.length}명이 대화에 참여중
                             </div>
@@ -198,7 +214,16 @@ const MobileBox = styled.div`
       }
     }
   }
+  ${({ theme }) => theme.device.desktopXl} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    display: none;
+  }
   ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.tablet} {
     display: none;
   }
 `;
@@ -245,10 +270,17 @@ const Contain = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: none;
   }
+  ${({ theme }) => theme.device.desktopLg} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 31px 0px 22px;
+  }
 `;
 
 const Title = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 5.3vh;
   font-size: 32px;
   display: flex;
@@ -270,6 +302,15 @@ const Title = styled.div`
     display: flex;
     justify-content: flex-start;
     padding-left: 15px;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 28px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
   }
 `;
 
@@ -306,6 +347,57 @@ const CardBox = styled.div`
       }
     }
   }
+
+  ${({ theme }) => theme.device.desktopLg} {
+    width: 100%;
+    padding-bottom: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    div {
+      img {
+        border-radius: 10px;
+        width: 80px;
+        height: 80px;
+        margin-top: 10px;
+      }
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    width: 100%;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
+    div {
+      img {
+        border-radius: 10px;
+        width: 55px;
+        height: 55px;
+        margin-top: 10px;
+      }
+    }
+  }
+  ${({ theme }) => theme.device.tablet} {
+    width: 100%;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
+    div {
+      img {
+        border-radius: 10px;
+        width: 45px;
+        height: 45px;
+        margin-top: 10px;
+      }
+    }
+  }
 `;
 
 const CardTitle = styled.div`
@@ -314,9 +406,12 @@ const CardTitle = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-left: 10px;
+  font-weight: 500;
   div:nth-child(2) {
     padding-top: 13px;
-    color: ${({ theme }) => theme.colors.gray};
+    opacity: 0.6;
+    font-size: 16px;
+    font-weight: 300;
   }
 
   ${({ theme }) => theme.device.mobileLg} {
@@ -327,9 +422,25 @@ const CardTitle = styled.div`
     align-items: flex-start;
     padding: 1.22vh 0 1.39vh 0vw;
   }
-  div:nth-child(2) {
-    font-size: 13.5px;
-    font-weight: 500;
+  ${({ theme }) => theme.device.desktopLg} {
+    height: auto;
+    div:nth-child(2) {
+      font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    height: auto;
+    font-size: 12px;
+    div:nth-child(2) {
+      font-size: 10px;
+    }
+  }
+  ${({ theme }) => theme.device.tablet} {
+    height: auto;
+    font-size: 12px;
+    div:nth-child(2) {
+      font-size: 10px;
+    }
   }
 `;
 

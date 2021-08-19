@@ -197,7 +197,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 9.44vh;
+  margin-top: 3.02vw;
   ${({ theme }) => theme.device.mobileLg} {
     margin-top: 6.94vw;
     overflow-x: hidden;
