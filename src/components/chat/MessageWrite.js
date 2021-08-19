@@ -71,4 +71,18 @@ const InputField = styled.div`
       color: ${({ theme }) => theme.colors.gray};
     }
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 10%;
+    align-items: center;
+    input {
+      width: 90%;
+      height: 100%;
+      padding-left: 5.56vw;
+    }
+    img {
+      width: 10%;
+      height: 100%;
+      margin-right: 5.56vw;
+    }
+  }
 `;

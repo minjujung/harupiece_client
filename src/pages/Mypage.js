@@ -114,7 +114,7 @@ function Mypage(props) {
                 width="9.69vw"
                 height="17.13vh"
                 borderRadius="50%"
-                margin="0 0 0 4.38vw"
+                // margin="0 0 0 4.38vw"
                 src={preview ? preview : myInfoList.profileImage}
                 alt="editProfile"
               />
@@ -199,7 +199,7 @@ const Container = styled.div`
   align-items: center;
   margin-top: 9.44vh;
   ${({ theme }) => theme.device.mobileLg} {
-    margin-top: 7.18vh;
+    margin-top: 6.94vw;
     overflow-x: hidden;
     ul {
       margin-left: 4.44vw;
@@ -218,22 +218,21 @@ const UserInfoContainer = styled.div`
   align-items: center;
   ${({ theme }) => theme.device.mobileLg} {
     width: 91.11vw;
-    /* height: 48.82%; */
     height: auto;
-    min-height: 625px;
+    max-height: 625px;
     display: flex;
     flex-direction: column;
     padding: 4.61%;
-    font-size: 21px;
     text-align: center;
     img {
       width: 31.94vw;
       height: 17.89%;
-      margin: 0;
+      margin: 0 0 5.14vw 0;
     }
     button {
       width: 55.56vw;
-      font-size: 20px;
+      font-size: 16px;
+      margin: 7.92vw 0;
     }
   }
 `;
@@ -245,25 +244,33 @@ const UserInfo = styled.p`
   strong {
     font-weight: bold;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 21px;
+  }
 `;
 
-const EditProfile = styled.p`
+const EditProfile = styled.div`
   position: relative;
   line-height: normal;
   button {
     position: absolute;
     bottom: 0;
-    left: 11.35vw;
+    left: 0;
   }
   ${({ theme }) => theme.device.mobileLg} {
     button {
-      width: 51px;
-      height: 51px;
-      right: -10vw;
+      width: 9.44vw;
+      height: 9.44vw;
+      right: 0;
+      left: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       label {
         img {
-          width: 25px;
-          height: 24px;
+          width: 4.72vw;
+          height: auto;
+          margin: 0;
         }
       }
     }
@@ -312,9 +319,10 @@ const ChallengeCategory = styled.ul`
   list-style: none;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 13.06vw;
     display: flex;
     justify-content: flex-start;
-    margin-top: 1.25vh;
+    margin-top: 2.22vw;
     white-space: nowrap;
     overflow-x: auto;
     padding-right: 9.44vw;
@@ -324,7 +332,6 @@ const ChallengeCategory = styled.ul`
     li {
       font-size: 16px;
       width: 43.06vw;
-      height: 7.34vh;
       min-width: 155px;
       padding: 0 7.92vw;
     }
@@ -344,6 +351,7 @@ const Item = styled.li`
   justify-content: center;
   ${({ theme }) => theme.device.mobileLg} {
     a {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
       display: flex;
       justify-content: center;
       width: 27.22vw;

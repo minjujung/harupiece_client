@@ -158,90 +158,90 @@ function ChallengeCreate(props) {
   };
 
   return (
-    <>
-      <Container>
-        <LeftContainer>
-          <Title>
-            <h2>챌린지 개설</h2>
-          </Title>
-          <GuideLine />
-        </LeftContainer>
-        <RightContainer>
-          <AllInputContainer isBadge={badge}>
-            <InputLeftContainer>
-              <div>
-                <Label>제목</Label>
-                <br />
-                <Input
-                  onChange={saveTitle}
-                  placeholder="챌린지의 제목을 입력해주세요"
-                />
-              </div>
-              {/* 카테고리 */}
-              <div>
-                <Label htmlFor="category">카테고리</Label>
-                <br />
-                <SelectContainer>
-                  <img src={Down} alt="down" />
-                  <SelectBox id="category" onChange={chooseCategory}>
-                    <option value="CATEGORY">주제</option>
-                    <option value="NODRINKNOSMOKE">금연/금주</option>
-                    <option value="EXERCISE">운동</option>
-                    <option value="LIVINGHABITS">생활습관</option>
-                  </SelectBox>
-                </SelectContainer>
-              </div>
-              {/* 대표 이미지 */}
-              <CreateImgSelect
+    <Container>
+      <LeftContainer>
+        <Title>
+          <h2>챌린지 개설</h2>
+        </Title>
+        <GuideLine />
+      </LeftContainer>
+      <RightContainer>
+        <AllInputContainer isBadge={badge}>
+          <InputLeftContainer>
+            <div>
+              <Label>제목</Label>
+              <br />
+              <Input
+                onChange={saveTitle}
+                placeholder="챌린지의 제목을 입력해주세요"
+              />
+            </div>
+            {/* 카테고리 */}
+            <div>
+              <Label htmlFor="category">카테고리</Label>
+              <br />
+              <SelectContainer>
+                <img src={Down} alt="down" />
+                <SelectBox id="category" onChange={chooseCategory}>
+                  <option value="CATEGORY">주제</option>
+                  <option value="NODRINKNOSMOKE">금연/금주</option>
+                  <option value="EXERCISE">운동</option>
+                  <option value="LIVINGHABITS">생활습관</option>
+                </SelectBox>
+              </SelectContainer>
+            </div>
+            {/* 대표 이미지 */}
+            <CreateImgSelect
+              challengeInfo={challengeInfo}
+              setChallengeInfo={setChallengeInfo}
+              placeholder={placeholder}
+              setPlaceholder={setPlaceholder}
+            />
+            {/* 인증샷 예시 */}
+            <CreateCertification
+              challengeInfo={challengeInfo}
+              setChallengeInfo={setChallengeInfo}
+            />
+          </InputLeftContainer>
+          <InputRightContainer>
+            {/* 캘린더 */}
+            <div>
+              <CreateCalendar
                 challengeInfo={challengeInfo}
                 setChallengeInfo={setChallengeInfo}
-                placeholder={placeholder}
-                setPlaceholder={setPlaceholder}
               />
-              {/* 인증샷 예시 */}
-              <CreateCertification
-                challengeInfo={challengeInfo}
-                setChallengeInfo={setChallengeInfo}
+            </div>
+            {/* 모집형식 */}
+            <MobileCont>
+              <Label htmlFor="isPwd">모집 방식</Label>
+              <br />
+              <SelectContainer>
+                <img src={Down} alt="down" />
+                <SelectBox id="isPwd" onChange={choosePublic}>
+                  <option value="CATEGORY">비밀번호 설정</option>
+                  <option value="PUBLIC">공개</option>
+                  <option value="PRIVATE">비공개</option>
+                </SelectBox>
+                <PwdModal
+                  pwd={pwd}
+                  setPwd={setPwd}
+                  savePwd={savePwd}
+                  open={open}
+                  setOpen={setOpen}
+                  pwdNumCheck={pwdNumCheck}
+                />
+              </SelectContainer>
+            </MobileCont>
+            {/* 챌린지 설명 */}
+            <MobileCont>
+              <Label>챌린지 설명</Label>
+              <br />
+              <Textarea
+                onChange={saveDesc}
+                placeholder="챌린지를 설명해주세요."
               />
-            </InputLeftContainer>
-            <InputRightContainer>
-              {/* 캘린더 */}
-              <div>
-                <CreateCalendar
-                  challengeInfo={challengeInfo}
-                  setChallengeInfo={setChallengeInfo}
-                />
-              </div>
-              {/* 모집형식 */}
-              <div>
-                <Label htmlFor="isPwd">모집 방식</Label>
-                <br />
-                <SelectContainer>
-                  <img src={Down} alt="down" />
-                  <SelectBox id="isPwd" onChange={choosePublic}>
-                    <option value="CATEGORY">비밀번호 설정</option>
-                    <option value="PUBLIC">공개</option>
-                    <option value="PRIVATE">비공개</option>
-                  </SelectBox>
-                  <PwdModal
-                    pwd={pwd}
-                    setPwd={setPwd}
-                    savePwd={savePwd}
-                    open={open}
-                    setOpen={setOpen}
-                    pwdNumCheck={pwdNumCheck}
-                  />
-                </SelectContainer>
-              </div>
-              {/* 챌린지 설명 */}
-              <div>
-                <Label>챌린지 설명</Label>
-                <br />
-                <Textarea
-                  onChange={saveDesc}
-                  placeholder="챌린지를 설명해주세요."
-                />
-              </div>
+            </MobileCont>
+            <MobilBtns>
               <Button
                 width="15.00vw"
                 height="5.92vh"
@@ -250,9 +250,11 @@ function ChallengeCreate(props) {
               >
                 챌린지 개설하기
               </Button>
-            </InputRightContainer>
-          </AllInputContainer>
-          {badge ? (
+            </MobilBtns>
+          </InputRightContainer>
+        </AllInputContainer>
+        {badge ? (
+          <MobilBadge>
             <Button
               width="100%"
               height="64px"
@@ -274,10 +276,10 @@ function ChallengeCreate(props) {
                 />
               </BadgeText>
             </Button>
-          ) : null}
-        </RightContainer>
-      </Container>
-    </>
+          </MobilBadge>
+        ) : null}
+      </RightContainer>
+    </Container>
   );
 }
 
@@ -285,15 +287,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 100vh;
   justify-content: center;
-  /* padding: 0 16.66vw 23.24vh 16.66vw; */
-  ${({ theme }) => theme.device.mobileLg}{
+  margin-top: 3.02vw;
+  ${({ theme }) => theme.device.mobileLg} {
     display: flex;
-    width: 100%;
-    height: 100%;
     flex-direction: column;
-    padding: 0 4.44vw 0 4.44vw; 
   }
 `;
 
@@ -301,9 +299,10 @@ const LeftContainer = styled.div`
   flex-direction: column;
   ${(props) =>
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
-    ${({ theme }) => theme.device.mobileLg}{
-      width: 100%;
-    }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 0 4.44vw 0 4.44vw;
+  }
 `;
 
 const Title = styled.div`
@@ -313,7 +312,9 @@ const Title = styled.div`
     width: 10.04vw;
     height: 4.81vh;
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: auto;
     font-size: 48px;
   }
 `;
@@ -324,16 +325,17 @@ const GuideLine = styled.div`
   width: 32.81vw;
   height: 53.79vh;
   margin-right: 2.92vh;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
   }
 `;
 
 const RightContainer = styled.div`
-  width : 30.94vw;
+  width: 30.94vw;
   height: 66.84vh;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,26 +346,25 @@ const RightContainer = styled.div`
 const InputLeftContainer = styled.div`
   flex-direction: column;
   margin-right: 0.94vw;
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw;
   }
 `;
 
 const InputRightContainer = styled.div`
   flex-direction: column;
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
   }
 `;
 
 const AllInputContainer = styled.div`
   display: flex;
   width: 30.93vw;
-  height: 53.79vh;
+  /* height: 53.79vh; */
   margin-top: 5vh;
   ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
     flex-direction: column;
   }
 `;
@@ -375,8 +376,15 @@ const BadgeText = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: 29px;
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    & > img {
+      width: 30px;
+      height: 30px;
+      z-index: 15;
+      margin-top: 0;
+      margin-right: 8.89vw;
+    }
   }
 `;
 
@@ -394,13 +402,13 @@ const Input = styled.input`
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
-    height: 88px;
-    font-size: 32px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 6.875vh;
+    font-size: 24px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
-    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
   }
 `;
 
@@ -431,8 +439,14 @@ const Textarea = styled.textarea`
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 20vh;
+    margin-top: 16px;
+    padding: 1.48vh 4.44vw;
+    ::placeholder {
+      font-size: 32px;
+    }
   }
 `;
 
@@ -440,7 +454,7 @@ const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.lg};
   }
 `;
@@ -458,6 +472,14 @@ const SelectBox = styled.select`
   -webkit-appearance: none; /* 네이티브 외형 감추기 */
   -moz-appearance: none;
   appearance: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -471,8 +493,66 @@ const SelectContainer = styled.div`
     top: 22px;
     pointer-events: none;
   }
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    & > img {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 16px;
+      top: 37px;
+      pointer-events: none;
+    }
   }
 `;
+
+const MobilBtns = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 11.875vh;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 4px 11px 0px ${({ theme }) => theme.colors.mainGreen};
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+    }
+  }
+`;
+
+const MobilBadge = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 14.375vh;
+
+    display: flex;
+    align-items: center;
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+    }
+  }
+`;
+
+const MobileCont = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw 0 4.44vw;
+  }
+`;
+
 export default ChallengeCreate;

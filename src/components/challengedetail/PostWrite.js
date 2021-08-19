@@ -93,7 +93,7 @@ const PostWrite = ({ challengeId }) => {
                 style: {
                   width: "91.11vw",
                   height: "81.37%",
-                  padding: "32px 32px",
+                  padding: "16px",
                   borderRadius: "16px",
                 },
               }
@@ -112,20 +112,13 @@ const PostWrite = ({ challengeId }) => {
         </Container>
         <InputContainer>
           {preview ? (
-            <Image
-              src={preview}
-              alt="preview"
-              width="25.1vw"
-              height="45.09vh"
-              borderRadius="16px"
-            />
+            <PreviewImage src={preview} alt="preview" />
           ) : (
             <Preview>
               <PreviewBtn htmlFor="shot">
                 <Image
                   width="4.17vw"
                   height="7.03vh"
-                  margin="0 0 20px 0"
                   fill
                   src={camera}
                   alt="camera"
@@ -168,7 +161,7 @@ const PostWrite = ({ challengeId }) => {
           <Button
             width="25.10vw"
             padding="16px 0"
-            margin="0 0 0 32px"
+            // margin="0 0 0 4.44vw"
             _onClick={createPost}
           >
             인증글 올리기
@@ -183,14 +176,26 @@ export default PostWrite;
 
 const Container = styled.div`
   width: 100%;
+  height: 7%;
   display: flex;
   justify-content: space-between;
+
+  ${({ theme }) => theme.device.mobileLg} {
+    img {
+      width: 8.89vw;
+      height: auto;
+      max-height: 18px;
+    }
+  }
 `;
 
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-bottom: 32px;
   font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 18px;
+  }
 `;
 
 const Preview = styled.div`
@@ -213,6 +218,7 @@ const PreviewBtn = styled.label`
   width: ${(props) => (props.again ? "25.1vw" : "100%")};
   height: ${(props) => (props.again ? "5.92vh" : "100%")};
   display: flex;
+  margin-right: 32px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -226,19 +232,23 @@ const PreviewBtn = styled.label`
       ? `border: 2px solid ${props.theme.colors.lightGray} `
       : props.theme.colors.gray};
   ${(props) => (props.again ? `border-radius: 8px` : null)};
+  p {
+    margin-top: 18px;
+    line-height: normal;
+  }
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 16px;
     img {
       width: 17.78%;
       height: 21.62%;
     }
     p {
-      font-size: 22px;
-      line-height: normal;
+      margin-top: 2.7%;
     }
+    margin-right: 16px;
     width: 100%;
     height: 100%;
     flex: 1;
-    font-size: 17px;
   }
 `;
 
@@ -247,10 +257,15 @@ const InputContainer = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     flex-direction: column;
     height: 100%;
-    img {
-      width: 100%;
-      min-height: 71.81%;
-    }
+  }
+`;
+
+const PreviewImage = styled.img`
+  width: 25.1vw;
+  height: 45.09vh;
+  border-radius: 16px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
   }
 `;
 
@@ -279,9 +294,15 @@ const TextInput = styled.textarea`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 22.14%;
+    font-size: 16px;
+    height: 25.14%;
     margin-left: 0;
-    margin-top: 32px;
+    margin-top: 16px;
+    /* min-height: 18.15%; */
+    ::placeholder {
+      font-weight: bold;
+      font-size: 16px;
+    }
   }
 `;
 
@@ -290,7 +311,7 @@ const BtnContainer = styled.div`
   margin-top: 32px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top: 32px;
+    margin-top: 16px;
     button {
       flex: 1;
     }

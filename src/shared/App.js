@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
@@ -34,23 +35,34 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <ConnectedRouter history={history}>
-        <Header />
-        <Route exact path="/" component={Main} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route path="/mypage" component={Mypage} />
-        <Route exact path="/challenge" component={ChallengeCreate} />
-        <Route
-          exact
-          path="/search/1/:searchWords"
-          component={SearchChallenge}
-        />
-        <Route path="/challenge/:id" component={ChallengeDetail} />
-        <Route exact path="/:id/edit" component={ChallengeEdit} />
-        <Footer />
+        <Container>
+          <Header />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route path="/mypage" component={Mypage} />
+          <Route exact path="/challenge" component={ChallengeCreate} />
+          <Route
+            exact
+            path="/search/1/:searchWords"
+            component={SearchChallenge}
+          />
+          <Route path="/challenge/:id" component={ChallengeDetail} />
+          <Route exact path="/:id/edit" component={ChallengeEdit} />
+          <Footer />
+        </Container>
       </ConnectedRouter>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 320px;
+  ${({ theme }) => theme.device.mobileLg} {
+    padding-bottom: 260px;
+  }
+`;

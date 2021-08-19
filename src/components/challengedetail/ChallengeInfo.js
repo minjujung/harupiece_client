@@ -72,7 +72,7 @@ const ChallengeInfo = (props) => {
               <Image
                 width="8.33vw"
                 height="14.81vh"
-                borderRadius="16px"
+                borderRadius="12px"
                 border
                 src={challenge.challengeGood}
                 alt="vegan_diet"
@@ -86,7 +86,7 @@ const ChallengeInfo = (props) => {
               <Image
                 width="8.33vw"
                 height="14.81vh"
-                borderRadius="16px"
+                borderRadius="12px"
                 border
                 src={challenge.challengeBad}
                 alt="nonvegan_diet"
