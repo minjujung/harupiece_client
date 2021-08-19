@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 
-import example from "../assets/images/info/example.PNG";
+import guideline from "../assets/images/info/guideline.png";
 import Down from "../assets/images/icons/arrow/down.svg";
 import greenclose from "../assets/images/icons/greenclose.svg";
 import { Button, Image } from "../elements";
@@ -165,11 +165,11 @@ function ChallengeCreate(props) {
         </Title>
         <Image
           width="32.81vw"
-          height="28vw"
-          margin="0 2vh 0 0 "
+          height="65vh"
+          margin="0  2.92vh 0 0 "
           borderRadius="16px"
-          src={example}
-          alt="example"
+          src={guideline}
+          alt="guideline"
         />
       </LeftContainer>
       <RightContainer>
@@ -312,19 +312,18 @@ const LeftContainer = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top: 35.0vw;
+    margin-top: 35vw;
     margin-bottom: 0;
     padding: 0 4.44vw 0 4.44vw;
   }
 `;
 
 const Title = styled.div`
-  width: 10.04vw;
+  width: 100%;
   height: 4.81vh;
   & > h2 {
     font-size: 36px;
     font-weight: 700;
-    
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -343,7 +342,7 @@ const GuideLine = styled.div`
   height: 53.79vh;
   margin-right: 2.92vh;
   ${({ theme }) => theme.device.mobileLg} {
-    display : none;
+    display: none;
   }
 `;
 
@@ -567,7 +566,6 @@ const MobilBadge = styled.div`
       width: 100%;
       z-index: 15;
       margin-top: 0;
-      
     }
   }
 `;
