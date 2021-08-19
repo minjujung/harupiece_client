@@ -17,7 +17,7 @@ function Info() {
   return (
     <>
       <InfoContainer>
-        {is_login ? (
+        {is_login && user?.memberId !== null ? (
           <>
             <InfoBox>
               <div>
