@@ -66,14 +66,14 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
               </PreviewBtn>
             ) : (
               <Preview>
-                <PreviewBtn htmlFor="ex_file">
+                <CameraBtn htmlFor="ex_file">
                   <Image
                     width="1.04vw"
                     height="1.85vh"
                     src={camera}
                     alt="camera"
                   />
-                </PreviewBtn>
+                </CameraBtn>
               </Preview>
             )}
             <input
@@ -99,14 +99,14 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
               </PreviewBtn>
             ) : (
               <Preview>
-                <PreviewBtn htmlFor="ex_files">
+                <CameraBtn htmlFor="ex_files">
                   <Image
                     width="1.04vw"
                     height="1.85vh"
                     src={camera}
                     alt="camera"
                   />
-                </PreviewBtn>
+                </CameraBtn>
               </Preview>
             )}
             <input
@@ -140,6 +140,10 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    margin-bottom: 16px;
+  }
 `;
 
 const BottomT = styled.p`
@@ -147,6 +151,11 @@ const BottomT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-top: 8px;
+  ${({ theme }) => theme.device.mobileLg}{
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+  }
 `;
 
 const Good = styled.div`
@@ -163,7 +172,7 @@ const Preview = styled.div`
   border-radius: 16px;
   ${({ theme }) => theme.device.mobileLg}{
     width: 43.33vw;
-    height: 28.88vh;
+    height: 43.33vw;
   }
 `;
 
@@ -176,8 +185,31 @@ const PreviewBtn = styled.label`
   border-radius: 16px;
   ${({ theme }) => theme.device.mobileLg}{
     width: 43.33vw;
-    height: 28.88vh;
+    height: 43.33vw;
+    & > img {
+      width: 43.33vw;
+      height: 43.33vw;
+    }
   }
+  
+`;
+
+const CameraBtn = styled.label`
+  width: 7.08vw;
+  height: 12.59vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 43.33vw;
+    height: 43.33vw;
+    & > img {
+      width:4.17vw;
+      height:4.17vw;
+    }
+  }
+  
 `;
 
 const Bad = styled.div``;
