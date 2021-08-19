@@ -40,7 +40,7 @@ const PwdModal = ({ pwd, setPwd, savePwd, open, setOpen, pwdNumCheck }) => {
               style: {
                 width: "91.11vw",
                 height: "45.83vw",
-                padding: "2.22vw",
+                padding: "4.44vw",
                 borderRadius: "16px",
               },
             }
@@ -94,6 +94,14 @@ const PwdIntro = styled.div`
     color: ${({ theme }) => theme.colors.mainOrange};
     font-size: 12px;
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    p {
+      font-size: 10px;
+    }
+    strong {
+      font-size: 10px;
+    }
+  }
 `;
 
 const DialogInfo = styled.div`
@@ -105,12 +113,29 @@ const DialogInfo = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.md};
     height: 3.8vh;
   }
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 100%;
+    label {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+    }
+    & img {
+      width: 18px;
+      height: 18px;
+    }
+  }
 `;
 
 const PwdInput = styled.div`
   width: 100%;
   display: flex;
   margin-top: 2.31vh;
+  ${({ theme }) => theme.device.mobileLg}{
+    & > Button{
+      width: 100%;
+      margin-top: 4.5vw;
+      font-size: 14px;
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -126,5 +151,14 @@ const Input = styled.input`
   }
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 44.44vw; 
+    margin-top: 4.5vw;
+    padding: 4.44vw;
+    margin-right: 4.44vw;
+  }
+  ::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
