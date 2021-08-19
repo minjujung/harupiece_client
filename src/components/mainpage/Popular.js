@@ -248,7 +248,7 @@ const Contain = styled.div`
 `;
 
 const Title = styled.div`
-  width: 9vw;
+  width: 100vw;
   height: 5.3vh;
   font-size: 32px;
   display: flex;
