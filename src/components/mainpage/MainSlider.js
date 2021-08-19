@@ -240,7 +240,7 @@ const SliderBox = styled.div`
     background-repeat: no-repeat;
   }
   ${({ theme }) => theme.device.desktopLg} {
-    width: 50vw;
+    width: 49vw;
     padding-left: 80px;
     background-size: cover;
     background-position: center;
