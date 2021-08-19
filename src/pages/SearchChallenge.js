@@ -333,15 +333,15 @@ function SearchChallenge(props) {
 }
 
 const Container = styled.div`
-  width: 100%;
+  /* width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 21.5vh;
-  padding-bottom: 42.5vh;
-  ${({ theme }) => theme.device.mobileLg} {
+  padding-bottom: 42.5vh;*/
+  /* ${({ theme }) => theme.device.mobileLg} {
     width: 100vw;
     height: 100vh;
     padding: 0px;
@@ -349,21 +349,38 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  } */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3.02vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 0;
   }
 `;
 
 const CategoryContainer = styled.div`
   width: 66.67vw;
-  height: 100vh;
+  height: 10.83vw;
+  /* height: 100vh; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
-  ${({ theme }) => theme.device.mobileLg} {
+  /* ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 155px;
     font-size: 16px;
+  } */
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 43.06vw;
+    font-size: 16px;
+    border-radius: 0;
   }
 `;
 
@@ -411,16 +428,14 @@ const TagBox = styled.div`
 `;
 
 const BoxContainer = styled.div`
-  width: 1280px;
-  height: 70vh;
+  width: 66.67vw;
   display: grid;
-  justify-content: center;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 308px);
-  grid-row-gap: 16px;
-  grid-column-gap: 16px;
+  /* justify-content: center; */
+  grid-template-rows: repeat(1, auto);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
   padding-top: 8.33vh;
-  ${({ theme }) => theme.device.mobileLg} {
+  /* ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding-top: 10vh;
     grid-template-columns: repeat(1, 91vw);
@@ -430,6 +445,17 @@ const BoxContainer = styled.div`
     grid-row-gap: 40px;
     overflow: scroll;
     margin-bottom: 5vh;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  } */
+  ${({ theme }) => theme.device.mobileLg} {
+    display: grid;
+    padding: 15vw 4.44vw 0 4.44vw;
+    grid-template-columns: repeat(1, 91.11vw);
+    grid-template-rows: repeat(1, 1fr);
+    width: 100%;
+    gap: 5.56vw;
     ::-webkit-scrollbar {
       display: none;
     }

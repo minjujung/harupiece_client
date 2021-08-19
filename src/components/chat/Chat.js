@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { Button, Image } from "../../elements";
@@ -27,12 +27,12 @@ const Chat = ({ challengeId }) => {
   const ws = Stomp.over(sock);
 
   const [open, setOpen] = useState(false);
+  const scrollRef = useRef();
 
   const token = getCookie("token");
 
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
-    console.log(challengeId);
     const data = {
       type: "ENTER",
       roomId: challengeId,
@@ -80,7 +80,6 @@ const Chat = ({ challengeId }) => {
 
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
-    console.log("hello");
     wsConnectSubscribe();
     dispatch(chatActions.getMessagesDB(challengeId));
     return () => {
@@ -181,6 +180,7 @@ const Chat = ({ challengeId }) => {
             />
           </Header>
           <MessageList />
+          <div ref={scrollRef}></div>
           <MessageWrite sendMessage={sendMessage} />
         </ChatBox>
       ) : null}
@@ -194,6 +194,8 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
     button {
       position: fixed;
       right: 32px;
@@ -207,13 +209,20 @@ const ChatBox = styled.div`
   width: 16.15vw;
   height: 59.26vh;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   z-index: 100;
-  top: -28.04vh;
+  right: 16.67%;
+  bottom: 15%;
   border-radius: 12px;
   border: 3px solid ${({ theme }) => theme.colors.mainGreen};
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 6px 5px 14px -8px rgba(0, 0, 0, 0.4);
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 `;
 
 const Header = styled.div`
@@ -230,5 +239,14 @@ const Header = styled.div`
     justify-content: center;
     font-size: ${({ theme }) => theme.fontSizes.md};
     background-color: ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 5vh;
+    h1 {
+      width: 100%;
+      height: 5vh;
+      /* height: 8.89vw; */
+    }
   }
 `;

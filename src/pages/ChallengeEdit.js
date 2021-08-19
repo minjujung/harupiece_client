@@ -249,7 +249,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  margin-top: 3.02vw;
   justify-content: center;
   /* padding: 0 16.66vw 23.24vh 16.66vw; */
 `;
@@ -300,7 +300,7 @@ const RightContainer = styled.div``;
 const AllInputContainer = styled.div`
   display: flex;
   width: 30.93vw;
-  height: 53.79vh;
+  /* height: 53.79vh; */
   margin-top: 5vh;
   ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
 `;

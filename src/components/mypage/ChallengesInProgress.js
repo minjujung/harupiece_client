@@ -66,16 +66,16 @@ function ChallengesInProgress(props) {
             }
             return (
               <Card
-                // mypage
+                mypage
                 key={list.challengeId}
                 inProcess={list.participateSize}
                 onClick={() =>
                   history.push(`/challenge/${list.challengeId}/intro`)
                 }
                 width="100%"
-                // height="34.64vh"
                 height="auto"
-                maxHeight="340px"
+                maxHeight="160px"
+                mobileMaxHeight="340px"
                 title={list.challengeTitle}
                 date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]}-${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
                 src={list.challengeImgUrl}
@@ -104,7 +104,6 @@ function ChallengesInProgress(props) {
             height="5.93vh"
             color="white"
             bg="mainGreen"
-            margin="0 3.23vw 0 2.08vw"
             _onClick={() => history.push(`/search/1/NODRINKNOSMOKE`)}
           >
             챌린지 둘러보기!
@@ -161,7 +160,7 @@ const NoListMent = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     height: 25vh;
-    font-size: 20px;
+    font-size: 16px;
     button {
       width: 55.56vw;
     }

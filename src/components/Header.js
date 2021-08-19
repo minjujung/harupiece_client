@@ -84,8 +84,8 @@ const Header = (props) => {
       </Sidebar>
       <MobileHeader>
         <Image
-          width="22px"
-          height="23px"
+          width="6.25vw"
+          height="6.25vw"
           src={menu}
           alt="menu"
           borderRadius="0"
@@ -100,8 +100,8 @@ const Header = (props) => {
           onClick={() => history.push("/")}
         />
         <Image
-          width="22px"
-          height="23px"
+          width="6.25vw"
+          height="6.25vw"
           cursor
           src={Search}
           onClick={handleClickOpen}
@@ -140,7 +140,7 @@ const Header = (props) => {
                     <Image width="22px" height="23px" src={Search} />
                     <label htmlFor="search-form">
                       <input
-                        type="search"
+                        type="text"
                         id="search-form"
                         placeholder="검색어를 입력해주세요."
                         value={q}
@@ -155,6 +155,7 @@ const Header = (props) => {
                       height="18px"
                       borderRadius="0"
                       src={close}
+                      onClick={() => setQ("")}
                     />
                   </SearchRightBox>
                 </SearchBox>
@@ -286,8 +287,19 @@ const SearchLeftBox = styled.div`
       width: 42vw;
     }
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    flex: 10;
+    input {
+      font-size: 14px;
+      padding-left: 10px;
+    }
+  }
 `;
-const SearchRightBox = styled.div``;
+const SearchRightBox = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    flex: 1;
+  }
+`;
 
 const HeaderBox = styled.div`
   height: 10.55vh;

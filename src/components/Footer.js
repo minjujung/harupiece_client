@@ -23,11 +23,17 @@ const Footer = (props) => {
 export default Footer;
 
 const FooterBox = styled.div`
-  height: 22.22vh;
+  height: 240px;
+  /* height: 22.22vh; */
   width: 100%;
   border-top: 1px solid #efefef;
   /* z-index: 10; */
-  margin-top: 11.76vh;
+  /* margin-top: 11.76vh; */
+  position: absolute;
+  bottom: 0;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 50vw;
+  }
 `;
 
 const LeftBox = styled.div`

@@ -74,84 +74,80 @@ const ChallengeDetail = (props) => {
   } = props;
 
   return (
-    <Area>
-      <StateContainer>
-        {/* banner 랑 navbar */}
-        <ChallengeHeader>
-          <Banner bgImg={challenge.challengeImgUrl}>
-            <Title>{challenge.challengeTitle}</Title>
-            <TotalNum>
-              참여 {challenge.challengeMember.length}명 | 진행률{" "}
-              {progressPercent * 100} %
-            </TotalNum>
-          </Banner>
-          <NavBar>
-            <ul>
-              <Item selected={pathname.includes("/intro")}>
-                <Link to={`${url}/intro`}>챌린지 소개</Link>
-              </Item>
-              <Item selected={pathname.includes("/post")}>
-                <Link to={`${url}/post`}>인증목록</Link>
-              </Item>
-            </ul>
-          </NavBar>
-        </ChallengeHeader>
-        <Switch>
-          <Route exact path={`${path}/intro`} component={ChallengeInfo} />
-          <Route exact path={`${path}/post`} component={ShotList} />
-        </Switch>
-      </StateContainer>
-      {/* 오른쪽 사용자 상태박스 & 버튼 */}
-      <RightNav>
-        <StateBox />
-        <Btns>
-          {/* <Button
-            width="16.15vw"
-            padding="21px 64px"
-            margin="0 0 20px 0"
-            _onClick={adminDelete}
-          >
-            관리자 권한 삭제
-          </Button> */}
-
-          {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
-          {user_info?.memberId === challenge.memberId &&
-          today < challenge.challengeStartDate.split("T")[0] ? (
-            <MobilBtns half>
-              <Button
-                width="100%"
-                height="5.93vh"
-                bg="white"
-                color="mainGreen"
-                border="lightGray"
-                margin="0 0 1.48vh 0"
-                _onClick={editChallenge}
-              >
-                챌린지 수정하기
-              </Button>
-              <Button
-                width="100%"
-                height="5.93vh"
-                margin="0 0 1.48vh 0"
-                _onClick={deleteChallenge}
-              >
-                {/* (챌린지 개설한 사용자) */}
-                챌린지 없애기
-              </Button>
-            </MobilBtns>
-          ) : (
-            <MobilBtns>
-              <ConditionBtn
-                {...challenge}
-                today={today}
-                challengeStartDate={challenge.challengeStartDate.split("T")[0]}
-              />
-            </MobilBtns>
-          )}
-          <Chat challengeId={challengeId} />
-        </Btns>
-      </RightNav>
-    </Area>
+    <>
+      {" "}
+      <Chat challengeId={challengeId} />
+      <Area>
+        <StateContainer>
+          {/* banner 랑 navbar */}
+          <ChallengeHeader>
+            <Banner bgImg={challenge.challengeImgUrl}>
+              <Title>{challenge.challengeTitle}</Title>
+              <TotalNum>
+                참여 {challenge.challengeMember.length}명 | 진행률{" "}
+                {progressPercent * 100} %
+              </TotalNum>
+            </Banner>
+            <NavBar>
+              <ul>
+                <Item selected={pathname.includes("/intro")}>
+                  <Link to={`${url}/intro`}>챌린지 소개</Link>
+                </Item>
+                <Item selected={pathname.includes("/post")}>
+                  <Link to={`${url}/post`}>인증목록</Link>
+                </Item>
+              </ul>
+            </NavBar>
+          </ChallengeHeader>
+          <Switch>
+            <Route exact path={`${path}/intro`} component={ChallengeInfo} />
+            <Route exact path={`${path}/post`} component={ShotList} />
+          </Switch>
+        </StateContainer>
+        {/* 오른쪽 사용자 상태박스 & 버튼 */}
+        <RightNav>
+          <StateBox />
+          <Btns>
+            {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
+            {user_info?.memberId === challenge.memberId &&
+            today < challenge.challengeStartDate.split("T")[0] ? (
+              <MobilBtns half>
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  bg="white"
+                  color="mainGreen"
+                  border="lightGray"
+                  margin="0 0 1.48vh 0"
+                  _onClick={editChallenge}
+                >
+                  챌린지 수정하기
+                </Button>
+                <Button
+                  width="100%"
+                  height="5.93vh"
+                  margin="0 0 1.48vh 0"
+                  _onClick={deleteChallenge}
+                >
+                  {/* (챌린지 개설한 사용자) */}
+                  챌린지 없애기
+                </Button>
+              </MobilBtns>
+            ) : (
+              <MobilBtns>
+                <ConditionBtn
+                  {...challenge}
+                  today={today}
+                  challengeStartDate={
+                    challenge.challengeStartDate.split("T")[0]
+                  }
+                />
+              </MobilBtns>
+            )}
+          </Btns>
+        </RightNav>
+      </Area>
+    </>
   );
 };
 
@@ -159,9 +155,9 @@ export default ChallengeDetail;
 
 const Area = styled.div`
   display: grid;
-  margin: 0 auto;
+  margin: 3.02vw auto 0 auto;
   width: 66.67vw;
-  height: 100vh;
+  height: 100%;
   grid-template-rows: 1fr 3fr;
   grid-template-areas:
     "banner nav"
@@ -172,10 +168,6 @@ const Area = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
-    /* min-height: 1340px; */
-    /* overflow-y: scroll;
-    padding-top: 4.44vw; */
   }
 `;
 
@@ -183,11 +175,9 @@ const ChallengeHeader = styled.div`
   display: flex;
   flex-direction: column;
   width: 49.48vw;
-  height: 40.55vh;
+  /* height: 40.55vh; */
   justify-content: center;
-  /* position: fixed;
-  z-index: 9; */
-  padding-top: 5.37vh;
+  /* margin-top: 3.02vw; */
   margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.device.mobileLg} {
@@ -198,14 +188,13 @@ const ChallengeHeader = styled.div`
 
 const StateContainer = styled.div`
   width: 49.48vw;
-  height: 40.55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   grid-area: banner;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
 `;
 
@@ -214,8 +203,8 @@ const Btns = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 43.52vh;
-  margin-top: 2.59vh;
+  top: 498px;
+  /* margin-top: 2.59vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 11vh;
@@ -247,7 +236,6 @@ const MobilBtns = styled.div`
 
 const RightNav = styled.div`
   width: 16.15vw;
-  padding-top: 5.47vh;
   grid-area: nav;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -260,12 +248,15 @@ const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 28.7vh;
+  height: 15.63vw;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 41.67vw;
+  }
 `;
 
 const Title = styled.h1`
