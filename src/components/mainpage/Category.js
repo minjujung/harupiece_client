@@ -166,7 +166,7 @@ const Category = (props) => {
                         <CardImg>
                           <Image
                             width="14.9vw"
-                            height="8.33vw"
+                            height="14.81vh"
                             padding="51.83% 0 0 0"
                             src={l.challengeImgUrl}
                             alt="challenge"

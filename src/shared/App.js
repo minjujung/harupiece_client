@@ -24,7 +24,6 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
-import ogImg from "../assets/images/logo/og_image.png";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,8 +40,14 @@ function App() {
         <Helmet
           meta={[
             { property: "og:title", content: "하루조각" },
-            { property: "og:description", content: "포스트의 설명입니다." },
-            { property: "og:image", content: { ogImg } },
+            {
+              property: "og:description",
+              content: "당신의 건강 챌린지를 도와주는 서비스 하루조각.",
+            },
+            {
+              property: "og:image",
+              content: "../assets/images/logo/og_image.png",
+            },
           ]}
         >
           <link rel="icon" href={favicon} />

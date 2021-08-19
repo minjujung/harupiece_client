@@ -322,8 +322,8 @@ const CardBox = styled.div`
   div {
     img {
       border-radius: 10px;
-      width: 100px;
-      height: 100px;
+      width: 9.8vh;
+      height: 9.8vh;
       margin-top: 10px;
     }
   }
@@ -350,14 +350,14 @@ const CardBox = styled.div`
 
   ${({ theme }) => theme.device.desktopLg} {
     width: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     font-size: 13px;
     font-weight: bold;
     div {
       img {
         border-radius: 10px;
-        width: 80px;
-        height: 80px;
+        width: 7.84vh;
+        height: 7.84vh;
         margin-top: 10px;
       }
     }
@@ -365,17 +365,13 @@ const CardBox = styled.div`
   ${({ theme }) => theme.device.desktop} {
     width: 100%;
     padding-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     font-size: 13px;
     font-weight: bold;
     div {
       img {
         border-radius: 10px;
-        width: 55px;
-        height: 55px;
+        width: 5.39vh;
+        height: 5.39vh;
         margin-top: 10px;
       }
     }
