@@ -155,7 +155,7 @@ const Header = () => {
                       height="18px"
                       borderRadius="0"
                       src={close}
-                      onClick={() => setQ("")}
+                      onClick={(() => setQ(""), handleClose)}
                     />
                   </SearchRightBox>
                 </SearchBox>
