@@ -24,6 +24,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
+import ogImage from "../assets/images/logo/og_image.png";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,19 +38,17 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <ConnectedRouter history={history}>
-        <Helmet
-          meta={[
-            { property: "og:title", content: "하루조각" },
-            {
-              property: "og:description",
-              content: "당신의 건강 챌린지를 도와주는 서비스 하루조각.",
-            },
-            {
-              property: "og:image",
-              content: "../assets/images/logo/og_image.png",
-            },
-          ]}
-        >
+        <Helmet>
+          <meta
+            name="description"
+            content="당신의 건강 챌린지를 도와주는 서비스 하루조각."
+          />
+          <meta property="og:title" content="하루조각" />
+          <meta
+            property="og:description"
+            content="당신의 건강 챌린지를 도와주는 서비스 하루조각."
+          />
+          <meta property="og:image" content={ogImage} />
           <link rel="icon" href={favicon} />
         </Helmet>
         <Container>
