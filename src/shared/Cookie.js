@@ -13,7 +13,6 @@ const getCookie = (name) => {
 };
 
 const deleteCookie = (name) => {
-  console.log("why?");
   let date = new Date("2020-01-01").toUTCString();
   document.cookie = name + "=; expires=" + date + "; path=/";
 };

@@ -21,6 +21,8 @@ const WelcomeModal = (props) => {
     dispatch(userCreators.complete(false));
   };
 
+  let intViewportWidth = window.innerWidth;
+
   return (
     <>
       <Dialog
@@ -29,7 +31,9 @@ const WelcomeModal = (props) => {
         maxWidth={false}
         disableScrollLock={true}
         aria-labelledby="form-dialog-title"
-        PaperProps={{
+        PaperProps={
+          intViewportWidth > 720
+          ? {
           style: {
             width: "28.13vw",
             height: "50vh",
@@ -37,7 +41,16 @@ const WelcomeModal = (props) => {
             overflowY: "hidden",
             padding: "0px",
           },
-        }}
+        }
+        : {
+          style: {
+            width: "91.11vw",
+            height: "100vw",
+            padding: "4.44vw",
+            borderRadius: "16px",
+          },
+        }
+      }
       >
         <Container>
         <CloseImg src={close} alt="close" onClick={goToLogin}/>
@@ -55,7 +68,9 @@ const WelcomeModal = (props) => {
             </p>
           </Text>
         </Container>
-        <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
+        <ImageCont>
+          <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
+        </ImageCont>
       </Dialog>
     </>
   );
@@ -81,6 +96,11 @@ const CloseImg = styled.img`
   left: 25.84vw;
   z-index: 11px;
   cursor: pointer;
+  ${({ theme }) => theme.device.mobileLg}{
+    width: 20px;
+    height: 20px;
+    left: 70.84vw;
+  }
 `;
 
 const Text = styled.div`
@@ -89,5 +109,18 @@ const Text = styled.div`
   z-index: 10;
   & > p {
     font-size: ${({ theme }) => theme.fontSizes.md};
+  }
+  ${({ theme }) => theme.device.mobileLg}{
+    padding: 3.55vh 0px;
+    & > p {
+    font-size: ${({ theme }) => theme.fontSizes.ms};
+    }
+  }
+`;
+
+const ImageCont = styled.div`
+  & > img{
+    width : 74vw;
+    height: 45vw;
   }
 `;

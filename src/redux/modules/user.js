@@ -38,7 +38,6 @@ const registerDB = ({
   return function (dispatch, getState, { history }) {
     UserApis.signup(email, nickname, password, passwordConfirm, profileImg)
       .then((res) => {
-        console.log(res);
         dispatch(complete(true));
       })
       .catch((error) => {
