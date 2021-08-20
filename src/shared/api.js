@@ -26,6 +26,19 @@ const getRefreshToken = () => {
   return refreshToken;
 };
 
+let refreshSubscribers = [];
+
+const onTokenRefreshed = (accessToken) => {
+  refreshSubscribers.map((callback, idx) => {
+    console.log(idx + "번째 재요청 완료");
+    return callback(accessToken);
+  });
+};
+
+const addRefreshSubscriber = (callback) => {
+  refreshSubscribers.push(callback);
+};
+
 instance.interceptors.request.use(
   (config) => {
     const token = getAccessToken();
@@ -52,17 +65,27 @@ instance.interceptors.response.use(
         try {
           const rs = await refreshTokens();
           const { accessToken, refreshToken } = rs.data;
+
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);
+
           instance.defaults.headers.common[
             "Authorization"
           ] = ` Bearer ${accessToken}`;
-          return instance(originalConfig);
+          originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+
+          onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
+          refreshSubscribers = []; // 요청 배열 초기화
+          console.log("첫 요청도 다시 요청!");
+          return axios(originalConfig); // 첫 요청 다시 요청
         } catch (_error) {
-          if (_error.response && _error.response.data) {
-            return Promise.reject(_error.response.data);
-          }
-          return Promise.reject(_error);
+          const retryOriginalRequest = new Promise((resolve) => {
+            addRefreshSubscriber((accessToken) => {
+              originalConfig.headers.Authorization = "Bearer " + accessToken;
+              resolve(axios(originalConfig));
+            });
+          });
+          return retryOriginalRequest;
         }
       }
       if (err.response.status === 403 && err.response.data) {
