@@ -7,7 +7,6 @@ import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 
 import Checkbox from '@material-ui/core/Checkbox';
-import Check from "../../assets/images/icons/check.svg";
 import Calendar from "../../assets/images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
@@ -17,7 +16,6 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
 
   const findCheck = (e) => {
     if (e.target.checked) {
-      console.log("checked");
       setChallengeInfo({
         ...challengeInfo,
         challengeHoliday: "0,6",

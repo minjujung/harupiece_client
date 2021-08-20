@@ -59,10 +59,10 @@ const getPostDB =
   (challengeId) =>
   (dispatch, getState, { history }) => {
     const _paging = getState().post.paging;
-    console.log(_paging);
+
 
     if (_paging.page === false && _paging.next === false) {
-      console.log("check shotlistpage");
+
       return;
     }
 
@@ -79,7 +79,7 @@ const getPostDB =
           size: _paging.size,
         };
 
-        console.log(res.data.postList);
+
         dispatch(setPost(res.data.postList, new_paging));
       })
       .catch((error) => {
@@ -197,7 +197,6 @@ const addPostDB =
 const editPostDB =
   (post_id, content, challengeId) =>
   (dispatch, getState, { history }) => {
-    console.log(new Date());
     const post_list = getState().post.list;
     const post_idx = post_list.findIndex((p) => p.postingId === post_id);
     const _post = post_list[post_idx];
@@ -318,7 +317,6 @@ const clickCheckDB =
       postingId: post_id,
       totalNumber,
     };
-    console.log(check_info);
     PostApis.clickCheck(check_info).then((res) => {
       consoleLogger("응답확인 버튼 클릭 server로 요청 보낸 후 응답: ", res);
 

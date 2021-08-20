@@ -77,7 +77,6 @@ function ChallengeCreate(props) {
     setOpen(false);
   };
 
-  console.log(pwd, challengeInfo.challengePassword);
 
   // 챌린지 설명
   const saveDesc = (e) => {
@@ -433,7 +432,8 @@ const Label = styled.label`
 
 const SelectBox = styled.select`
   width: 100%; /* 원하는 너비설정 */
-  padding: 0.75vh 0.83vw; /* 여백으로 높이 설정 */
+  height: 40px;
+  padding-left: 0.83vw;
   margin: 0.74vh 0 2.96vh 0;
   font-family: inherit; /* 폰트 상속 */
   font-size: ${({ theme }) => theme.fontSizes.ms};
@@ -470,8 +470,7 @@ const SelectContainer = styled.div`
       width: 30px;
       height: 30px;
       position: absolute;
-      right: 16px;
-      top: 29px;
+      margin-top:2vw;
       pointer-events: none;
     }
   }
@@ -485,6 +484,18 @@ const CategoryInfo = styled.div`
   }
   p {
     color: ${({ theme }) => theme.colors.mainGreen};
+  }
+
+  ${({ theme }) => theme.device.mobileLg}{
+    margin-bottom: 6.67vh;
+    h4 {
+    font-weight: bold;
+    line-height: normal;
+    font-size: 24px;
+  }
+  p {
+    margin-top: 16px;
+  }
   }
 `;
 

@@ -47,7 +47,6 @@ const Chat = ({ challengeId }) => {
           `/sub/api/chat/rooms/${challengeId}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
-            console.log(newMessage);
             dispatch(chatActions.getMessages(newMessage));
           },
           { token }
@@ -140,7 +139,6 @@ const Chat = ({ challengeId }) => {
       // });
     } catch (error) {
       console.log(error);
-      console.log(ws.ws.readyState);
     }
   };
 

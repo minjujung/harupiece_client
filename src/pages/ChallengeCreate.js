@@ -482,7 +482,8 @@ const Label = styled.label`
 
 const SelectBox = styled.select`
   width: 100%; /* 원하는 너비설정 */
-  padding: 6.5px 0.83vw; /* 여백으로 높이 설정 */
+  height: 40px;
+  padding-left: 0.83vw;
   margin: 8px 0 2.96vh 0;
   font-family: inherit; /* 폰트 상속 */
   font-size: ${({ theme }) => theme.fontSizes.ms};
@@ -520,8 +521,7 @@ const SelectContainer = styled.div`
       width: 30px;
       height: 30px;
       position: absolute;
-      right: 16px;
-      top: 29px;
+      margin-top:2vw;
       pointer-events: none;
     }
   }
