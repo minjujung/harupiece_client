@@ -24,7 +24,7 @@ function ChallengeCreate(props) {
 
   useEffect(() => {
     if (edit_mode && !challenge_info) {
-      window.alert("챌린지 정보가 없어요!");
+      setTimeout(() => window.alert("챌린지 정보가 없어요!"), 300);
       history.goBack();
       return;
     }
@@ -107,40 +107,49 @@ function ChallengeCreate(props) {
   // 챌린지 개설
   const createChallenge = () => {
     if (challengeInfo.challengeTitle === "") {
-      window.alert("챌린지 이름을 입력해주세요.");
+      setTimeout(() => window.alert("챌린지 이름을 입력해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeContent === "") {
-      window.alert("챌린지 설명을 입력해주세요.");
+      setTimeout(() => window.alert("챌린지 설명을 입력해주세요."), 300);
+
       return;
     }
     if (challengeInfo.categoryName === "") {
-      window.alert("챌린지 카테고리를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 카테고리를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeImgUrl === "") {
-      window.alert("챌린지 대표이미지를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 대표이미지를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeStartDate === "") {
-      window.alert("챌린지 시작날짜를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 시작날짜를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeEndDate === undefined) {
-      window.alert("챌린지 종료날짜를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 종료날짜를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeGood === "") {
-      window.alert("챌린지 인증 예시를 등록해주세요.");
+      setTimeout(() => window.alert("챌린지 인증 예시를 등록해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeBad === "") {
-      window.alert("챌린지 인증 예시를 등록해주세요.");
+      setTimeout(() => window.alert("챌린지 인증 예시를 등록해주세요."), 300);
+
       return;
     }
 
     if (!pwdCheck && pwd !== "PUBLIC") {
-      window.alert("공개 / 비공개 설정을 등록해주세요.");
+      setTimeout(() => window.alert("공개 / 비공개 설정을 등록해주세요."), 300);
+
       return;
     }
 
@@ -148,7 +157,11 @@ function ChallengeCreate(props) {
       (pwdCheck && pwd === "") ||
       (pwdCheck && challengeInfo.challengePassword === "")
     ) {
-      window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
+      setTimeout(
+        () => window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!"),
+        300
+      );
+
       setOpen(true);
       return;
     }

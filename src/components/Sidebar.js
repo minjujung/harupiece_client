@@ -27,7 +27,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
       history.push("/mypage/now");
       toggleMenu();
     } else {
-      window.alert("로그인이 필요합니다!");
+      setTimeout(() => window.alert("로그인이 필요합니다!"), 300);
       history.push("/login");
       toggleMenu();
     }

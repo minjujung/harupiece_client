@@ -17,8 +17,12 @@ const Login = (props) => {
 
   useEffect(() => {
     if (getCookie("token")) {
-      window.alert(
-        "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
+      setTimeout(
+        () =>
+          window.alert(
+            "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
+          ),
+        300
       );
       history.push("/");
       return;

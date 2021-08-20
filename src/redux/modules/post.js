@@ -148,7 +148,10 @@ const addPostDB =
             postingModifyOk: true,
           };
           dispatch(addPost(_post));
-          window.alert("오늘의 인증샷 게시물 작성 완료!");
+          setTimeout(
+            () => window.alert("오늘의 인증샷 게시물 작성 완료!"),
+            300
+          );
           history.push(`/challenge/${challengeInfo.challengeId}/post`);
           dispatch(imageActions.setPreview(null));
         })
@@ -168,12 +171,21 @@ const addPostDB =
             error.response?.data?.message ===
             "이미 인증된 게시글은 삭제할 수 없습니다."
           ) {
-            window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
+            setTimeout(
+              () =>
+                window.alert(
+                  "인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁"
+                ),
+              300
+            );
           } else if (
             error.response?.data?.message ===
             "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
           ) {
-            window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
+            setTimeout(
+              () => window.alert("인증샷은 하루에 한번만 게시할 수 있어요!"),
+              300
+            );
           }
           consoleLogger("새로운 인증샷 추가할 때: ", error);
         });
@@ -294,7 +306,7 @@ const deletePostDB =
       .then((res) => {
         consoleLogger("삭제 요청 server에게 보낸 후 응답: ", res);
         dispatch(deletePost(post_id));
-        window.alert("삭제 완료!");
+        setTimeout(() => window.alert("삭제 완료!"), 300);
       })
       .catch((error) => {
         // if (error) {
@@ -327,7 +339,10 @@ const clickCheckDB =
       const _post = post_list[idx];
 
       if (_post.memberResponseDto.includes(user_info.memberId)) {
-        window.alert("이미 인증 확인을 완료하신 게시물 입니다 :)");
+        setTimeout(
+          () => window.alert("이미 인증 확인을 완료하신 게시물 입니다 :)"),
+          300
+        );
       } else {
         const new_member_list = [
           ..._post.memberResponseDto,

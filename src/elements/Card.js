@@ -34,16 +34,6 @@ const Card = ({
   return (
     <>
       <CardBox {...styles} onClick={onClick}>
-        {/* <Image
-          width="91.11vw"
-          height="47.22vw"
-          mobileMaxHeight={mobileMaxHeight}
-          maxHeight={maxHeight}
-          padding="51.83% 0 0 0"
-          src={src}
-          alt={alt}
-        />
-        <TagContainer>{children}</TagContainer> */}
         {children}
         <Container>
           <Title>
@@ -108,22 +98,10 @@ const CardBox = styled.div`
   }
 `;
 
-const TagContainer = styled.div`
-  display: flex;
-  margin: 2.22vh 0 1.39vh 1.04vw;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1.22vh 0 0 4.44vw;
-  }
-`;
-
 const Container = styled.div`
   margin: 0 1.77vw 0 1.51vw;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: center;

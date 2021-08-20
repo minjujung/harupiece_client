@@ -127,7 +127,7 @@ const editChallengeDB =
             .then((res) => {
               consoleLogger("챌린지 수정 요청 후 응답", res);
               dispatch(editChallengeDetail(challengeInfo));
-              window.alert("챌린지 수정 완료!");
+              setTimeout(() => window.alert("챌린지 수정 완료!"), 300);
               history.push(`/challenge/${challenge_id}/intro`);
             })
             .catch((error) => {
@@ -168,7 +168,7 @@ const adminChallengeDeleteDB =
           MainCreators.deleteUserLoad(challengeInfo.categoryName, challenge_id)
         );
 
-        window.alert("관리자 권한 챌린지 삭제 완료!");
+        setTimeout(() => window.alert("관리자 권한 챌린지 삭제 완료!"), 300);
         history.replace("/");
       })
       .catch((error) => consoleLogger("관리자 권한 삭제 중 오류: " + error));
@@ -195,7 +195,7 @@ const challengeDeleteDB =
             challengeCount: parseInt(userInfo.challengeCount) - 1,
           };
           dispatch(userCreators.setUser(new_userInfo));
-          window.alert("챌린지 삭제 완료!");
+          setTimeout(() => window.alert("챌린지 삭제 완료!"), 300);
           history.replace("/");
         }
       })
@@ -242,7 +242,10 @@ const giveupChallengeDB =
           challengeCount: parseInt(user_info.challengeCount) - 1,
         };
         dispatch(userCreators.setUser(new_userInfo));
-        window.alert("챌린지 참여취소가 완료되었습니다!");
+        setTimeout(
+          () => window.alert("챌린지 참여취소가 완료되었습니다!"),
+          300
+        );
         history.replace("/mypage/now");
       })
       .catch((error) => {
@@ -288,7 +291,13 @@ const takeInPartChallengeDB =
         };
 
         dispatch(editChallengeDetail(new_challenge_info));
-        window.alert(`${challenge_detail.challengeTitle} 챌린지 신청 완료!`);
+        setTimeout(
+          () =>
+            window.alert(
+              `${challenge_detail.challengeTitle} 챌린지 신청 완료!`
+            ),
+          300
+        );
 
         const new_userInfo = {
           ...user_info,
@@ -302,7 +311,7 @@ const takeInPartChallengeDB =
           error.response?.data?.message ===
           "이미 해당 카테고리에 챌린지를 진행중입니다."
         ) {
-          window.alert(error.response?.data?.message);
+          setTimeout(() => window.alert(error.response?.data?.message), 300);
         }
         // if (
         //   window.confirm(

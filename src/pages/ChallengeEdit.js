@@ -91,24 +91,29 @@ function ChallengeCreate(props) {
   // 챌린지 수정
   const editChallenge = () => {
     if (challengeInfo.challengeStartDate === "") {
-      window.alert("챌린지 시작날짜를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 시작날짜를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeEndDate === undefined) {
-      window.alert("챌린지 종료날짜를 선택해주세요.");
+      setTimeout(() => window.alert("챌린지 종료날짜를 선택해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeGood === "") {
-      window.alert("챌린지 인증 예시를 재등록해주세요.");
+      setTimeout(() => window.alert("챌린지 인증 예시를 재등록해주세요."), 300);
+
       return;
     }
     if (challengeInfo.challengeBad === "") {
-      window.alert("챌린지 인증 예시를 재등록해주세요.");
+      setTimeout(() => window.alert("챌린지 인증 예시를 재등록해주세요."), 300);
+
       return;
     }
 
     if (!pwdCheck && pwd !== "PUBLIC") {
-      window.alert("공개 / 비공개 설정을 등록해주세요.");
+      setTimeout(() => window.alert("공개 / 비공개 설정을 등록해주세요."), 300);
+
       return;
     }
 
@@ -116,7 +121,11 @@ function ChallengeCreate(props) {
       (pwdCheck && pwd === "") ||
       (pwdCheck && challengeInfo.challengePassword === "")
     ) {
-      window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!");
+      setTimeout(
+        () => window.alert("비공개 챌린지는 비밀번호가 반드시 필요합니다!"),
+        300
+      );
+
       setOpen(true);
       return;
     }
@@ -268,7 +277,7 @@ const LeftContainer = styled.div`
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top: 35.0vw;
+    margin-top: 35vw;
     margin-bottom: 0;
     padding: 0 4.44vw 0 4.44vw;
   }
@@ -295,7 +304,7 @@ const GuideLine = styled.div`
   height: 53.79vh;
   margin-right: 2.92vh;
   ${({ theme }) => theme.device.mobileLg} {
-    display : none;
+    display: none;
   }
 `;
 
@@ -529,7 +538,6 @@ const MobilBadge = styled.div`
       width: 100%;
       z-index: 15;
       margin-top: 0;
-      
     }
   }
 `;

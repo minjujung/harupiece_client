@@ -24,7 +24,6 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
-import ogImage from "../assets/images/logo/og_image.png";
 
 function App() {
   const dispatch = useDispatch();

@@ -36,7 +36,8 @@ function CreateImgSelect({
         !challengeInfo.categoryName ||
         challengeInfo.categoryName === "CATEGORY"
       ) {
-        window.alert("카테고리를 먼저 정해주세요!");
+        setTimeout(() => window.alert("카테고리를 먼저 정해주세요!"), 300);
+
         return;
       }
       setChallenge(challengeInfo);
@@ -78,22 +79,22 @@ function CreateImgSelect({
         aria-labelledby="alert-dialog-title"
         PaperProps={
           intViewportWidth > 720
-          ? {
-          style: {
-            width: "55.21vw",
-            padding: "32px",
-            borderRadius: "16px",
-          },
+            ? {
+                style: {
+                  width: "55.21vw",
+                  padding: "32px",
+                  borderRadius: "16px",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  height: "150.00w",
+                  padding: "4.44vw",
+                  borderRadius: "16px",
+                },
+              }
         }
-        : {
-          style :{
-            width: "91.11vw",
-            height: "150.00w",
-            padding: "4.44vw",
-            borderRadius: "16px",
-          }
-        }
-      }
       >
         {isLoading ? (
           <Spinner />
@@ -140,7 +141,7 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 0px;
   }
@@ -154,13 +155,13 @@ const ImageBtn = styled.button`
   padding: 11px 0.83vw;
   border-radius: 8px;
   margin-bottom: 2.96vh;
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
     height: 6.875vh;
     font-size: 24px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
-    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
   }
 `;
 
@@ -178,7 +179,7 @@ const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-bottom: 32px;
   font-weight: bold;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 22px;
   }
 `;
@@ -189,13 +190,13 @@ const ThumbnailModal = styled.div`
   gap: 0.83vw;
   grid-template-columns: repeat(3, 16.67vw);
   grid-template-rows: repeat(2, 16.66vh);
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     gap: 3.33vw;
     grid-template-columns: repeat(2, 35.44vw);
     grid-template-rows: repeat(3, 22.22vw);
     & > img {
-      width : 35.44vw;
+      width: 35.44vw;
       height: 22.22vw;
     }
   }
