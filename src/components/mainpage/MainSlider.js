@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
 import { getCookie } from "../../shared/Cookie";
 import left from "../../assets/images/icons/arrow/left.svg";
@@ -12,6 +13,9 @@ const MainSlider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
+
+  const main_list = useSelector((state) => state.main);
+  // console.log(main_list);
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -37,7 +41,7 @@ const MainSlider = (props) => {
     if (isFlowing && intViewportWidth > 720) {
       intervalId = setInterval(() => {
         setCurrentSlide(currentSlide + 1);
-      }, 5000);
+      }, 50000000);
     }
     if (currentSlide === 4) {
       setCurrentSlide(0);
@@ -83,46 +87,61 @@ const MainSlider = (props) => {
           onMouseUp={onDragEnd}
           onMouseLeave={onDragEnd}
         >
-          {slideImages.map((l, idx) => {
-            return (
-              <Slide key={idx}>
-                <SliderBox
-                  style={{
-                    backgroundImage: `url(${l})`,
-                  }}
-                >
-                  <TagBox>
-                    <Tag bg="none" color="white">
-                      #2주
-                    </Tag>
-                    <Tag bg="none" color="white">
-                      #인기챌린지
-                    </Tag>
-                  </TagBox>
-
-                  {is_login ? (
-                    <>
+          {is_login ? (
+            <>
+              {main_list.usermain.slider?.map((l, idx) => {
+                return (
+                  <Slide key={idx}>
+                    <SliderBox
+                      style={{
+                        backgroundImage: `url(${l.challengeImgUrl})`,
+                      }}
+                    >
+                      <TagBox>
+                        <Tag bg="none" color="white">
+                          {l.tagList[0]}
+                        </Tag>
+                        <Tag bg="none" color="white">
+                          #{l.categoryName}
+                        </Tag>
+                      </TagBox>
                       <TitleBox>
-                        <div>주 2회</div>
-                        <div>1만보 걷기</div>
-                      </TitleBox>
-                      <SubTitleBox>
-                        <span>10일째</span> 진행중!
-                      </SubTitleBox>
-                    </>
-                  ) : (
-                    <>
-                      <TitleBox>
-                        <div>주 2회</div>
-                        <div>1만보 걷기</div>
+                        <div>{l.challengeTitle}</div>
                       </TitleBox>
                       <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
-                    </>
-                  )}
-                </SliderBox>
-              </Slide>
-            );
-          })}
+                    </SliderBox>
+                  </Slide>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              {slideImages.map((l, idx) => {
+                return (
+                  <Slide key={idx}>
+                    <SliderBox
+                      style={{
+                        backgroundImage: `url(${l})`,
+                      }}
+                    >
+                      <TagBox>
+                        <Tag bg="none" color="white">
+                          #2주
+                        </Tag>
+                        <Tag bg="none" color="white">
+                          #인기챌린지
+                        </Tag>
+                      </TagBox>
+                      <TitleBox>
+                        <div>{l.challengeTitle}</div>
+                      </TitleBox>
+                      <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
+                    </SliderBox>
+                  </Slide>
+                );
+              })}
+            </>
+          )}
         </SliderContainer>
         <PrevBtn onClick={prevSlide}>
           <img style={{ width: "50%" }} src={left} alt="" />
@@ -217,7 +236,7 @@ const Slide = styled.div`
 `;
 
 const SliderBox = styled.div`
-  width: 49.48vw;
+  width: 49.45vw;
   height: 25.5vh;
   border-radius: 10px;
   display: flex;
