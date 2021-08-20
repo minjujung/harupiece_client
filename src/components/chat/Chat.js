@@ -38,10 +38,11 @@ const Chat = ({ challengeId }) => {
       roomId: challengeId,
       nickname: userInfo.nickname,
       profileImg: userInfo.profileImg,
+      alert: "[얄림]",
     };
     try {
       ws.connect({ token }, () => {
-        ws.send("/pub/message", { token }, JSON.stringify(data));
+        ws.send("/pub/enter", { token }, JSON.stringify(data));
         ws.subscribe(
           `/sub/api/chat/rooms/${challengeId}`,
           (data) => {
@@ -64,9 +65,10 @@ const Chat = ({ challengeId }) => {
       roomId: challengeId,
       nickname: userInfo.nickname,
       profileImg: userInfo.profileImg,
+      alert: "[얄림]",
     };
     try {
-      ws.send("/pub/message", { token }, JSON.stringify(data));
+      ws.send("/pub/quit", { token }, JSON.stringify(data));
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
@@ -123,9 +125,10 @@ const Chat = ({ challengeId }) => {
         nickname: userInfo.nickname,
         profileImg: userInfo.profileImg,
         message: chatInfo.messageText,
+        alert: "",
       };
 
-      ws.send("/pub/message", { token }, JSON.stringify(data));
+      ws.send("/pub/talk", { token }, JSON.stringify(data));
       // 빈문자열이면 리턴
       // 로딩 중
       // dispatch(chatActions.loading());

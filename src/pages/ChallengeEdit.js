@@ -177,7 +177,7 @@ function ChallengeCreate(props) {
                 />
               </div>
               {/* 모집형식 */}
-              <div>
+              <MobileCont>
                 <Label htmlFor="isPwd">모집 방식</Label>
                 <br />
                 <SelectContainer>
@@ -196,48 +196,52 @@ function ChallengeCreate(props) {
                     pwdNumCheck={pwdNumCheck}
                   />
                 </SelectContainer>
-              </div>
+              </MobileCont>
               {/* 챌린지 설명 */}
-              <div>
+              <MobileCont>
                 <Label>챌린지 설명</Label>
                 <br />
                 <Textarea
                   onChange={saveDesc}
                   placeholder={challenge_info.challengeContent}
                 />
-              </div>
-              <Button
-                width="15.00vw"
-                height="5.92vh"
-                margin="7.03vh 0 0 0"
-                _onClick={editChallenge}
-              >
-                챌린지 수정하기
-              </Button>
+              </MobileCont>
+              <MobilBtns>
+                <Button
+                  width="15.00vw"
+                  height="5.92vh"
+                  margin="7.03vh 0 0 0"
+                  _onClick={editChallenge}
+                >
+                  챌린지 수정하기
+                </Button>
+              </MobilBtns>
             </InputRightContainer>
           </AllInputContainer>
           {badge ? (
-            <Button
-              width="100%"
-              height="64px"
-              margin="7.4vh 0 0 0"
-              bg="white"
-              color="mainGreen"
-              border="mainGreen"
-              shadow
-            >
-              <BadgeText>
-                이미지를 변경하려면 다시 선택해 주세요.
-                <Image
-                  width="20px"
-                  height="20px"
-                  src={greenclose}
-                  alt="closeBtn"
-                  borderRadius="0"
-                  onClick={hideBadge}
-                />
-              </BadgeText>
-            </Button>
+            <MobilBadge>
+              <Button
+                width="100%"
+                height="64px"
+                margin="7.4vh 0 0 0"
+                bg="white"
+                color="mainGreen"
+                border="mainGreen"
+                shadow
+              >
+                <BadgeText>
+                  이미지를 변경하려면 다시 선택해 주세요.
+                  <Image
+                    width="20px"
+                    height="20px"
+                    src={greenclose}
+                    alt="closeBtn"
+                    borderRadius="0"
+                    onClick={hideBadge}
+                  />
+                </BadgeText>
+              </Button>
+            </MobilBadge>
           ) : null}
         </RightContainer>
       </Container>
@@ -252,20 +256,35 @@ const Container = styled.div`
   margin-top: 3.02vw;
   justify-content: center;
   /* padding: 0 16.66vw 23.24vh 16.66vw; */
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const LeftContainer = styled.div`
   flex-direction: column;
   ${(props) =>
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-top: 35.0vw;
+    margin-bottom: 0;
+    padding: 0 4.44vw 0 4.44vw;
+  }
 `;
 
 const Title = styled.div`
+  width: 10.04vw;
+  height: 4.81vh;
   & > h2 {
     font-size: 36px;
     font-weight: 700;
-    width: 10.04vw;
-    height: 4.81vh;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: auto;
+    font-size: 24px;
   }
 `;
 
@@ -275,15 +294,23 @@ const GuideLine = styled.div`
   width: 32.81vw;
   height: 53.79vh;
   margin-right: 2.92vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    display : none;
+  }
 `;
 
 const InputLeftContainer = styled.div`
   flex-direction: column;
   margin-right: 0.94vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw;
+  }
 `;
 
 const InputRightContainer = styled.div`
   flex-direction: column;
+  ${({ theme }) => theme.device.mobileLg} {
+  }
 `;
 
 const BadgeText = styled.div`
@@ -293,9 +320,32 @@ const BadgeText = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: 29px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    font-size: 15px;
+    & > img {
+      width: 20px;
+      height: 20px;
+      z-index: 15;
+      margin-top: 0;
+      margin-left: 16px;
+      margin-right: 9.5vw;
+    }
+  }
 `;
 
-const RightContainer = styled.div``;
+const RightContainer = styled.div`
+  width: 30.94vw;
+  height: 66.84vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+`;
 
 const AllInputContainer = styled.div`
   display: flex;
@@ -303,6 +353,10 @@ const AllInputContainer = styled.div`
   /* height: 53.79vh; */
   margin-top: 5vh;
   ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 const Input = styled.input`
@@ -316,6 +370,17 @@ const Input = styled.input`
   padding-top: 1.01vh;
   padding-bottom: 1.01vh;
   border-radius: 8px;
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -342,12 +407,28 @@ const Textarea = styled.textarea`
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
       "Helvetica Neue", sans-serif;
   }
+  :focus {
+    border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 20vh;
+    margin-top: 16px;
+    padding: 1.48vh 4.44vw;
+    font-size: 24px;
+    ::placeholder {
+      font-size: 24px;
+    }
+  }
 `;
 
 const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+  }
 `;
 
 const SelectBox = styled.select`
@@ -363,6 +444,14 @@ const SelectBox = styled.select`
   -webkit-appearance: none; /* 네이티브 외형 감추기 */
   -moz-appearance: none;
   appearance: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 6.875vh;
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 5.18vh;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -374,6 +463,17 @@ const SelectContainer = styled.div`
     position: absolute;
     right: 16px;
     top: 16px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    & > img {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 16px;
+      top: 29px;
+      pointer-events: none;
+    }
   }
 `;
 
@@ -387,4 +487,57 @@ const CategoryInfo = styled.div`
     color: ${({ theme }) => theme.colors.mainGreen};
   }
 `;
+
+const MobilBtns = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 11.875vh;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 4px 11px 0px ${({ theme }) => theme.colors.mainGreen};
+    padding: 0 4.44vw 0 4.44vw;
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+    }
+  }
+`;
+
+const MobilBadge = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 14.375vh;
+
+    display: flex;
+    align-items: center;
+    padding: 0 4.44vw 0 4.44vw;
+    & > button {
+      font-size: 17px;
+      width: 100%;
+      z-index: 15;
+      margin-top: 0;
+      
+    }
+  }
+`;
+
+const MobileCont = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw 0 4.44vw;
+  }
+`;
+
 export default ChallengeCreate;
