@@ -57,9 +57,14 @@ const PostList = (props) => {
 
   //인증 버튼 눌렀을 때
   const check = () => {
-    window.alert(
-      `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
+    setTimeout(
+      () =>
+        window.alert(
+          `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
+        ),
+      300
     );
+
     dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
     if (
       (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
@@ -68,8 +73,12 @@ const PostList = (props) => {
     ) {
       //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
       // dispatch(userActions.editUserDB(totalDay * 50))
-      window.alert(
-        `${user_info.nickname}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+      setTimeout(
+        () =>
+          window.alert(
+            `${user_info.nickname}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+          ),
+        300
       );
     }
   };
@@ -87,9 +96,14 @@ const PostList = (props) => {
   //modal안의 component만 편집형태로 바꾸기
   const editPost = () => {
     if (postingCheckStatus >= 50) {
-      window.alert(
-        "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+      setTimeout(
+        () =>
+          window.alert(
+            "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+          ),
+        300
       );
+
       return;
     }
     setEdit(true);
@@ -98,8 +112,12 @@ const PostList = (props) => {
   //post 삭제
   const deletePost = () => {
     if (postingCheckStatus >= 50) {
-      window.alert(
-        "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+      setTimeout(
+        () =>
+          window.alert(
+            "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+          ),
+        300
       );
       return;
     }

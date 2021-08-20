@@ -2,12 +2,16 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import green from "../../assets/images/level/green.svg";
+import InfinityScroll from "../../shared/InfinityScroll";
 import { Image } from "../../elements";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreator as chatActions } from "../../redux/modules/chat";
 
-const MessageList = (props) => {
-  const msgList = useSelector((state) => state.chat.info.messages);
+const MessageList = ({ challengeId }) => {
+  const dispatch = useDispatch();
+  const chatInfo = useSelector((state) => state.chat.info);
+  const is_loading = useSelector((state) => state.chat.info.is_loading);
   const user_info = useSelector((state) => state.user.userInfo);
 
   // 스크롤 대상(제일 마지막 메세지)
@@ -28,11 +32,23 @@ const MessageList = (props) => {
     scrollToBottom();
   });
 
+  const callNext = () => {
+    if (chatInfo.paging.next === false) {
+      return;
+    }
+    dispatch(chatActions.getMessagesDB(challengeId));
+  };
+
   return (
+    // <InfinityScroll
+    //   callNext={callNext}
+    //   is_next={chatInfo.paging.next ? true : false}
+    //   loading={is_loading}
+    // >
     <Chat ref={scrollTo}>
-      {msgList?.map((msg) => (
+      {chatInfo.messages?.map((msg) => (
         <MsgFrame key={msg.chatMessageId}>
-          {msg.alert === "[얄림]" ? (
+          {msg.type === "QUIT" || msg.type === "ENTER" ? (
             <EnterMsg>{msg.message}</EnterMsg>
           ) : (
             <>
@@ -54,6 +70,7 @@ const MessageList = (props) => {
         </MsgFrame>
       ))}
     </Chat>
+    // </InfinityScroll>
   );
 };
 export default MessageList;

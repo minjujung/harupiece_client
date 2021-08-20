@@ -38,19 +38,19 @@ const PwdModal = (props) => {
         )
       );
     } else {
-      window.alert("비밀번호가 올바르지 않습니다!");
+      setTimeout(() => window.alert("비밀번호가 올바르지 않습니다!"), 300);
     }
   };
 
   //챌린지 신청히기, 비공개의 경우 비밀번호 모달창 띄우기
   const takePartIn = () => {
     if (user_info.memberId === null) {
-      window.alert("로그인이 필요한 서비스 입니다!");
+      setTimeout(() => window.alert("로그인이 필요한 서비스 입니다!"), 300);
       return;
     }
 
     if (challengeMember.includes(user_info.memberId)) {
-      window.alert("이미 참여중인 챌린지 입니다!");
+      setTimeout(() => window.alert("이미 참여중인 챌린지 입니다!"), 300);
       return;
     }
 

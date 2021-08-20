@@ -104,7 +104,7 @@ const editMyProfileDB = (content) => {
     const blank_check = /[\s]/g;
 
     if (blank_check.test(content.newNickName)) {
-      window.alert("공백은 사용할 수 없습니다!");
+      setTimeout(() => window.alert("공백은 사용할 수 없습니다!"), 300);
       return;
     }
 
@@ -138,10 +138,14 @@ const editMyProfileDB = (content) => {
         })
         .catch((error) => {
           if (error.response?.data?.message) {
-            window.alert(error.response?.data?.message);
+            setTimeout(() => window.alert(error.response?.data?.message), 300);
           } else if (error) {
-            window.alert(
-              "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+            setTimeout(
+              () =>
+                window.alert(
+                  "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                ),
+              300
             );
           }
           consoleLogger("사진은 그대로고 닉네임만 수정 했을 때: ", error);
@@ -190,10 +194,17 @@ const editMyProfileDB = (content) => {
             })
             .catch((error) => {
               if (error.response?.data?.message) {
-                window.alert(error.response?.data?.message);
+                setTimeout(
+                  () => window.alert(error.response?.data?.message),
+                  300
+                );
               } else if (error) {
-                window.alert(
-                  "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                setTimeout(
+                  () =>
+                    window.alert(
+                      "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                    ),
+                  300
                 );
               }
               consoleLogger("사진 닉네임 둘다 수정 했을 때: ", error);
@@ -201,10 +212,14 @@ const editMyProfileDB = (content) => {
         })
         .catch((error) => {
           if (error.response?.data?.message) {
-            window.alert(error.response?.data?.message);
+            setTimeout(() => window.alert(error.response?.data?.message), 300);
           } else if (error) {
-            window.alert(
-              "이미지 업로드 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+            setTimeout(
+              () =>
+                window.alert(
+                  "이미지 업로드 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                ),
+              300
             );
           }
           consoleLogger("aws이미지 업로드: ", error);
@@ -223,17 +238,21 @@ const changePasswordDB = (password) => {
     MypageApis.changePassword(passwordList)
       .then((res) => {
         consoleLogger("비밀번호 변경 후 응답", res);
-        window.alert("비밀번호 변경이 완료되었습니다!");
+        setTimeout(() => window.alert("비밀번호 변경이 완료되었습니다!"), 300);
         history.replace("/");
       })
       .catch((error) => {
         if (
           error.response?.data?.message === "현재 비밀번호가 일치하지 않습니다."
         ) {
-          window.alert(error.response?.data?.message);
+          setTimeout(() => window.alert(error.response?.data?.message), 300);
         } else {
-          window.alert(
-            "비밀번호 변경 중 오류가 발생했어요! 새로고침 후 다시 시도해주세요!"
+          setTimeout(
+            () =>
+              window.alert(
+                "비밀번호 변경 중 오류가 발생했어요! 새로고침 후 다시 시도해주세요!"
+              ),
+            300
           );
         }
         console.log(error);

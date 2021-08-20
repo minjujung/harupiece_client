@@ -34,22 +34,7 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
-  list: [
-    // {
-    //   postingId: 1,
-    //   memberId: 1,
-    //   nickName: "만주리아",
-    //   profileImg:
-    //     "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
-    //   postingImg:
-    //     "https://user-images.githubusercontent.com/75834421/127076481-90fdc5d8-7461-4d87-83ef-608697e4f2eb.png",
-    //   postingContent: "처음으로 해봤는 데 나름 괜찮았음",
-    //   postingCount: 3,
-    //   memberResponseDto: [],
-    //   postingApproval: true,
-    //   postingModifyOk: true,
-    // },
-  ],
+  list: [],
   paging: { page: 1, next: null, size: 6 },
   is_loading: false,
 };
@@ -59,10 +44,8 @@ const getPostDB =
   (challengeId) =>
   (dispatch, getState, { history }) => {
     const _paging = getState().post.paging;
-    console.log(_paging);
 
     if (_paging.page === false && _paging.next === false) {
-      console.log("check shotlistpage");
       return;
     }
 
@@ -79,7 +62,6 @@ const getPostDB =
           size: _paging.size,
         };
 
-        console.log(res.data.postList);
         dispatch(setPost(res.data.postList, new_paging));
       })
       .catch((error) => {
@@ -148,7 +130,10 @@ const addPostDB =
             postingModifyOk: true,
           };
           dispatch(addPost(_post));
-          window.alert("오늘의 인증샷 게시물 작성 완료!");
+          setTimeout(
+            () => window.alert("오늘의 인증샷 게시물 작성 완료!"),
+            300
+          );
           history.push(`/challenge/${challengeInfo.challengeId}/post`);
           dispatch(imageActions.setPreview(null));
         })
@@ -168,12 +153,21 @@ const addPostDB =
             error.response?.data?.message ===
             "이미 인증된 게시글은 삭제할 수 없습니다."
           ) {
-            window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
+            setTimeout(
+              () =>
+                window.alert(
+                  "인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁"
+                ),
+              300
+            );
           } else if (
             error.response?.data?.message ===
             "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
           ) {
-            window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
+            setTimeout(
+              () => window.alert("인증샷은 하루에 한번만 게시할 수 있어요!"),
+              300
+            );
           }
           consoleLogger("새로운 인증샷 추가할 때: ", error);
         });
@@ -294,7 +288,7 @@ const deletePostDB =
       .then((res) => {
         consoleLogger("삭제 요청 server에게 보낸 후 응답: ", res);
         dispatch(deletePost(post_id));
-        window.alert("삭제 완료!");
+        setTimeout(() => window.alert("삭제 완료!"), 300);
       })
       .catch((error) => {
         // if (error) {
@@ -327,7 +321,10 @@ const clickCheckDB =
       const _post = post_list[idx];
 
       if (_post.memberResponseDto.includes(user_info.memberId)) {
-        window.alert("이미 인증 확인을 완료하신 게시물 입니다 :)");
+        setTimeout(
+          () => window.alert("이미 인증 확인을 완료하신 게시물 입니다 :)"),
+          300
+        );
       } else {
         const new_member_list = [
           ..._post.memberResponseDto,

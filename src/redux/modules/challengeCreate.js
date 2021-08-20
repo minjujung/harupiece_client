@@ -112,7 +112,7 @@ const createChDB =
                   challengeCount: parseInt(user_info.challengeCount) + 1,
                 };
                 dispatch(userCreators.setUser(new_userInfo));
-                window.alert("챌린지 개설 완료!");
+                setTimeout(() => window.alert("챌린지 개설 완료!"), 300);
                 history.push("/");
               })
               .catch((error) => {
@@ -120,8 +120,12 @@ const createChDB =
                   error.response?.data?.message ===
                   "이미 해당 카테고리에 챌린지를 생성한 유저입니다."
                 ) {
-                  window.alert(
-                    "이미 챌린지를 신청하셨거나 개설하신 카테고리 입니다!"
+                  setTimeout(
+                    () =>
+                      window.alert(
+                        "이미 챌린지를 신청하셨거나 개설하신 카테고리 입니다!"
+                      ),
+                    300
                   );
                 }
                 consoleLogger("챌린지 생성 요청시 error: ", error);

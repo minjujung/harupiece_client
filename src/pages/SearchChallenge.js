@@ -316,7 +316,6 @@ function SearchChallenge(props) {
                     <Image
                       width="16.04vw"
                       height="8.33vw"
-                      padding="51.83% 0 0 0"
                       src={l.challengeImgUrl}
                       alt="challenge"
                     />
