@@ -39,16 +39,6 @@ function App() {
       <GlobalStyle />
       <ConnectedRouter history={history}>
         <Helmet>
-          <meta
-            name="description"
-            content="당신의 건강 챌린지를 도와주는 서비스 하루조각."
-          />
-          <meta property="og:title" content="하루조각" />
-          <meta
-            property="og:description"
-            content="당신의 건강 챌린지를 도와주는 서비스 하루조각."
-          />
-          <meta property="og:image" content={ogImage} />
           <link rel="icon" href={favicon} />
         </Helmet>
         <Container>
