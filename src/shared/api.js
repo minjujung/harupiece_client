@@ -26,6 +26,7 @@ const getRefreshToken = () => {
   return refreshToken;
 };
 
+let isTokenRefreshing = false;
 let refreshSubscribers = [];
 
 const onTokenRefreshed = (accessToken) => {
@@ -62,30 +63,34 @@ instance.interceptors.response.use(
     if (originalConfig.url !== "api/member/login" && err.response) {
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
-        try {
-          const rs = await refreshTokens();
-          const { accessToken, refreshToken } = rs.data;
+        if (!isTokenRefreshing) {
+          isTokenRefreshing = true;
+          try {
+            const rs = await refreshTokens();
+            const { accessToken, refreshToken } = rs.data;
 
-          setCookie("token", accessToken);
-          setCookie("refreshToken", refreshToken);
+            setCookie("token", accessToken);
+            setCookie("refreshToken", refreshToken);
 
-          instance.defaults.headers.common[
-            "Authorization"
-          ] = ` Bearer ${accessToken}`;
-          originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+            console.log("토큰 재생성 완료!"); // 토큰 생성이 완료되면
+            isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
 
-          onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
-          refreshSubscribers = []; // 요청 배열 초기화
-          console.log("첫 요청도 다시 요청!");
-          return axios(originalConfig); // 첫 요청 다시 요청
-        } catch (_error) {
-          const retryOriginalRequest = new Promise((resolve) => {
-            addRefreshSubscriber((accessToken) => {
-              originalConfig.headers.Authorization = "Bearer " + accessToken;
-              resolve(axios(originalConfig));
+            instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;
+            originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+
+            onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
+            refreshSubscribers = []; // 요청 배열 초기화
+            console.log("첫 요청도 다시 요청!");
+            return axios(originalConfig); // 첫 요청 다시 요청
+          } catch (_error) {
+            const retryOriginalRequest = new Promise((resolve) => {
+              addRefreshSubscriber((accessToken) => {
+                originalConfig.headers.Authorization = "Bearer " + accessToken;
+                resolve(axios(originalConfig));
+              });
             });
-          });
-          return retryOriginalRequest;
+            return retryOriginalRequest;
+          }
         }
       }
       if (err.response.status === 403 && err.response.data) {
