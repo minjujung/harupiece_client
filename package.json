@@ -45,6 +45,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "reactSnap": {
+    "include":[]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
