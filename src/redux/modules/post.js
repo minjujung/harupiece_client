@@ -34,22 +34,7 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
-  list: [
-    // {
-    //   postingId: 1,
-    //   memberId: 1,
-    //   nickName: "만주리아",
-    //   profileImg:
-    //     "https://user-images.githubusercontent.com/75834421/127079413-4362aacd-ce50-4576-8123-63cb36225d9e.png",
-    //   postingImg:
-    //     "https://user-images.githubusercontent.com/75834421/127076481-90fdc5d8-7461-4d87-83ef-608697e4f2eb.png",
-    //   postingContent: "처음으로 해봤는 데 나름 괜찮았음",
-    //   postingCount: 3,
-    //   memberResponseDto: [],
-    //   postingApproval: true,
-    //   postingModifyOk: true,
-    // },
-  ],
+  list: [],
   paging: { page: 1, next: null, size: 6 },
   is_loading: false,
 };
@@ -59,10 +44,8 @@ const getPostDB =
   (challengeId) =>
   (dispatch, getState, { history }) => {
     const _paging = getState().post.paging;
-    console.log(_paging);
 
     if (_paging.page === false && _paging.next === false) {
-      console.log("check shotlistpage");
       return;
     }
 
@@ -79,7 +62,6 @@ const getPostDB =
           size: _paging.size,
         };
 
-        console.log(res.data.postList);
         dispatch(setPost(res.data.postList, new_paging));
       })
       .catch((error) => {

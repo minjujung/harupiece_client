@@ -186,7 +186,7 @@ const Chat = ({ challengeId }) => {
               onClick={closeChat}
             />
           </Header>
-          <MessageList />
+          <MessageList challengeId={challengeId} />
           <div ref={scrollRef}></div>
           <MessageWrite sendMessage={sendMessage} />
         </ChatBox>
