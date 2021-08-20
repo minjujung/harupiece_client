@@ -42,10 +42,14 @@ const registerDB = ({
       })
       .catch((error) => {
         if (error.response?.data?.message) {
-          window.alert(error.response?.data?.message);
+          setTimeout(() => window.alert(error.response?.data?.message), 300);
         } else if (error) {
-          window.alert(
-            "회원가입중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+          setTimeout(
+            () =>
+              window.alert(
+                "회원가입중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+              ),
+            300
           );
         }
         consoleLogger("회원가입 요청 실패시 error: ", error);
@@ -68,8 +72,12 @@ const setLoginDB = ({ email, password }) => {
         console.log(error);
         if (error.response) {
           if (error.response.status === 401) {
-            window.alert(
-              "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
+            setTimeout(
+              () =>
+                window.alert(
+                  "아이디 또는 비밀번호가 일치하지 않습니다. 다시 한번 시도해주세요!"
+                ),
+              300
             );
           }
         }

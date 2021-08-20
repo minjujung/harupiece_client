@@ -144,7 +144,11 @@ const Chat = ({ challengeId }) => {
 
   const openChat = () => {
     if (!challengeInfo.challengeMember.includes(userInfo.memberId)) {
-      window.alert("챌린지에 참여하는 사람만 채팅방 입장이 가능합니다!");
+      setTimeout(
+        () =>
+          window.alert("챌린지에 참여하는 사람만 채팅방 입장이 가능합니다!"),
+        300
+      );
       return;
     }
     setOpen(true);
@@ -180,7 +184,7 @@ const Chat = ({ challengeId }) => {
               onClick={closeChat}
             />
           </Header>
-          <MessageList />
+          <MessageList challengeId={challengeId} />
           <div ref={scrollRef}></div>
           <MessageWrite sendMessage={sendMessage} />
         </ChatBox>

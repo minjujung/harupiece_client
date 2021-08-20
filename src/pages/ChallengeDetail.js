@@ -74,7 +74,7 @@ const ChallengeDetail = (props) => {
   } = props;
 
   return (
-    <>
+    <DetailContainer>
       {" "}
       <Chat challengeId={challengeId} />
       <Area>
@@ -147,15 +147,24 @@ const ChallengeDetail = (props) => {
           </Btns>
         </RightNav>
       </Area>
-    </>
+    </DetailContainer>
   );
 };
 
 export default ChallengeDetail;
 
+const DetailContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: inherit;
+  }
+`;
+
 const Area = styled.div`
   display: grid;
-  margin: 3.02vw auto 0 auto;
+  margin-top: 3.02vw;
   width: 66.67vw;
   height: 100%;
   grid-template-rows: 1fr 3fr;
@@ -202,8 +211,8 @@ const Btns = styled.div`
   width: 16.15vw;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 498px;
+  position: absolute;
+  top: 17.08vw;
   /* margin-top: 2.59vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -213,6 +222,7 @@ const Btns = styled.div`
     z-index: 15;
     top: auto;
     bottom: 0;
+    right: 0;
     margin-top: 0;
   }
 `;
@@ -236,6 +246,8 @@ const MobilBtns = styled.div`
 
 const RightNav = styled.div`
   width: 16.15vw;
+  position: relative;
+  /* left: 50.52vw; */
   grid-area: nav;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;

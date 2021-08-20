@@ -46,7 +46,9 @@
     "eject": "react-scripts eject"
   },
   "reactSnap": {
-    "include":[]
+    "include": [
+      "/"
+    ]
   },
   "eslintConfig": {
     "extends": [
