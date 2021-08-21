@@ -347,13 +347,13 @@ const Guid = styled.div`
 const Title = styled.div`
   width: 10.04vw;
   height: 4.81vh;
-  margin-top : 11vw; /* 모바일 가이드 라인 변경면 없애기 */
   & > h2 {
     font-size: 36px;
     font-weight: 700;
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    margin-top : 11vw; /* 모바일 가이드 라인 변경면 없애기 */
     height: auto;
     font-size: 24px;
   }
