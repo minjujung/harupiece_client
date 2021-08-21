@@ -6,6 +6,7 @@ import greenclose from "../assets/images/icons/greenclose.svg";
 import CreateImgSelect from "../components/challenge/CreateImgSelect";
 import CreateCertification from "../components/challenge/CreateCertification";
 import CreateCalendar from "../components/challenge/CreateCalendar";
+import guideline from "../assets/images/info/guideline.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as createActions } from "../redux/modules/challengeCreate";
@@ -41,6 +42,7 @@ function ChallengeCreate(props) {
   const [pwdCheck, setPwdCheck] = useState(false);
   const [pwd, setPwd] = useState("");
   const [open, setOpen] = useState(false);
+  const [gopen, setGopen] = useState(false);
 
   const choosePublic = (e) => {
     if (e.target.value === "PRIVATE") {
@@ -135,14 +137,67 @@ function ChallengeCreate(props) {
     dispatch(createActions.setBadPreview(""));
   };
 
+  const openGuideLine = () => {
+    setGopen(true);
+  };
+
+  const closeGuideLine = () => {
+    setGopen(false);
+  };
+
   return (
     <>
       <Container>
         <LeftContainer isBadge={badge}>
+        <MobileBadge>
+          <Button
+            width="100%"
+            height="11.11vw"
+            margin="6.67vw 0 4.44vw 0"
+            bg="white"
+            color="mainGreen"
+            border="mainGreen"
+            shadow
+            _onClick={openGuideLine}
+          >
+            <MobileText>
+              챌린지 가이드 라인
+            </MobileText>
+          </Button>
+          {gopen ? (
+            <MobileG>
+              <MobileClose>
+                <Image
+                chatClose
+                width="30px"
+                height="30px"
+                borderRadius="0"
+                src={greenclose}
+                onClick={closeGuideLine}
+                />
+              </MobileClose>
+              <MobileImage>
+                <img
+                src={guideline}
+                alt="guideline"
+                />
+              </MobileImage>
+            </MobileG>
+          ) :null}
+        </MobileBadge>
           <Title>
             <h2>챌린지 수정</h2>
           </Title>
-          <GuideLine />
+          <Guid>
+            <Image
+            width="32.81vw"
+            height="65vh"
+            margin="0  2.92vh 0 0 "
+            borderRadius="16px"
+            src={guideline}
+            alt="guideline"
+          />
+          </Guid>
         </LeftContainer>
         <RightContainer>
           <AllInputContainer isBadge={badge}>
@@ -276,15 +331,23 @@ const LeftContainer = styled.div`
     !props.isBadge ? "margin-bottom: 7.4vh;" : "margin-bottom: 11.1vh;"}
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top: 35vw;
     margin-bottom: 0;
     padding: 0 4.44vw 0 4.44vw;
+  }
+`;
+
+const Guid = styled.div`
+  ${({ theme }) => theme.device.mobileLg}{
+    img {
+      display: none;
+    }
   }
 `;
 
 const Title = styled.div`
   width: 10.04vw;
   height: 4.81vh;
+  margin-top : 11vw; /* 모바일 가이드 라인 변경면 없애기 */
   & > h2 {
     font-size: 36px;
     font-weight: 700;
@@ -319,6 +382,39 @@ const InputRightContainer = styled.div`
   flex-direction: column;
   ${({ theme }) => theme.device.mobileLg} {
   }
+`;
+
+const MobileBadge = styled.div`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg}{
+    display: none; /* inherit 모바일 가이드 라인 변경해서 적용하기 */
+    margin-left: 40vw;
+  }
+`;
+const MobileText = styled.div`
+
+`;
+
+const MobileG = styled.div`
+  position: absolute;
+  z-index: 4;
+`
+
+const MobileImage = styled.div`
+  position: relative;
+  & > img {
+    width: 32.81vw;
+    height: 65vh;
+    margin: 0 2.92vh 0 0;
+    border-radius: 16px;
+  }
+`;
+
+const MobileClose = styled.div`
+  z-index: 5;
+  right: 160px;
+  position: absolute;
+
 `;
 
 const BadgeText = styled.div`
@@ -486,7 +582,7 @@ const SelectContainer = styled.div`
 `;
 
 const CategoryInfo = styled.div`
-  height: 10vh;
+  height: 8.9vh;
   h4 {
     font-weight: bold;
     line-height: normal;
