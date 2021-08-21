@@ -225,6 +225,18 @@ const Btns = styled.div`
     right: 0;
     margin-top: 0;
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    button {
+      font-size: 16px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    button {
+      font-size: 14px;
+    }
+  }
 `;
 
 const MobilBtns = styled.div`
@@ -279,6 +291,14 @@ const Title = styled.h1`
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 24px;
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 28px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 24px;
+  }
 `;
 
 const TotalNum = styled.h3`
@@ -286,6 +306,14 @@ const TotalNum = styled.h3`
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
     font-size: 16px;
   }
 `;
@@ -319,6 +347,14 @@ const Item = styled.li`
   ${({ theme }) => theme.device.mobileLg} {
     width: 50%;
     margin: 0;
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
     font-size: 16px;
   }
 `;

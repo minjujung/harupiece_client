@@ -21,7 +21,7 @@ const InfinityScroll = (props) => {
 
     console.log(scrollHeight - innerHeight - scrollTop);
 
-    if (scrollHeight - innerHeight - scrollTop < 200) {
+    if (scrollHeight - innerHeight - scrollTop < 300) {
       callNext();
     }
   }, 500);
@@ -47,7 +47,7 @@ const InfinityScroll = (props) => {
   return (
     <>
       {children}
-      {is_next && <Spinner />}
+      {/* {is_next && <Spinner />} */}
     </>
   );
 };

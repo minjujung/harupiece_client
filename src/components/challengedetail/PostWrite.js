@@ -66,11 +66,14 @@ const PostWrite = ({ challengeId, challengeHoliday }) => {
 
   const today = new Date().getDay();
 
+  console.log(challengeHoliday);
   return (
     <>
       <PostBtn
         onClick={handleClickOpen}
-        disabled={challengeHoliday !== "" ? true : false}
+        disabled={
+          challengeHoliday !== "" && (today === 6 || today === 0) ? true : false
+        }
       >
         인증 하기
       </PostBtn>

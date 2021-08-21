@@ -133,13 +133,13 @@ const CardImg = styled.div`
 
 const NoListMent = styled.div`
   width: 100%;
-  height: 50vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;
@@ -152,6 +152,19 @@ const NoListMent = styled.div`
     font-size: 16px;
     button {
       width: 55.56vw;
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+    button {
+      font-size: 14px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 16px;
+    button {
+      font-size: 12px;
     }
   }
 `;

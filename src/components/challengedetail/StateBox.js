@@ -38,9 +38,9 @@ const StateBox = (props) => {
     return (
       <StateContainer>
         <UserStatus goodUser>
-          <Strong>{user_info.nickname}</Strong>님은
+          <Strong>{user_info?.nickname}</Strong>님은
           <br />
-          {user_info.challengeCount}개의 챌린지 진행중!
+          {user_info?.challengeCount}개의 챌린지 진행중!
         </UserStatus>
         <UserLevel>
           <LevelInfo>
@@ -74,7 +74,7 @@ const StateBox = (props) => {
                 src={completed}
                 alt="level"
               />
-              완료: {user_info.completeChallengeCount}개
+              완료: {user_info?.completeChallengeCount}개
             </p>
             <Piece>
               <Image
@@ -84,7 +84,7 @@ const StateBox = (props) => {
                 src={levelData[levelState].piece}
                 alt="level_image"
               />
-              <span> X {user_info.point} 개</span>
+              <span> X {user_info?.point} 개</span>
             </Piece>
           </Completed>
         </UserLevel>
@@ -94,7 +94,7 @@ const StateBox = (props) => {
     return (
       <StateContainer>
         <UserStatus>
-          <Strong>{user_info.nickname}</Strong>님은
+          <Strong>{user_info?.nickname}</Strong>님은
           <br />
           새로운 챌린지를 찾는 중!
         </UserStatus>
@@ -139,7 +139,7 @@ const UserStatus = styled.p`
   }
 
   ${({ theme }) => theme.device.tablet} {
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 
@@ -175,7 +175,7 @@ const LevelInfo = styled.section`
   }
 
   ${({ theme }) => theme.device.tablet} {
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 
@@ -202,7 +202,7 @@ const Completed = styled.section`
   }
 
   ${({ theme }) => theme.device.tablet} {
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 

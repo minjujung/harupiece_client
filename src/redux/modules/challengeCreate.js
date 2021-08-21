@@ -35,8 +35,12 @@ const getThumnailDb = (category) => {
       .then((res) => dispatch(getThumnail(res.data.categoryImageUrl)))
       .catch((error) => {
         if (
-          window.confirm(
-            "카테고리 썸네일을 가져오는 데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+          setTimeout(
+            () =>
+              window.confirm(
+                "카테고리 썸네일을 가져오는 데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
+              ),
+            300
           )
         ) {
           history.push("/");

@@ -95,16 +95,18 @@ function Mypage(props) {
               <strong>{myInfoList.nickname}</strong>님<br />
               현재 등급은 {levelData[levelState]?.level} 입니다.
             </UserInfo>
-            <Button
-              width="16.15vw"
-              height="5.93vh"
-              color="white"
-              bg="mainGreen"
-              margin="0 3.23vw 0 2.08vw"
-              _onClick={convertEditMode}
-            >
-              프로필 수정하기
-            </Button>
+            <MediaBtn>
+              <Button
+                width="16.15vw"
+                height="5.93vh"
+                color="white"
+                bg="mainGreen"
+                margin="0 3.23vw 0 2.08vw"
+                _onClick={convertEditMode}
+              >
+                프로필 수정하기
+              </Button>
+            </MediaBtn>
           </>
         ) : (
           <>
@@ -147,16 +149,18 @@ function Mypage(props) {
               id="ex_file"
               style={{ display: "none" }}
             />
-            <Button
-              width="16.15vw"
-              height="5.93vh"
-              color="white"
-              bg="mainGreen"
-              margin="0 3.23vw 0 2.08vw"
-              _onClick={editProfile}
-            >
-              프로필 저장하기
-            </Button>
+            <MediaBtn>
+              <Button
+                width="16.15vw"
+                height="5.93vh"
+                color="white"
+                bg="mainGreen"
+                margin="0 3.23vw 0 2.08vw"
+                _onClick={editProfile}
+              >
+                프로필 저장하기
+              </Button>
+            </MediaBtn>
           </>
         )}
       </UserInfoContainer>
@@ -240,11 +244,19 @@ const UserInfoContainer = styled.div`
 const UserInfo = styled.p`
   color: ${({ theme }) => theme.colors.white};
   line-height: normal;
-  font-size: 42px;
+  font-size: 38px;
   strong {
     font-weight: bold;
   }
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 21px;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 24px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
     font-size: 21px;
   }
 `;
@@ -309,6 +321,23 @@ const NickInput = styled.input`
   }
 `;
 
+const MediaBtn = styled.div`
+  button {
+    font-size: 22px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    button {
+      font-size: 18px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    button {
+      font-size: 16px;
+    }
+  }
+`;
+
 const ChallengeCategory = styled.ul`
   width: 66.67vw;
   height: 7.04vh;
@@ -355,6 +384,18 @@ const Item = styled.li`
       display: flex;
       justify-content: center;
       width: 27.22vw;
+    }
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    a {
+      font-size: 18px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    a {
+      font-size: 16px;
     }
   }
 `;
