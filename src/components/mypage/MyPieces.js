@@ -70,11 +70,11 @@ function MyPieces(props) {
           <MarbleList>
             {levelArray.map((idx) => (
               <Image
-                width="60px"
-                height="60px"
+                width="3.13vw"
+                height="3.13vw"
                 borderRadius="30px"
                 marbleBorder={levelArray.length < 2 ? "2px solid #fff" : null}
-                margin="0 0 0 -1.56vw"
+                margin="0 0 0 -1.8vw"
                 src={levelData[idx].img}
                 alt="level_img"
               />
@@ -172,7 +172,7 @@ const InfoBox = styled.div`
   }
   strong {
     font-weight: bold;
-    font-size: 56px;
+    font-size: 48px;
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -188,17 +188,37 @@ const InfoBox = styled.div`
       font-size: 28px;
     }
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    p {
+      font-size: 16px;
+    }
+    strong {
+      font-size: 32px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    p {
+      font-size: 14px;
+    }
+    strong {
+      font-size: 28px;
+    }
+  }
 `;
 
 const MarbleList = styled.div`
   width: 9.38vw;
   display: flex;
   justify-content: center;
-  margin-left: 1.56vw;
+  margin-left: 1.8vw;
   ${({ theme }) => theme.device.mobileLg} {
+    margin-left: 4.6vw;
     img {
       width: 8.33vw;
       height: 8.33vw;
+      margin-left: -4.6vw;
     }
   }
 `;
@@ -231,6 +251,24 @@ const Header = styled.div`
       font-size: 12px;
     }
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    h2 {
+      font-size: 18px;
+    }
+    button {
+      font-size: 14px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    h2 {
+      font-size: 16px;
+    }
+    button {
+      font-size: 12px;
+    }
+  }
 `;
 
 const NoPointMent = styled.p`
@@ -249,11 +287,19 @@ const NoPointMent = styled.p`
     font-size: ${({ theme }) => theme.fontSizes.sm};
     height: 25vh;
   }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 16px;
+  }
 `;
 
 const HistoryBox = styled.div`
   width: 100%;
   height: auto;
+  /* display: grid; */
   grid-template-rows: repeat(1, 5.55vh);
   grid-auto-rows: 5.55vh;
   gap: 1.48vh;

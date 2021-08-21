@@ -18,6 +18,7 @@ const ConditionBtn = (props) => {
     challengeHoliday,
   } = props;
 
+  console.log(challengeHoliday);
   //챌린지 포기하기
   const giveupChallenge = () => {
     if (
@@ -69,7 +70,7 @@ const ConditionBtn = (props) => {
       <>
         <PostWrite
           challengeId={challengeId}
-          challengeHoliyday={challengeHoliday}
+          challengeHoliday={challengeHoliday}
         />
       </>
     );

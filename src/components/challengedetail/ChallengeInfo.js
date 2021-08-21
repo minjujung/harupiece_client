@@ -143,6 +143,18 @@ const Section = styled.section`
       font-size: 16px;
     }
   }
+
+  ${({ theme }) => theme.device.desktop} {
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    h3 {
+      font-size: 16px;
+    }
+  }
 `;
 
 const Info = styled.div`
@@ -157,6 +169,20 @@ const Info = styled.div`
     line-height: normal;
   }
   ${({ theme }) => theme.device.mobileLg} {
+    font-size: 14px;
+    span {
+      font-size: 14px;
+    }
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 16px;
+    span {
+      font-size: 16px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
     font-size: 14px;
     span {
       font-size: 14px;
@@ -183,6 +209,18 @@ const Example = styled.article`
     flex-direction: column;
     div {
       margin-right: 0;
+    }
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    span {
+      font-size: 16px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    span {
+      font-size: 14px;
     }
   }
 `;
@@ -212,6 +250,14 @@ const ExTitle = styled.h4`
   ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.xs};
     margin-top: 0.74vh;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
   }
 `;
 

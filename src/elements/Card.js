@@ -146,7 +146,7 @@ const Date = styled.p`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
-  padding: 2.22vh 0;
+  padding-bottom: 2.22vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
