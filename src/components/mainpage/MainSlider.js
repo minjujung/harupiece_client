@@ -5,8 +5,9 @@ import { Tag } from "../../elements";
 import { getCookie } from "../../shared/Cookie";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
+import { history } from "../../redux/configureStore";
 
-const TOTAL_SLIDES = 3;
+const TOTAL_SLIDES = 2;
 
 const MainSlider = (props) => {
   const is_login = getCookie("token") ? true : false;
@@ -49,12 +50,12 @@ const MainSlider = (props) => {
     return () => clearTimeout(intervalId);
   }, [currentSlide, setCurrentSlide, isFlowing]);
 
-  const slideImages = [
-    "https://i.ibb.co/YQCrYJR/banner-01.png",
-    "https://i.ibb.co/0KmsdWb/banner-02.png",
-    "https://i.ibb.co/rcfQJhp/banner-03.png",
-    "https://i.ibb.co/y6HNN1Q/banner-04.png",
-  ];
+  // const slideImages = [
+  //   "https://i.ibb.co/YQCrYJR/banner-01.png",
+  //   "https://i.ibb.co/0KmsdWb/banner-02.png",
+  //   "https://i.ibb.co/rcfQJhp/banner-03.png",
+  //   "https://i.ibb.co/y6HNN1Q/banner-04.png",
+  // ];
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
@@ -96,6 +97,9 @@ const MainSlider = (props) => {
                       style={{
                         backgroundImage: `url(${l.challengeImgUrl})`,
                       }}
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}/intro`)
+                      }
                     >
                       <TagBox>
                         <Tag bg="none" color="white">
@@ -116,20 +120,23 @@ const MainSlider = (props) => {
             </>
           ) : (
             <>
-              {slideImages.map((l, idx) => {
+              {main_list.guestmain.slider?.map((l, idx) => {
                 return (
                   <Slide key={idx}>
                     <SliderBox
                       style={{
-                        backgroundImage: `url(${l})`,
+                        backgroundImage: `url(${l.challengeImgUrl})`,
                       }}
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}/intro`)
+                      }
                     >
                       <TagBox>
                         <Tag bg="none" color="white">
-                          #2주
+                          {l.tagList[0]}
                         </Tag>
                         <Tag bg="none" color="white">
-                          #인기챌린지
+                          #{l.categoryName}
                         </Tag>
                       </TagBox>
                       <TitleBox>
