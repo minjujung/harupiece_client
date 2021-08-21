@@ -140,6 +140,15 @@ const createChDB =
           });
       })
       .catch((error) => {
+        if (error) {
+          setTimeout(
+            () =>
+              window.alert(
+                "이미지 용량이 너무 커서 업로드에 문제가 생겼어요ㅜㅜ"
+              ),
+            300
+          );
+        }
         consoleLogger("좋은 예시 이미지 에러", error);
       });
   };
