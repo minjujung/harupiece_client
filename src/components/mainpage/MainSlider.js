@@ -226,6 +226,7 @@ const SliderContainer = styled.div`
     width: 100%;
     display: flex;
     margin-right: 10px;
+    margin-top: 25vh;
   }
 `;
 

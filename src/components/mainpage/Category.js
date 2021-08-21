@@ -118,15 +118,6 @@ const Category = (props) => {
         </div>
         <TagBox>
           <Tag
-            color={category === "nodrinknosmoke" ? "white" : "black"}
-            onClick={ChangeTag}
-            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
-            padding="10px"
-            fontWeight="500"
-          >
-            #금연&금주
-          </Tag>
-          <Tag
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
@@ -143,6 +134,15 @@ const Category = (props) => {
             fontWeight="500"
           >
             #운동
+          </Tag>
+          <Tag
+            color={category === "nodrinknosmoke" ? "white" : "black"}
+            onClick={ChangeTag}
+            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
+            fontWeight="500"
+          >
+            #금연&금주
           </Tag>
         </TagBox>
         <ViewAll onClick={searchAll}>전체보기</ViewAll>
@@ -258,7 +258,7 @@ const Category = (props) => {
             하루조각 <span>건강챌린지</span>
           </div>
           <img
-            style={{ width: "20px" }}
+            style={{ width: "20px", paddingBottom: "3px" }}
             src={Right}
             alt=""
             onClick={searchAll}

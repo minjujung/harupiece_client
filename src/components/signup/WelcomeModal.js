@@ -36,7 +36,7 @@ const WelcomeModal = (props) => {
             ? {
                 style: {
                   width: "28.13vw",
-                  height: "50vh",
+                  height: "auto",
                   borderRadius: "10px",
                   overflowY: "hidden",
                   padding: "0px",
@@ -45,7 +45,7 @@ const WelcomeModal = (props) => {
             : {
                 style: {
                   width: "91.11vw",
-                  height: "100vw",
+                  height: "auto",
                   padding: "4.44vw",
                   borderRadius: "16px",
                 },
@@ -69,7 +69,7 @@ const WelcomeModal = (props) => {
           </Text>
         </Container>
         <ImageCont>
-          <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
+          <Image width="28.13vw" height="27vh" src={popup} alt="popup" />
         </ImageCont>
       </Dialog>
     </>
