@@ -36,7 +36,7 @@ const WelcomeModal = (props) => {
           ? {
           style: {
             width: "28.13vw",
-            height: "50vh",
+            height: "50vw",
             borderRadius: "10px",
             overflowY: "hidden",
             padding: "0px",
@@ -69,7 +69,7 @@ const WelcomeModal = (props) => {
           </Text>
         </Container>
         <ImageCont>
-          <Image width="28.13vw" height="50vh" src={popup} alt="popup" />
+          <Image width="28.13vw" height="27vh" src={popup} alt="popup" />
         </ImageCont>
       </Dialog>
     </>
@@ -119,8 +119,11 @@ const Text = styled.div`
 `;
 
 const ImageCont = styled.div`
-  & > img{
-    width : 74vw;
-    height: 45vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    & > img{
+      width : 74vw;
+      height: 45vw;
+    }
   }
+  
 `;
