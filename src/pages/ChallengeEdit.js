@@ -347,6 +347,7 @@ const Guid = styled.div`
 const Title = styled.div`
   width: 10.04vw;
   height: 4.81vh;
+  margin-top : 11vw; /* 모바일 가이드 라인 변경면 없애기 */
   & > h2 {
     font-size: 36px;
     font-weight: 700;
@@ -386,7 +387,7 @@ const InputRightContainer = styled.div`
 const MobileBadge = styled.div`
   display: none;
   ${({ theme }) => theme.device.mobileLg}{
-    display: inherit;
+    display: none; /* inherit 모바일 가이드 라인 변경해서 적용하기 */
     margin-left: 40vw;
   }
 `;
