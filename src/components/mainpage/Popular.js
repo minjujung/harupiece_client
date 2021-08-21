@@ -206,7 +206,6 @@ const MobileBox = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 100vw;
-    margin-bottom: 25vh;
     font-size: ${({ theme }) => theme.fontSizes.xl};
     div {
       span {

@@ -80,7 +80,6 @@ instance.interceptors.response.use(
 
           onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
           refreshSubscribers = []; // 요청 배열 초기화
-          console.log("첫 요청도 다시 요청!");
           return instance(originalConfig); // 첫 요청 다시 요청
         }
         const retryOriginalRequest = new Promise((resolve) => {
