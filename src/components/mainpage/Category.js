@@ -167,7 +167,6 @@ const Category = (props) => {
                           <Image
                             width="14.9vw"
                             height="14.81vh"
-                            padding="51.83% 0 0 0"
                             src={l.challengeImgUrl}
                             alt="challenge"
                           />
@@ -214,8 +213,7 @@ const Category = (props) => {
                       >
                         <Image
                           width="14.9vw"
-                          height="8.33vw"
-                          padding="51.83% 0 0 0"
+                          height="14.81vh"
                           src={l.challengeImgUrl}
                           alt="challenge"
                         />
@@ -325,7 +323,6 @@ const Category = (props) => {
                             <Image
                               width="54.5vw"
                               height="33.33vw"
-                              padding="51.83% 0 0 0"
                               src={l.challengeImgUrl}
                               alt="challenge"
                             />
@@ -382,7 +379,6 @@ const Category = (props) => {
                           <Image
                             width="54.5vw"
                             height="33.33vw"
-                            padding="51.83% 0 0 0"
                             src={l.challengeImgUrl}
                             alt="challenge"
                           />

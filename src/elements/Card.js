@@ -90,12 +90,17 @@ const CardBox = styled.div`
   ${(props) => (props.padding ? `padding: ${props.padding};` : null)}
   border-radius: 10px;
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
+  border-top: none;
   cursor: pointer;
   /* padding-bottom: 20px; */
   ${({ theme }) => theme.device.mobileLg} {
     /* width: ${(props) => (props.search ? "41.67vw" : "91.11vw")}; */
     height: ${(props) => (props.height ? props.height : "auto")};
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Container = styled.div`

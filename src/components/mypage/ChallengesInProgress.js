@@ -61,8 +61,10 @@ function ChallengesInProgress(props) {
               category = "금연&금주";
             } else if (list.categoryName === "EXERCISE") {
               category = "운동";
-            } else {
+            } else if (list.categoryName === "LIVINGHABITS") {
               category = "생활습관";
+            } else {
+              category = "OFFICIAL";
             }
             return (
               <Card
