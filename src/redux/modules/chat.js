@@ -7,6 +7,8 @@ import { ChatApis } from "../../shared/api";
 //paging 포함한 chatting room 정보
 const SET_CHATINFO = "SET_CHATINFO";
 
+const RESET_CHATTING = "RESET_CHATTING";
+
 //DB에 저장되어 있던 대화목록 가져오기
 const SET_MESSAGES = "SET_MESSAGES";
 
@@ -19,6 +21,11 @@ const WRITE_MESSAGE = "WRITE_MESSAGE";
 const LOADING = "LOADING";
 
 const setChatInfo = createAction(SET_CHATINFO, (messageList, paging) => ({
+  messageList,
+  paging,
+}));
+
+const resetChatting = createAction(RESET_CHATTING, (messageList, paging) => ({
   messageList,
   paging,
 }));
@@ -45,9 +52,9 @@ const initialState = {
     // messageCurPage: null,
     // // 메시지 총 페이지
     // messageTotalPage: null,
-    paging: { page: 1, next: null, size: 6 },
     // 메시지 로딩
   },
+  paging: { page: 1, next: null, size: 15 },
   is_loading: false,
 };
 
@@ -55,20 +62,22 @@ const initialState = {
 const getMessagesDB =
   (challengeId) =>
   (dispatch, getState, { history }) => {
-    const _paging = getState().chat.info.paging;
+    const _paging = getState().chat.paging;
     if (_paging.page === false && _paging.next === false) {
       return;
     }
 
     dispatch(loading(true));
 
-    ChatApis.getMessages(challengeId)
+    ChatApis.getMessages(challengeId, _paging.page)
       .then((res) => {
         consoleLogger("DB에 저장되어 있는 채팅 목록 가져오는 요청의 응답", res);
 
         let new_paging = {
           page:
-            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
+            res.data.chatMessages?.length < _paging.size
+              ? false
+              : _paging.page + 1,
           next: res.data.hasNext,
           size: _paging.size,
         };
@@ -80,10 +89,17 @@ const getMessagesDB =
 
 export default handleActions(
   {
+    [RESET_CHATTING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.info.messages = action.payload.messageList;
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
+      }),
+
     [SET_CHATINFO]: (state, action) =>
       produce(state, (draft) => {
         draft.info.messages.unshift(...action.payload.messageList);
-        draft.info.paging = action.payload.paging;
+        draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),
 
@@ -111,6 +127,7 @@ export default handleActions(
 );
 
 const actionCreator = {
+  resetChatting,
   setMessages,
   getMessages,
   setChatInfo,

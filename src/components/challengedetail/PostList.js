@@ -159,7 +159,7 @@ const PostList = (props) => {
             ? {
                 style: {
                   width: "36.56vw",
-                  height: "60.83vh",
+                  height: "auto",
                   padding: "1.46vw",
                   borderRadius: "0.6em ",
                   overflowY: "hidden",
@@ -191,8 +191,8 @@ const PostList = (props) => {
               <DialogInfo>
                 <UserInfo>
                   <Image
-                    width="80px"
-                    height="80px"
+                    width="4.17vw"
+                    height="4.17vw"
                     borderRadius="50%"
                     margin="0 16px 0 0"
                     src={list[clicked]?.profileImg}
@@ -204,8 +204,8 @@ const PostList = (props) => {
                   src={close}
                   alt="closeBtn"
                   onClick={handleClose}
-                  width={window.innerWidth < 720 ? "18px" : "28px"}
-                  height={window.innerWidth < 720 ? "18px" : "28px"}
+                  width={window.innerWidth < 720 ? "18px" : "1.46vw"}
+                  height={window.innerWidth < 720 ? "18px" : "1.46vw"}
                   borderRadius="0"
                 />
               </DialogInfo>
@@ -245,7 +245,7 @@ const PostList = (props) => {
                     border="mainGreen"
                     bg="white"
                     margin={
-                      window.innerWidth <= 720 ? "0 2.22vw 0 0" : "0 32px 0 0"
+                      window.innerWidth <= 720 ? "0 2.22vw 0 0" : "0 1.67vw 0 0"
                     }
                     color="mainGreen"
                     _onClick={deletePost}
@@ -505,7 +505,7 @@ const MeBtn = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 44px;
+  margin-top: 2.29vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     margin: 0;

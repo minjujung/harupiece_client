@@ -10,7 +10,13 @@ const ConditionBtn = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
 
-  const { challengeProgress, challengeId, challengeMember, memberId } = props;
+  const {
+    challengeProgress,
+    challengeId,
+    challengeMember,
+    memberId,
+    challengeHoliday,
+  } = props;
 
   //챌린지 포기하기
   const giveupChallenge = () => {
@@ -61,7 +67,10 @@ const ConditionBtn = (props) => {
   ) {
     return (
       <>
-        <PostWrite challengeId={challengeId} />
+        <PostWrite
+          challengeId={challengeId}
+          challengeHoliyday={challengeHoliday}
+        />
       </>
     );
   } else if (

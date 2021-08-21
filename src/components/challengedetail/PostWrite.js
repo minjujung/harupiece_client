@@ -10,7 +10,7 @@ import { Image } from "../../elements";
 import camera from "../../assets/images/icons/camera.svg";
 import close from "../../assets/images/icons/close.svg";
 
-const PostWrite = ({ challengeId }) => {
+const PostWrite = ({ challengeId, challengeHoliday }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
 
@@ -64,16 +64,16 @@ const PostWrite = ({ challengeId }) => {
 
   let intViewportWidth = window.innerWidth;
 
+  const today = new Date().getDay();
+
   return (
     <>
-      <Button
-        width="100%"
-        height="5.93vh"
-        margin="0 0 20px 0"
-        _onClick={handleClickOpen}
+      <PostBtn
+        onClick={handleClickOpen}
+        disabled={challengeHoliday !== "" ? true : false}
       >
         인증 하기
-      </Button>
+      </PostBtn>
       <Dialog
         open={open}
         maxWidth={false}
@@ -189,6 +189,21 @@ const Container = styled.div`
   }
 `;
 
+const PostBtn = styled.button`
+  width: 100%;
+  height: 5.93vh;
+  margin-bottom: 20px;
+  color: white;
+  background-color: ${(props) =>
+    props.disabled === true
+      ? props.theme.colors.gray
+      : props.theme.colors.mainGreen};
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+`;
+
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-bottom: 32px;
@@ -216,7 +231,7 @@ const Preview = styled.div`
 
 const PreviewBtn = styled.label`
   width: ${(props) => (props.again ? "25.1vw" : "100%")};
-  height: ${(props) => (props.again ? "5.92vh" : "100%")};
+  height: ${(props) => (props.again ? "auto" : "100%")};
   display: flex;
   margin-right: 32px;
   flex-direction: column;

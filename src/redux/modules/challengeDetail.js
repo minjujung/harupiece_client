@@ -40,7 +40,7 @@ const initialState = {
       "https://user-images.githubusercontent.com/75834421/127076439-599fa607-9285-4ab6-aec6-54ba16567434.png",
     challengeBad:
       "https://user-images.githubusercontent.com/75834421/127076583-de2aadb3-2dd2-4778-a59e-e68f9dc3aded.png",
-    challengeHollyday: " ",
+    challengeHoliyday: "",
     challengeMember: [1, 2, 3, 4], //챌린지에 참여한 유저아이디
   },
   is_loading: false,
