@@ -22,10 +22,10 @@ const ChallengeDetail = (props) => {
   const challengeId = props.match.params.id;
 
   //challenge날짜수 계산
-  const start = challenge.challengeStartDate.split("T")[0].split("-");
+  const start = challenge.challengeStartDate?.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
 
-  const end = challenge.challengeEndDate.split("T")[0].split("-");
+  const end = challenge.challengeEndDate?.split("T")[0].split("-");
   const date2 = new Date(end[0], end[1][1] - 1, end[2]);
 
   const totalSecond = date2.getTime() - date1.getTime();

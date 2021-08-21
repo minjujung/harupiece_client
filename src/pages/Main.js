@@ -15,7 +15,6 @@ import { Button } from "../elements";
 const Main = (props) => {
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (getCookie("token")) {
       dispatch(MainCreators.userLoadDB());
@@ -93,7 +92,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin-top: 30vh;
+    margin-top: 25vh;
   }
 `;
 

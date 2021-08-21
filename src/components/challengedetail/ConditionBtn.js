@@ -15,7 +15,7 @@ const ConditionBtn = (props) => {
     challengeId,
     challengeMember,
     memberId,
-    challengeHollyday,
+    challengeHoliday,
   } = props;
 
   //챌린지 포기하기
@@ -57,13 +57,7 @@ const ConditionBtn = (props) => {
       }
     } else {
       //챌린지 진행전인데 신청 안된 상태면 공개/비공개 나눠서 신청 받기
-      return (
-        <PwdModal
-          challengeMember={challengeMember}
-          challengeHollyday={challengeHollyday}
-          {...props}
-        />
-      );
+      return <PwdModal challengeMember={challengeMember} {...props} />;
     }
   }
   // 챌린지 진행중에 로그인한 사용자가 신청자 이면 인증샷 올리기 버튼
@@ -73,7 +67,10 @@ const ConditionBtn = (props) => {
   ) {
     return (
       <>
-        <PostWrite challengeId={challengeId} />
+        <PostWrite
+          challengeId={challengeId}
+          challengeHoliyday={challengeHoliday}
+        />
       </>
     );
   } else if (

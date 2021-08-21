@@ -165,7 +165,7 @@ const Category = (props) => {
                       >
                         <CardImg>
                           <Image
-                            width="14.9vw"
+                            width="14.83vw"
                             height="14.81vh"
                             src={l.challengeImgUrl}
                             alt="challenge"
@@ -212,7 +212,7 @@ const Category = (props) => {
                         }
                       >
                         <Image
-                          width="14.9vw"
+                          width="14.83vw"
                           height="14.81vh"
                           src={l.challengeImgUrl}
                           alt="challenge"

@@ -10,7 +10,7 @@ import { Image } from "../../elements";
 import camera from "../../assets/images/icons/camera.svg";
 import close from "../../assets/images/icons/close.svg";
 
-const PostWrite = ({ challengeId, challengeHollyday }) => {
+const PostWrite = ({ challengeId, challengeHoliday }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
 
@@ -70,11 +70,7 @@ const PostWrite = ({ challengeId, challengeHollyday }) => {
     <>
       <PostBtn
         onClick={handleClickOpen}
-        disabled={
-          challengeHollyday !== " " && (today === 6 || today === 0)
-            ? true
-            : false
-        }
+        disabled={challengeHoliday !== "" ? true : false}
       >
         인증 하기
       </PostBtn>
@@ -199,7 +195,9 @@ const PostBtn = styled.button`
   margin-bottom: 20px;
   color: white;
   background-color: ${(props) =>
-    props.disabled ? props.theme.colors.gray : props.theme.colors.mainGreen};
+    props.disabled === true
+      ? props.theme.colors.gray
+      : props.theme.colors.mainGreen};
   border-radius: 8px;
   text-align: center;
   font-weight: bold;
