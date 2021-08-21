@@ -97,10 +97,6 @@ const CardBox = styled.div`
     /* width: ${(props) => (props.search ? "41.67vw" : "91.11vw")}; */
     height: ${(props) => (props.height ? props.height : "auto")};
   }
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TagContainer = styled.div`

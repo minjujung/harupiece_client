@@ -65,33 +65,31 @@ instance.interceptors.response.use(
         originalConfig._retry = true;
         if (!isTokenRefreshing) {
           isTokenRefreshing = true;
-          try {
-            const rs = await refreshTokens();
-            const { accessToken, refreshToken } = rs.data;
 
-            setCookie("token", accessToken);
-            setCookie("refreshToken", refreshToken);
+          const rs = await refreshTokens();
+          const { accessToken, refreshToken } = rs.data;
 
-            console.log("토큰 재생성 완료!"); // 토큰 생성이 완료되면
-            isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
+          setCookie("token", accessToken);
+          setCookie("refreshToken", refreshToken);
 
-            instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;
-            originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+          console.log("토큰 재생성 완료!"); // 토큰 생성이 완료되면
+          isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
 
-            onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
-            refreshSubscribers = []; // 요청 배열 초기화
-            console.log("첫 요청도 다시 요청!");
-            return axios(originalConfig); // 첫 요청 다시 요청
-          } catch (_error) {
-            const retryOriginalRequest = new Promise((resolve) => {
-              addRefreshSubscriber((accessToken) => {
-                originalConfig.headers.Authorization = "Bearer " + accessToken;
-                resolve(axios(originalConfig));
-              });
-            });
-            return retryOriginalRequest;
-          }
+          instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;
+          originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+
+          onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
+          refreshSubscribers = []; // 요청 배열 초기화
+          console.log("첫 요청도 다시 요청!");
+          return instance(originalConfig); // 첫 요청 다시 요청
         }
+        const retryOriginalRequest = new Promise((resolve) => {
+          addRefreshSubscriber((accessToken) => {
+            originalConfig.headers.Authorization = "Bearer " + accessToken;
+            resolve(instance(originalConfig));
+          });
+        });
+        return retryOriginalRequest;
       }
       if (err.response.status === 403 && err.response.data) {
         return Promise.reject(err.response.data);
