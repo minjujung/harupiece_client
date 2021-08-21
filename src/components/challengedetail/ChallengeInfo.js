@@ -41,6 +41,8 @@ const ChallengeInfo = (props) => {
     status = "진행 종료";
   }
 
+  console.log(challenge.tagList);
+
   return (
     <ChallengeDesc>
       <Section>

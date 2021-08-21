@@ -197,7 +197,7 @@ export default Chat;
 const Container = styled.div`
   height: 100%;
   position: relative;
-  z-index: 10;
+  z-index: 100;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 100%;

@@ -127,10 +127,10 @@ function SearchChallenge(props) {
         <CategoryLeftBox>
           <CategoryTitle>카테고리</CategoryTitle>
           <CategoryTitle>도전기간</CategoryTitle>
-          <CategoryTitle>
+          {/* <CategoryTitle>
             <div>기</div>
             <div>타</div>
-          </CategoryTitle>
+          </CategoryTitle> */}
         </CategoryLeftBox>
         <CategoryRightBox>
           <TagBox>
@@ -256,7 +256,7 @@ function SearchChallenge(props) {
               #4주 이상
             </Tag>
           </TagBox>
-          <TagBox>
+          {/* <TagBox>
             <Tag
               fontWeight="500"
               onClick={(e) => allFilterClickListener(e, "tagList")}
@@ -291,7 +291,7 @@ function SearchChallenge(props) {
             >
               #인기챌린지
             </Tag>
-          </TagBox>
+          </TagBox> */}
         </CategoryRightBox>
       </CategoryContainer>
       <BoxContainer>
