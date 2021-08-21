@@ -14,7 +14,7 @@ const Category = (props) => {
   const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
 
-  const [category, setCategory] = useState("nodrinknosmoke");
+  const [category, setCategory] = useState("livinghabits");
 
   const searchAll = (e) => {
     e.preventDefault();
@@ -127,15 +127,6 @@ const Category = (props) => {
             #습관챌린지
           </Tag>
           <Tag
-            color={category === "exercise" ? "white" : "black"}
-            bg={category === "exercise" ? "mainOrange" : "lightGray"}
-            onClick={ChangeTag}
-            padding="10px"
-            fontWeight="500"
-          >
-            #운동
-          </Tag>
-          <Tag
             color={category === "nodrinknosmoke" ? "white" : "black"}
             onClick={ChangeTag}
             bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
@@ -143,6 +134,15 @@ const Category = (props) => {
             fontWeight="500"
           >
             #금연&금주
+          </Tag>
+          <Tag
+            color={category === "exercise" ? "white" : "black"}
+            bg={category === "exercise" ? "mainOrange" : "lightGray"}
+            onClick={ChangeTag}
+            padding="10px"
+            fontWeight="500"
+          >
+            #운동
           </Tag>
         </TagBox>
         <ViewAll onClick={searchAll}>전체보기</ViewAll>
@@ -266,15 +266,6 @@ const Category = (props) => {
         </TitleBox>
         <TagBox>
           <Tag
-            color={category === "nodrinknosmoke" ? "white" : "black"}
-            onClick={ChangeTag}
-            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
-            padding="10px"
-            fontWeight="500"
-          >
-            #금연&금주
-          </Tag>
-          <Tag
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
@@ -282,6 +273,15 @@ const Category = (props) => {
             fontWeight="500"
           >
             #습관챌린지
+          </Tag>
+          <Tag
+            color={category === "nodrinknosmoke" ? "white" : "black"}
+            onClick={ChangeTag}
+            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
+            fontWeight="500"
+          >
+            #금연&금주
           </Tag>
           <Tag
             color={category === "exercise" ? "white" : "black"}

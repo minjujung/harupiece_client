@@ -6,7 +6,6 @@ ${reset};
 
 * {
     box-sizing: border-box;
-    transition: all .5s;
 }
 
 html {

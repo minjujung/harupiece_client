@@ -139,7 +139,7 @@ const NoListMent = styled.div`
   justify-content: center;
   text-align: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;

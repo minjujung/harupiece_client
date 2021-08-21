@@ -170,6 +170,7 @@ const Container = styled.div`
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    margin-top: 10vh;
     overflow-x: scroll;
     ::-webkit-scrollbar {
       display: none;
