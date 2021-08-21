@@ -92,7 +92,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin-top: 25vh;
+    /* margin-top: 10vh; */
   }
 `;
 
@@ -147,7 +147,6 @@ const MButton = styled.button`
     font-size: 48px;
     color: ${({ theme }) => theme.colors.white};
     font-weight: 300;
-    padding-bottom: 5px;
     z-index: 100;
   }
   ${({ theme }) => theme.device.desktopXl} {

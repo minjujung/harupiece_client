@@ -14,7 +14,7 @@ const Category = (props) => {
   const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main);
 
-  const [category, setCategory] = useState("nodrinknosmoke");
+  const [category, setCategory] = useState("livinghabits");
 
   const searchAll = (e) => {
     e.preventDefault();
@@ -118,15 +118,6 @@ const Category = (props) => {
         </div>
         <TagBox>
           <Tag
-            color={category === "nodrinknosmoke" ? "white" : "black"}
-            onClick={ChangeTag}
-            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
-            padding="10px"
-            fontWeight="500"
-          >
-            #금연&금주
-          </Tag>
-          <Tag
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
             onClick={ChangeTag}
@@ -134,6 +125,15 @@ const Category = (props) => {
             fontWeight="500"
           >
             #습관챌린지
+          </Tag>
+          <Tag
+            color={category === "nodrinknosmoke" ? "white" : "black"}
+            onClick={ChangeTag}
+            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
+            fontWeight="500"
+          >
+            #금연&금주
           </Tag>
           <Tag
             color={category === "exercise" ? "white" : "black"}
@@ -258,22 +258,13 @@ const Category = (props) => {
             하루조각 <span>건강챌린지</span>
           </div>
           <img
-            style={{ width: "20px" }}
+            style={{ width: "20px", paddingBottom: "3px" }}
             src={Right}
             alt=""
             onClick={searchAll}
           />
         </TitleBox>
         <TagBox>
-          <Tag
-            color={category === "nodrinknosmoke" ? "white" : "black"}
-            onClick={ChangeTag}
-            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
-            padding="10px"
-            fontWeight="500"
-          >
-            #금연&금주
-          </Tag>
           <Tag
             color={category === "livinghabits" ? "white" : "black"}
             bg={category === "livinghabits" ? "mainOrange" : "lightGray"}
@@ -282,6 +273,15 @@ const Category = (props) => {
             fontWeight="500"
           >
             #습관챌린지
+          </Tag>
+          <Tag
+            color={category === "nodrinknosmoke" ? "white" : "black"}
+            onClick={ChangeTag}
+            bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
+            padding="10px"
+            fontWeight="500"
+          >
+            #금연&금주
           </Tag>
           <Tag
             color={category === "exercise" ? "white" : "black"}
