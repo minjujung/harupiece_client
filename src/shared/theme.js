@@ -1,7 +1,7 @@
 const device = {
   mobileLg: `@media screen and (min-width: 360px) and (max-width:720px)`,
   tablet: `@media screen and (min-width: 720px) and (max-width:960px)`,
-  desktop: `@media screen and (min-width: 960px) and (max-width:1250px)`,
+  desktop: `@media screen and (min-width: 960px) and (max-width:1250px)`, // 선용님 화면
   desktopLg: `@media screen and (min-width: 1250px) and (max-width:1600px)`,
   desktopXl: `@media screen and (min-width: 1600px)`,
 };

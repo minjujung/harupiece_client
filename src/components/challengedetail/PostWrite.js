@@ -66,7 +66,6 @@ const PostWrite = ({ challengeId, challengeHoliday }) => {
 
   const today = new Date().getDay();
 
-  console.log(challengeHoliday);
   return (
     <>
       <PostBtn

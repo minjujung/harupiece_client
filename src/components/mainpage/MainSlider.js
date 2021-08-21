@@ -15,7 +15,6 @@ const MainSlider = (props) => {
   const slideRef = useRef(null);
 
   const main_list = useSelector((state) => state.main);
-  // console.log(main_list);
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -163,7 +162,6 @@ const Container = styled.div`
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top: 10vh;
     overflow-x: scroll;
     ::-webkit-scrollbar {
       display: none;
@@ -244,7 +242,8 @@ const SliderBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 100px;
+  padding-left: 
+  px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

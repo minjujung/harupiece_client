@@ -48,7 +48,6 @@ const MessageList = ({ challengeId }) => {
     }
     dispatch(chatActions.getMessagesDB(challengeId));
   };
-  console.log(paging);
 
   return (
     <ChatInfinityScroll
