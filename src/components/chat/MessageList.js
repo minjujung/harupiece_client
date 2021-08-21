@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
+import _ from "lodash";
+
 import green from "../../assets/images/level/green.svg";
-import InfinityScroll from "../../shared/InfinityScroll";
+import ChatInfinityScroll from "./ChatInfinityScroll";
 import { Image } from "../../elements";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -11,66 +13,78 @@ import { actionCreator as chatActions } from "../../redux/modules/chat";
 const MessageList = ({ challengeId }) => {
   const dispatch = useDispatch();
   const chatInfo = useSelector((state) => state.chat.info);
-  const is_loading = useSelector((state) => state.chat.info.is_loading);
+  const { paging, is_loading } = useSelector((state) => state.chat);
   const user_info = useSelector((state) => state.user.userInfo);
 
+  const [prevHeight, setPrevHeight] = useState(null);
   // 스크롤 대상(제일 마지막 메세지)
   const scrollTo = useRef();
 
   // 스크롤 자동으로 맨마지막 채팅까지 내려가게 하기
-  const scrollToBottom = () => {
-    //모바일에서는 실행 X
-    if (window.innerWidth <= 200) {
-      return;
-    }
-    const { scrollHeight, clientHeight } = scrollTo?.current;
-    scrollTo.current.scrollTop = scrollHeight - clientHeight;
-    // scrollTo.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // const scrollToBottom = () => {
+  //   if (window.innerWidth <= 200) {
+  //     return;
+  //   }
+  //   const { scrollHeight, clientHeight } = scrollTo?.current;
+  //   scrollTo.current.scrollTop = scrollHeight - clientHeight;
+  //   scrollTo.current?.scrollIntoView({ behavior: "smooth" });
+  // };
+  useEffect(() => {
+    dispatch(chatActions.getMessagesDB(challengeId));
+  }, []);
 
   useEffect(() => {
-    scrollToBottom();
-  });
+    if (prevHeight) {
+      scrollTo.current.scrollTop = scrollTo.current.scrollHeight - prevHeight;
+      return setPrevHeight(null);
+    }
+    scrollTo.current.scrollTop =
+      scrollTo.current.scrollHeight - scrollTo.current.clientHeight;
+  }, [chatInfo.messages]);
 
   const callNext = () => {
-    if (chatInfo.paging.next === false) {
+    if (paging.next === false) {
       return;
     }
     dispatch(chatActions.getMessagesDB(challengeId));
   };
+  console.log(paging);
 
   return (
-    // <InfinityScroll
-    //   callNext={callNext}
-    //   is_next={chatInfo.paging.next ? true : false}
-    //   loading={is_loading}
-    // >
-    <Chat ref={scrollTo}>
-      {chatInfo.messages?.map((msg) => (
-        <MsgFrame key={msg.chatMessageId}>
-          {msg.type === "QUIT" || msg.type === "ENTER" ? (
-            <EnterMsg>{msg.message}</EnterMsg>
-          ) : (
-            <>
-              {" "}
-              <Sender me={user_info.nickname === msg.sender ? true : false}>
-                <Image
-                  width="24px"
-                  height="24px"
-                  src={msg.profileImg ? msg.profileImg : green}
-                  alt="msgSender"
-                />
-                <p style={{ fontWeight: "bold" }}>{msg.sender}</p>
-              </Sender>
-              <Message me={user_info.nickname === msg.sender ? true : false}>
-                {msg.message}
-              </Message>
-            </>
-          )}
-        </MsgFrame>
-      ))}
-    </Chat>
-    // </InfinityScroll>
+    <ChatInfinityScroll
+      callNext={callNext}
+      is_next={paging.next ? true : false}
+      loading={is_loading}
+      scrollTo={scrollTo}
+      prevHeight={prevHeight}
+      setPrevHeight={setPrevHeight}
+    >
+      <Chat ref={scrollTo}>
+        {chatInfo.messages?.map((msg) => (
+          <MsgFrame key={msg.chatMessageId}>
+            {msg.type === "QUIT" || msg.type === "ENTER" ? (
+              <EnterMsg>{msg.message}</EnterMsg>
+            ) : (
+              <>
+                {" "}
+                <Sender me={user_info.nickname === msg.sender ? true : false}>
+                  <Image
+                    width="24px"
+                    height="24px"
+                    src={msg.profileImg ? msg.profileImg : green}
+                    alt="msgSender"
+                  />
+                  <p style={{ fontWeight: "bold" }}>{msg.sender}</p>
+                </Sender>
+                <Message me={user_info.nickname === msg.sender ? true : false}>
+                  {msg.message}
+                </Message>
+              </>
+            )}
+          </MsgFrame>
+        ))}
+      </Chat>
+    </ChatInfinityScroll>
   );
 };
 export default MessageList;

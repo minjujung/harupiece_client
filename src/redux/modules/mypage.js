@@ -79,6 +79,7 @@ const getPointDB = () => {
         ];
         const myInfo = {
           level: res.data.level,
+          rank: res.data.rank,
           memberId: res.data.memberId,
           nickname: res.data.nickname,
           profileImage: res.data.profileImage,

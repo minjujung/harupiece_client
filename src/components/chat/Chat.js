@@ -82,7 +82,6 @@ const Chat = ({ challengeId }) => {
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
     wsConnectSubscribe();
-    dispatch(chatActions.getMessagesDB(challengeId));
     return () => {
       wsDisConnectUnsubscribe();
     };

@@ -81,7 +81,7 @@ function Mypage(props) {
           <>
             <Image
               width="9.69vw"
-              height="17.13vh"
+              height="9.69vw"
               borderRadius="50%"
               margin="0 0 0 4.38vw"
               src={
@@ -255,7 +255,7 @@ const EditProfile = styled.div`
   button {
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
   }
   ${({ theme }) => theme.device.mobileLg} {
     button {

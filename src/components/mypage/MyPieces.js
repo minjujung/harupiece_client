@@ -9,9 +9,7 @@ import { Image } from "../../elements";
 function MyPieces(props) {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
-  const point_history = useSelector(
-    (state) => state.mypage.myInfo.pointHistoryList
-  );
+  const mypageInfo = useSelector((state) => state.mypage.myInfo);
 
   useEffect(() => {
     dispatch(myInfo.getPointDB());
@@ -55,7 +53,9 @@ function MyPieces(props) {
       <PointGrid>
         <InfoBox mainGreen>
           <p>나의 하루조각 등급은?</p>
-          <strong>{userLevel}(1위)</strong>
+          <strong>
+            {userLevel}({mypageInfo.rank}위)
+          </strong>
         </InfoBox>
         <InfoBox>
           <p>하루조각 총 개수</p>
@@ -91,9 +91,9 @@ function MyPieces(props) {
         </Header>
         {show ? (
           <>
-            {point_history.length !== 0 ? (
+            {mypageInfo.pointHistoryList.length !== 0 ? (
               <HistoryBox>
-                {point_history?.map((history) => (
+                {mypageInfo.pointHistoryList?.map((history) => (
                   <p key={history.pointHistoryId}>
                     [{history.challengeTitle}]챌린지를 통해 {history.point}조각
                     획득
