@@ -91,13 +91,13 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
+    /* margin-top: 25vh; */
   }
 `;
 
 const ContainerLeft = styled.div`
   width: 49.48vw;
-  height: 77.22vh;
   margin-right: 1.04vw;
 
   ${({ theme }) => theme.device.mobileLg} {
@@ -106,21 +106,18 @@ const ContainerLeft = styled.div`
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     margin-right: 0px;
   }
 `;
 
 const ContainerRight = styled.div`
   width: 16.15vw;
-  height: 77.22vh;
   ${({ theme }) => theme.device.mobileLg} {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     margin-right: 0px;
   }
 `;

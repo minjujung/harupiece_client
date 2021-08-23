@@ -297,7 +297,7 @@ const takeInPartChallengeDB =
             window.alert(
               `${challenge_detail.challengeTitle} 챌린지 신청 완료!`
             ),
-          300
+          400
         );
 
         const new_userInfo = {
@@ -312,7 +312,7 @@ const takeInPartChallengeDB =
           error.response?.data?.message ===
           "이미 해당 카테고리에 챌린지를 진행중입니다."
         ) {
-          setTimeout(() => window.alert(error.response?.data?.message), 300);
+          setTimeout(() => window.alert(error.response?.data?.message), 400);
         }
         // if (
         //   window.confirm(

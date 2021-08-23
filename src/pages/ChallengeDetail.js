@@ -76,7 +76,7 @@ const ChallengeDetail = (props) => {
   return (
     <DetailContainer>
       {" "}
-      <Chat challengeId={challengeId} />
+      {/* <Chat challengeId={challengeId} /> */}
       <Area>
         <StateContainer>
           {/* banner 랑 navbar */}
