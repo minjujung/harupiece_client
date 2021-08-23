@@ -67,7 +67,7 @@ const Popular = (props) => {
                               : l.challengeTitle}
                           </div>
                           <div>
-                            {l.challengeMember.length}명이 대화에 참여중
+                            {l.challengeMember.length}명이 챌린지에 참여중
                           </div>
                         </CardTitle>
                       </CardBox>
@@ -97,7 +97,7 @@ const Popular = (props) => {
                               : l.challengeTitle}
                           </div>
                           <div>
-                            {l.challengeMember.length}명이 대화에 참여중
+                            {l.challengeMember.length}명이 챌린지에 참여중
                           </div>
                         </CardTitle>
                       </CardBox>
@@ -142,7 +142,7 @@ const Popular = (props) => {
                                 : l.challengeTitle}
                             </div>
                             <div>
-                              {l.challengeMember.length}명이 대화에 참여중
+                              {l.challengeMember.length}명이 챌린지에 참여중
                             </div>
                           </CardTitle>
                         </CardBox>
@@ -179,7 +179,7 @@ const Popular = (props) => {
                                 : l.challengeTitle}
                             </div>
                             <div>
-                              {l.challengeMember.length}명이 대화에 참여중
+                              {l.challengeMember.length}명이 챌린지에 참여중
                             </div>
                           </CardTitle>
                         </CardBox>

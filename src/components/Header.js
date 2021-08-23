@@ -142,7 +142,7 @@ const Header = () => {
                       <input
                         type="text"
                         id="search-form"
-                        placeholder="검색어를 입력해주세요."
+                        placeholder="챌린지를 검색해보세요."
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         onKeyPress={onCheckEnter}
