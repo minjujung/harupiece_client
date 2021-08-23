@@ -42,6 +42,7 @@ const initialState = {
       "https://user-images.githubusercontent.com/75834421/127076583-de2aadb3-2dd2-4778-a59e-e68f9dc3aded.png",
     challengeHoliyday: "",
     challengeMember: [1, 2, 3, 4], //챌린지에 참여한 유저아이디
+    tagList: ["#1주", "OFFICIAL"],
   },
   is_loading: false,
 };
@@ -296,7 +297,7 @@ const takeInPartChallengeDB =
             window.alert(
               `${challenge_detail.challengeTitle} 챌린지 신청 완료!`
             ),
-          300
+          400
         );
 
         const new_userInfo = {
@@ -311,7 +312,7 @@ const takeInPartChallengeDB =
           error.response?.data?.message ===
           "이미 해당 카테고리에 챌린지를 진행중입니다."
         ) {
-          setTimeout(() => window.alert(error.response?.data?.message), 300);
+          setTimeout(() => window.alert(error.response?.data?.message), 400);
         }
         // if (
         //   window.confirm(

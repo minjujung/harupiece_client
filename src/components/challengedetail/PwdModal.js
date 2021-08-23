@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 
 const PwdModal = (props) => {
+  console.log(props);
   const { challengePassword, challengeId, challengeMember } = props;
 
   const dispatch = useDispatch();

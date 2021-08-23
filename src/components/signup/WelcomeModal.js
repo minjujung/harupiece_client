@@ -33,27 +33,27 @@ const WelcomeModal = (props) => {
         aria-labelledby="form-dialog-title"
         PaperProps={
           intViewportWidth > 720
-          ? {
-          style: {
-            width: "28.13vw",
-            height: "50vw",
-            borderRadius: "10px",
-            overflowY: "hidden",
-            padding: "0px",
-          },
+            ? {
+                style: {
+                  width: "28.13vw",
+                  height: "auto",
+                  borderRadius: "10px",
+                  overflowY: "hidden",
+                  padding: "0px",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  height: "auto",
+                  padding: "4.44vw",
+                  borderRadius: "16px",
+                },
+              }
         }
-        : {
-          style: {
-            width: "91.11vw",
-            height: "100vw",
-            padding: "4.44vw",
-            borderRadius: "16px",
-          },
-        }
-      }
       >
         <Container>
-        <CloseImg src={close} alt="close" onClick={goToLogin}/>
+          <CloseImg src={close} alt="close" onClick={goToLogin} />
           <Text>
             <p>
               {props.nick}님!
@@ -96,7 +96,7 @@ const CloseImg = styled.img`
   left: 25.84vw;
   z-index: 11px;
   cursor: pointer;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 20px;
     height: 20px;
     left: 70.84vw;
@@ -107,23 +107,23 @@ const Text = styled.div`
   width: 100%;
   padding: 5.55vh 0px;
   z-index: 10;
+  line-height: normal;
   & > p {
     font-size: ${({ theme }) => theme.fontSizes.md};
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     padding: 3.55vh 0px;
     & > p {
-    font-size: ${({ theme }) => theme.fontSizes.ms};
+      font-size: ${({ theme }) => theme.fontSizes.ms};
     }
   }
 `;
 
 const ImageCont = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
-    & > img{
-      width : 74vw;
+    & > img {
+      width: 74vw;
       height: 45vw;
     }
   }
-  
 `;

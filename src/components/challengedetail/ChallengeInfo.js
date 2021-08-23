@@ -102,10 +102,10 @@ const ChallengeInfo = (props) => {
         <Desc>{challenge.challengeContent}</Desc>
         <TagFrame>
           <Tag bg="mainGreen" color="white">
-            #2주
+            {challenge.tagList[0]}
           </Tag>
-          <Tag bg="mainGreen" color="white">
-            #인기챌린지
+          <Tag bg="mainOrange" color="white">
+            #{challenge.categoryName}
           </Tag>
         </TagFrame>
       </Section>
@@ -264,6 +264,7 @@ const ExTitle = styled.h4`
 const Desc = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-bottom: 1.2em;
+  line-height: normal;
 `;
 
 const TagFrame = styled.div`

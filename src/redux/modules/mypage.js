@@ -130,6 +130,7 @@ const editMyProfileDB = (content) => {
 
           const new_user_info = {
             ...new_post,
+            memberId: user_info.memberId,
             profileImg: new_post.profileImage,
             memberLevel: user_info.memberLevel,
             point: user_info.point,
@@ -186,6 +187,7 @@ const editMyProfileDB = (content) => {
 
               const new_user_info = {
                 ...newProFile,
+                memberId: user_info.memberId,
                 profileImg: newProFile.profileImage,
                 memberLevel: user_info.memberLevel,
                 point: user_info.point,
