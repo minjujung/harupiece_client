@@ -12,7 +12,7 @@ function MyPieces(props) {
   const mypageInfo = useSelector((state) => state.mypage.myInfo);
 
   useEffect(() => {
-    dispatch(myInfo.getPointDB());
+    dispatch(myInfo.getMyInfoDB());
   }, []);
 
   const [show, setShow] = useState(false);
@@ -54,7 +54,7 @@ function MyPieces(props) {
         <InfoBox mainGreen>
           <p>나의 하루조각 등급은?</p>
           <strong>
-            {userLevel}({mypageInfo.rank}위)
+            {userLevel}({mypageInfo.memberHistoryResponseDto?.rank}위)
           </strong>
         </InfoBox>
         <InfoBox>

@@ -38,23 +38,14 @@ const MainSlider = (props) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
     let intervalId;
     let intViewportWidth = window.innerWidth;
-    if (isFlowing && intViewportWidth > 720) {
-      intervalId = setInterval(() => {
-        setCurrentSlide(currentSlide + 1);
-      }, 50000000);
-    }
-    if (currentSlide === 4) {
+    intervalId = setInterval(() => {
+      setCurrentSlide(currentSlide + 1);
+    }, 5000);
+    if (currentSlide === 3) {
       setCurrentSlide(0);
     }
     return () => clearTimeout(intervalId);
   }, [currentSlide, setCurrentSlide, isFlowing]);
-
-  // const slideImages = [
-  //   "https://i.ibb.co/YQCrYJR/banner-01.png",
-  //   "https://i.ibb.co/0KmsdWb/banner-02.png",
-  //   "https://i.ibb.co/rcfQJhp/banner-03.png",
-  //   "https://i.ibb.co/y6HNN1Q/banner-04.png",
-  // ];
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
@@ -235,10 +226,12 @@ const Slide = styled.div`
   border-radius: 10px;
   padding-bottom: 20px;
   padding-right: 10px;
+  cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     border-radius: 10px;
     margin-left: 10px;
+    cursor: pointer;
   }
 `;
 

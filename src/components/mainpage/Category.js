@@ -165,7 +165,7 @@ const Category = (props) => {
                       >
                         <CardImg>
                           <Image
-                            width="14.83vw"
+                            width="14.8vw"
                             height="14.81vh"
                             src={l.challengeImgUrl}
                             alt="challenge"
@@ -248,6 +248,7 @@ const Category = (props) => {
       <MobileBox>
         <TitleBox>
           <div
+            onClick={searchAll}
             style={{
               paddingTop: "20px",
               paddingBottom: "24px",
