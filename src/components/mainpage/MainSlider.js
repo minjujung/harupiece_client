@@ -38,9 +38,12 @@ const MainSlider = (props) => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
     let intervalId;
     let intViewportWidth = window.innerWidth;
-    intervalId = setInterval(() => {
-      setCurrentSlide(currentSlide + 1);
-    }, 5000);
+    if (isFlowing && intViewportWidth > 720) {
+      //모바일에선 자동넘김 x
+      intervalId = setInterval(() => {
+        setCurrentSlide(currentSlide + 1);
+      }, 5000);
+    }
     if (currentSlide === 3) {
       setCurrentSlide(0);
     }

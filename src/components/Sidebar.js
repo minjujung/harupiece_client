@@ -48,6 +48,11 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
     toggleMenu();
   };
 
+  const goToCreate = () => {
+    history.push("/challenge");
+    toggleMenu();
+  };
+
   return (
     <ElSidebar {...styles}>
       <NavBtn>
@@ -139,6 +144,16 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
             </Menu>
             <Menu onClick={logout}>
               로그아웃
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+            <Menu onClick={goToCreate}>
+              챌린지 개설{" "}
               <Image
                 sidebar
                 width="10px"
