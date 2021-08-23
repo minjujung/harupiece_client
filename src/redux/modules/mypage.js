@@ -38,51 +38,22 @@ const getMyInfoDB = () => {
   };
 };
 
-const getProceedDB = () => {
-  return function (dispatch, getState, { history }) {
-    MypageApis.getProceed()
-      .then((res) => dispatch(getInfo(res.data)))
-      .catch((error) => {
-        if (window.confirm("사용자 정보를 받아올수없습니다.")) {
-          history.push("/");
-        } else {
-          history.goBack();
-        }
-        console.log(error);
-      });
-  };
-};
-
-const getEndDB = () => {
-  return function (dispatch, getState, { history }) {
-    MypageApis.getEnd()
-      .then((res) => dispatch(getInfo(res.data)))
-      .catch((error) => {
-        if (window.confirm("사용자 정보를 받아올수없습니다.")) {
-          history.push("/");
-        } else {
-          history.goBack();
-        }
-        console.log(error);
-      });
-  };
-};
-
 const getPointDB = () => {
   return function (dispatch, getState, { history }) {
-    MypageApis.getPoint()
+    MypageApis.getMyInfo()
       .then((res) => {
+        console.log(res);
         consoleLogger("point history 요청 후 응답", res);
         const pointHistoryList = [
-          ...res.data.challengeGetpoint,
-          ...res.data.postingGetpoint,
+          ...res.data.memberHistoryResponseDto.challengeGetpoint,
+          ...res.data.memberHistoryResponseDto.postingGetpoint,
         ];
         const myInfo = {
-          level: res.data.level,
-          rank: res.data.rank,
-          memberId: res.data.memberId,
-          nickname: res.data.nickname,
-          profileImage: res.data.profileImage,
+          level: res.data.memberHistoryResponseDto.level,
+          rank: res.data.memberHistoryResponseDto.rank,
+          memberId: res.data.memberHistoryResponseDto.memberId,
+          nickname: res.data.memberHistoryResponseDto.nickname,
+          profileImage: res.data.memberHistoryResponseDto.profileImage,
           pointHistoryList,
         };
         dispatch(getInfo(myInfo));
@@ -100,7 +71,8 @@ const getPointDB = () => {
 
 const editMyProfileDB = (content) => {
   return function (dispatch, getState, { history }) {
-    const myProfileImg = getState().mypage.myInfo.profileImage;
+    const myProfileImg =
+      getState().mypage.myInfo.memberHistoryResponseDto.profileImage;
 
     const blank_check = /[\s]/g;
 
@@ -117,6 +89,7 @@ const editMyProfileDB = (content) => {
     if (content.file === myProfileImg) {
       MypageApis.editProfile(proFile)
         .then((res) => {
+          console.log(res);
           consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
           const new_post = {
             ...proFile,
@@ -296,8 +269,6 @@ const actionCreators = {
   editMyProfileDB,
   changePasswordDB,
   setPreview,
-  getProceedDB,
-  getEndDB,
   getPointDB,
 };
 

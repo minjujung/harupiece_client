@@ -29,7 +29,7 @@ function ChallengesInProgress(props) {
 
   const dispatch = useDispatch();
   const myChallengeList = useSelector(
-    (state) => state.mypage.myInfo.challengeList
+    (state) => state.mypage.myInfo.myPageScheduledResponseDto?.challengeList
   );
   const my_info = useSelector((state) => state.mypage.myInfo);
 

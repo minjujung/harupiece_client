@@ -168,8 +168,6 @@ export const ChallengeDetailApis = {
 export const MypageApis = {
   editProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
   getMyInfo: () => instance.get(`api/member/mypage`),
-  getProceed: () => instance.get(`/api/member/mypage/proceed`),
-  getEnd: () => instance.get(`/api/member/mypage/end`),
   getPoint: () => instance.get(`api/member/mypage/history`),
   changePassword: (password) =>
     instance.put(`/api/member/mypage/password`, password),

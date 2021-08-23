@@ -324,6 +324,8 @@ const CardBox = styled.div`
       width: 9.8vh;
       height: 9.8vh;
       margin-top: 10px;
+      object-fit: cover;
+      object-position: center;
     }
   }
 
