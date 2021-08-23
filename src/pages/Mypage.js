@@ -10,6 +10,7 @@ import camera from "../assets/images/icons/camera.svg";
 import { Button, Image } from "../elements";
 
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 import { actionCreators as myInfo } from "../redux/modules/mypage";
 import { Link, Route, Switch } from "react-router-dom";
 import levelData from "../shared/level";
@@ -39,6 +40,7 @@ function Mypage(props) {
   const convertEditMode = () => {
     setNewNickName(myInfoList.memberHistoryResponseDto.nickname);
     setEditMode(!editMode);
+    history.push("/mypage/password");
   };
 
   // 프로필 수정 모드
@@ -81,6 +83,7 @@ function Mypage(props) {
       dispatch(myInfo.setPreview(""));
     }
     convertEditMode();
+    history.push("/mypage/now");
   };
 
   return (
@@ -177,21 +180,28 @@ function Mypage(props) {
         )}
       </UserInfoContainer>
       <ChallengeCategory>
-        <Item clicked={pathname.includes("/now") ? true : false}>
-          <Link to={`${path}/now`}>진행 예정 챌린지</Link>
-        </Item>
-        <Item clicked={pathname.includes("/upcoming") ? true : false}>
-          <Link to={`${path}/upcoming`}>진행중인 챌린지</Link>
-        </Item>
-        <Item clicked={pathname.includes("/completed") ? true : false}>
-          <Link to={`${path}/completed`}>완료한 챌린지</Link>
-        </Item>
-        <Item clicked={pathname.includes("/pieces") ? true : false}>
-          <Link to={`${path}/pieces`}>조각</Link>
-        </Item>
-        <Item last clicked={pathname.includes("/password") ? true : false}>
-          <Link to={`${path}/password`}>비밀번호 변경</Link>
-        </Item>
+        {!editMode ? (
+          <>
+            <Item clicked={pathname.includes("/now") ? true : false}>
+              <Link to={`${path}/now`}>진행예정 </Link>
+            </Item>
+            <Item clicked={pathname.includes("/upcoming") ? true : false}>
+              <Link to={`${path}/upcoming`}>진행중</Link>
+            </Item>
+            <Item clicked={pathname.includes("/completed") ? true : false}>
+              <Link to={`${path}/completed`}>완료</Link>
+            </Item>
+            <Item clicked={pathname.includes("/pieces") ? true : false}>
+              <Link to={`${path}/pieces`}>조각</Link>
+            </Item>
+          </>
+        ) : (
+          <>
+            <Item2 last clicked={pathname.includes("/password") ? true : false}>
+              <Link to={`${path}/password`}>비밀번호 변경</Link>
+            </Item2>
+          </>
+        )}
       </ChallengeCategory>
       <Section>
         <Switch>
@@ -372,8 +382,8 @@ const ChallengeCategory = styled.ul`
     }
     li {
       font-size: 16px;
-      width: 43.06vw;
-      min-width: 155px;
+      width: 20.06vw;
+      min-width: 95px;
       padding: 0 7.92vw;
     }
   }
@@ -387,6 +397,37 @@ const Item = styled.li`
   border-bottom: 4px solid
     ${(props) =>
       props.clicked ? props.theme.colors.mainGreen : props.theme.colors.gray};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    a {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+      display: flex;
+      justify-content: center;
+      width: 27.22vw;
+    }
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    a {
+      font-size: 18px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    a {
+      font-size: 16px;
+    }
+  }
+`;
+
+const Item2 = styled.div`
+  width: 100vw;
+  height: 100%;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  border-bottom: 4px solid ${(props) => props.theme.colors.mainGreen};
   display: flex;
   align-items: center;
   justify-content: center;

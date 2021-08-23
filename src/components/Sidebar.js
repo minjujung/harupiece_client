@@ -53,6 +53,11 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
     toggleMenu();
   };
 
+  const goToProceed = () => {
+    history.push("/mypage/upcoming");
+    toggleMenu();
+  };
+
   return (
     <ElSidebar {...styles}>
       <NavBtn>
@@ -103,7 +108,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                 <br />
                 <strong>{user_info?.point}개</strong>
               </Box>
-              <Box>
+              <Box onClick={goToProceed}>
                 진행 챌린지
                 <br />
                 <strong>{user_info?.challengeCount}개</strong>
