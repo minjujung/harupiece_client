@@ -69,7 +69,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
               <Image
                 sidebar
                 width="12.5vw"
-                height="auto"
+                height="12.5vw"
                 borderRadius="5px"
                 margin="0 auto 1.64% auto"
                 src={

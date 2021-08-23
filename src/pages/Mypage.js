@@ -82,7 +82,7 @@ function Mypage(props) {
             <Image
               width="9.69vw"
               height="9.69vw"
-              borderRadius="50%"
+              borderRadius="100px"
               margin="0 0 0 4.38vw"
               src={
                 myInfoList.profileImage
@@ -114,9 +114,8 @@ function Mypage(props) {
             <EditProfile>
               <Image
                 width="9.69vw"
-                height="17.13vh"
-                borderRadius="50%"
-                // margin="0 0 0 4.38vw"
+                height="9.69vw"
+                borderRadius="100px"
                 src={preview ? preview : myInfoList.profileImage}
                 alt="editProfile"
               />
@@ -230,7 +229,7 @@ const UserInfoContainer = styled.div`
     text-align: center;
     img {
       width: 31.94vw;
-      height: 17.89%;
+      height: 31.94vw;
       margin: 0 0 5.14vw 0;
     }
     button {

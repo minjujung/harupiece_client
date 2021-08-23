@@ -8,10 +8,52 @@ import close from "../../assets/images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
+import { actionCreator as chatActions } from "../../redux/modules/chat";
+
+// 소켓 통신
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
+import { getCookie } from "../../shared/Cookie";
 
 const PwdModal = (props) => {
-  console.log(props);
   const { challengePassword, challengeId, challengeMember } = props;
+  const chatInfo = useSelector((state) => state.chat.info);
+  const challengeInfo = useSelector((state) => state.challengeDetail.detail);
+  const userInfo = useSelector((state) => state.user.userInfo);
+
+  // 소켓 통신 객체
+  const sock = new SockJS("http://34.64.75.241/chatting");
+  const ws = Stomp.over(sock);
+
+  const token = getCookie("token");
+
+  //웹소켓 연결, 구독
+  const wsConnectSubscribe = () => {
+    const data = {
+      type: "ENTER",
+      roomId: challengeId,
+      nickname: userInfo.nickname,
+      profileImg: userInfo.profileImg,
+      alert: "[알림]",
+    };
+    try {
+      ws.connect({ token }, () => {
+        ws.send("/pub/enter", { token }, JSON.stringify(data));
+        console.log(data);
+        ws.subscribe(
+          `/sub/api/chat/rooms/${challengeId}`,
+          (data) => {
+            console.log(data);
+            const newMessage = JSON.parse(data.body);
+            dispatch(chatActions.getMessages(newMessage));
+          },
+          { token }
+        );
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
@@ -55,9 +97,17 @@ const PwdModal = (props) => {
       return;
     }
 
+    if (challengeMember.length === 10) {
+      setTimeout(
+        () => window.alert("10명까지만 참여할 수 있는 챌린지 입니다!"),
+        300
+      );
+    }
+
     if (challengePassword) {
       setOpen(true);
     } else {
+      wsConnectSubscribe();
       dispatch(challengeDetailActions.takeInPartChallengeDB(challengeId));
     }
   };

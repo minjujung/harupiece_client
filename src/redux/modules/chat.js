@@ -71,6 +71,7 @@ const getMessagesDB =
 
     ChatApis.getMessages(challengeId, _paging.page)
       .then((res) => {
+        console.log("메세지 목록좀 똑바로 불러와!");
         consoleLogger("DB에 저장되어 있는 채팅 목록 가져오는 요청의 응답", res);
 
         let new_paging = {

@@ -29,9 +29,9 @@ const MessageList = ({ challengeId }) => {
   //   scrollTo.current.scrollTop = scrollHeight - clientHeight;
   //   scrollTo.current?.scrollIntoView({ behavior: "smooth" });
   // };
-  useEffect(() => {
-    dispatch(chatActions.getMessagesDB(challengeId));
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   useEffect(() => {
     if (prevHeight) {
@@ -89,7 +89,7 @@ const MessageList = ({ challengeId }) => {
 export default MessageList;
 
 const Chat = styled.div`
-  height: 48vh;
+  height: 41.5vh;
   padding: 1.76vh 0.83vw 0 0.83vw;
   overflow-y: auto;
   ::-webkit-scrollbar {
