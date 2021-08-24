@@ -49,7 +49,7 @@ function App() {
           <Route exact path="/challenge" component={ChallengeCreate} />
           <Route
             exact
-            path="/search/1/:searchWords"
+            path="/search/:searchWords/1"
             component={SearchChallenge}
           />
           <Route path="/challenge/:id" component={ChallengeDetail} />

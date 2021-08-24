@@ -42,7 +42,7 @@ const initialState = {
       "https://user-images.githubusercontent.com/75834421/127076583-de2aadb3-2dd2-4778-a59e-e68f9dc3aded.png",
     challengeHoliyday: "",
     challengeMember: [1, 2, 3, 4], //챌린지에 참여한 유저아이디
-    tagList: ["#1주", "OFFICIAL"],
+    tag: ["#1주", "OFFICIAL"],
   },
   is_loading: false,
 };

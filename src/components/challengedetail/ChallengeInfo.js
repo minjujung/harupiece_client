@@ -100,7 +100,7 @@ const ChallengeInfo = (props) => {
         <Desc>{challenge.challengeContent}</Desc>
         <TagFrame>
           <Tag bg="mainGreen" color="white">
-            {challenge.tagList[0]}
+            {challenge.tag}
           </Tag>
           <Tag bg="mainOrange" color="white">
             {category}

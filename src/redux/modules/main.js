@@ -66,31 +66,7 @@ const searchDB = (q) => {
     const encode = encodeURIComponent(q);
     MainApis.search(encode)
       .then((res) => {
-        dispatch(search(res.data.result));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
-// 메인화면 카테고리
-const searchCategoryDB = (q) => {
-  return function (dispatch, getState, { history }) {
-    // let query = "";
-    // if (q === "#금연금주") {
-    //   query = "NODRINKNOSMOKE";
-    // } else if (q === "#생활챌린지") {
-    //   query = "LIVINGHABITS";
-    // } else if (q === "#운동") {
-    //   query = "EXERCISE";
-    // } else {
-    //   query = q;
-    // }
-    const encode = encodeURIComponent(q);
-    MainApis.searchCategory(encode)
-      .then((res) => {
-        dispatch(search(res.data.result));
+        dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
         console.log(err);
@@ -99,10 +75,15 @@ const searchCategoryDB = (q) => {
 };
 
 // 모든 검색 결과
-const searchAllDB = () => {
+const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
-    MainApis.searchAll()
+    console.log(content);
+    // const categoryName = content.passingTags.categoryName;
+    // const tags = content.passingTags.tagList;
+    const encode = encodeURIComponent(content);
+    MainApis.searchFilter(encode)
       .then((res) => {
+        console.log(res);
         dispatch(search(res.data));
       })
       .catch((err) => {
@@ -157,8 +138,7 @@ const MainCreators = {
   searchDB,
   addUserLoad,
   deleteUserLoad,
-  searchAllDB,
-  searchCategoryDB,
+  searchFilterDB,
 };
 
 export { MainCreators };

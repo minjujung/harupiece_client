@@ -96,7 +96,7 @@ const MainSlider = (props) => {
                     >
                       <TagBox>
                         <Tag bg="none" color="white">
-                          {l.tagList[0]}
+                          {l.tag}
                         </Tag>
                         <Tag bg="none" color="white">
                           #{l.categoryName}
@@ -126,7 +126,7 @@ const MainSlider = (props) => {
                     >
                       <TagBox>
                         <Tag bg="none" color="white">
-                          {l.tagList[0]}
+                          {l.tag}
                         </Tag>
                         <Tag bg="none" color="white">
                           #{l.categoryName}

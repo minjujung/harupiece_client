@@ -6,7 +6,7 @@ import "../../shared/style.css";
 import { ko } from "date-fns/esm/locale";
 import getDay from "date-fns/getDay";
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 import Calendar from "../../assets/images/icons/calendar.svg";
 
 function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
@@ -133,7 +133,7 @@ const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
@@ -142,7 +142,7 @@ const SubT = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
@@ -163,12 +163,12 @@ const Holiday = styled.div`
     padding-left: 0.83vw;
     padding-top: 1.1vh;
   }
-  ${({ theme }) => theme.device.mobileLg}{
-    width:100%;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
     height: 6.875vh;
     margin-top: 16px;
     margin-bottom: 5.18vh;
-    padding: 1.48vh 4.44vw 1.48vh 4.44vw ;
+    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
     & > P {
       font-size: 24px;
       padding-top: 0.41vh;
@@ -179,11 +179,11 @@ const Holiday = styled.div`
 const SCheckbox = styled(Checkbox)`
   position: absolute;
   right: -8.25vw;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     right: -47.35vw;
-    .MuiSvgIcon-root{
-      width : 8.33vw;
-      height : 8.33vw;
+    .MuiSvgIcon-root {
+      width: 8.33vw;
+      height: 8.33vw;
     }
   }
 `;
@@ -193,14 +193,14 @@ const SDatePicker = styled(DatePicker)`
   height: 40px;
   border-radius: 8px;
   margin-bottom: 2.96vh;
-  margin-top:8px;
+  margin-top: 8px;
   padding: 6.5px 0.83vw;
   background-color: ${({ theme }) => theme.colors.lightGray};
   ::placeholder {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.darkGray};
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 91.11vw;
     height: 6.875vh;
     font-size: 24px;
@@ -208,7 +208,7 @@ const SDatePicker = styled(DatePicker)`
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw;
     ::placeholder {
-      font-size:24px;
+      font-size: 24px;
     }
   }
 `;
@@ -223,20 +223,20 @@ const CalendarContainer = styled.label`
     bottom: 1px;
     z-index: 2;
   }
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     & > img {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: -88.3vw;
-    bottom: -1px;
-    z-index: 2;
-  }
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: -88.3vw;
+      bottom: -1px;
+      z-index: 2;
+    }
   }
 `;
 
 const MobileCont = styled.div`
-  ${({ theme }) => theme.device.mobileLg}{
-    padding: 0 4.44vw 0 4.44vw; 
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 0 4.44vw 0 4.44vw;
   }
 `;
