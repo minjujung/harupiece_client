@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { RadioButtonUnchecked, NotInterested } from "@material-ui/icons";
+import { RadioButtonUnchecked, NotInterested, Link } from "@material-ui/icons";
 import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,19 @@ const ChallengeInfo = (props) => {
   const challenge = useSelector((state) => state.challengeDetail.detail);
 
   const challengeId = props.match.params.id;
+
+  const urlRef = useState();
+
+  //현재 페이지 url 복사
+  const copy = (e) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+    }
+    console.log(urlRef.current);
+    navigator.clipboard.writeText(urlRef.current.value);
+    // document.execCommand("copy");
+    e.target.focus();
+  };
 
   // challenge상세 내용 불러오기
   useEffect(() => {
@@ -44,7 +57,17 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <h3>기본정보</h3>
+        <Title>
+          <h3>기본정보</h3>
+          <ShareBtn onClick={copy}>
+            <Link style={{ transform: "rotate(-45deg)" }} /> 챌린지 공유하기
+            <textarea
+              style={{ display: "none" }}
+              ref={urlRef}
+              value={window.location.href}
+            />
+          </ShareBtn>
+        </Title>
         <Info>
           <span>카테고리</span>
           {category}
@@ -134,9 +157,12 @@ const Section = styled.section`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
+    height: 100%;
     padding: 0 4.44vw;
     margin: 0px;
     h3 {
+      display: flex;
+      align-items: center;
       margin-bottom: 24px;
       font-size: 16px;
     }
@@ -268,4 +294,28 @@ const Desc = styled.p`
 
 const TagFrame = styled.div`
   display: flex;
+`;
+
+const Title = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ShareBtn = styled.button`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-bottom: 24px;
+    color: gray;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;

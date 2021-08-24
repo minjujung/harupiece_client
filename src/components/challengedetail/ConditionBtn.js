@@ -70,6 +70,7 @@ const ConditionBtn = (props) => {
         <PostWrite
           challengeId={challengeId}
           challengeHoliday={challengeHoliday}
+          totalNumber={challengeMember.length}
         />
       </>
     );

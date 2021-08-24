@@ -7,6 +7,7 @@ import CompletedChallenge from "../components/mypage/CompletedChallenge";
 import MyPassword from "../components/mypage/MyPassword";
 import MyPieces from "../components/mypage/MyPieces";
 import camera from "../assets/images/icons/camera.svg";
+import greenCamera from "../assets/images/icons/greenCamera.jpg";
 import { Button, Image } from "../elements";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -123,7 +124,7 @@ function Mypage(props) {
             <EditProfile>
               <Image
                 width="9.69vw"
-                height="17.13vh"
+                height=" 9.69vw"
                 borderRadius="50%"
                 src={
                   preview
@@ -137,7 +138,7 @@ function Mypage(props) {
                   <Image
                     width="27px"
                     height="26px"
-                    src={camera}
+                    src={greenCamera}
                     alt="cameraBtn"
                   />
                 </label>
@@ -280,6 +281,13 @@ const EditProfile = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
+    label {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   ${({ theme }) => theme.device.mobileLg} {
     button {

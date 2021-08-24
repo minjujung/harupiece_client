@@ -213,7 +213,23 @@ const PostList = (props) => {
               <StatusFrame>
                 <StatusBar>
                   <Status width={`${postingCheckStatus}%`} />
-                  <FavoriteRounded />
+                  <FavoriteRounded
+                    style={
+                      intViewportWidth > 720
+                        ? {
+                            color: "#FF4532",
+                            width: "30px",
+                            height: "30px",
+                            marginLeft: "-10px",
+                          }
+                        : {
+                            color: "#FF4532",
+                            width: "25px",
+                            height: "25px",
+                            marginLeft: "-10px",
+                          }
+                    }
+                  />
                 </StatusBar>
                 <StatusInfo>
                   <span>
@@ -441,17 +457,16 @@ const StatusBar = styled.div`
   height: 8px;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.lightGray};
-  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const Status = styled.div`
-  position: absolute;
-  background-color: ${({ theme }) => theme.colors.mainGreen};
+  background-color: #ffb8b1;
   width: ${(props) => props.width};
   height: 8px;
   border-radius: 10px;
-  top: 0;
-  left: 0;
+  transition: 1s;
 `;
 
 const StatusInfo = styled.div`

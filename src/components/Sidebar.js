@@ -70,12 +70,10 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                 sidebar
                 width="12.5vw"
                 height="12.5vw"
-                borderRadius="50%"
                 margin="0 auto 1.64% auto"
                 src={
-                  user_info?.profileImg ===
-                  "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg"
-                    ? profileGreen
+                  user_info?.profileImg === ""
+                    ? levelData[9].img
                     : user_info?.profileImg
                 }
                 alt="level_image"

@@ -8,6 +8,7 @@ import ChallengeInfo from "../components/challengedetail/ChallengeInfo";
 import ShotList from "../components/challengedetail/ShotList";
 import chat from "../assets/images/icons/chat.png";
 import Chat from "../components/chat/Chat";
+import LinkIcon from "@material-ui/icons/Link";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -109,11 +110,13 @@ const ChallengeDetail = (props) => {
           {/* banner 랑 navbar */}
           <ChallengeHeader>
             <Banner bgImg={challenge.challengeImgUrl}>
-              <Title>{challenge.challengeTitle}</Title>
-              <TotalNum>
-                참여 {challenge.challengeMember.length}명 | 진행률{" "}
-                {progressPercent * 100} %
-              </TotalNum>
+              <TitleContainer>
+                <Title>{challenge.challengeTitle}</Title>
+                <TotalNum>
+                  참여 {challenge.challengeMember.length}명 | 진행률{" "}
+                  {progressPercent * 100} %
+                </TotalNum>
+              </TitleContainer>
             </Banner>
             <NavBar>
               <ul>
@@ -124,6 +127,10 @@ const ChallengeDetail = (props) => {
                   <Link to={`${url}/post`}>인증목록</Link>
                 </Item>
               </ul>
+              <ShareBtn>
+                <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
+                공유하기
+              </ShareBtn>
             </NavBar>
           </ChallengeHeader>
           <Switch>
@@ -310,6 +317,12 @@ const Banner = styled.div`
   }
 `;
 
+const TitleContainer = styled.div`
+  padding: 2%;
+  background-color: #60606021;
+  border-radius: 8px;
+`;
+
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.white};
@@ -355,6 +368,19 @@ const NavBar = styled.nav`
     height: 100%;
     display: flex;
     align-items: center;
+  }
+`;
+
+const ShareBtn = styled.button`
+  width: 200px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: gray;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
   }
 `;
 
