@@ -10,22 +10,22 @@ function SearchChallenge(props) {
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 
-  useEffect(() => {
-    dispatch(searchAll.searchAllDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(searchAll.searchFilterDB(searchState));
+  // }, []);
 
   const [searchState, setSearchState] = useState({
-    userInputContainerClicked: false,
-    searchTerm: "",
     passingTags: {
-      search: {
-        inputTerm: "",
-      },
       categoryName: {
         EXERCISE: false,
         NODRINKNOSMOKE: false,
         LIVINGHABITS: false,
       },
+    },
+  });
+
+  const [tagState, setTagState] = useState({
+    passingTags: {
       tagList: {
         "#1주": false,
         "#2주": false,
@@ -37,7 +37,6 @@ function SearchChallenge(props) {
     },
   });
 
-  // 필터 클릭 시 해당 필터 이름과 searchState값과 비교 후 setSearchState 재정의
   const allFilterClickListener = (e, filterProp) => {
     let name = e.target.textContent;
     if (name === "#금연금주") {
@@ -46,6 +45,14 @@ function SearchChallenge(props) {
       name = "EXERCISE";
     } else if (name === "#생활챌린지") {
       name = "LIVINGHABITS";
+    } else if (name === "#1주") {
+      name = 1;
+    } else if (name === "#2주") {
+      name = 2;
+    } else if (name === "#3주") {
+      name = 3;
+    } else if (name === "#4주 이상") {
+      name = 4;
     } else {
       name = e.target.textContent;
     }
@@ -58,50 +65,17 @@ function SearchChallenge(props) {
         },
       },
     });
-  };
-
-  // 선택한 필터를 빈 배열에 넣어서 새로운 배열로 만드는 함수
-  const filteredCollected = () => {
-    const collectedTrueKeys = {
-      categoryName: [],
-      tagList: [],
-    };
-    const { categoryName, tagList } = searchState.passingTags;
-    for (let categoryKey in categoryName) {
-      if (categoryName[categoryKey])
-        collectedTrueKeys.categoryName.push(categoryKey);
-    }
-    for (let tagKey in tagList) {
-      if (tagList[tagKey]) collectedTrueKeys.tagList.push(tagKey);
-    }
-    return collectedTrueKeys;
-  };
-
-  // 실질적인 필터 기능
-  // challenges = 서버로 부터 받은 전체 데이터 // filters = 선택한 필터 객체로 받아옴
-  const multiPropsFilter = (challenges, filters) => {
-    const filterKeys = Object.keys(filters); //선택한 필터를 열거할 수 있는 배열로 반환 => [categoryName, tags]
-    return challenges.search.filter((challenge) => {
-      return filterKeys.every((key) => {
-        // 배열 안의 모든 요소가 주어진 key로 통과하는지 테스트 하나라도 조건에 안맞으면 false처리
-        if (!filters[key].length) return true;
-        if (Array.isArray(challenge[key])) {
-          // challenge[key] = 챌린지 태그
-          return challenge[key].some((keyEle) => filters[key].includes(keyEle)); // filters[key] = 챌린지 카테고리
-        }
-        return filters[key].includes(challenge[key]);
-      });
+    setTagState({
+      passingTags: {
+        ...searchState.passingTags,
+        [filterProp]: {
+          ...searchState.passingTags[filterProp],
+          [name]: !searchState.passingTags[filterProp][name],
+        },
+      },
     });
+    dispatch(searchAll.searchFilterDB(name));
   };
-
-  const searchProducts = () => {
-    const filteredProducts = multiPropsFilter(searchList, filteredCollected());
-    return filteredProducts?.filter((product) => {
-      return product;
-    });
-  };
-
-  let result = searchProducts();
 
   // 챌린지 기간
   const date = searchList.search?.map((list) => {
@@ -136,8 +110,8 @@ function SearchChallenge(props) {
           <TagBox>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               bg={
                 searchState.passingTags.categoryName.NODRINKNOSMOKE === true
                   ? "mainGreen"
@@ -153,8 +127,8 @@ function SearchChallenge(props) {
             </Tag>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               bg={
                 searchState.passingTags.categoryName.LIVINGHABITS === true
                   ? "mainGreen"
@@ -170,8 +144,8 @@ function SearchChallenge(props) {
             </Tag>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "categoryName")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "categoryName")}
               bg={
                 searchState.passingTags.categoryName.EXERCISE === true
                   ? "mainGreen"
@@ -189,66 +163,60 @@ function SearchChallenge(props) {
           <TagBox>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               bg={
-                searchState.passingTags.tagList["#1주"] === true
+                tagState.passingTags.tags["#1주"] === true
                   ? "mainGreen"
                   : "white"
               }
               color={
-                searchState.passingTags.tagList["#1주"] === true
-                  ? "white"
-                  : "black"
+                tagState.passingTags.tags["#1주"] === true ? "white" : "black"
               }
             >
               #1주
             </Tag>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               bg={
-                searchState.passingTags.tagList["#2주"] === true
+                tagState.passingTags.tags["#2주"] === true
                   ? "mainGreen"
                   : "white"
               }
               color={
-                searchState.passingTags.tagList["#2주"] === true
-                  ? "white"
-                  : "black"
+                tagState.passingTags.tags["#2주"] === true ? "white" : "black"
               }
             >
               #2주
             </Tag>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               bg={
-                searchState.passingTags.tagList["#3주"] === true
+                tagState.passingTags.tags["#3주"] === true
                   ? "mainGreen"
                   : "white"
               }
               color={
-                searchState.passingTags.tagList["#3주"] === true
-                  ? "white"
-                  : "black"
+                tagState.passingTags.tags["#3주"] === true ? "white" : "black"
               }
             >
               #3주
             </Tag>
             <Tag
               fontWeight="500"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
               border="none"
+              onClick={(e) => allFilterClickListener(e, "tagList")}
               bg={
-                searchState.passingTags.tagList["#4주 이상"] === true
+                tagState.passingTags.tags["#4주 이상"] === true
                   ? "mainGreen"
                   : "white"
               }
               color={
-                searchState.passingTags.tagList["#4주 이상"] === true
+                tagState.passingTags.tags["#4주 이상"] === true
                   ? "white"
                   : "black"
               }
@@ -295,8 +263,8 @@ function SearchChallenge(props) {
         </CategoryRightBox>
       </CategoryContainer>
       <BoxContainer>
-        {result &&
-          result.map((l, idx) => {
+        {searchList.search &&
+          searchList.search.map((l, idx) => {
             return (
               <>
                 <Card
@@ -327,7 +295,7 @@ function SearchChallenge(props) {
                       color="black"
                       padding="8px 20px"
                     >
-                      {l.tagList[0]}
+                      {l.tag}
                     </Tag>
                     <Tag
                       fontWeight="500"

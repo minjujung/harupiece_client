@@ -7,6 +7,7 @@ import { Image } from "../../elements";
 import close from "../../assets/images/icons/close.svg";
 
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../../redux/configureStore";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import { actionCreator as chatActions } from "../../redux/modules/chat";
 
@@ -52,6 +53,7 @@ const PwdModal = (props) => {
   const takePartIn = () => {
     if (user_info.memberId === null) {
       setTimeout(() => window.alert("로그인이 필요한 서비스 입니다!"), 300);
+      setTimeout(() => history.push("/login"), 300);
       return;
     }
 

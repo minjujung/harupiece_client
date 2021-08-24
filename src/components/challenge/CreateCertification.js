@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import camera from "../../assets/images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,9 +9,8 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
 
   // image preview
-  const goodFileInput = React.useRef();
-  const badFileInput = React.useRef();
-
+  const goodFileInput = useRef();
+  const badFileInput = useRef();
   const goodPreview = useSelector((state) => state.create.goodPreview);
   const badPreview = useSelector((state) => state.create.badPreview);
 
@@ -140,7 +139,7 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 16px;
   }
@@ -151,7 +150,7 @@ const BottomT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-top: 8px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-top: 16px;
     margin-bottom: 5.18vh;
@@ -160,7 +159,7 @@ const BottomT = styled.p`
 
 const Good = styled.div`
   margin-right: 0.73vw;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-right: 4.44vw;
   }
 `;
@@ -170,7 +169,7 @@ const Preview = styled.div`
   height: 12.59vh;
   background-color: #e5e5e5;
   border-radius: 16px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 43.33vw;
     height: 43.33vw;
   }
@@ -183,7 +182,7 @@ const PreviewBtn = styled.label`
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 43.33vw;
     height: 43.33vw;
     & > img {
@@ -191,7 +190,6 @@ const PreviewBtn = styled.label`
       height: 43.33vw;
     }
   }
-  
 `;
 
 const CameraBtn = styled.label`
@@ -201,15 +199,14 @@ const CameraBtn = styled.label`
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     width: 43.33vw;
     height: 43.33vw;
     & > img {
-      width:5.56vw;
-      height:5.56vw;
+      width: 5.56vw;
+      height: 5.56vw;
     }
   }
-  
 `;
 
 const Bad = styled.div``;
