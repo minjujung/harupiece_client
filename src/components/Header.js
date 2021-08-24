@@ -55,7 +55,7 @@ const Header = () => {
       alert("검색어를 입력해주세요");
     } else {
       dispatch(searchActions.searchDB(q));
-      history.push(`/search/1/${q}`);
+      history.push(`/search/${q}/1`);
       setQ("");
       handleClose();
     }
@@ -140,7 +140,7 @@ const Header = () => {
                       <input
                         type="text"
                         id="search-form"
-                        placeholder="검색어를 입력해주세요."
+                        placeholder="챌린지를 검색해보세요."
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         onKeyPress={onCheckEnter}

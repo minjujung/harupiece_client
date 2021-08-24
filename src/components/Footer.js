@@ -47,7 +47,7 @@ const LeftBox = styled.div`
   margin-left: 16vw;
   div {
     img {
-      width: 252px;
+      width: 220px;
       height: 40px;
       margin-bottom: 1.8vh;
     }

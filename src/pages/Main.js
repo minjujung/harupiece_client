@@ -54,7 +54,6 @@ const Main = (props) => {
                   챌린지등록하기+
                 </Button>
               </ButtonBox>
-              <MButton onClick={goToCreate}>+</MButton>
             </>
           ) : (
             <>
@@ -124,37 +123,6 @@ const ContainerRight = styled.div`
 
 const ButtonBox = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
-    display: none;
-  }
-`;
-
-const MButton = styled.button`
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 66px;
-    height: 66px;
-    border-radius: 50%;
-    position: fixed;
-    background-color: ${({ theme }) => theme.colors.mainGreen};
-    bottom: 10vh;
-    right: 10vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 48px;
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 300;
-    z-index: 100;
-  }
-  ${({ theme }) => theme.device.desktopXl} {
-    display: none;
-  }
-  ${({ theme }) => theme.device.desktopLg} {
-    display: none;
-  }
-  ${({ theme }) => theme.device.desktop} {
-    display: none;
-  }
-  ${({ theme }) => theme.device.tablet} {
     display: none;
   }
 `;

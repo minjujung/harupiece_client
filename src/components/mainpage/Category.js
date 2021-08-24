@@ -18,7 +18,7 @@ const Category = (props) => {
 
   const searchAll = (e) => {
     e.preventDefault();
-    dispatch(searchActions.searchAllDB());
+    dispatch(searchActions.searchFilterDB());
     history.push(`/search/1/all`);
   };
 
@@ -178,7 +178,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 15px"
                           >
-                            {l.tagList && l.tagList[0]}
+                            {l.tag && l.tag}
                           </Tag>
                           <Tag
                             fontWeight="500"
@@ -225,7 +225,7 @@ const Category = (props) => {
                             color="black"
                             padding="8px 20px"
                           >
-                            {l.tagList && l.tagList[0]}
+                            {l.tag && l.tag}
                           </Tag>
                           <Tag
                             fontWeight="500"
@@ -334,7 +334,7 @@ const Category = (props) => {
                                 color="black"
                                 padding="8px 10px"
                               >
-                                {l.tagList && l.tagList[0]}
+                                {l.tag && l.tag}
                               </Tag>
                               <Tag
                                 fontWeight="500"
@@ -390,7 +390,7 @@ const Category = (props) => {
                               color="black"
                               padding="8px 10px"
                             >
-                              {l.tagList && l.tagList[0]}
+                              {l.tag && l.tag}
                             </Tag>
                             <Tag
                               fontWeight="500"

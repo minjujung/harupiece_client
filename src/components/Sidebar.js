@@ -48,6 +48,16 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
     toggleMenu();
   };
 
+  const goToCreate = () => {
+    history.push("/challenge");
+    toggleMenu();
+  };
+
+  const goToProceed = () => {
+    history.push("/mypage/upcoming");
+    toggleMenu();
+  };
+
   return (
     <ElSidebar {...styles}>
       <NavBtn>
@@ -98,7 +108,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                 <br />
                 <strong>{user_info?.point}개</strong>
               </Box>
-              <Box>
+              <Box onClick={goToProceed}>
                 진행 챌린지
                 <br />
                 <strong>{user_info && user_info.challengeCount}개</strong>
@@ -139,6 +149,16 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
             </Menu>
             <Menu onClick={logout}>
               로그아웃
+              <Image
+                sidebar
+                width="10px"
+                height="18px"
+                src={right}
+                alt="rightArrow"
+              />
+            </Menu>
+            <Menu onClick={goToCreate}>
+              챌린지 개설{" "}
               <Image
                 sidebar
                 width="10px"

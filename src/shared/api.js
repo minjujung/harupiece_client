@@ -129,46 +129,45 @@ export const ChallengeCreateApis = {
 
 // 메인 화면
 export const MainApis = {
-  guestMain: () => instance.get(`api/guest/main`),
-  userMain: () => instance.get(`api/member/main`),
-  search: (searchWords) => instance.get(`api/guest/search/1/${searchWords}`),
-  searchCategory: (categoryName) =>
-    instance.get(`/api/guest/challenge/category/1/${categoryName}`),
-  searchAll: () => instance.get(`/api/guest/challenge-all/1`),
+  guestMain: () => instance.get(`/api/guest/main`),
+  userMain: () => instance.get(`/api/member/main`),
+  search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
+  searchFilter: (categoryName, period) =>
+    instance.get(`/api/guest/search/${categoryName}/${period}/1`),
 };
 
 // 인증샷 포스팅
 export const PostApis = {
   getPost: (page, challengeId) =>
-    instance.get(`api/posting/${page}/${challengeId}`),
-  addPost: (new_post) => instance.post("api/posting", new_post),
+    instance.get(`/api/posting/${page}/${challengeId}`),
+  addPost: (new_post) => instance.post("/api/posting", new_post),
   editPost: (post_id, post) =>
-    instance.put(`api/posting/update/${post_id}`, post),
-  deletePost: (post_id) => instance.delete(`api/posting/delete/${post_id}`),
-  clickCheck: (check_info) => instance.post("api/certification", check_info),
+    instance.put(`/api/posting/update/${post_id}`, post),
+  deletePost: (post_id) => instance.delete(`/api/posting/delete/${post_id}`),
+  clickCheck: (check_info) => instance.post("/api/certification", check_info),
 };
 
 // 챌린지 상세페이지
 export const ChallengeDetailApis = {
   getDetail: (challenge_id) =>
-    instance.get(`api/guest/challenge/${challenge_id}`),
+    instance.get(`/api/guest/challenge/${challenge_id}`),
   editDetail: (challengeInfo) =>
-    instance.put(`api/member/challenge`, challengeInfo),
+    instance.put(`/api/member/challenge`, challengeInfo),
   adminDeleteDetail: (challenge_id) =>
-    instance.delete(`api/admin/challenge/${challenge_id}`),
+    instance.delete(`/api/admin/challenge/${challenge_id}`),
   deleteDetail: (challenge_id) =>
-    instance.delete(`api/member/challenge/${challenge_id}`),
+    instance.delete(`/api/member/challenge/${challenge_id}`),
   giveupChallenge: (challenge_id) =>
-    instance.delete(`api/member/challenge-give-up/${challenge_id}`),
+    instance.delete(`/api/member/challenge-give-up/${challenge_id}`),
   takeInPartChallenge: (challengeInfo) =>
-    instance.post(`api/member/challenge-request`, challengeInfo),
+    instance.post(`/api/member/challenge-request`, challengeInfo),
 };
 
 // 마이 페이지
 export const MypageApis = {
   editProfile: (proFile) => instance.put(`/api/member/mypage/profile`, proFile),
-  getMyInfo: () => instance.get(`api/member/mypage`),
-  getPoint: () => instance.get(`api/member/mypage/history`),
+  getMyInfo: () => instance.get(`/api/member/mypage`),
+  getPoint: () => instance.get(`/api/member/mypage/history`),
   changePassword: (password) =>
     instance.put(`/api/member/mypage/password`, password),
 };
