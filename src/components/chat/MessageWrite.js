@@ -61,6 +61,7 @@ const InputField = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 2px solid ${({ theme }) => theme.colors.lightGray};
+  background-color: white;
   position: absolute;
   bottom: 0;
   input {

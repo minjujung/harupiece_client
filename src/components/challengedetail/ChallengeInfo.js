@@ -73,7 +73,6 @@ const ChallengeInfo = (props) => {
                 width="8.33vw"
                 height="14.81vh"
                 borderRadius="12px"
-                border
                 src={challenge.challengeGood}
                 alt="vegan_diet"
               />
@@ -87,7 +86,6 @@ const ChallengeInfo = (props) => {
                 width="8.33vw"
                 height="14.81vh"
                 borderRadius="12px"
-                border
                 src={challenge.challengeBad}
                 alt="nonvegan_diet"
               />
@@ -105,7 +103,7 @@ const ChallengeInfo = (props) => {
             {challenge.tagList[0]}
           </Tag>
           <Tag bg="mainOrange" color="white">
-            #{challenge.categoryName}
+            {category}
           </Tag>
         </TagFrame>
       </Section>
@@ -265,6 +263,7 @@ const Desc = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-bottom: 1.2em;
   line-height: normal;
+  white-space: pre-wrap;
 `;
 
 const TagFrame = styled.div`
