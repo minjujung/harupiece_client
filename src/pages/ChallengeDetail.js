@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
-import { Button } from "../elements/index";
+import { Button, Image } from "../elements/index";
 import StateBox from "../components/challengedetail/StateBox";
 import ChallengeInfo from "../components/challengedetail/ChallengeInfo";
 import ShotList from "../components/challengedetail/ShotList";
+import chat from "../assets/images/icons/chat.png";
+import Chat from "../components/chat/Chat";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
+import { actionCreator as chatActions } from "../redux/modules/chat";
 import { Link, Route, Switch } from "react-router-dom";
-import Chat from "../components/chat/Chat";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -20,6 +22,8 @@ const ChallengeDetail = (props) => {
   const pathname = useSelector((state) => state.router.location.pathname);
 
   const challengeId = props.match.params.id;
+
+  const [open, setOpen] = useState(false);
 
   //challenge날짜수 계산
   const start = challenge.challengeStartDate?.split("T")[0].split("-");
@@ -70,13 +74,36 @@ const ChallengeDetail = (props) => {
   };
 
   const {
-    match: { path, url },
+    match: { path, url, params },
   } = props;
+
+  const openChat = () => {
+    if (!challenge.challengeMember.includes(user_info.memberId)) {
+      setTimeout(
+        () =>
+          window.alert("챌린지에 참여하는 사람만 채팅방 입장이 가능합니다!"),
+        300
+      );
+      return;
+    }
+    dispatch(chatActions.resetChatting([], { page: 1, next: null, size: 15 }));
+    setOpen(true);
+  };
 
   return (
     <DetailContainer>
       {" "}
-      {/* <Chat challengeId={challengeId} /> */}
+      <Button
+        chat
+        width="80px"
+        height="80px"
+        bg="mainGreen"
+        borderRadius="50%"
+        _onClick={openChat}
+      >
+        <Image width="40px" height="32.76px" src={chat} alt="chatBtn" />
+      </Button>
+      {open ? <Chat id={challengeId} setOpen={setOpen} /> : null}
       <Area>
         <StateContainer>
           {/* banner 랑 navbar */}

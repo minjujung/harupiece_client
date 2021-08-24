@@ -82,7 +82,7 @@ const ElButton = styled.button`
   font-weight: bold;
   ${(props) =>
     props.chat
-      ? `position: fixed; bottom: 14.81vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px; display:flex; align-items: center;justify-content: center;`
+      ? `position: fixed; bottom: 14.81vh; right: 16.67vw; box-shadow: rgba(0,219,154,0.2) 0px 8px 24px; display:flex; align-items: center;justify-content: center; z-index: 100;`
       : null}
   ${(props) =>
     props.profileBtn ? `position: relative; right: 0; bottom: 0;` : null}
@@ -95,5 +95,6 @@ const ElButton = styled.button`
 
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 17px;
+    ${(props) => (props.chat ? `right: 4.44vw;` : null)}
   }
 `;

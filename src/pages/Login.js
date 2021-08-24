@@ -15,19 +15,19 @@ import { getCookie } from "../shared/Cookie";
 const Login = (props) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (getCookie("token")) {
-      setTimeout(
-        () =>
-          window.alert(
-            "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
-          ),
-        300
-      );
-      history.push("/");
-      return;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (getCookie("token")) {
+  //     setTimeout(
+  //       () =>
+  //         window.alert(
+  //           "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
+  //         ),
+  //       300
+  //     );
+  //     history.push("/");
+  //     return;
+  //   }
+  // }, []);
 
   return (
     <React.Fragment>

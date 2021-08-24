@@ -8,6 +8,7 @@ import close from "../../assets/images/icons/close.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
 import { actionCreator as postActions } from "../../redux/modules/post";
+import { FavoriteRounded } from "@material-ui/icons";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const PostList = (props) => {
       setTimeout(
         () =>
           window.alert(
-            `${user_info.nickname}님의 인증으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+            `${user_info.nickname}님의 응원으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
           ),
         300
       );
@@ -212,15 +213,14 @@ const PostList = (props) => {
               <StatusFrame>
                 <StatusBar>
                   <Status width={`${postingCheckStatus}%`} />
+                  <FavoriteRounded />
                 </StatusBar>
                 <StatusInfo>
-                  <span>인증상태</span>
-                  <Percent>
-                    {postingCheckStatus === 0
-                      ? 0
-                      : postingCheckStatus.toFixed(1)}{" "}
-                    %
-                  </Percent>
+                  <span>
+                    {list[clicked]?.postingCount === 1
+                      ? "친구들의 응원을 기다려보아요^^"
+                      : `${list[clicked]?.postingCount} 명의 친구가 응원하고 있어요!`}
+                  </span>
                 </StatusInfo>
               </StatusFrame>
             </div>
@@ -318,7 +318,7 @@ const CertifiCheckBtn = (props) => {
             margin="4.07vh 0 0 0"
             color="mainGreen"
           >
-            인증이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을 확인해
+            응원이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을 확인해
             주세요😆
           </Button>
         );
@@ -337,7 +337,7 @@ const CertifiCheckBtn = (props) => {
               margin="4.07vh 0 0 0"
               color="mainGreen"
             >
-              이미 인증해주신 게시물이에요😊
+              이미 응원해주신 게시물이에요😊
             </Button>
           );
         } else if (postingMember !== loginUser) {
@@ -348,7 +348,7 @@ const CertifiCheckBtn = (props) => {
               margin="4.07vh 0 0 0"
               _onClick={check}
             >
-              인증 확인
+              응원 하기!
             </Button>
           );
         } else {
@@ -366,7 +366,7 @@ const CertifiCheckBtn = (props) => {
           margin="4.07vh 0 0 0"
           color="mainGreen"
         >
-          챌린지에 참여한 사람만 인증 버튼을 누를 수 있어요!
+          챌린지에 참여한 사람만 응원 버튼을 누를 수 있어요!
         </Button>
       );
     }
@@ -456,18 +456,13 @@ const Status = styled.div`
 
 const StatusInfo = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.74vh;
+  text-align: center;
+  margin-top: 2vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 13px;
   }
-`;
-
-const Percent = styled.span`
-  color: ${({ theme }) => theme.colors.mainGreen};
 `;
 
 const Post = styled.div`
@@ -477,6 +472,8 @@ const Post = styled.div`
   p {
     width: 15.89vw;
     height: 28.24vh;
+    white-space: pre-wrap;
+    line-height: normal;
     border-radius: 16px;
     border: 2px solid ${({ theme }) => theme.colors.gray};
     font-size: ${({ theme }) => theme.fontSizes.md};
@@ -488,8 +485,8 @@ const Post = styled.div`
     margin-top: 32px;
     p {
       flex: 1;
-      width: 38.89vw;
-      height: 38.89vw;
+      width: 37.89vw;
+      height: 37.89vw;
       padding: 4.44vw;
       margin-left: 2.22vw;
       font-size: ${({ theme }) => theme.fontSizes.xs};

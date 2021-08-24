@@ -26,7 +26,23 @@ const initialState = {
 const getMyInfoDB = () => {
   return function (dispatch, getState, { history }) {
     MypageApis.getMyInfo()
-      .then((res) => dispatch(getInfo(res.data)))
+      .then((res) => {
+        consoleLogger("point history 요청 후 응답", res);
+
+        const memberHistoryResponseDto = {
+          level: res.data.memberHistoryResponseDto.level,
+          rank: res.data.memberHistoryResponseDto.rank,
+          memberId: res.data.memberHistoryResponseDto.memberId,
+          nickname: res.data.memberHistoryResponseDto.nickname,
+          point: res.data.memberHistoryResponseDto.point,
+          profileImage: res.data.memberHistoryResponseDto.profileImage,
+          pointHistoryList: [
+            ...res.data.memberHistoryResponseDto.challengeGetpoint,
+            ...res.data.memberHistoryResponseDto.postingGetpoint,
+          ],
+        };
+        dispatch(getInfo({ ...res.data, memberHistoryResponseDto }));
+      })
       .catch((error) => {
         if (window.confirm("사용자 정보를 받아올수없습니다.")) {
           history.push("/");
