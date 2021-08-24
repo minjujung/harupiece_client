@@ -16,11 +16,15 @@ import levelData from "../shared/level";
 
 function Mypage(props) {
   const dispatch = useDispatch();
+
   const myInfoList = useSelector((state) => state.mypage.myInfo);
+
   // 프로필 preview 상태 값
   const preview = useSelector((state) => state.mypage.preview);
 
-  const levelState = parseInt((myInfoList?.level - 1) / 5);
+  const levelState = parseInt(
+    (myInfoList.memberHistoryResponseDto?.level - 1) / 5
+  );
 
   const {
     match: { path },
@@ -28,10 +32,12 @@ function Mypage(props) {
   } = props;
 
   const [editMode, setEditMode] = useState(false);
-  const [newNickName, setNewNickName] = useState(myInfoList.nickname);
+  const [newNickName, setNewNickName] = useState(
+    myInfoList.memberHistoryResponseDto?.nickname
+  );
 
   const convertEditMode = () => {
-    setNewNickName(myInfoList.nickname);
+    setNewNickName(myInfoList.memberHistoryResponseDto.nickname);
     setEditMode(!editMode);
   };
 
@@ -60,12 +66,15 @@ function Mypage(props) {
   // 수정 완료 버튼
   const editProfile = () => {
     const file = fileInput.current.files[0];
-    if (newNickName === myInfoList.nickname) {
-      setNewNickName(myInfoList.nickname);
+    if (newNickName === myInfoList.memberHistoryResponseDto.nickname) {
+      setNewNickName(myInfoList.memberHistoryResponseDto.nickname);
     }
     if (!file) {
       dispatch(
-        myInfo.editMyProfileDB({ newNickName, file: myInfoList.profileImage })
+        myInfo.editMyProfileDB({
+          newNickName,
+          file: myInfoList.memberHistoryResponseDto.profileImage,
+        })
       );
     } else {
       dispatch(myInfo.editMyProfileDB({ newNickName, file }));
@@ -85,14 +94,15 @@ function Mypage(props) {
               borderRadius="100px"
               margin="0 0 0 4.38vw"
               src={
-                myInfoList.profileImage
-                  ? myInfoList.profileImage
+                myInfoList.memberHistoryResponseDto?.profileImage
+                  ? myInfoList.memberHistoryResponseDto.profileImage
                   : levelData[9].img
               }
               alt="defaultProfile"
             />
             <UserInfo>
-              <strong>{myInfoList.nickname}</strong>님<br />
+              <strong>{myInfoList.memberHistoryResponseDto?.nickname}</strong>님
+              <br />
               현재 등급은 {levelData[levelState]?.level} 입니다.
             </UserInfo>
             <MediaBtn>
@@ -110,13 +120,16 @@ function Mypage(props) {
           </>
         ) : (
           <>
-            {" "}
             <EditProfile>
               <Image
                 width="9.69vw"
-                height="9.69vw"
-                borderRadius="100px"
-                src={preview ? preview : myInfoList.profileImage}
+                height="17.13vh"
+                borderRadius="50%"
+                src={
+                  preview
+                    ? preview
+                    : myInfoList.memberHistoryResponseDto?.profileImage
+                }
                 alt="editProfile"
               />
               <Button width="56px" height="56px" borderRadius="50%" bg="white">

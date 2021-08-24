@@ -95,14 +95,12 @@ const Header = () => {
         <Image
           width="30.56vw"
           height="auto"
-          cursor
           src={logo}
           onClick={() => history.push("/")}
         />
         <Image
           width="6.25vw"
           height="6.25vw"
-          cursor
           src={Search}
           onClick={handleClickOpen}
         />
@@ -191,7 +189,7 @@ const Header = () => {
                 alt="profile"
                 width="42px"
                 height="42px"
-                borderRadius="8px"
+                borderRadius="50%"
                 post
               />
             </>

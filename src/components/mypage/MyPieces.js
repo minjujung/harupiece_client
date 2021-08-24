@@ -12,7 +12,7 @@ function MyPieces(props) {
   const mypageInfo = useSelector((state) => state.mypage.myInfo);
 
   useEffect(() => {
-    dispatch(myInfo.getPointDB());
+    dispatch(myInfo.getMyInfoDB());
   }, []);
 
   const [show, setShow] = useState(false);
@@ -54,7 +54,7 @@ function MyPieces(props) {
         <InfoBox mainGreen>
           <p>나의 하루조각 등급은?</p>
           <strong>
-            {userLevel}({mypageInfo.rank}위)
+            {userLevel}({mypageInfo.memberHistoryResponseDto?.rank}위)
           </strong>
         </InfoBox>
         <InfoBox>
@@ -70,6 +70,7 @@ function MyPieces(props) {
           <MarbleList>
             {levelArray.map((idx) => (
               <Image
+                key={idx}
                 width="3.13vw"
                 height="3.13vw"
                 borderRadius="30px"
@@ -91,14 +92,17 @@ function MyPieces(props) {
         </Header>
         {show ? (
           <>
-            {mypageInfo.pointHistoryList.length !== 0 ? (
+            {mypageInfo.memberHistoryResponseDto.pointHistoryList.length !==
+            0 ? (
               <HistoryBox>
-                {mypageInfo.pointHistoryList?.map((history) => (
-                  <p key={history.pointHistoryId}>
-                    [{history.challengeTitle}]챌린지를 통해 {history.point}조각
-                    획득
-                  </p>
-                ))}
+                {mypageInfo.memberHistoryResponseDto.pointHistoryList?.map(
+                  (history) => (
+                    <p key={history.pointHistoryId}>
+                      [{history.challengeTitle}]챌린지를 통해 {history.point}
+                      조각 획득
+                    </p>
+                  )
+                )}
               </HistoryBox>
             ) : (
               <NoPointMent>

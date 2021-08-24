@@ -11,13 +11,13 @@ function UpcomingChallenge(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(myInfo.getProceedDB());
+    dispatch(myInfo.getMyInfoDB());
   }, []);
 
   const my_info = useSelector((state) => state.mypage.myInfo);
 
   const myChallengeList = useSelector(
-    (state) => state.mypage.myInfo.challengeList
+    (state) => state.mypage.myInfo.mypageProceedResponseDto?.challengeList
   );
 
   const start = myChallengeList?.map(

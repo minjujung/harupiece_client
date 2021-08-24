@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -29,6 +29,12 @@ const PwdModal = (props) => {
 
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
+    // 소켓 통신 객체
+    const sock = new SockJS("http://34.64.75.241/chatting");
+    const ws = Stomp.over(sock);
+
+    const token = getCookie("token");
+
     const data = {
       type: "ENTER",
       roomId: challengeId,
@@ -36,13 +42,16 @@ const PwdModal = (props) => {
       profileImg: userInfo.profileImg,
       alert: "[알림]",
     };
+    console.log("connect전");
     try {
+      console.log("connect 바로 전");
       ws.connect({ token }, () => {
+        console.log("connect후");
         ws.send("/pub/enter", { token }, JSON.stringify(data));
-        console.log(data);
         ws.subscribe(
           `/sub/api/chat/rooms/${challengeId}`,
           (data) => {
+            console.log("입장 message send후");
             console.log(data);
             const newMessage = JSON.parse(data.body);
             dispatch(chatActions.getMessages(newMessage));
@@ -50,6 +59,25 @@ const PwdModal = (props) => {
           { token }
         );
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   wsConnectSubscribe();
+  // }, []);
+
+  // 연결해제, 구독해제;
+  const wsDisConnectUnsubscribe = () => {
+    try {
+      ws.send("/pub/quit", { token }, {});
+      ws.disconnect(
+        () => {
+          ws.unsubscribe("sub-0");
+        }
+        // { token }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -102,12 +130,13 @@ const PwdModal = (props) => {
         () => window.alert("10명까지만 참여할 수 있는 챌린지 입니다!"),
         300
       );
+      return;
     }
 
     if (challengePassword) {
       setOpen(true);
     } else {
-      wsConnectSubscribe();
+      // wsConnectSubscribe();
       dispatch(challengeDetailActions.takeInPartChallengeDB(challengeId));
     }
   };

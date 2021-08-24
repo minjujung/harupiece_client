@@ -37,8 +37,11 @@ const Card = ({
         {children}
         <Container>
           <Title>
-            {title.length > 10 ? `${title.substring(0, 10)}...` : title}
+            {title.length > 13 ? `${title.substring(0, 13)}...` : title}
           </Title>
+          <MobileTitle>
+            {title.length > 25 ? `${title.substring(0, 25)}...` : title}
+          </MobileTitle>
           <Date strongDate={strongDate}>{date}</Date>
           {inProcess ? (
             <UserProfile>
@@ -92,7 +95,6 @@ const CardBox = styled.div`
   border: 1.8px solid ${({ theme }) => theme.colors.lightGray};
   border-top: none;
   cursor: pointer;
-  /* padding-bottom: 20px; */
   ${({ theme }) => theme.device.mobileLg} {
     /* width: ${(props) => (props.search ? "41.67vw" : "91.11vw")}; */
     height: ${(props) => (props.height ? props.height : "auto")};
@@ -117,14 +119,31 @@ const Title = styled.h4`
   margin: 1.39vh 0px 1.02vh 0;
   font-weight: bold;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    font-size: 16px;
+    display: none;
   }
   ${({ theme }) => theme.device.desktopLg} {
     font-size: 20px;
   }
   ${({ theme }) => theme.device.desktop} {
     font-size: 18px;
+  }
+`;
+
+const MobileTitle = styled.h4`
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: ${({ theme }) => theme.colors.black};
+  margin: 1.39vh 0px 1.02vh 0;
+  font-weight: bold;
+  width: 100%;
+  font-size: 16px;
+  ${({ theme }) => theme.device.desktopLg} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    display: none;
+  }
+  ${({ theme }) => theme.device.desktopXl} {
+    display: none;
   }
 `;
 

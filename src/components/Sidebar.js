@@ -70,7 +70,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                 sidebar
                 width="12.5vw"
                 height="12.5vw"
-                borderRadius="5px"
+                borderRadius="50%"
                 margin="0 auto 1.64% auto"
                 src={
                   user_info?.profileImg ===
@@ -101,7 +101,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
               <Box>
                 진행 챌린지
                 <br />
-                <strong>{user_info?.challengeCount}개</strong>
+                <strong>{user_info && user_info.challengeCount}개</strong>
               </Box>
             </UserInfoBox>
           </>

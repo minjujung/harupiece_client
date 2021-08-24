@@ -47,7 +47,7 @@ function Info() {
                     src={completed}
                     alt="level"
                   />
-                  완료: {user?.completeChallengeCount}개
+                  총 조각: {user?.completeChallengeCount}개
                 </p>
               </RightBox>
             </InfoBox2>
