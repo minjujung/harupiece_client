@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as chatActions } from "../redux/modules/chat";
 import { Link, Route, Switch } from "react-router-dom";
+import Toast from "../elements/Toast";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,24 @@ const ChallengeDetail = (props) => {
   const challengeId = props.match.params.id;
 
   const [open, setOpen] = useState(false);
+  const [toastAlert, setToastAlert] = useState(false);
+  const urlRef = useRef();
+
+  useEffect(() => {
+    if (toastAlert) {
+      setTimeout(() => setToastAlert(false), 1000);
+    }
+  }, [toastAlert]);
+
+  //현재 페이지 url 복사
+  const copy = (e) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+    }
+    navigator.clipboard.writeText(urlRef.current.value);
+    e.target.focus();
+    setToastAlert(true);
+  };
 
   //challenge날짜수 계산
   const start = challenge.challengeStartDate?.split("T")[0].split("-");
@@ -119,6 +138,7 @@ const ChallengeDetail = (props) => {
               </TitleContainer>
             </Banner>
             <NavBar>
+              {toastAlert && <Toast msg="url 복사 완료!" />}
               <ul>
                 <Item selected={pathname.includes("/intro")}>
                   <Link to={`${url}/intro`}>챌린지 소개</Link>
@@ -127,10 +147,15 @@ const ChallengeDetail = (props) => {
                   <Link to={`${url}/post`}>인증목록</Link>
                 </Item>
               </ul>
-              <ShareBtn>
+              {/* <ShareBtn onClick={copy}>
                 <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
                 공유하기
-              </ShareBtn>
+                <textarea
+                  style={{ display: "none" }}
+                  ref={urlRef}
+                  value={window.location.href}
+                />
+              </ShareBtn> */}
             </NavBar>
           </ChallengeHeader>
           <Switch>
@@ -363,6 +388,7 @@ const NavBar = styled.nav`
   height: 7.4vh;
   display: flex;
   align-items: center;
+  position: relative;
   ul {
     width: 100%;
     height: 100%;

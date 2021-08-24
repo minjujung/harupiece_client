@@ -61,7 +61,7 @@ const MessageList = ({ challengeId }) => {
       <Chat ref={scrollTo}>
         {chatInfo.messages?.map((msg) => (
           <MsgFrame key={msg.chatMessageId}>
-            {msg.type === "QUIT" || msg.type === "ENTER" ? (
+            {msg.type === "ENTER" ? (
               <EnterMsg>{msg.message}</EnterMsg>
             ) : (
               <div key={msg.chatMessageId}>

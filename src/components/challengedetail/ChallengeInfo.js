@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { RadioButtonUnchecked, NotInterested, Link } from "@material-ui/icons";
@@ -6,6 +6,7 @@ import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
+import Toast from "../../elements/Toast";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
@@ -13,17 +14,23 @@ const ChallengeInfo = (props) => {
 
   const challengeId = props.match.params.id;
 
-  const urlRef = useState();
+  const [toastAlert, setToastAlert] = useState(false);
+  const urlRef = useRef();
+
+  useEffect(() => {
+    if (toastAlert) {
+      setTimeout(() => setToastAlert(false), 1000);
+    }
+  }, [toastAlert]);
 
   //현재 페이지 url 복사
   const copy = (e) => {
     if (!document.queryCommandSupported("copy")) {
       return alert("복사 기능이 지원되지 않는 브라우저입니다.");
     }
-    console.log(urlRef.current);
     navigator.clipboard.writeText(urlRef.current.value);
-    // document.execCommand("copy");
     e.target.focus();
+    setToastAlert(true);
   };
 
   // challenge상세 내용 불러오기
@@ -58,15 +65,16 @@ const ChallengeInfo = (props) => {
     <ChallengeDesc>
       <Section>
         <Title>
+          {toastAlert && <Toast msg="url 복사 완료!" />}
           <h3>기본정보</h3>
-          <ShareBtn onClick={copy}>
+          {/* <ShareBtn onClick={copy}>
             <Link style={{ transform: "rotate(-45deg)" }} /> 챌린지 공유하기
             <textarea
               style={{ display: "none" }}
               ref={urlRef}
-              value={window.location.href}
+              defaultValue={window.location.href}
             />
-          </ShareBtn>
+          </ShareBtn> */}
         </Title>
         <Info>
           <span>카테고리</span>
@@ -123,7 +131,7 @@ const ChallengeInfo = (props) => {
         <Desc>{challenge.challengeContent}</Desc>
         <TagFrame>
           <Tag bg="mainGreen" color="white">
-            {challenge.tagList[0]}
+            {challenge.tag}
           </Tag>
           <Tag bg="mainOrange" color="white">
             {category}
@@ -150,6 +158,7 @@ const ChallengeDesc = styled.section`
 
 const Section = styled.section`
   width: 49.48vw;
+  position: relative;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;
@@ -313,6 +322,7 @@ const ShareBtn = styled.button`
     font-size: 14px;
     margin-bottom: 24px;
     color: gray;
+    top: 0;
     svg {
       width: 20px;
       height: 20px;

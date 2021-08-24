@@ -35,7 +35,7 @@ const Chat = ({ id, setOpen }) => {
       roomId: id,
       nickname: userInfo.nickname,
       profileImg: userInfo.profileImg,
-      // statusCheck: true,
+      statusFirst: true,
       alert: "[알림]",
     };
     try {
