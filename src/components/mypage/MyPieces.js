@@ -98,7 +98,7 @@ function MyPieces(props) {
                 {mypageInfo.memberHistoryResponseDto.pointHistoryList?.map(
                   (history) => (
                     <p key={history.pointHistoryId}>
-                      [{history.challengeTitle}]챌린지를 통해 {history.point}
+                      [{history.challengeTitle}]챌린지를 통해 {history.getPoint}
                       조각 획득
                     </p>
                   )

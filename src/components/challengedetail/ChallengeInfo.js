@@ -1,17 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { RadioButtonUnchecked, NotInterested } from "@material-ui/icons";
+import { RadioButtonUnchecked, NotInterested, Link } from "@material-ui/icons";
 import { Image, Tag } from "../../elements/index";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
+import Toast from "../../elements/Toast";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
 
   const challengeId = props.match.params.id;
+
+  const [toastAlert, setToastAlert] = useState(false);
+  const urlRef = useRef();
+
+  useEffect(() => {
+    if (toastAlert) {
+      setTimeout(() => setToastAlert(false), 1000);
+    }
+  }, [toastAlert]);
+
+  //현재 페이지 url 복사
+  const copy = (e) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+    }
+    navigator.clipboard.writeText(urlRef.current.value);
+    e.target.focus();
+    setToastAlert(true);
+  };
 
   // challenge상세 내용 불러오기
   useEffect(() => {
@@ -44,7 +64,26 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <h3>기본정보</h3>
+        <Title>
+          {toastAlert && <Toast msg="url 복사 완료!" />}
+          <h3>기본정보</h3>
+          <ShareBtn onClick={copy}>
+            <Link style={{ transform: "rotate(-45deg)" }} /> 챌린지 공유하기
+            <textarea
+              style={{
+                position: "absolute",
+                width: "0px",
+                height: "0px",
+                top: "0",
+                left: "0",
+                opacity: "0",
+              }}
+              ref={urlRef}
+              value={window.location.href}
+              readOnly
+            />
+          </ShareBtn>
+        </Title>
         <Info>
           <span>카테고리</span>
           {category}
@@ -71,7 +110,7 @@ const ChallengeInfo = (props) => {
             <PostFrame>
               <Image
                 width="8.33vw"
-                height="14.81vh"
+                height="8.33vw"
                 borderRadius="12px"
                 src={challenge.challengeGood}
                 alt="vegan_diet"
@@ -84,7 +123,7 @@ const ChallengeInfo = (props) => {
             <PostFrame>
               <Image
                 width="8.33vw"
-                height="14.81vh"
+                height="8.33vw"
                 borderRadius="12px"
                 src={challenge.challengeBad}
                 alt="nonvegan_diet"
@@ -127,18 +166,15 @@ const ChallengeDesc = styled.section`
 
 const Section = styled.section`
   width: 49.48vw;
+  position: relative;
   h3 {
     font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: bold;
     margin-bottom: 16px;
   }
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    padding: 0 4.44vw;
-    margin: 0px;
+  ${({ theme }) => theme.device.desktopLg} {
     h3 {
-      margin-bottom: 24px;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
@@ -150,6 +186,18 @@ const Section = styled.section`
 
   ${({ theme }) => theme.device.tablet} {
     h3 {
+      font-size: 16px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 100%;
+    padding: 0 4.44vw;
+    margin: 0px;
+    h3 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
       font-size: 16px;
     }
   }
@@ -166,10 +214,11 @@ const Info = styled.div`
   p {
     line-height: normal;
   }
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 14px;
+
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
     span {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 
@@ -186,6 +235,12 @@ const Info = styled.div`
       font-size: 14px;
     }
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 14px;
+    span {
+      font-size: 14px;
+    }
+  }
 `;
 
 const Example = styled.article`
@@ -194,22 +249,17 @@ const Example = styled.article`
   span {
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.gray};
-    margin-right: 2em;
+    margin-right: 1.67vw;
     font-weight: bold;
   }
   div {
-    margin-right: 2em;
+    margin-right: 1.67vw;
   }
-  ${({ theme }) => theme.device.mobileLg} {
+  ${({ theme }) => theme.device.desktopLg} {
     span {
-      font-size: ${({ theme }) => theme.fontSizes.xs};
-    }
-    flex-direction: column;
-    div {
-      margin-right: 0;
+      font-size: 16px;
     }
   }
-
   ${({ theme }) => theme.device.desktop} {
     span {
       font-size: 16px;
@@ -219,6 +269,15 @@ const Example = styled.article`
   ${({ theme }) => theme.device.tablet} {
     span {
       font-size: 14px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    span {
+      font-size: ${({ theme }) => theme.fontSizes.xs};
+    }
+    flex-direction: column;
+    div {
+      margin-right: 0;
     }
   }
 `;
@@ -251,17 +310,19 @@ const ExTitle = styled.h4`
     props.good ? props.theme.colors.mainGreen : props.theme.colors.mainOrange};
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.ms};
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    margin-top: 0.74vh;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 16px;
   }
 
   ${({ theme }) => theme.device.tablet} {
     font-size: 14px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    margin-top: 0.74vh;
   }
 `;
 
@@ -274,4 +335,29 @@ const Desc = styled.p`
 
 const TagFrame = styled.div`
   display: flex;
+`;
+
+const Title = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ShareBtn = styled.button`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-bottom: 24px;
+    color: gray;
+    top: 0;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;

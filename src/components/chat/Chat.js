@@ -18,6 +18,7 @@ import SockJS from "sockjs-client";
 const Chat = ({ id, setOpen }) => {
   const dispatch = useDispatch();
   const chatInfo = useSelector((state) => state.chat.info);
+  const chat = useSelector((state) => state.chat);
   const challengeInfo = useSelector((state) => state.challengeDetail.detail);
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -30,17 +31,17 @@ const Chat = ({ id, setOpen }) => {
 
   //웹소켓 연결, 구독
   const wsConnectSubscribe = () => {
-    // const data = {
-    //   type: "ENTER",
-    //   roomId: id,
-    //   nickname: userInfo.nickname,
-    //   profileImg: userInfo.profileImg,
-    //   alert: "[알림]",
-    // };
+    const data = {
+      type: "ENTER",
+      roomId: id,
+      nickname: userInfo.nickname,
+      profileImg: userInfo.profileImg,
+      message: "",
+      statusFirst: true,
+      alert: "[알림]",
+    };
     try {
       ws.connect({ token }, () => {
-        // ws.send("/pub/enter", { token }, JSON.stringify(data));
-        ws.send("/pub/enter", { token }, {});
         ws.subscribe(
           `/sub/api/chat/rooms/${id}`,
           (data) => {
@@ -50,6 +51,7 @@ const Chat = ({ id, setOpen }) => {
           },
           { token }
         );
+        ws.send("/pub/enter", { token }, JSON.stringify(data));
       });
     } catch (error) {
       console.log(error);
@@ -73,8 +75,8 @@ const Chat = ({ id, setOpen }) => {
 
   //   렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
-    dispatch(chatActions.getMessagesDB(id));
     wsConnectSubscribe();
+    dispatch(chatActions.getMessagesDB(id));
     return () => {
       wsDisConnectUnsubscribe();
     };
@@ -118,21 +120,21 @@ const Chat = ({ id, setOpen }) => {
         message: chatInfo.messageText,
         alert: "",
       };
-
-      ws.send("/pub/talk", { token }, JSON.stringify(data));
-      //   //   빈문자열이면 리턴
-      //   //   로딩 중
-      //   dispatch(chatActions.loading());
-      //   waitForConnection(ws, function () {
-      //     ws.send("/pub/message", { token }, JSON.stringify(data));
-      //     console.log(ws.ws.readyState);
-      //     console.log(data);
-      //     dispatch(chatActions.writeMessage(""));
-      //   });
+      //   빈문자열이면 리턴
+      //   로딩 중
+      dispatch(chatActions.loading(false));
+      waitForConnection(ws, function () {
+        ws.send("/pub/talk", { token }, JSON.stringify(data));
+        console.log(ws.ws.readyState);
+        console.log(data);
+        dispatch(chatActions.writeMessage(""));
+      });
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(chat.is_loading);
 
   const closeChat = () => {
     setOpen(false);
@@ -155,8 +157,9 @@ const Chat = ({ id, setOpen }) => {
           />
         </Header>
         <Banner>
-          바르고 고운말 사용을 지향합니다 👼 비방글을 지속적으로 작성할 시 제재
-          대상이 될 수 있습니다. 🤬
+          바르고 고운말 사용을 지향합니다 👼 <br />
+          비방글을 지속적으로 작성할 시 <br />
+          제재 대상이 될 수 있습니다. 🤬
         </Banner>
         <MessageList challengeId={id} />
         {/* <div ref={scrollRef}></div> */}
@@ -231,8 +234,16 @@ const Header = styled.div`
 `;
 
 const Banner = styled.p`
-  margin-top: 1%;
+  width: 98%;
+  margin: 1% auto 0 auto;
   border-radius: 1px solid gray;
   text-align: center;
+  line-height: 120%;
   padding: 3%;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  box-shadow: rgb(0 219 154 / 20%) 0px 1px 20px;
 `;
