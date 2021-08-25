@@ -77,8 +77,8 @@ const searchDB = (q) => {
 // 모든 검색 결과
 const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
-    let categoryName = content.categoryName;
-    let period = content.tags;
+    let categoryName = "ALL";
+    let period = 0;
     if (content) {
       if (content.tags === "1") {
         period = 1;
@@ -108,7 +108,6 @@ const searchFilterDB = (content) => {
     const encodePeriod = encodeURIComponent(period);
     MainApis.searchFilter(encodeCategoryName, encodePeriod)
       .then((res) => {
-        console.log(res);
         dispatch(search(res.data.challengeList));
       })
       .catch((err) => {

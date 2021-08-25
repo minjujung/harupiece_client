@@ -99,6 +99,16 @@ function SearchChallenge(props) {
     return challengeDate;
   };
 
+  //카테고리 이름 한글로 변경
+  let category = "";
+  if (searchList.search.categoryName === "EXERCISE") {
+    category = "운동";
+  } else if (searchList.search.categoryName === "NODRINKNOSMOKE") {
+    category = "금연 / 금주";
+  } else {
+    category = "생활습관";
+  }
+
   return (
     <Container>
       <CategoryContainer>
@@ -291,6 +301,14 @@ function SearchChallenge(props) {
                       padding="8px 20px"
                     >
                       {l.tag}
+                    </Tag>
+                    <Tag
+                      fontWeight="500"
+                      bg="lightGray"
+                      color="black"
+                      padding="8px 20px"
+                    >
+                      {category}
                     </Tag>
                     <Tag
                       fontWeight="500"

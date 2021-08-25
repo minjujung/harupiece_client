@@ -49,11 +49,11 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route path="/mypage" component={Mypage} />
           <Route exact path="/challenge" component={ChallengeCreate} />
-          {/* <Route
+          <Route
             exact
             path="/search/:searchWords/1"
             component={SearchChallenge}
-          /> */}
+          />
           <Route path="/challenge/:id" component={ChallengeDetail} />
           <Route exact path="/:id/edit" component={ChallengeEdit} />
           <Footer />
