@@ -105,7 +105,6 @@ const editMyProfileDB = (content) => {
     if (content.file === myProfileImg) {
       MypageApis.editProfile(proFile)
         .then((res) => {
-          console.log(res);
           consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
           const new_post = {
             ...proFile,

@@ -9,7 +9,6 @@ import login from "../assets/images/icons/login.svg";
 import myPage from "../assets/images/icons/profile.svg";
 import Search from "../assets/images/icons/search.svg";
 import profile from "../assets/images/logo/profile.png";
-import profileGreen from "../assets/images/icons/profileGreen.svg";
 import menu from "../assets/images/icons/menubar.svg";
 
 // modal
@@ -21,6 +20,7 @@ import { MainCreators as searchActions } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 import Sidebar from "./Sidebar";
+import levelData from "../shared/level";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -180,15 +180,13 @@ const Header = () => {
               </HeaderMyBtn>
               <Image
                 src={
-                  userInfo.profileImg === "" ||
-                  userInfo.profileImg ===
-                    "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg"
-                    ? profileGreen
+                  userInfo.profileImg === ""
+                    ? levelData[9].img
                     : userInfo.profileImg
                 }
                 alt="profile"
-                width="42px"
-                height="42px"
+                width="50px"
+                height="50px"
                 borderRadius="50%"
                 post
               />
@@ -204,11 +202,11 @@ const Header = () => {
                 <p>로그인</p>
               </HeaderLogBtn>
               <Image
-                src={profile}
+                src={levelData[9].img}
                 alt="profile"
-                width="42px"
-                height="42px"
-                borderRadius="8px"
+                width="50px"
+                height="50px"
+                borderRadius="0"
               />
             </>
           )}

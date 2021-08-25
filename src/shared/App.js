@@ -24,6 +24,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
+import LandingPage from "../pages/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,16 +43,17 @@ function App() {
         </Helmet>
         <Container>
           <Header />
+          <Route exact path="/landing" component={LandingPage} />
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route path="/mypage" component={Mypage} />
           <Route exact path="/challenge" component={ChallengeCreate} />
-          <Route
+          {/* <Route
             exact
             path="/search/:searchWords/1"
             component={SearchChallenge}
-          />
+          /> */}
           <Route path="/challenge/:id" component={ChallengeDetail} />
           <Route exact path="/:id/edit" component={ChallengeEdit} />
           <Footer />

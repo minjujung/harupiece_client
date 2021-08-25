@@ -80,7 +80,7 @@ const getPostDB =
 
 //인증샷 올리기
 const addPostDB =
-  (post, challengeId) =>
+  (post, challengeId, totalNumber) =>
   (dispatch, getState, { history }) => {
     const date = new Date();
     const user_info = getState().user.userInfo;
@@ -110,6 +110,7 @@ const addPostDB =
         postingImg: data.Location,
         postingContent: post.shotText,
         challengeId,
+        totalNumber,
       };
 
       PostApis.addPost(new_post)

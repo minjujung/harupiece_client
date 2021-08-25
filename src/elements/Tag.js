@@ -23,7 +23,7 @@ Tag.defaultProps = {
 export default Tag;
 
 const TagFrame = styled.div`
-  cursor: pointer;
+  /* cursor: pointer; */
   border: ${(props) => props.border};
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.lightGray};
@@ -37,6 +37,15 @@ const TagFrame = styled.div`
   padding: ${(props) => (props.padding ? props.padding : "7px")};
   margin-right: 0.5em;
 
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
+  }
   /* mobile */
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 13px;

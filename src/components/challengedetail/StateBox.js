@@ -134,6 +134,9 @@ const UserStatus = styled.p`
     props.goodUser
       ? `border-bottom: 2px solid ${props.theme.colors.lightGray};`
       : null};
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
+  }
   ${({ theme }) => theme.device.desktop} {
     font-size: 12px;
   }

@@ -10,9 +10,6 @@ const Card = ({
   padding,
   title,
   date,
-  src,
-  alt,
-  mypage,
   maxHeight,
   mobileMaxHeight,
   inProcess,
@@ -76,7 +73,6 @@ Card.defaultProps = {
   card: false,
   width: "",
   height: "",
-  // mypage: "",
   maxHeight: "",
   mobileMaxHeight: "",
   padding: "",
@@ -122,10 +118,13 @@ const Title = styled.h4`
     display: none;
   }
   ${({ theme }) => theme.device.desktopLg} {
-    font-size: 20px;
+    font-size: 18px;
   }
   ${({ theme }) => theme.device.desktop} {
     font-size: 18px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    display: none;
   }
 `;
 
@@ -156,6 +155,15 @@ const Date = styled.p`
   ${(props) => (props.strongDate ? `font-weight: bold` : null)};
   word-break: break-all;
   margin-bottom: 3.28vh;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 12px;
+  }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 14px;
@@ -167,6 +175,24 @@ const UserProfile = styled.div`
   align-items: center;
   padding-bottom: 2.22vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  span {
+    line-height: 120%;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    span {
+      font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    span {
+      font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.tablet} {
+    span {
+      font-size: 12px;
+    }
+  }
 `;
 
 const ImageList = styled.div`
@@ -185,17 +211,17 @@ const Plus = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   color: ${({ theme }) => theme.colors.gray};
   background-color: #e9e9e9;
   width: 2.6vw;
-  height: auto;
+  height: 2.6vw;
   border-radius: 50%;
   padding-bottom: 0.5vh;
   margin-left: -1.2vw;
   ${({ theme }) => theme.device.mobileLg} {
     width: 12.08vw;
-    height: auto;
+    height: 12.08vw;
     margin-left: -22px;
   }
 `;
