@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
@@ -8,12 +8,14 @@ import ChallengeInfo from "../components/challengedetail/ChallengeInfo";
 import ShotList from "../components/challengedetail/ShotList";
 import chat from "../assets/images/icons/chat.png";
 import Chat from "../components/chat/Chat";
+import LinkIcon from "@material-ui/icons/Link";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as chatActions } from "../redux/modules/chat";
 import { Link, Route, Switch } from "react-router-dom";
+import Toast from "../elements/Toast";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +26,27 @@ const ChallengeDetail = (props) => {
   const challengeId = props.match.params.id;
 
   const [open, setOpen] = useState(false);
+  const [toastAlert, setToastAlert] = useState(false);
+  const urlRef = useRef();
+
+  useEffect(() => {
+    if (toastAlert) {
+      setTimeout(() => setToastAlert(false), 1000);
+    }
+  }, [toastAlert]);
+
+  //현재 페이지 url 복사
+  const copy = (e) => {
+    if (!document.queryCommandSupported("copy")) {
+      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+    }
+    const copyMent = urlRef.current;
+    copyMent.select();
+    console.log(copyMent);
+    document.execCommand("copy");
+    e.target.focus();
+    setToastAlert(true);
+  };
 
   //challenge날짜수 계산
   const start = challenge.challengeStartDate?.split("T")[0].split("-");
@@ -109,13 +132,16 @@ const ChallengeDetail = (props) => {
           {/* banner 랑 navbar */}
           <ChallengeHeader>
             <Banner bgImg={challenge.challengeImgUrl}>
-              <Title>{challenge.challengeTitle}</Title>
-              <TotalNum>
-                참여 {challenge.challengeMember.length}명 | 진행률{" "}
-                {progressPercent * 100} %
-              </TotalNum>
+              <TitleContainer>
+                <Title>{challenge.challengeTitle}</Title>
+                <TotalNum>
+                  참여 {challenge.challengeMember.length}명 | 진행률{" "}
+                  {progressPercent * 100} %
+                </TotalNum>
+              </TitleContainer>
             </Banner>
             <NavBar>
+              {toastAlert && <Toast msg="url 복사 완료!" />}
               <ul>
                 <Item selected={pathname.includes("/intro")}>
                   <Link to={`${url}/intro`}>챌린지 소개</Link>
@@ -124,6 +150,23 @@ const ChallengeDetail = (props) => {
                   <Link to={`${url}/post`}>인증목록</Link>
                 </Item>
               </ul>
+              <ShareBtn onClick={copy}>
+                <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
+                공유하기
+                <textarea
+                  style={{
+                    position: "absolute",
+                    width: "0px",
+                    height: "0px",
+                    top: "0",
+                    left: "0",
+                    opacity: "0",
+                  }}
+                  ref={urlRef}
+                  value={window.location.href}
+                  readOnly
+                />
+              </ShareBtn>
             </NavBar>
           </ChallengeHeader>
           <Switch>
@@ -211,9 +254,7 @@ const ChallengeHeader = styled.div`
   display: flex;
   flex-direction: column;
   width: 49.48vw;
-  /* height: 40.55vh; */
   justify-content: center;
-  /* margin-top: 3.02vw; */
   margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.device.mobileLg} {
@@ -230,7 +271,6 @@ const StateContainer = styled.div`
   grid-area: banner;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    /* height: 100vh; */
   }
 `;
 
@@ -240,19 +280,11 @@ const Btns = styled.div`
   flex-direction: column;
   position: absolute;
   top: 17.08vw;
-  /* margin-top: 2.59vh; */
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    height: 11vh;
-    flex-direction: row;
-    position: fixed;
-    z-index: 15;
-    top: auto;
-    bottom: 0;
-    right: 0;
-    margin-top: 0;
+  ${({ theme }) => theme.device.desktopLg} {
+    button {
+      font-size: 16px;
+    }
   }
-
   ${({ theme }) => theme.device.desktop} {
     button {
       font-size: 16px;
@@ -263,6 +295,17 @@ const Btns = styled.div`
     button {
       font-size: 14px;
     }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 11vh;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    margin-top: 0;
   }
 `;
 
@@ -310,20 +353,29 @@ const Banner = styled.div`
   }
 `;
 
+const TitleContainer = styled.div`
+  padding: 2%;
+  background-color: #60606021;
+  border-radius: 8px;
+`;
+
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
   margin-bottom: 2.5%;
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 24px;
+  text-align: center;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 32px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 28px;
   }
 
   ${({ theme }) => theme.device.tablet} {
+    font-size: 24px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 24px;
   }
 `;
@@ -332,15 +384,17 @@ const TotalNum = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 16px;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 18px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 18px;
   }
 
   ${({ theme }) => theme.device.tablet} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 16px;
   }
 `;
@@ -350,6 +404,7 @@ const NavBar = styled.nav`
   height: 7.4vh;
   display: flex;
   align-items: center;
+  position: relative;
   ul {
     width: 100%;
     height: 100%;
@@ -358,30 +413,57 @@ const NavBar = styled.nav`
   }
 `;
 
+const ShareBtn = styled.button`
+  width: 200px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: gray;
+  position: relative;
+  z-index: 10;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
+`;
+
 const Item = styled.li`
-  width: 155px;
+  width: 8.07vw;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 5em;
+  margin-right: 4.17vw;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: bold;
   ${(props) =>
     props.selected
       ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
       : null}
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 50%;
-    margin: 0;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.desktop} {
     font-size: 16px;
   }
 
-  ${({ theme }) => theme.device.desktop} {
-    font-size: 18px;
-  }
-
   ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 50%;
+    margin: 0;
     font-size: 16px;
   }
 `;

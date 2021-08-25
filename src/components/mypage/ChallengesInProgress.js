@@ -81,7 +81,7 @@ function ChallengesInProgress(props) {
               >
                 <CardImg>
                   <Image
-                    width="16.04vw"
+                    width="15.8vw"
                     height="8.33vw"
                     padding="51.83% 0 0 0"
                     src={list.challengeImgUrl}
@@ -176,14 +176,13 @@ const NoListMent = styled.div`
     margin-bottom: 10%;
     line-height: 2.5;
   }
-  ${({ theme }) => theme.device.mobileLg} {
-    height: 25vh;
-    font-size: 16px;
+
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 18px;
     button {
-      width: 55.56vw;
+      font-size: 14px;
     }
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 18px;
     button {
@@ -195,6 +194,13 @@ const NoListMent = styled.div`
     font-size: 16px;
     button {
       font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 25vh;
+    font-size: 16px;
+    button {
+      width: 55.56vw;
     }
   }
 `;

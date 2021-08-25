@@ -61,10 +61,10 @@ const MessageList = ({ challengeId }) => {
       <Chat ref={scrollTo}>
         {chatInfo.messages?.map((msg) => (
           <MsgFrame key={msg.chatMessageId}>
-            {msg.type === "QUIT" || msg.type === "ENTER" ? (
+            {msg.type === "ENTER" ? (
               <EnterMsg>{msg.message}</EnterMsg>
             ) : (
-              <>
+              <div key={msg.chatMessageId}>
                 {" "}
                 <Sender me={user_info.nickname === msg.sender ? true : false}>
                   <Image
@@ -78,7 +78,7 @@ const MessageList = ({ challengeId }) => {
                 <Message me={user_info.nickname === msg.sender ? true : false}>
                   {msg.message}
                 </Message>
-              </>
+              </div>
             )}
           </MsgFrame>
         ))}
@@ -89,7 +89,7 @@ const MessageList = ({ challengeId }) => {
 export default MessageList;
 
 const Chat = styled.div`
-  height: 41.5vh;
+  height: 40vh;
   padding: 1.76vh 0.83vw 0 0.83vw;
   overflow-y: auto;
   ::-webkit-scrollbar {
@@ -106,7 +106,7 @@ const Chat = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 85%;
+    height: 73%;
     padding: 4.44vw 4.44vw 0 4.44vw;
   }
 `;

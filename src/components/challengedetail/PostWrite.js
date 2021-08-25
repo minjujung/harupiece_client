@@ -10,7 +10,7 @@ import { Image } from "../../elements";
 import camera from "../../assets/images/icons/camera.svg";
 import close from "../../assets/images/icons/close.svg";
 
-const PostWrite = ({ challengeId, challengeHoliday }) => {
+const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
 
@@ -57,7 +57,9 @@ const PostWrite = ({ challengeId, challengeHoliday }) => {
       setTimeout(() => window.alert("인증샷과 게시글 모두 작성해주세요!"), 300);
       return;
     }
-    dispatch(postActions.addPostDB({ file, shotText }, challengeId));
+    dispatch(
+      postActions.addPostDB({ file, shotText }, challengeId, totalNumber)
+    );
     setShotText("");
     handleClose();
   };
