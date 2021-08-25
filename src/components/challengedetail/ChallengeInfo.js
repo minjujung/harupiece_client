@@ -68,7 +68,7 @@ const ChallengeInfo = (props) => {
         <Example>
           <span>인증샷예시</span>
           <MobileFrame>
-            <div>
+            <PostFrame>
               <Image
                 width="8.33vw"
                 height="14.81vh"
@@ -80,8 +80,8 @@ const ChallengeInfo = (props) => {
                 <RadioButtonUnchecked style={{ marginRight: "8px" }} /> 좋은
                 인증샷
               </ExTitle>
-            </div>
-            <div>
+            </PostFrame>
+            <PostFrame>
               <Image
                 width="8.33vw"
                 height="14.81vh"
@@ -93,7 +93,7 @@ const ChallengeInfo = (props) => {
                 <NotInterested style={{ marginRight: "8px" }} />
                 나쁜 인증샷
               </ExTitle>
-            </div>
+            </PostFrame>
           </MobileFrame>
         </Example>
         <h3>소개글</h3>
@@ -220,6 +220,12 @@ const Example = styled.article`
     span {
       font-size: 14px;
     }
+  }
+`;
+
+const PostFrame = styled.div`
+  & > img {
+    cursor: default;
   }
 `;
 
