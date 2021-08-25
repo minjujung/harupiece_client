@@ -18,6 +18,7 @@ import SockJS from "sockjs-client";
 const Chat = ({ id, setOpen }) => {
   const dispatch = useDispatch();
   const chatInfo = useSelector((state) => state.chat.info);
+  const chat = useSelector((state) => state.chat);
   const challengeInfo = useSelector((state) => state.challengeDetail.detail);
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -119,13 +120,11 @@ const Chat = ({ id, setOpen }) => {
         message: chatInfo.messageText,
         alert: "",
       };
-
-      ws.send("/pub/talk", { token }, JSON.stringify(data));
       //   빈문자열이면 리턴
       //   로딩 중
-      dispatch(chatActions.loading());
+      dispatch(chatActions.loading(false));
       waitForConnection(ws, function () {
-        ws.send("/pub/message", { token }, JSON.stringify(data));
+        ws.send("/pub/talk", { token }, JSON.stringify(data));
         console.log(ws.ws.readyState);
         console.log(data);
         dispatch(chatActions.writeMessage(""));
@@ -134,6 +133,8 @@ const Chat = ({ id, setOpen }) => {
       console.log(error);
     }
   };
+
+  console.log(chat.is_loading);
 
   const closeChat = () => {
     setOpen(false);
