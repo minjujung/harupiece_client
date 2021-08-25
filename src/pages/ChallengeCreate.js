@@ -302,11 +302,11 @@ function ChallengeCreate(props) {
             </MobileCont>
             {/* 챌린지 설명 */}
             <MobileCont>
-              <Label>챌린지 설명</Label>
+              <Label>챌린지 소개</Label>
               <br />
               <Textarea
                 onChange={saveDesc}
-                placeholder="챌린지를 설명해주세요."
+                placeholder="챌린지를 소개해주세요."
               />
             </MobileCont>
             <MobilBtns>
