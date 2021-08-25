@@ -112,6 +112,7 @@ export default handleActions(
     [GET_MESSAGES]: (state, action) =>
       produce(state, (draft) => {
         draft.info.messages.push(action.payload.message);
+        draft.is_loading = true;
       }),
 
     [WRITE_MESSAGE]: (state, action) =>
