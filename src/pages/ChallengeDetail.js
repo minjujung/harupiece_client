@@ -422,7 +422,7 @@ const ShareBtn = styled.button`
   font-size: 18px;
   color: gray;
   position: relative;
-  z-index: 10;
+  z-index: 3;
   ${({ theme }) => theme.device.desktopLg} {
     font-size: 16px;
   }
