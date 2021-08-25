@@ -301,7 +301,7 @@ function ChallengeCreate(props) {
               <br />
               <Textarea
                 onChange={saveDesc}
-                placeholder="챌린지를 설명해주세요."
+                placeholder="챌린지를 소개해주세요."
               />
             </MobileCont>
             <MobilBtns>
