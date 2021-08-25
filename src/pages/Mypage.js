@@ -95,7 +95,7 @@ function Mypage(props) {
             <Image
               width="9.69vw"
               height="9.69vw"
-              borderRadius="100px"
+              borderRadius="50%"
               margin="0 0 0 4.38vw"
               src={
                 myInfoList.memberHistoryResponseDto?.profileImage
@@ -271,15 +271,17 @@ const UserInfo = styled.p`
   strong {
     font-weight: bold;
   }
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 21px;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 30px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 24px;
   }
 
   ${({ theme }) => theme.device.tablet} {
+    font-size: 21px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 21px;
   }
 `;
@@ -317,6 +319,7 @@ const EditProfile = styled.div`
       }
     }
   }
+
   ${({ theme }) => theme.device.tablet} {
     button {
       width: 68px;
@@ -354,6 +357,11 @@ const NickInput = styled.input`
 const MediaBtn = styled.div`
   button {
     font-size: 22px;
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    button {
+      font-size: 18px;
+    }
   }
   ${({ theme }) => theme.device.desktop} {
     button {
@@ -408,15 +416,12 @@ const Item = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${({ theme }) => theme.device.mobileLg} {
+
+  ${({ theme }) => theme.device.desktopLg} {
     a {
-      font-size: ${({ theme }) => theme.fontSizes.sm};
-      display: flex;
-      justify-content: center;
-      width: 27.22vw;
+      font-size: 18px;
     }
   }
-
   ${({ theme }) => theme.device.desktop} {
     a {
       font-size: 18px;
@@ -426,6 +431,14 @@ const Item = styled.li`
   ${({ theme }) => theme.device.tablet} {
     a {
       font-size: 16px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    a {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+      display: flex;
+      justify-content: center;
+      width: 27.22vw;
     }
   }
 `;

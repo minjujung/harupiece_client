@@ -40,7 +40,10 @@ const ChallengeDetail = (props) => {
     if (!document.queryCommandSupported("copy")) {
       return alert("복사 기능이 지원되지 않는 브라우저입니다.");
     }
-    navigator.clipboard.writeText(urlRef.current.value);
+    const copyMent = urlRef.current;
+    copyMent.select();
+    console.log(copyMent);
+    document.execCommand("copy");
     e.target.focus();
     setToastAlert(true);
   };
@@ -147,15 +150,23 @@ const ChallengeDetail = (props) => {
                   <Link to={`${url}/post`}>인증목록</Link>
                 </Item>
               </ul>
-              {/* <ShareBtn onClick={copy}>
+              <ShareBtn onClick={copy}>
                 <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
                 공유하기
                 <textarea
-                  style={{ display: "none" }}
+                  style={{
+                    position: "absolute",
+                    width: "0px",
+                    height: "0px",
+                    top: "0",
+                    left: "0",
+                    opacity: "0",
+                  }}
                   ref={urlRef}
                   value={window.location.href}
+                  readOnly
                 />
-              </ShareBtn> */}
+              </ShareBtn>
             </NavBar>
           </ChallengeHeader>
           <Switch>
@@ -243,9 +254,7 @@ const ChallengeHeader = styled.div`
   display: flex;
   flex-direction: column;
   width: 49.48vw;
-  /* height: 40.55vh; */
   justify-content: center;
-  /* margin-top: 3.02vw; */
   margin-bottom: 3.7vh;
   background-color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.device.mobileLg} {
@@ -262,7 +271,6 @@ const StateContainer = styled.div`
   grid-area: banner;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    /* height: 100vh; */
   }
 `;
 
@@ -272,19 +280,11 @@ const Btns = styled.div`
   flex-direction: column;
   position: absolute;
   top: 17.08vw;
-  /* margin-top: 2.59vh; */
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    height: 11vh;
-    flex-direction: row;
-    position: fixed;
-    z-index: 15;
-    top: auto;
-    bottom: 0;
-    right: 0;
-    margin-top: 0;
+  ${({ theme }) => theme.device.desktopLg} {
+    button {
+      font-size: 16px;
+    }
   }
-
   ${({ theme }) => theme.device.desktop} {
     button {
       font-size: 16px;
@@ -295,6 +295,17 @@ const Btns = styled.div`
     button {
       font-size: 14px;
     }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 11vh;
+    flex-direction: row;
+    position: fixed;
+    z-index: 15;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    margin-top: 0;
   }
 `;
 
@@ -353,15 +364,18 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
   margin-bottom: 2.5%;
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 24px;
+  text-align: center;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 32px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 28px;
   }
 
   ${({ theme }) => theme.device.tablet} {
+    font-size: 24px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 24px;
   }
 `;
@@ -370,15 +384,17 @@ const TotalNum = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  ${({ theme }) => theme.device.mobileLg} {
-    font-size: 16px;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 18px;
   }
-
   ${({ theme }) => theme.device.desktop} {
     font-size: 18px;
   }
 
   ${({ theme }) => theme.device.tablet} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
     font-size: 16px;
   }
 `;
@@ -405,35 +421,49 @@ const ShareBtn = styled.button`
   align-items: center;
   font-size: 18px;
   color: gray;
+  position: relative;
+  z-index: 10;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+  }
   ${({ theme }) => theme.device.mobileLg} {
     display: none;
   }
 `;
 
 const Item = styled.li`
-  width: 155px;
+  width: 8.07vw;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 5em;
+  margin-right: 4.17vw;
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: bold;
   ${(props) =>
     props.selected
       ? `border-bottom: 4px solid ${props.theme.colors.mainGreen};`
       : null}
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 50%;
-    margin: 0;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 16px;
+  }
+  ${({ theme }) => theme.device.desktop} {
     font-size: 16px;
   }
 
-  ${({ theme }) => theme.device.desktop} {
-    font-size: 18px;
-  }
-
   ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 50%;
+    margin: 0;
     font-size: 16px;
   }
 `;

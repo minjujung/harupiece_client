@@ -35,12 +35,12 @@ const Chat = ({ id, setOpen }) => {
       roomId: id,
       nickname: userInfo.nickname,
       profileImg: userInfo.profileImg,
+      message: "",
       statusFirst: true,
       alert: "[알림]",
     };
     try {
       ws.connect({ token }, () => {
-        ws.send("/pub/enter", { token }, JSON.stringify(data));
         ws.subscribe(
           `/sub/api/chat/rooms/${id}`,
           (data) => {
@@ -50,6 +50,7 @@ const Chat = ({ id, setOpen }) => {
           },
           { token }
         );
+        ws.send("/pub/enter", { token }, JSON.stringify(data));
       });
     } catch (error) {
       console.log(error);
@@ -73,8 +74,8 @@ const Chat = ({ id, setOpen }) => {
 
   //   렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
-    dispatch(chatActions.getMessagesDB(id));
     wsConnectSubscribe();
+    dispatch(chatActions.getMessagesDB(id));
     return () => {
       wsDisConnectUnsubscribe();
     };
@@ -120,15 +121,15 @@ const Chat = ({ id, setOpen }) => {
       };
 
       ws.send("/pub/talk", { token }, JSON.stringify(data));
-      //   //   빈문자열이면 리턴
-      //   //   로딩 중
-      //   dispatch(chatActions.loading());
-      //   waitForConnection(ws, function () {
-      //     ws.send("/pub/message", { token }, JSON.stringify(data));
-      //     console.log(ws.ws.readyState);
-      //     console.log(data);
-      //     dispatch(chatActions.writeMessage(""));
-      //   });
+      //   빈문자열이면 리턴
+      //   로딩 중
+      dispatch(chatActions.loading());
+      waitForConnection(ws, function () {
+        ws.send("/pub/message", { token }, JSON.stringify(data));
+        console.log(ws.ws.readyState);
+        console.log(data);
+        dispatch(chatActions.writeMessage(""));
+      });
     } catch (error) {
       console.log(error);
     }

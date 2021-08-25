@@ -81,6 +81,7 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
                 width="12.5vw"
                 height="12.5vw"
                 margin="0 auto 1.64% auto"
+                borderRadius="50%"
                 src={
                   user_info?.profileImg === ""
                     ? levelData[9].img
