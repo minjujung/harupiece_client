@@ -77,14 +77,39 @@ const searchDB = (q) => {
 // 모든 검색 결과
 const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
-    console.log(content);
-    // const categoryName = content.passingTags.categoryName;
-    // const tags = content.passingTags.tagList;
-    const encode = encodeURIComponent(content);
-    MainApis.searchFilter(encode)
+    let categoryName = content.categoryName;
+    let period = content.tags;
+    if (content) {
+      if (content.tags === "1") {
+        period = 1;
+      } else if (content.tags === "2") {
+        period = 2;
+      } else if (content.tags === "3") {
+        period = 3;
+      } else if (content.tags === "4") {
+        period = 4;
+      } else {
+        period = 0;
+      }
+
+      if (content.categoryName === "NODRINKNOSMOKE") {
+        categoryName = "NODRINKNOSMOKE";
+      } else if (content.categoryName === "EXERCISE") {
+        categoryName = "EXERCISE";
+      } else if (content.categoryName === "LIVINGHABITS") {
+        categoryName = "LIVINGHABITS";
+      } else {
+        categoryName = "ALL";
+      }
+    }
+
+    console.log(categoryName, period);
+    const encodeCategoryName = encodeURIComponent(categoryName);
+    const encodePeriod = encodeURIComponent(period);
+    MainApis.searchFilter(encodeCategoryName, encodePeriod)
       .then((res) => {
         console.log(res);
-        dispatch(search(res.data));
+        dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
         console.log(err);

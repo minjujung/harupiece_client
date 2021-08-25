@@ -10,9 +10,9 @@ function SearchChallenge(props) {
   // 검색 키워드
   const searchList = useSelector((state) => state.main);
 
-  // useEffect(() => {
-  //   dispatch(searchAll.searchFilterDB(searchState));
-  // }, []);
+  useEffect(() => {
+    dispatch(searchAll.searchFilterDB(searchState));
+  }, []);
 
   const [searchState, setSearchState] = useState({
     passingTags: {
@@ -21,16 +21,11 @@ function SearchChallenge(props) {
         NODRINKNOSMOKE: false,
         LIVINGHABITS: false,
       },
-    },
-  });
-
-  const [tagState, setTagState] = useState({
-    passingTags: {
-      tagList: {
-        "#1주": false,
-        "#2주": false,
-        "#3주": false,
-        "#4주 이상": false,
+      tags: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
         "#공식챌린지": false,
         "#인기챌린지": false,
       },
@@ -60,21 +55,30 @@ function SearchChallenge(props) {
       passingTags: {
         ...searchState.passingTags,
         [filterProp]: {
-          ...searchState.passingTags[filterProp],
           [name]: !searchState.passingTags[filterProp][name],
         },
       },
     });
-    setTagState({
-      passingTags: {
-        ...searchState.passingTags,
-        [filterProp]: {
-          ...searchState.passingTags[filterProp],
-          [name]: !searchState.passingTags[filterProp][name],
-        },
-      },
-    });
-    dispatch(searchAll.searchFilterDB(name));
+  };
+
+  const filteredCollected = () => {
+    const collectedTrueKeys = {
+      categoryName: "",
+      tags: "",
+    };
+    const { categoryName, tags } = searchState.passingTags;
+    for (let categoryKey in categoryName) {
+      if (categoryName[categoryKey])
+        collectedTrueKeys.categoryName = categoryKey;
+    }
+    for (let tagKey in tags) {
+      if (tags[tagKey]) collectedTrueKeys.tags = tagKey;
+    }
+    return collectedTrueKeys;
+  };
+
+  const filter = () => {
+    dispatch(searchAll.searchFilterDB(filteredCollected()));
   };
 
   // 챌린지 기간
@@ -164,14 +168,12 @@ function SearchChallenge(props) {
             <Tag
               fontWeight="500"
               border="none"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
+              onClick={(e) => allFilterClickListener(e, "tags")}
               bg={
-                tagState.passingTags.tags["#1주"] === true
-                  ? "mainGreen"
-                  : "white"
+                searchState.passingTags.tags[1] === true ? "mainGreen" : "white"
               }
               color={
-                tagState.passingTags.tags["#1주"] === true ? "white" : "black"
+                searchState.passingTags.tags[1] === true ? "white" : "black"
               }
             >
               #1주
@@ -179,14 +181,12 @@ function SearchChallenge(props) {
             <Tag
               fontWeight="500"
               border="none"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
+              onClick={(e) => allFilterClickListener(e, "tags")}
               bg={
-                tagState.passingTags.tags["#2주"] === true
-                  ? "mainGreen"
-                  : "white"
+                searchState.passingTags.tags[2] === true ? "mainGreen" : "white"
               }
               color={
-                tagState.passingTags.tags["#2주"] === true ? "white" : "black"
+                searchState.passingTags.tags[2] === true ? "white" : "black"
               }
             >
               #2주
@@ -194,14 +194,12 @@ function SearchChallenge(props) {
             <Tag
               fontWeight="500"
               border="none"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
+              onClick={(e) => allFilterClickListener(e, "tags")}
               bg={
-                tagState.passingTags.tags["#3주"] === true
-                  ? "mainGreen"
-                  : "white"
+                searchState.passingTags.tags[3] === true ? "mainGreen" : "white"
               }
               color={
-                tagState.passingTags.tags["#3주"] === true ? "white" : "black"
+                searchState.passingTags.tags[3] === true ? "white" : "black"
               }
             >
               #3주
@@ -209,16 +207,12 @@ function SearchChallenge(props) {
             <Tag
               fontWeight="500"
               border="none"
-              onClick={(e) => allFilterClickListener(e, "tagList")}
+              onClick={(e) => allFilterClickListener(e, "tags")}
               bg={
-                tagState.passingTags.tags["#4주 이상"] === true
-                  ? "mainGreen"
-                  : "white"
+                searchState.passingTags.tags[4] === true ? "mainGreen" : "white"
               }
               color={
-                tagState.passingTags.tags["#4주 이상"] === true
-                  ? "white"
-                  : "black"
+                searchState.passingTags.tags[4] === true ? "white" : "black"
               }
             >
               #4주 이상
@@ -261,6 +255,7 @@ function SearchChallenge(props) {
             </Tag>
           </TagBox> */}
         </CategoryRightBox>
+        <CategoryFilter onClick={filter}>선택된 조건 검색하기</CategoryFilter>
       </CategoryContainer>
       <BoxContainer>
         {searchList.search &&
@@ -354,6 +349,7 @@ const CategoryContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
+  position: relative;
   /* ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 155px;
@@ -389,6 +385,22 @@ const CategoryRightBox = styled.div`
     font-size: 16px;
     padding-left: 12px;
   }
+`;
+
+const CategoryFilter = styled.div`
+  width: 13.54vw;
+  height: 5.5vh;
+  background-color: ${({ theme }) => theme.colors.mainGreen};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
 `;
 
 const CategoryTitle = styled.div`

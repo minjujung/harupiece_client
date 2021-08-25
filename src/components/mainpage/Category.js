@@ -19,7 +19,7 @@ const Category = (props) => {
   const searchAll = (e) => {
     e.preventDefault();
     dispatch(searchActions.searchFilterDB());
-    history.push(`/search/1/all`);
+    history.push(`/search/all/1`);
   };
 
   const ChangeTag = (e) => {
