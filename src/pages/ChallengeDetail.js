@@ -40,10 +40,7 @@ const ChallengeDetail = (props) => {
     if (!document.queryCommandSupported("copy")) {
       return alert("복사 기능이 지원되지 않는 브라우저입니다.");
     }
-    const copyMent = urlRef.current;
-    copyMent.select();
-    console.log(copyMent);
-    document.execCommand("copy");
+    navigator.clipboard.writeText(urlRef.current.value);
     e.target.focus();
     setToastAlert(true);
   };
