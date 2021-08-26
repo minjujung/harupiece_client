@@ -14,7 +14,10 @@ const MessageWrite = ({ sendMessage }) => {
 
   const handleMessage = (e) => {
     setMsg(e.target.value);
-    dispatch(chatActions.writeMessage(e.target.value));
+  };
+
+  const sendMsg = (message) => {
+    sendMessage(message);
   };
 
   // 오토 포커스 대상
@@ -33,7 +36,7 @@ const MessageWrite = ({ sendMessage }) => {
         onChange={handleMessage}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            sendMessage();
+            sendMsg(msg);
             setMsg("");
           }
         }}
@@ -43,10 +46,10 @@ const MessageWrite = ({ sendMessage }) => {
         height="24px"
         src={send}
         alt="send"
-        onClick={() => {
-          sendMessage();
-          setMsg("");
-        }}
+        onClick={
+          () => sendMsg(msg)
+          // setMsg("");
+        }
       />
     </InputField>
   );

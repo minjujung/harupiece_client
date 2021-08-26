@@ -43,7 +43,6 @@ const ChallengeInfo = (props) => {
 
   //카테고리 이름 한글로 변경
   let category = "";
-  console.log(challenge.categoryName);
   if (challenge.categoryName === "EXERCISE") {
     category = "운동";
   } else if (challenge.categoryName === "NODRINKNOSMOKE") {
