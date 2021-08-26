@@ -4,6 +4,7 @@ import camera from "../../assets/images/icons/camera.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 import { Image } from "../../elements/";
+import imageCompression from "browser-image-compression";
 
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
@@ -14,36 +15,60 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const goodPreview = useSelector((state) => state.create.goodPreview);
   const badPreview = useSelector((state) => state.create.badPreview);
 
-  const goodSelectFile = (e) => {
+  const goodSelectFile = async (e) => {
     const reader = new FileReader();
     const goodFile = goodFileInput.current.files[0];
-
+    console.log(goodFile);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+    };
     if (!goodFile) {
       return;
     }
+    try {
+      const compressedGoodFile = await imageCompression(goodFile, options);
+      console.log(compressedGoodFile);
+      reader.readAsDataURL(compressedGoodFile);
 
-    reader.readAsDataURL(goodFile);
-
-    reader.onloadend = () => {
-      dispatch(imageActions.setGoodPreview(reader.result));
-      setChallengeInfo({ ...challengeInfo, challengeGood: goodFile });
-    };
+      reader.onloadend = () => {
+        dispatch(imageActions.setGoodPreview(reader.result));
+        setChallengeInfo({
+          ...challengeInfo,
+          challengeGood: compressedGoodFile,
+        });
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const badSelectFile = (e) => {
+  const badSelectFile = async (e) => {
     const reader = new FileReader();
     const badFile = badFileInput.current.files[0];
-
+    console.log(badFile);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+    };
     if (!badFile) {
       return;
     }
 
-    reader.readAsDataURL(badFile);
-
-    reader.onloadend = () => {
-      dispatch(imageActions.setBadPreview(reader.result));
-      setChallengeInfo({ ...challengeInfo, challengeBad: badFile });
-    };
+    try {
+      const compressedBadFile = await imageCompression(badFile, options);
+      reader.readAsDataURL(compressedBadFile);
+      console.log(compressedBadFile);
+      reader.onloadend = () => {
+        dispatch(imageActions.setBadPreview(reader.result));
+        setChallengeInfo({
+          ...challengeInfo,
+          challengeBad: compressedBadFile,
+        });
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

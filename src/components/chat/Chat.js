@@ -23,7 +23,7 @@ const Chat = ({ id, setOpen }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
 
   // 소켓 통신 객체
-  const sock = new SockJS("http://34.64.75.241/chatting");
+  const sock = new SockJS("https://api.harupiece.com/chatting");
   const ws = Stomp.over(sock);
   //   const scrollRef = useRef();
 

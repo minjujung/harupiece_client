@@ -3,18 +3,12 @@ import { setCookie, getCookie } from "./Cookie";
 
 const instance = axios.create({
   // baseURL: "http://54.180.141.39/",
-  baseURL: "http://34.64.75.241/",
+  baseURL: "https://api.harupiece.com/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
   },
 });
-
-// instance.interceptors.request.use(function (config) {
-//   const accessToken = getCookie("token");
-//   config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
-//   return config;
-// });
 
 const getAccessToken = () => {
   const accessToken = getCookie("token");
@@ -132,8 +126,8 @@ export const MainApis = {
   guestMain: () => instance.get(`/api/guest/main`),
   userMain: () => instance.get(`/api/member/main`),
   search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
-  searchFilter: (categoryName, period) =>
-    instance.get(`/api/guest/search/${categoryName}/${period}/1`),
+  searchFilter: (categoryName, period, progress) =>
+    instance.get(`/api/guest/search/${categoryName}/${period}/${progress}/1`),
 };
 
 // 인증샷 포스팅
