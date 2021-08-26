@@ -102,7 +102,7 @@ function UpcomingChallenge(props) {
             height="5.93vh"
             color="white"
             bg="mainGreen"
-            _onClick={() => history.push(`/search/1/NODRINKNOSMOKE`)}
+            _onClick={() => history.push(`/search/all/1`)}
           >
             챌린지 둘러보기!
           </Button>
