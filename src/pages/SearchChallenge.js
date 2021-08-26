@@ -36,19 +36,20 @@ function SearchChallenge(props) {
 
   const allFilterClickListener = (e, filterProp) => {
     let name = e.target.textContent;
-    if (name === "#금연금주") {
+    console.log(name);
+    if (name === "금연금주") {
       name = "NODRINKNOSMOKE";
-    } else if (name === "#운동") {
+    } else if (name === "운동") {
       name = "EXERCISE";
-    } else if (name === "#생활챌린지") {
+    } else if (name === "생활챌린지") {
       name = "LIVINGHABITS";
-    } else if (name === "#1주") {
+    } else if (name === "1주") {
       name = 1;
-    } else if (name === "#2주") {
+    } else if (name === "2주") {
       name = 2;
-    } else if (name === "#3주") {
+    } else if (name === "3주") {
       name = 3;
-    } else if (name === "#4주 이상") {
+    } else if (name === "4주 이상") {
       name = 4;
     } else if (name === "진행 예정") {
       name = 1;
