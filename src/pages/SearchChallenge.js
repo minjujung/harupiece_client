@@ -389,7 +389,7 @@ const CategoryContainer = styled.div`
   } */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    height: 43.06vw;
+    height: 250px;
     font-size: 16px;
     border-radius: 0;
   }
@@ -433,6 +433,12 @@ const CategoryFilter = styled.div`
   position: absolute;
   bottom: 32px;
   right: 32px;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 318px;
+    height: 33px;
+    bottom: 10px;
+    font-size: 17px;
+  }
 `;
 
 const CategoryTitle = styled.div`
