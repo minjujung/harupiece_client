@@ -10,7 +10,7 @@ const Footer = (props) => {
           <div>
             <img src={logo} alt="mainLogo" />
           </div>
-          <div>당신의 건강 챌린지를 도와주는 서비스 하루조각</div>
+          <div>당신의 건강한 도전을 위한, 하루조각</div>
         </LeftBox>
         <RightBox>
           <div>공식계정</div>

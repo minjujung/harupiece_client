@@ -79,6 +79,8 @@ const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
     let categoryName = "ALL";
     let period = 0;
+    let progress = 0;
+
     if (content) {
       if (content.tags === "1") {
         period = 1;
@@ -101,12 +103,21 @@ const searchFilterDB = (content) => {
       } else {
         categoryName = "ALL";
       }
+
+      if (content.progress === "1") {
+        progress = 1;
+      } else if (content.progress === "2") {
+        progress = 2;
+      } else {
+        progress = 0;
+      }
     }
 
-    console.log(categoryName, period);
+    console.log(categoryName, period, progress);
     const encodeCategoryName = encodeURIComponent(categoryName);
     const encodePeriod = encodeURIComponent(period);
-    MainApis.searchFilter(encodeCategoryName, encodePeriod)
+    const encodeProgress = encodeURIComponent(progress);
+    MainApis.searchFilter(encodeCategoryName, encodePeriod, encodeProgress)
       .then((res) => {
         dispatch(search(res.data.challengeList));
       })
