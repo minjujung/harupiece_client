@@ -105,12 +105,12 @@ const Chat = ({ id, setOpen }) => {
         history.replace("/login");
       }
 
-      if (chatInfo.messageText === "") {
-        return;
-      }
+      // if (chatInfo.messageText === "") {
+      //   return;
+      // }
+      console.log(msg);
       // send할 데이터
 
-      console.log(msg);
       const data = {
         type: "TALK",
         roomId: id,
@@ -134,8 +134,6 @@ const Chat = ({ id, setOpen }) => {
       console.log(error);
     }
   };
-
-  console.log(chat.is_loading);
 
   const closeChat = () => {
     setOpen(false);
