@@ -10,12 +10,6 @@ const instance = axios.create({
   },
 });
 
-// instance.interceptors.request.use(function (config) {
-//   const accessToken = getCookie("token");
-//   config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
-//   return config;
-// });
-
 const getAccessToken = () => {
   const accessToken = getCookie("token");
   return accessToken;
@@ -132,8 +126,8 @@ export const MainApis = {
   guestMain: () => instance.get(`/api/guest/main`),
   userMain: () => instance.get(`/api/member/main`),
   search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
-  searchFilter: (categoryName, period) =>
-    instance.get(`/api/guest/search/${categoryName}/${period}/1`),
+  searchFilter: (categoryName, period, progress) =>
+    instance.get(`/api/guest/search/${categoryName}/${period}/${progress}/1`),
 };
 
 // 인증샷 포스팅

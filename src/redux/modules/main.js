@@ -77,14 +77,49 @@ const searchDB = (q) => {
 // 모든 검색 결과
 const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
-    console.log(content);
-    // const categoryName = content.passingTags.categoryName;
-    // const tags = content.passingTags.tagList;
-    const encode = encodeURIComponent(content);
-    MainApis.searchFilter(encode)
+    let categoryName = "ALL";
+    let period = 0;
+    let progress = 0;
+
+    if (content) {
+      if (content.tags === "1") {
+        period = 1;
+      } else if (content.tags === "2") {
+        period = 2;
+      } else if (content.tags === "3") {
+        period = 3;
+      } else if (content.tags === "4") {
+        period = 4;
+      } else {
+        period = 0;
+      }
+
+      if (content.categoryName === "NODRINKNOSMOKE") {
+        categoryName = "NODRINKNOSMOKE";
+      } else if (content.categoryName === "EXERCISE") {
+        categoryName = "EXERCISE";
+      } else if (content.categoryName === "LIVINGHABITS") {
+        categoryName = "LIVINGHABITS";
+      } else {
+        categoryName = "ALL";
+      }
+
+      if (content.progress === "1") {
+        progress = 1;
+      } else if (content.progress === "2") {
+        progress = 2;
+      } else {
+        progress = 0;
+      }
+    }
+
+    console.log(categoryName, period, progress);
+    const encodeCategoryName = encodeURIComponent(categoryName);
+    const encodePeriod = encodeURIComponent(period);
+    const encodeProgress = encodeURIComponent(progress);
+    MainApis.searchFilter(encodeCategoryName, encodePeriod, encodeProgress)
       .then((res) => {
-        console.log(res);
-        dispatch(search(res.data));
+        dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
         console.log(err);

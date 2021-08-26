@@ -19,13 +19,11 @@ const Chat = ({ id, setOpen }) => {
   const dispatch = useDispatch();
   const chatInfo = useSelector((state) => state.chat.info);
   const chat = useSelector((state) => state.chat);
-  const challengeInfo = useSelector((state) => state.challengeDetail.detail);
   const userInfo = useSelector((state) => state.user.userInfo);
 
   // 소켓 통신 객체
   const sock = new SockJS("https://api.harupiece.com/chatting");
   const ws = Stomp.over(sock);
-  //   const scrollRef = useRef();
 
   const token = getCookie("token");
 
@@ -42,6 +40,7 @@ const Chat = ({ id, setOpen }) => {
     };
     try {
       ws.connect({ token }, () => {
+        ws.send("/pub/enter", { token }, JSON.stringify(data));
         ws.subscribe(
           `/sub/api/chat/rooms/${id}`,
           (data) => {
@@ -51,7 +50,6 @@ const Chat = ({ id, setOpen }) => {
           },
           { token }
         );
-        ws.send("/pub/enter", { token }, JSON.stringify(data));
       });
     } catch (error) {
       console.log(error);
@@ -73,7 +71,7 @@ const Chat = ({ id, setOpen }) => {
     }
   };
 
-  //   렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
+  //  렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
     wsConnectSubscribe();
     dispatch(chatActions.getMessagesDB(id));
@@ -99,7 +97,7 @@ const Chat = ({ id, setOpen }) => {
   };
 
   // 메시지 보내기
-  const sendMessage = () => {
+  const sendMessage = (msg) => {
     try {
       // token이 없으면 로그인 페이지로 이동
       if (!token) {
@@ -107,9 +105,10 @@ const Chat = ({ id, setOpen }) => {
         history.replace("/login");
       }
 
-      if (chatInfo.messageText === "") {
-        return;
-      }
+      // if (chatInfo.messageText === "") {
+      //   return;
+      // }
+      console.log(msg);
       // send할 데이터
 
       const data = {
@@ -117,9 +116,11 @@ const Chat = ({ id, setOpen }) => {
         roomId: id,
         nickname: userInfo.nickname,
         profileImg: userInfo.profileImg,
-        message: chatInfo.messageText,
+        // message: chatInfo.messageText,
+        message: msg,
         alert: "",
       };
+
       //   빈문자열이면 리턴
       //   로딩 중
       dispatch(chatActions.loading(false));
@@ -133,8 +134,6 @@ const Chat = ({ id, setOpen }) => {
       console.log(error);
     }
   };
-
-  console.log(chat.is_loading);
 
   const closeChat = () => {
     setOpen(false);
