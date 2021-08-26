@@ -25,6 +25,7 @@ import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
+import GradePage from "../pages/GradePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         </Helmet>
         <Container>
           <Header />
+          <Route exact path="/grade" component={GradePage} />
           <Route exact path="/landing" component={LandingPage} />
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
