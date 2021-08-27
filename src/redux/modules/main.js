@@ -14,7 +14,6 @@ const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
 const search = createAction(SEARCH, (search) => ({ search }));
-// const searchAll = createAction(SEARCHALL, (searchAll) => ({ searchAll }));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -39,20 +38,31 @@ const guestLoadDB = () => {
   return function (dispatch, getState, { history }) {
     MainApis.guestMain()
       .then((res) => {
-        dispatch(guestLoad(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+        const adver = {
+          categoryName: "advertisement",
+          challengeEndDate: "2021-09-05T23:59:57",
+          challengeId: 999,
+          challengeImgUrl:
+            "https://i.ibb.co/hCS9yRJ/Kakao-Talk-20210826-205854032-min.png",
+          challengeMember: [],
+          challengeStartDate: "2021-08-30T00:00:00",
+          challengeTitle: "광고",
+          tag: "광고",
+        };
 
-//유저가 로그인 했을 때 메인에서 불러와야하는 것
-const userLoadDB = () => {
-  return function (dispatch, getState, { history }) {
-    MainApis.userMain()
-      .then((res) => {
-        dispatch(userLoad(res.data));
+        const adver2 = {
+          categoryName: "advertisement2",
+          challengeEndDate: "2021-09-05T23:59:57",
+          challengeId: 998,
+          challengeImgUrl:
+            "https://i.ibb.co/TrP1vNY/Kakao-Talk-20210826-205854163-min.png",
+          challengeMember: [],
+          challengeStartDate: "2021-08-30T00:00:00",
+          challengeTitle: "광고",
+          tag: "광고",
+        };
+        res.data.slider.push(adver, adver2);
+        dispatch(guestLoad(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +123,6 @@ const searchFilterDB = (content) => {
       }
     }
 
-    console.log(categoryName, period, progress);
     const encodeCategoryName = encodeURIComponent(categoryName);
     const encodePeriod = encodeURIComponent(period);
     const encodeProgress = encodeURIComponent(progress);
@@ -133,12 +142,6 @@ export default handleActions(
     [G_LOAD]: (state, action) =>
       produce(state, (draft) => {
         draft.guestmain = action.payload.guestmain;
-        draft.usermain = [];
-      }),
-    [M_LOAD]: (state, action) =>
-      produce(state, (draft) => {
-        draft.usermain = action.payload.usermain;
-        draft.guestmain = [];
       }),
     [ADD_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
@@ -167,7 +170,6 @@ export default handleActions(
 
 const MainCreators = {
   guestLoadDB,
-  userLoadDB,
   userLoad,
   guestLoad,
   searchDB,

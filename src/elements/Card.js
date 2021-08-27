@@ -121,7 +121,7 @@ const Title = styled.h4`
     font-size: 18px;
   }
   ${({ theme }) => theme.device.desktop} {
-    font-size: 18px;
+    font-size: 14px;
   }
   ${({ theme }) => theme.device.tablet} {
     display: none;
@@ -159,7 +159,7 @@ const Date = styled.p`
     font-size: 14px;
   }
   ${({ theme }) => theme.device.desktop} {
-    font-size: 14px;
+    font-size: 12px;
   }
   ${({ theme }) => theme.device.tablet} {
     font-size: 12px;
