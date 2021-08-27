@@ -51,7 +51,7 @@ const uploadImageDB =
             "이미지 업로드에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
           )
         ) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goBack();
         }

@@ -45,7 +45,7 @@ const getMyInfoDB = () => {
       })
       .catch((error) => {
         if (window.confirm("사용자 정보를 받아올수없습니다.")) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goBack();
         }
@@ -76,7 +76,7 @@ const getPointDB = () => {
       })
       .catch((error) => {
         if (window.confirm("포인트 정보를 찾을수가 없어요ㅜㅜ")) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goBack();
         }

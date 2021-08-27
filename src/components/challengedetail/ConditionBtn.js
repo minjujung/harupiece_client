@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import PwdModal from "./PwdModal";
 import Button from "../../elements/Button";
+import { history } from "../../redux/configureStore";
 
 const ConditionBtn = (props) => {
   const dispatch = useDispatch();
@@ -29,8 +30,26 @@ const ConditionBtn = (props) => {
     }
   };
 
+  const goToLogin = () => {
+    window.alert("로그인을 해야 챌린지를 신청할 수 있어요!");
+    history.push("/login");
+  };
+
   if (!user_info) {
-    return;
+    return (
+      <Button
+        width="100%"
+        height="5.93vh"
+        bg="mainGreen"
+        color="white"
+        // padding="21px 64px"
+        border="lightGray"
+        margin="0 0 20px 0"
+        _onClick={goToLogin}
+      >
+        챌린지 신청하기
+      </Button>
+    );
   }
 
   if (challengeProgress === 1) {

@@ -46,10 +46,10 @@ const MessageWrite = ({ sendMessage }) => {
         height="24px"
         src={send}
         alt="send"
-        onClick={
-          () => sendMsg(msg)
-          // setMsg("");
-        }
+        onClick={() => {
+          sendMsg(msg);
+          setMsg("");
+        }}
       />
     </InputField>
   );

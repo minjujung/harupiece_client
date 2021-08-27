@@ -46,7 +46,7 @@ const Header = () => {
   };
 
   const goHome = () => {
-    history.push("/");
+    history.push("/home");
     handleClose();
   };
 
@@ -96,7 +96,7 @@ const Header = () => {
           width="30.56vw"
           height="auto"
           src={logo}
-          onClick={() => history.push("/")}
+          onClick={() => history.push("/home")}
         />
         <Image
           width="6.25vw"

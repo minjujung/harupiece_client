@@ -17,8 +17,6 @@ import SockJS from "sockjs-client";
 
 const Chat = ({ id, setOpen }) => {
   const dispatch = useDispatch();
-  const chatInfo = useSelector((state) => state.chat.info);
-  const chat = useSelector((state) => state.chat);
   const userInfo = useSelector((state) => state.user.userInfo);
 
   // 소켓 통신 객체
@@ -44,8 +42,8 @@ const Chat = ({ id, setOpen }) => {
         ws.subscribe(
           `/sub/api/chat/rooms/${id}`,
           (data) => {
-            console.log(data);
             const newMessage = JSON.parse(data.body);
+            console.log(newMessage);
             dispatch(chatActions.getMessages(newMessage));
           },
           { token }
@@ -92,7 +90,7 @@ const Chat = ({ id, setOpen }) => {
           waitForConnection(ws, callback);
         }
       },
-      1 // 밀리초 간격으로 실행
+      0.1 // 밀리초 간격으로 실행
     );
   };
 
@@ -105,10 +103,10 @@ const Chat = ({ id, setOpen }) => {
         history.replace("/login");
       }
 
-      // if (chatInfo.messageText === "") {
-      //   return;
-      // }
-      console.log(msg);
+      if (msg === "") {
+        return;
+      }
+
       // send할 데이터
 
       const data = {
@@ -131,7 +129,7 @@ const Chat = ({ id, setOpen }) => {
         dispatch(chatActions.writeMessage(""));
       });
     } catch (error) {
-      console.log(error);
+      console.log(`error: ${error.response.status}`);
     }
   };
 
@@ -187,8 +185,8 @@ const Container = styled.div`
 `;
 
 const ChatBox = styled.div`
-  width: 16.15vw;
-  height: 59.26vh;
+  min-width: 331px;
+  height: 570px;
   overflow: hidden;
   position: fixed;
   z-index: 100;
@@ -207,12 +205,14 @@ const ChatBox = styled.div`
 `;
 
 const Header = styled.div`
-  width: 16.15vw;
+  /* width: 16.15vw; */
+  min-width: 331px;
   height: 4.44vh;
   object-fit: cover;
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
   h1 {
+    min-width: 331px;
     width: 16.15vw;
     height: 4.44vh;
     display: flex;
