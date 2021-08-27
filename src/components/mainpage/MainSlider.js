@@ -6,7 +6,7 @@ import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 import { history } from "../../redux/configureStore";
 
-const TOTAL_SLIDES = 4;
+const TOTAL_SLIDES = 5;
 
 const MainSlider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -41,7 +41,7 @@ const MainSlider = (props) => {
         setCurrentSlide(currentSlide + 1);
       }, 5000);
     }
-    if (currentSlide === 5) {
+    if (currentSlide === 6) {
       setCurrentSlide(0);
     }
     return () => clearTimeout(intervalId);
