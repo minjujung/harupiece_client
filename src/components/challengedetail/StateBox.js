@@ -6,11 +6,16 @@ import completed from "../../assets/images/icons/completed.svg";
 import levelData from "../../shared/level";
 import { Image } from "../../elements";
 
+import { history } from "../../redux/configureStore";
 import { useSelector } from "react-redux";
 
 const StateBox = (props) => {
   const user_info = useSelector((state) => state.user.userInfo);
   const levelState = parseInt((user_info?.memberLevel - 1) / 5);
+
+  const goToGrade = () => {
+    history.push("/grade");
+  };
 
   if (user_info?.memberId === null) {
     return (
@@ -31,6 +36,7 @@ const StateBox = (props) => {
           margin="0 auto"
           src={levelData[0].img}
           alt="level_image"
+          onClick={goToGrade}
         />
       </StateContainer>
     );
@@ -43,7 +49,7 @@ const StateBox = (props) => {
           {user_info?.challengeCount}개의 챌린지 진행중!
         </UserStatus>
         <UserLevel>
-          <LevelInfo>
+          <LevelInfo onClick={goToGrade}>
             <p>
               <Image
                 width="1.25vw"
@@ -105,6 +111,7 @@ const StateBox = (props) => {
           margin="0 auto"
           src={levelData[0].img}
           alt="level_image"
+          onClick={goToGrade}
         />
       </StateContainer>
     );
@@ -158,6 +165,7 @@ const UserLevel = styled.div`
 const LevelInfo = styled.section`
   height: 100%;
   width: 100%;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;

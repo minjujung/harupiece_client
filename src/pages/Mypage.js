@@ -96,6 +96,7 @@ function Mypage(props) {
       dispatch(myInfo.setPreview(""));
     }
     convertEditMode();
+    dispatch(myInfo.setPreview(""));
     history.push("/mypage/now");
   };
   console.log(loading);

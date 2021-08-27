@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { getCookie } from "../../shared/Cookie";
 import { useSelector } from "react-redux";
+import { history } from "../../redux/configureStore";
 
 import level from "../../assets/images/icons/level.svg";
 import completed from "../../assets/images/icons/completed.svg";
@@ -13,6 +14,10 @@ function Info() {
   const is_login = getCookie("token") ? true : false;
   const user = useSelector((state) => state.user.userInfo);
   const levelState = parseInt((user?.memberLevel - 1) / 5);
+
+  const goToGrade = () => {
+    history.push("/grade");
+  };
 
   return (
     <>
@@ -26,7 +31,7 @@ function Info() {
               <div>{user?.challengeCount}개의 챌린지를 진행중!</div>
             </InfoBox>
             <InfoBox2>
-              <LeftBox>
+              <LeftBox onClick={goToGrade}>
                 <p>
                   <Image
                     width="1.5em"
@@ -123,6 +128,7 @@ const LeftBox = styled.div`
   align-items: center;
   border-right: 1px solid ${({ theme }) => theme.colors.lightGray};
   color: ${({ theme }) => theme.colors.gray};
+  cursor: pointer;
   p {
     width: 100%;
     height: 100%;

@@ -298,8 +298,8 @@ const CardBox = styled.div`
     div {
       img {
         border-radius: 10px;
-        width: 8.39vh;
-        height: 8.39vh;
+        width: 6.39vh;
+        height: 6.39vh;
         margin-top: 10px;
       }
     }
@@ -359,9 +359,10 @@ const CardTitle = styled.div`
   ${({ theme }) => theme.device.desktop} {
     height: auto;
     font-size: 12px;
-    padding-top: 13px;
+    padding-top: 5px;
     div:nth-child(2) {
       font-size: 10px;
+      padding-top: 5px;
     }
   }
   ${({ theme }) => theme.device.tablet} {

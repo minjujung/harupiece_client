@@ -41,7 +41,7 @@ const initialState = {
     challengeBad:
       "https://user-images.githubusercontent.com/75834421/127076583-de2aadb3-2dd2-4778-a59e-e68f9dc3aded.png",
     challengeHoliyday: "",
-    challengeMember: [1, 2, 3, 4], //챌린지에 참여한 유저아이디
+    challengeMember: [{ memberId: 1, profileImg: "", nickname: "" }], //챌린지에 참여한 유저아이디
     tag: ["#1주", "OFFICIAL"],
   },
   is_loading: false,
@@ -228,7 +228,7 @@ const giveupChallengeDB =
         const challenge_detail = getState().challengeDetail.detail;
 
         const new_member_list = challenge_detail.challengeMember.filter(
-          (id) => id !== user_info.memberId
+          (member) => member.memberId !== user_info.memberId
         );
 
         const new_challenge_info = {
@@ -283,7 +283,11 @@ const takeInPartChallengeDB =
 
         const new_member_list = [
           ...challenge_detail.challengeMember,
-          user_info.memberId,
+          {
+            memberId: user_info.memberId,
+            nickname: user_info.nickname,
+            profileImg: user_info.profileImg,
+          },
         ];
 
         const new_challenge_info = {

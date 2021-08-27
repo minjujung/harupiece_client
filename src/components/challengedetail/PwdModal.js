@@ -17,7 +17,7 @@ import SockJS from "sockjs-client";
 import { getCookie } from "../../shared/Cookie";
 
 const PwdModal = (props) => {
-  const { challengePassword, challengeId, challengeMember } = props;
+  const { challengePassword, challengeId, challengeMemberId } = props;
 
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
@@ -57,12 +57,12 @@ const PwdModal = (props) => {
       return;
     }
 
-    if (challengeMember.includes(user_info.memberId)) {
+    if (challengeMemberId.includes(user_info.memberId)) {
       setTimeout(() => window.alert("이미 참여중인 챌린지 입니다!"), 300);
       return;
     }
 
-    if (challengeMember.length === 10) {
+    if (challengeMemberId.length === 10) {
       setTimeout(
         () => window.alert("10명까지만 참여할 수 있는 챌린지 입니다!"),
         300

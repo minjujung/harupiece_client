@@ -16,6 +16,8 @@ const PostList = (props) => {
 
   const { list, totalNumber, challengeId, challengeStatus, challengeMember } =
     props;
+
+  const challengeMemberId = challengeMember.map((member) => member.memberId);
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState("");
   const [edit, setEdit] = useState(false);
@@ -294,7 +296,7 @@ const PostList = (props) => {
               ) : null}
               <CertifiCheckBtn
                 challengeStatus={challengeStatus}
-                challengeMember={challengeMember}
+                challengeMemberId={challengeMemberId}
                 postingMember={list[clicked]?.memberId}
                 loginUser={user_info.memberId}
                 checkedMembers={list[clicked]?.memberResponseDto}
@@ -313,7 +315,7 @@ const PostList = (props) => {
 const CertifiCheckBtn = (props) => {
   const {
     challengeStatus,
-    challengeMember,
+    challengeMemberId,
     postingMember,
     loginUser,
     checkedMembers,
@@ -322,8 +324,11 @@ const CertifiCheckBtn = (props) => {
     check,
   } = props;
   if (challengeStatus === 2) {
-    if (challengeMember.includes(loginUser)) {
-      if (postingCreatedAt?.split("T")[0] < today) {
+    if (challengeMemberId.includes(loginUser)) {
+      if (
+        postingCreatedAt?.split("T")[0] < today &&
+        postingMember !== loginUser
+      ) {
         return (
           <Button
             borderRadius="16px"

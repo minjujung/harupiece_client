@@ -14,7 +14,9 @@ function UpcomingChallenge(props) {
     dispatch(myInfo.getMyInfoDB());
   }, []);
 
-  const my_info = useSelector((state) => state.mypage.myInfo);
+  const my_info = useSelector(
+    (state) => state.mypage.myInfo.mypageProceedResponseDto
+  );
 
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.mypageProceedResponseDto?.challengeList

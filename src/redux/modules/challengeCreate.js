@@ -107,7 +107,13 @@ const createChDB =
                 const new_challenge = {
                   ...challengeInfo,
                   challengeId: res.data,
-                  challengeMember: [user_info.memberId],
+                  challengeMember: [
+                    {
+                      memberId: user_info.memberId,
+                      profileImg: user_info.profileImg,
+                      nickname: user_info.nickname,
+                    },
+                  ],
                 };
                 dispatch(MainCreators.addUserLoad(new_challenge));
 
