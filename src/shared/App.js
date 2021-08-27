@@ -27,7 +27,6 @@ import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
 
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,9 +44,9 @@ function App() {
         </Helmet>
         <Container>
           <Header />
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/home" component={Main} />
           <Route exact path="/grade" component={GradePage} />
-          <Route exact path="/landing" component={LandingPage} />
-          <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route path="/mypage" component={Mypage} />

@@ -62,7 +62,7 @@ const getChallengeDetailDB =
             "챌린지 상세내용을 불러오는데 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
           )
         ) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goBack();
         }
@@ -137,7 +137,7 @@ const editChallengeDB =
                   "챌린지 수정에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
                 )
               ) {
-                history.push("/");
+                history.push("/home");
               } else {
                 history.goBack();
               }
@@ -170,7 +170,7 @@ const adminChallengeDeleteDB =
         );
 
         setTimeout(() => window.alert("관리자 권한 챌린지 삭제 완료!"), 300);
-        history.replace("/");
+        history.replace("/home");
       })
       .catch((error) => consoleLogger("관리자 권한 삭제 중 오류: " + error));
   };
@@ -197,7 +197,7 @@ const challengeDeleteDB =
           };
           dispatch(userCreators.setUser(new_userInfo));
           setTimeout(() => window.alert("챌린지 삭제 완료!"), 300);
-          history.replace("/");
+          history.replace("/home");
         }
       })
       .catch((error) => {
@@ -206,7 +206,7 @@ const challengeDeleteDB =
             "챌린지 삭제에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
           )
         ) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goback();
         }
@@ -255,7 +255,7 @@ const giveupChallengeDB =
             "챌린지 참여 취소에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
           )
         ) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goback();
         }

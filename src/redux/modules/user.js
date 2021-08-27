@@ -66,7 +66,7 @@ const setLoginDB = ({ email, password }) => {
         setCookie("refreshToken", res.data.refreshToken, 1, "/");
         dispatch(setUser(res.data.userInfo));
         dispatch(MainCreators.guestLoad(""));
-        history.replace("/");
+        history.replace("/home");
       })
       .catch((error) => {
         console.log(error);
@@ -93,7 +93,7 @@ const logOutDB = () => {
     deleteCookie("refreshToken");
     dispatch(logOut());
     dispatch(MainCreators.guestLoadDB());
-    history.replace("/");
+    history.replace("/home");
   };
 };
 

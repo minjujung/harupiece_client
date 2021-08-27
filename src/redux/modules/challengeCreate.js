@@ -43,7 +43,7 @@ const getThumnailDb = (category) => {
             300
           )
         ) {
-          history.push("/");
+          history.push("/home");
         } else {
           history.goBack();
         }
@@ -117,7 +117,7 @@ const createChDB =
                 };
                 dispatch(userCreators.setUser(new_userInfo));
                 setTimeout(() => window.alert("챌린지 개설 완료!"), 300);
-                history.push("/");
+                history.push("/home");
               })
               .catch((error) => {
                 if (

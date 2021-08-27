@@ -71,7 +71,7 @@ const ChallengeDetail = (props) => {
   const progress = today.getTime() - date1.getTime();
   let progressDays = progress / 1000 / 60 / 60 / 24;
 
-  let progressPercent = parseInt(progressDays / totalDay);
+  let progressPercent = (progressDays / totalDay).toFixed(2);
 
   if (progressDays < 0 || isNaN(progressPercent)) {
     progressPercent = 0;

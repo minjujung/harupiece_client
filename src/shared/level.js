@@ -27,6 +27,8 @@ const levelData = [
     piece: piece_gray,
     point: 100,
     level: "GRAY",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/gray.svg",
   },
   {
     name: "노랑 하루",
@@ -34,6 +36,8 @@ const levelData = [
     piece: piece_yellow,
     point: 200,
     level: "YELLOW",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/yellow.svg",
   },
   {
     name: "주황 하루",
@@ -41,6 +45,8 @@ const levelData = [
     piece: piece_orange,
     point: 300,
     level: "ORANGE",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/orange.svg",
   },
   {
     name: "빨강 하루",
@@ -48,6 +54,8 @@ const levelData = [
     piece: piece_red,
     point: 400,
     level: "RED",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/red.svg",
   },
   {
     name: "분홍 하루",
@@ -55,6 +63,8 @@ const levelData = [
     piece: piece_pink,
     point: 500,
     level: "PINK",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/pink.svg",
   },
   {
     name: "진회색 하루",
@@ -62,6 +72,8 @@ const levelData = [
     piece: piece_dark_gray,
     point: 600,
     level: "DARKGRAY",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/dark_gray.svg",
   },
   {
     name: "보라 하루",
@@ -69,6 +81,8 @@ const levelData = [
     piece: piece_purple,
     point: 700,
     level: "PURPLE",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/purple.svg",
   },
   {
     name: "남색 하루",
@@ -76,6 +90,8 @@ const levelData = [
     piece: piece_navy,
     point: 800,
     level: "NAVY",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/navy.svg",
   },
   {
     name: "파랑 하루",
@@ -83,6 +99,8 @@ const levelData = [
     piece: piece_blue,
     point: 900,
     level: "BLUE",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/blue.svg",
   },
   {
     name: "초록 하루",
@@ -90,6 +108,8 @@ const levelData = [
     piece: piece_green,
     point: 1000,
     level: "GREEN",
+    imageUrl:
+      "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/green.svg",
   },
 ];
 

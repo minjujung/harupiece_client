@@ -6,6 +6,8 @@ import chat from "../assets/images/info/pc/chat.png";
 import challenges from "../assets/images/info/pc/challenge.png";
 import post from "../assets/images/info/pc/post.png";
 import pieces from "../assets/images/info/pc/pieces.png";
+import mobilePost from "../assets/images/info/mobilePost.png";
+import mobileChat from "../assets/images/info/mobileChat.png";
 import down from "../assets/images/icons/arrow/down.svg";
 import { Button, Image } from "../elements";
 import { history } from "../redux/configureStore";
@@ -33,21 +35,42 @@ const LandingPage = (props) => {
               당신의 조각들을 모아보세요.
             </p>
             <Button
-              width="100%"
-              height="5.93vh"
+              width="fit-content"
               padding="0.73vw 2.45vw"
-              margin="26.48vh 0 0 0"
+              margin="0"
               _onClick={goToSignUp}
             >
               가입하고 챌린지 참여하기
             </Button>
           </Ment>
-          <Image width="39.58vw" height="auto" src={main} alt="mainpage" />
+          <Image width="39.58vw" height="22.24vw" src={main} alt="mainpage" />
         </Desc>
-        <Down>
-          <img src={down} alt="downArrow" />
-        </Down>
       </MainSection>
+      <MobildMain>
+        <h1>
+          당신의 건강 챌린지를 도와주는 서비스
+          <br />
+          하루조각
+        </h1>
+        <p>
+          매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
+          <br />
+          사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지
+          <br />에 참여해서 당신의 조각들을 모아보세요.
+        </p>
+        <Image width="39.58vw" height="auto" src={main} alt="mainpage" />
+        <Button
+          width="91.11vw"
+          padding="13px 2.45vw"
+          margin="0 5.56vw"
+          _onClick={goToSignUp}
+        >
+          가입하고 챌린지 참여하기
+        </Button>
+      </MobildMain>
+      <Down>
+        <img src={down} alt="downArrow" />
+      </Down>
       <ChallengeSection>
         <MentFrame>
           <h1>건강한 습관을 만들 챌린지에 참여해보세요.</h1>
@@ -75,6 +98,18 @@ const LandingPage = (props) => {
           </p>
         </MentFrame>
       </PostSection>
+      <MobilePost>
+        <MentFrame>
+          <h1>다른 사람들의 인증샷을 보고 응원해주세요.</h1>
+          <p>
+            습관을 만들기 어렵다고 느낀 적 있으신가요? <br />
+            다른 사람들과 함께 챌린지를 진행하고 인증샷을 남기며
+            <br />
+            인증버튼을 눌러보세요. 습관이 재밌어질 거에요!{" "}
+          </p>
+        </MentFrame>
+        <img src={mobilePost} alt="mobilePost"></img>
+      </MobilePost>
       <PiecesSection>
         <MentFrame>
           <h1>챌린지를 완료해서 조각을 모아보세요.</h1>
@@ -103,17 +138,41 @@ const LandingPage = (props) => {
           </p>
         </MentFrame>
       </ChatSection>
+      <MobileChat>
+        <MentFrame>
+          <h1>실시간 채팅을 통해 더 깊게 소통해보세요.</h1>
+          <p>
+            같은 챌린지를 진행하는 사람과 챌린지를 하면서 느낀 점이나 고민을
+            공유해보세요. 팁을 얻게 될지도 몰라요.{" "}
+          </p>
+        </MentFrame>
+        <img src={mobileChat} alt="mobileChat" />
+      </MobileChat>
       <IntroSection>
         <h1>나를 위한 조각을 모을 준비 되셨나요?</h1>
         <Button
-          width="16.15"
-          height="5.93vh"
+          width="fit-content"
           padding="0.73vw 2.45vw"
           _onClick={goToSignUp}
         >
           가입하고 챌린지 참여하기
         </Button>
       </IntroSection>
+      <MobileIntroSection>
+        <h1>
+          나를 위한 조각을 모을 준비,
+          <br />
+          되셨나요?
+        </h1>
+        <Button
+          width="91.11vw"
+          padding="13px 2.45vw"
+          margin="0 5.56vw"
+          _onClick={goToSignUp}
+        >
+          가입하고 챌린지 참여하기
+        </Button>
+      </MobileIntroSection>
     </Container>
   );
 };
@@ -131,22 +190,21 @@ const MainSection = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 9vh;
-  padding: 0 16vw 2.08vw 16vw;
+  padding: 0 13vw 2.08vw 13vw;
   h1 {
     line-height: normal;
     font-size: 36px;
     font-weight: 500;
   }
   button {
-    font-size: 18px;
-    max-width: 16.15vw;
+    font-size: 22px;
   }
-  /* ${({ theme }) => theme.device.desktopLg} {
+  ${({ theme }) => theme.device.desktopLg} {
     h1 {
-      font-size: 24px;
+      font-size: 34px;
     }
     button {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
   ${({ theme }) => theme.device.desktop} {
@@ -154,34 +212,75 @@ const MainSection = styled.section`
       font-size: 24px;
     }
     button {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
   ${({ theme }) => theme.device.tablet} {
     h1 {
-      font-size: 24px;
+      font-size: 22px;
     }
     button {
       font-size: 12px;
     }
-  } */
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
+`;
+
+const MobildMain = styled.section`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-top: 15vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: normal;
+    h1 {
+      width: 100%;
+      padding: 0 7.78vw;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    p {
+      width: 100%;
+      padding: 0 7.78vw;
+      font-size: 16px;
+      color: ${({ theme }) => theme.colors.darkGray};
+    }
+    img {
+      padding: 0 5.56vw;
+      margin: 60px 0;
+      width: 100%;
+      height: 50vw;
+    }
+  }
 `;
 
 const Down = styled.button`
   width: 24px;
   height: 24px;
-  margin: 4.79vw auto 0 auto;
+  margin: 4.4vw auto 0 auto;
   img {
     width: 24px;
     height: 24px;
   }
+  ${({ theme }) => theme.device.mobileLg} {
+    margin: 40px auto 0 auto;
+  }
 `;
 
 const Desc = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   font-size: ${({ theme }) => theme.fontSizes.ms};
-  color: ${({ theme }) => theme.colors.darkGray};
+  p {
+    color: ${({ theme }) => theme.colors.darkGray};
+  }
   margin-top: 3.7%;
   img {
     min-width: 39.58vw;
@@ -212,6 +311,10 @@ const ChallengeSection = styled.section`
   justify-content: flex-end;
   align-items: center;
   padding: 8.54vw 0 7.55vw 0;
+  ${({ theme }) => theme.device.mobileLg} {
+    flex-direction: column;
+    padding: 70px 0 62px 0;
+  }
 `;
 
 const MentFrame = styled.div`
@@ -219,7 +322,8 @@ const MentFrame = styled.div`
   display: flex;
   flex-direction: column;
   h1 {
-    font-size: 24px;
+    font-size: 36px;
+    line-height: 120%;
     margin-bottom: 1.25vw;
     font-weight: 500;
   }
@@ -228,6 +332,44 @@ const MentFrame = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.ms};
     color: ${({ theme }) => theme.colors.darkGray};
   }
+  ${({ theme }) => theme.device.desktopLg} {
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    h1 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    padding: 0 7.78vw;
+    h1 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 14px;
+      color: ${({ theme }) => theme.colors.darkGray};
+    }
+  }
 `;
 
 const ImageFrame = styled.div`
@@ -235,40 +377,109 @@ const ImageFrame = styled.div`
   overflow: hidden;
   margin-left: 7.66vw;
   img {
+    height: 17.24vw;
     object-fit: scale-down;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 96.22vw;
+    overflow: hidden;
+    img {
+      margin-top: 40px;
+      height: 64.56vw;
+      object-fit: scale-down;
+    }
   }
 `;
 
 const PostSection = styled.section`
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 4.17vw 23vw;
+  padding: 4.17vw 0;
   background-color: ${({ theme }) => theme.colors.lightGray};
   img {
+    width: 26.67vw;
+    height: 25.1vw;
     margin-right: 5vw;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
+`;
+
+const MobilePost = styled.section`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    img {
+      width: 78.06vw;
+      height: 82.64vw;
+      margin: 40px 0 20px 0;
+    }
   }
 `;
 
 const PiecesSection = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 3.65vw 18.49vw;
+  padding: 3.65vw 0;
   span {
     font-size: 12px;
+  }
+  img {
+    width: 26.04vw;
+    height: 26.04vw;
+    margin-left: 11.15vw;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    flex-direction: column;
+    padding: 40px 0 37px 0;
+    img {
+      width: 78.06vw;
+      height: 78.06vw;
+      margin-left: 0;
+    }
   }
 `;
 
 const ChatSection = styled.section`
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 2.34vw 0 2.34vw 32.5vw;
+  padding: 2.34vw 0;
   background-color: ${({ theme }) => theme.colors.lightGray};
   img {
+    width: 14.58vw;
+    height: 28.65vw;
     margin-right: 8.33vw;
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
+`;
+
+const MobileChat = styled.section`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    padding: 40px 0 30px 0;
+    img {
+      width: 71.39vw;
+      height: 140vw;
+      margin-top: 40px;
+    }
   }
 `;
 
@@ -281,9 +492,54 @@ const IntroSection = styled.section`
   h1 {
     font-size: 24px;
     text-align: center;
-    margin-bottom: 1.98vw;
+    margin-bottom: 38px;
   }
   button {
     font-size: ${({ theme }) => theme.fontSizes.ms};
+  }
+  ${({ theme }) => theme.device.desktopLg} {
+    h1 {
+      font-size: 24px;
+    }
+    button {
+      font-size: 16px;
+    }
+  }
+  ${({ theme }) => theme.device.desktop} {
+    h1 {
+      font-size: 24px;
+    }
+    button {
+      font-size: 16px;
+    }
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    h1 {
+      font-size: 22px;
+    }
+    button {
+      font-size: 12px;
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    display: none;
+  }
+`;
+
+const MobileIntroSection = styled.section`
+  display: none;
+  ${({ theme }) => theme.device.mobileLg} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 35px;
+    line-height: normal;
+    button {
+      margin-top: 28px;
+    }
   }
 `;

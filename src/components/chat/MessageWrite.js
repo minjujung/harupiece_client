@@ -46,10 +46,10 @@ const MessageWrite = ({ sendMessage }) => {
         height="24px"
         src={send}
         alt="send"
-        onClick={
-          () => sendMsg(msg)
-          // setMsg("");
-        }
+        onClick={() => {
+          sendMsg(msg);
+          setMsg("");
+        }}
       />
     </InputField>
   );
@@ -60,7 +60,7 @@ export default MessageWrite;
 const InputField = styled.div`
   width: 100%;
   height: 5.93vh;
-  padding: 1.85vh 1.04vw;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   border-top: 2px solid ${({ theme }) => theme.colors.lightGray};
@@ -68,8 +68,8 @@ const InputField = styled.div`
   position: absolute;
   bottom: 0;
   input {
-    width: 11.77vw;
-    height: 2.22vh;
+    width: 90%;
+    height: 100%;
     ::placeholder {
       font-size: ${({ theme }) => theme.fontSizes.sm};
       color: ${({ theme }) => theme.colors.gray};
