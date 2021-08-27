@@ -170,7 +170,7 @@ const adminChallengeDeleteDB =
         );
 
         setTimeout(() => window.alert("관리자 권한 챌린지 삭제 완료!"), 300);
-        history.replace("/");
+        history.replace("/home");
       })
       .catch((error) => consoleLogger("관리자 권한 삭제 중 오류: " + error));
   };
@@ -197,7 +197,7 @@ const challengeDeleteDB =
           };
           dispatch(userCreators.setUser(new_userInfo));
           setTimeout(() => window.alert("챌린지 삭제 완료!"), 300);
-          history.replace("/");
+          history.replace("/home");
         }
       })
       .catch((error) => {

@@ -96,10 +96,9 @@ const MessageList = ({ challengeId }) => {
 export default MessageList;
 
 const Chat = styled.div`
-  height: 385px;
+  height: 68%;
   padding: 1.76vh 0.83vw 0 0.83vw;
   overflow-y: scroll;
-  margin-bottom: 5.93vh;
   ::-webkit-scrollbar {
     margin-left: 30px;
     width: 5px;
@@ -125,27 +124,16 @@ const Date = styled.p`
   position: absolute;
   bottom: 0;
   ${(props) =>
-    props.me ? "left: 0;margin-left: 30px" : "right: 0; margin-right: 10px;"};
+    props.me ? "left: 0;margin-left: 15%" : "left: 0;margin-left: 73%;"};
 
   ${({ theme }) => theme.device.mobileLg} {
-    margin-left: 10px;
-  }
-  ${({ theme }) => theme.device.tablet} {
-    bottom: inherit;
-    margin-top: 31px;
-  }
-  ${({ theme }) => theme.device.desktop} {
-    bottom: inherit;
-    margin-top: 31px;
-  }
-  ${({ theme }) => theme.device.desktopLg} {
-    bottom: inherit;
-    margin-top: 31px;
+    margin-left: ${(props) => (props.me ? "18%" : "65%")};
   }
 `;
 
 const MsgFrame = styled.div`
-  margin-bottom: 1.76vh;
+  /* margin-bottom: 1.76vh; */
+  margin-bottom: 20px;
   ${({ theme }) => theme.device.mobileLg} {
     bottom: inherit;
     margin-left: 10px;
@@ -162,6 +150,7 @@ const EnterMsg = styled.div`
 
 const Sender = styled.div`
   ${(props) => (props.me ? "display: none" : "display: flex")};
+  margin-bottom: 8px;
   p {
     margin-left: 0.42vw;
   }
@@ -174,16 +163,16 @@ const Sender = styled.div`
 `;
 
 const Message = styled.p`
-  /* width: 10.42vw; */
+  width: 60%;
   padding: 8px;
   border-radius: 8px;
   background-color: ${(props) =>
     props.me ? props.theme.colors.mainGreen : props.theme.colors.lightGray};
   color: ${(props) => (props.me ? "white" : "black")};
-  margin: ${(props) => (props.me ? "0 0 0 5.06vw" : "0 4vw 0 1.67vw")};
+  margin: ${(props) => (props.me ? "0 0 0 38%" : "0 4vw 0 1.67vw")};
   word-break: break-all;
   ${({ theme }) => theme.device.mobileLg} {
     padding: 2.22vw;
-    margin: ${(props) => (props.me ? "0 0 0 21.67vw" : "0 21.67vw 0 1.67vw")};
+    margin: ${(props) => (props.me ? "0 0 0 40%" : "0 31.67vw 0 1.67vw")};
   }
 `;

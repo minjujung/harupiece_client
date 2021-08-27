@@ -7,6 +7,7 @@ import { Image, Tag } from "../../elements/index";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import Toast from "../../elements/Toast";
+import ChallengeMember from "./ChallengeMember";
 
 const ChallengeInfo = (props) => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
+        <Noti>매일 인증샷을 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
         <Title>
           {toastAlert && <Toast msg="url 복사 완료!" />}
           <h3>기본정보</h3>
@@ -145,6 +147,7 @@ const ChallengeInfo = (props) => {
             {category}
           </Tag>
         </TagFrame>
+        <ChallengeMember />
       </Section>
     </ChallengeDesc>
   );
@@ -200,6 +203,34 @@ const Section = styled.section`
       margin-bottom: 24px;
       font-size: 16px;
     }
+  }
+`;
+
+const Noti = styled.p`
+  width: fit-content;
+  background-color: ${({ theme }) => theme.colors.mainOrange};
+  color: white;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  ${({ theme }) => theme.device.desktopLg} {
+    font-size: 18px;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 18px;
+  }
+
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 16px;
+  }
+
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
   }
 `;
 

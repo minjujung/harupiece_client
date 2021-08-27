@@ -7,7 +7,7 @@ import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 import { history } from "../../redux/configureStore";
 
-const TOTAL_SLIDES = 2;
+const TOTAL_SLIDES = 1;
 
 const MainSlider = (props) => {
   const is_login = getCookie("token") ? true : false;

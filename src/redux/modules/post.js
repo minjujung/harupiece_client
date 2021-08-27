@@ -34,7 +34,25 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
-  list: [],
+  list: [
+    {
+      createdAt: "2021-08-26T23:18:01",
+      memberId: 6,
+      memberResponseDto: [6],
+      modifiedAt: "2021-08-26T23:18:01",
+      nickName: "minju22",
+      postingApproval: false,
+      postingContent:
+        "2주만에 열심히 뛰었다\n근육이 떨어질것 같다\n오늘 부터 하루도 빠짐없이\n달릴테야!",
+      postingCount: 1,
+      postingId: 12,
+      postingImg:
+        "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/manjuriaThu%20Aug%2026%202021%2023%3A18%3A00%20GMT%2B0900%20%28%ED%95%9C%EA%B5%AD%20%ED%91%9C%EC%A4%80%EC%8B%9C%29.jpg",
+      postingModifyOk: false,
+      profileImg:
+        "https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/gray.svg",
+    },
+  ],
   paging: { page: 1, next: null, size: 6 },
   is_loading: false,
 };

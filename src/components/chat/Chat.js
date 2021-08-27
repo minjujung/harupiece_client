@@ -185,8 +185,7 @@ const Container = styled.div`
 `;
 
 const ChatBox = styled.div`
-  min-width: 331px;
-  height: 570px;
+  height: 59.26%;
   overflow: hidden;
   position: fixed;
   z-index: 100;

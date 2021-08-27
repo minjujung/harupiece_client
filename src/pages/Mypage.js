@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import Spinner from "../components/Spinner";
 import ChallengesInProgress from "../components/mypage/ChallengesInProgress";
 import UpcomingChallenge from "../components/mypage/UpcomingChallenge";
 import CompletedChallenge from "../components/mypage/CompletedChallenge";
 import MyPassword from "../components/mypage/MyPassword";
 import MyPieces from "../components/mypage/MyPieces";
-import camera from "../assets/images/icons/camera.svg";
 import greenCamera from "../assets/images/icons/greenCamera.jpg";
 import { Button, Image } from "../elements";
 
@@ -20,6 +20,7 @@ function Mypage(props) {
   const dispatch = useDispatch();
 
   const myInfoList = useSelector((state) => state.mypage.myInfo);
+  const loading = useSelector((state) => state.mypage.is_loading);
 
   // 프로필 preview 상태 값
   const preview = useSelector((state) => state.mypage.preview);
@@ -37,6 +38,7 @@ function Mypage(props) {
   const [newNickName, setNewNickName] = useState(
     myInfoList.memberHistoryResponseDto?.nickname
   );
+  const [levelImage, setLevelImage] = useState("");
 
   const convertEditMode = () => {
     setNewNickName(myInfoList.memberHistoryResponseDto.nickname);
@@ -66,61 +68,80 @@ function Mypage(props) {
     };
   };
 
+  //등급 구슬로 프로필 설정하기
+  const setLevelProfile = () => {
+    dispatch(myInfo.setPreview(levelData[levelState]?.img));
+    setLevelImage(levelData[levelState]?.imageUrl);
+  };
+
   // 수정 완료 버튼
   const editProfile = () => {
     const file = fileInput.current.files[0];
     if (newNickName === myInfoList.memberHistoryResponseDto.nickname) {
       setNewNickName(myInfoList.memberHistoryResponseDto.nickname);
     }
-    if (!file) {
+    if (!file && levelImage) {
+      dispatch(myInfo.editMyProfileDB({ newNickName, levelImage }));
+      setLevelImage("");
+    }
+    if (!file && !levelImage) {
       dispatch(
         myInfo.editMyProfileDB({
           newNickName,
           file: myInfoList.memberHistoryResponseDto.profileImage,
         })
       );
-    } else {
+    } else if (file && !levelImage) {
       dispatch(myInfo.editMyProfileDB({ newNickName, file }));
       dispatch(myInfo.setPreview(""));
     }
     convertEditMode();
     history.push("/mypage/now");
   };
-
+  console.log(loading);
   return (
     <Container>
       <UserInfoContainer>
         {!editMode ? (
           <>
-            <Image
-              width="9.69vw"
-              height="9.69vw"
-              borderRadius="50%"
-              margin="0 0 0 4.38vw"
-              src={
-                myInfoList.memberHistoryResponseDto?.profileImage
-                  ? myInfoList.memberHistoryResponseDto.profileImage
-                  : levelData[9].img
-              }
-              alt="defaultProfile"
-            />
-            <UserInfo>
-              <strong>{myInfoList.memberHistoryResponseDto?.nickname}</strong>님
-              <br />
-              현재 등급은 {levelData[levelState]?.level} 입니다.
-            </UserInfo>
-            <MediaBtn>
-              <Button
-                width="16.15vw"
-                height="5.93vh"
-                color="white"
-                bg="mainGreen"
-                margin="0 3.23vw 0 2.08vw"
-                _onClick={convertEditMode}
-              >
-                프로필 수정하기
-              </Button>
-            </MediaBtn>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <>
+                <Image
+                  width="9.69vw"
+                  height="9.69vw"
+                  borderRadius="50%"
+                  margin="0 0 0 4.38vw"
+                  src={
+                    myInfoList.memberHistoryResponseDto?.profileImage
+                      ? myInfoList.memberHistoryResponseDto.profileImage
+                      : levelData[9].img
+                  }
+                  alt="defaultProfile"
+                />
+                <UserInfo>
+                  <strong>
+                    {myInfoList.memberHistoryResponseDto?.nickname}
+                  </strong>
+                  님
+                  <br />
+                  현재 등급은 {levelData[levelState]?.level} 입니다.
+                </UserInfo>
+                <MediaBtn>
+                  <Button
+                    width="16.15vw"
+                    height="5.93vh"
+                    color="white"
+                    bg="mainGreen"
+                    margin="0 3.23vw 0 2.08vw"
+                    _onClick={convertEditMode}
+                  >
+                    프로필 수정하기
+                  </Button>
+                </MediaBtn>
+              </>
+            )}
           </>
         ) : (
           <>
@@ -166,6 +187,9 @@ function Mypage(props) {
               style={{ display: "none" }}
             />
             <MediaBtn>
+              <LevelProfileBtn onClick={setLevelProfile}>
+                등급 구슬을 프로필로 설정하기💎
+              </LevelProfileBtn>
               <Button
                 width="16.15vw"
                 height="5.93vh"
@@ -259,7 +283,6 @@ const UserInfoContainer = styled.div`
     button {
       width: 55.56vw;
       font-size: 16px;
-      margin: 7.92vw 0;
     }
   }
 `;
@@ -283,6 +306,7 @@ const UserInfo = styled.p`
   }
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 21px;
+    margin-bottom: 57px;
   }
 `;
 
@@ -305,7 +329,8 @@ const EditProfile = styled.div`
     button {
       width: 9.44vw;
       height: 9.44vw;
-      right: 0;
+      right: 10px;
+      bottom: 30px;
       left: inherit;
       display: flex;
       align-items: center;
@@ -355,27 +380,40 @@ const NickInput = styled.input`
 `;
 
 const MediaBtn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   button {
     font-size: 22px;
+    margin: 0 10px 10px 0;
   }
   ${({ theme }) => theme.device.desktopLg} {
     button {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   ${({ theme }) => theme.device.desktop} {
     button {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 
   ${({ theme }) => theme.device.tablet} {
     button {
-      font-size: 16px;
+      font-size: 14px;
+    }
+  }
+
+  ${({ theme }) => theme.device.mobileLg} {
+    button {
+      font-size: 14px;
     }
   }
 `;
 
+const LevelProfileBtn = styled.button`
+  color: white;
+`;
 const ChallengeCategory = styled.ul`
   width: 66.67vw;
   height: 7.04vh;

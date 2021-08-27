@@ -8,6 +8,7 @@ import { consoleLogger } from "../configureStore";
 const GET_MYINFO = "GET_MYINFO";
 const EDIT_MYPROFILE = "EDIT_MYPROFILE";
 const SET_PREVIEW = "SET_PREVIEW";
+const LOADING = "LOADING";
 
 const getInfo = createAction(GET_MYINFO, (myInfo, myChallenge) => ({
   myInfo,
@@ -18,13 +19,17 @@ const editMyProfile = createAction(EDIT_MYPROFILE, (myInfo) => ({
 }));
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 const initialState = {
   myInfo: {},
   preview: null,
+  is_loading: false,
 };
 
 const getMyInfoDB = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
     MypageApis.getMyInfo()
       .then((res) => {
         consoleLogger("point history 요청 후 응답", res);
@@ -58,7 +63,6 @@ const getPointDB = () => {
   return function (dispatch, getState, { history }) {
     MypageApis.getMyInfo()
       .then((res) => {
-        console.log(res);
         consoleLogger("point history 요청 후 응답", res);
         const pointHistoryList = [
           ...res.data.memberHistoryResponseDto.challengeGetpoint,
@@ -97,12 +101,50 @@ const editMyProfileDB = (content) => {
       return;
     }
 
-    const proFile = {
-      nickname: content.newNickName,
-      profileImage: content.file,
-    };
+    dispatch(loading(true));
 
-    if (content.file === myProfileImg) {
+    if (content.levelImage) {
+      console.log("파일은 없고 레벨이미지만 있을 때");
+      const levelProfile = {
+        nickname: content.newNickName,
+        profileImage: content.levelImage,
+      };
+
+      MypageApis.editProfile(levelProfile)
+        .then((res) => {
+          consoleLogger("프로필 이미지를 등급 구슬로 설정할 때: ", res);
+
+          dispatch(editMyProfile(levelProfile));
+
+          const user_info = getState().user.userInfo;
+
+          const new_user_info = {
+            ...user_info,
+            nickname: levelProfile.nickname,
+            profileImg: levelProfile.profileImage,
+          };
+          dispatch(userCreators.setUser(new_user_info));
+          dispatch(getMyInfoDB());
+        })
+        .catch((error) => {
+          if (error.response?.data?.message) {
+            setTimeout(() => window.alert(error.response?.data?.message), 300);
+          } else if (error) {
+            setTimeout(
+              () =>
+                window.alert(
+                  "프로필 수정 중 오류가 발생했습니다. 다시 한번 시도해주세요!"
+                ),
+              300
+            );
+          }
+          consoleLogger("프로필 이미지를 등급 구슬로 설정할 때: ", error);
+        });
+    } else if (content.file === myProfileImg) {
+      const proFile = {
+        nickname: content.newNickName,
+        profileImage: content.file,
+      };
       MypageApis.editProfile(proFile)
         .then((res) => {
           consoleLogger("글 내용만 수정하고 server에 전송후 응답: ", res);
@@ -117,11 +159,9 @@ const editMyProfileDB = (content) => {
           const user_info = getState().user.userInfo;
 
           const new_user_info = {
+            ...user_info,
             ...new_post,
-            memberId: user_info.memberId,
             profileImg: new_post.profileImage,
-            memberLevel: user_info.memberLevel,
-            point: user_info.point,
           };
           dispatch(userCreators.setUser(new_user_info));
           dispatch(getMyInfoDB());
@@ -140,8 +180,11 @@ const editMyProfileDB = (content) => {
           }
           consoleLogger("사진은 그대로고 닉네임만 수정 했을 때: ", error);
         });
-    } else {
+    } else if (!content.levelImage) {
       //프로필 사진, 닉네임 둘다 바꿀 때
+      if (!content.file) {
+        return;
+      }
       const date = new Date();
       const user_info = getState().user.userInfo;
 
@@ -163,6 +206,11 @@ const editMyProfileDB = (content) => {
       const promise = upload.promise();
       promise
         .then((data) => {
+          const proFile = {
+            nickname: content.newNickName,
+            profileImage: content.file,
+          };
+
           const newProFile = { ...proFile, profileImage: data.Location };
 
           MypageApis.editProfile(newProFile)
@@ -174,11 +222,9 @@ const editMyProfileDB = (content) => {
               const user_info = getState().user.userInfo;
 
               const new_user_info = {
+                ...user_info,
                 ...newProFile,
-                memberId: user_info.memberId,
                 profileImg: newProFile.profileImage,
-                memberLevel: user_info.memberLevel,
-                point: user_info.point,
               };
               dispatch(userCreators.setUser(new_user_info));
               dispatch(getMyInfoDB());
@@ -230,7 +276,7 @@ const changePasswordDB = (password) => {
       .then((res) => {
         consoleLogger("비밀번호 변경 후 응답", res);
         setTimeout(() => window.alert("비밀번호 변경이 완료되었습니다!"), 300);
-        history.replace("/");
+        history.replace("/home");
       })
       .catch((error) => {
         if (
@@ -264,6 +310,7 @@ export default handleActions(
           };
         }
         draft.myInfo = myInfo;
+        draft.is_loading = false;
       }),
     [EDIT_MYPROFILE]: (state, action) =>
       produce(state, (draft) => {
@@ -272,6 +319,10 @@ export default handleActions(
     [SET_PREVIEW]: (state, action) =>
       produce(state, (draft) => {
         draft.preview = action.payload.preview;
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState
