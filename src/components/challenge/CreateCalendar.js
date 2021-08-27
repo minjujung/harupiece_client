@@ -168,7 +168,7 @@ const Holiday = styled.div`
     height: 6.875vh;
     margin-top: 16px;
     margin-bottom: 5.18vh;
-    padding: 1.48vh 4.44vw 1.48vh 4.44vw;
+    padding: 1.48vh 0 1.48vh 4.44vw;
     & > P {
       font-size: 24px;
       padding-top: 0.41vh;
@@ -178,12 +178,10 @@ const Holiday = styled.div`
 
 const SCheckbox = styled(Checkbox)`
   position: absolute;
-  right: -8.25vw;
   ${({ theme }) => theme.device.mobileLg} {
-    right: -47.35vw;
     .MuiSvgIcon-root {
-      width: 8.33vw;
-      height: 8.33vw;
+      width: 40px;
+      height: 40px;
     }
   }
 `;

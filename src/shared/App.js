@@ -15,6 +15,7 @@ import Signup from "../pages/Signup";
 import Main from "../pages/Main";
 import Mypage from "../pages/Mypage";
 import SearchChallenge from "../pages/SearchChallenge";
+import GradePage from "../pages/GradePage";
 
 import { userCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -45,6 +46,7 @@ function App() {
           <Header />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/home" component={Main} />
+          <Route exact path="/grade" component={GradePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route path="/mypage" component={Mypage} />
