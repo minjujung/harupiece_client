@@ -6,8 +6,6 @@ const device = {
   desktopXl: `@media screen and (min-width: 1600px)`,
 };
 
-//font-size: ${({ theme }) => theme.fontSizes.lg};
-
 const colors = {
   mainGreen: "#00DB9A",
   mainOrange: "#FF4532",
