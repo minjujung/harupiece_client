@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { getCookie } from "../../shared/Cookie";
 
 const Popular = (props) => {
-  const hot_list = useSelector((state) => state.main);
+  const hot_list = useSelector((state) => state.main.guestmain);
 
   const is_login = getCookie("token") ? true : false;
 
@@ -45,67 +45,31 @@ const Popular = (props) => {
           <span>HOT</span>챌린지
         </Title>
         <div>
-          {is_login ? (
-            <>
-              {hot_list.usermain.popular &&
-                hot_list.usermain.popular.map((l, idx) => {
-                  return (
-                    <div
-                      key={idx}
-                      onClick={() =>
-                        history.push(`/challenge/${l.challengeId}/intro`)
-                      }
-                    >
-                      <CardBox>
-                        <div>
-                          <img src={l.challengeImgUrl} alt="" />
-                        </div>
-                        <CardTitle>
-                          <div>
-                            {l.challengeTitle.length > 10
-                              ? `${l.challengeTitle.substring(0, 10)}...`
-                              : l.challengeTitle}
-                          </div>
-                          <div>
-                            {l.challengeMember.length}명이 챌린지에 참여중
-                          </div>
-                        </CardTitle>
-                      </CardBox>
+          {hot_list.popular &&
+            hot_list.popular.map((l, idx) => {
+              return (
+                <div
+                  key={idx}
+                  onClick={() =>
+                    history.push(`/challenge/${l.challengeId}/intro`)
+                  }
+                >
+                  <CardBox>
+                    <div>
+                      <img src={l.challengeImgUrl} alt="" />
                     </div>
-                  );
-                })}
-            </>
-          ) : (
-            <>
-              {hot_list.guestmain.popular &&
-                hot_list.guestmain.popular.map((l, idx) => {
-                  return (
-                    <div
-                      key={idx}
-                      onClick={() =>
-                        history.push(`/challenge/${l.challengeId}/intro`)
-                      }
-                    >
-                      <CardBox>
-                        <div>
-                          <img src={l.challengeImgUrl} alt="" />
-                        </div>
-                        <CardTitle>
-                          <div>
-                            {l.challengeTitle.length > 10
-                              ? `${l.challengeTitle.substring(0, 10)}...`
-                              : l.challengeTitle}
-                          </div>
-                          <div>
-                            {l.challengeMember.length}명이 챌린지에 참여중
-                          </div>
-                        </CardTitle>
-                      </CardBox>
-                    </div>
-                  );
-                })}
-            </>
-          )}
+                    <CardTitle>
+                      <div>
+                        {l.challengeTitle.length > 10
+                          ? `${l.challengeTitle.substring(0, 10)}...`
+                          : l.challengeTitle}
+                      </div>
+                      <div>{l.challengeMember.length}명이 챌린지에 참여중</div>
+                    </CardTitle>
+                  </CardBox>
+                </div>
+              );
+            })}
         </div>
       </Contain>
       {/* mobile */}
@@ -114,81 +78,40 @@ const Popular = (props) => {
           <span>HOT</span>챌린지
         </Title>
         <CardBox2>
-          {is_login ? (
-            <>
-              <SliderContainer
-                ref={slideRef}
-                onMouseDown={onDragStart}
-                onMouseMove={onDragMove}
-                onMouseUp={onDragEnd}
-                onMouseLeave={onDragEnd}
-              >
-                {hot_list.usermain.popular &&
-                  hot_list.usermain.popular.map((l, idx) => {
-                    return (
-                      <Slide key={idx}>
-                        <CardBox
-                          onClick={() =>
-                            history.push(`/challenge/${l.challengeId}/intro`)
-                          }
-                        >
-                          <div>
-                            <img src={l.challengeImgUrl} alt="" />
-                          </div>
-                          <CardTitle>
-                            <div>
-                              {l.challengeTitle.length > 10
-                                ? `${l.challengeTitle.substring(0, 10)}...`
-                                : l.challengeTitle}
-                            </div>
-                            <div>
-                              {l.challengeMember.length}명이 챌린지에 참여중
-                            </div>
-                          </CardTitle>
-                        </CardBox>
-                      </Slide>
-                    );
-                  })}
-              </SliderContainer>
-            </>
-          ) : (
-            <>
-              <SliderContainer
-                ref={slideRef}
-                onMouseDown={onDragStart}
-                onMouseMove={onDragMove}
-                onMouseUp={onDragEnd}
-                onMouseLeave={onDragEnd}
-              >
-                {hot_list.guestmain.popular &&
-                  hot_list.guestmain.popular.map((l, idx) => {
-                    return (
-                      <Slide key={idx}>
-                        <CardBox
-                          onClick={() =>
-                            history.push(`/challenge/${l.challengeId}/intro`)
-                          }
-                        >
-                          <div>
-                            <img src={l.challengeImgUrl} alt="" />
-                          </div>
-                          <CardTitle>
-                            <div>
-                              {l.challengeTitle.length > 10
-                                ? `${l.challengeTitle.substring(0, 10)}...`
-                                : l.challengeTitle}
-                            </div>
-                            <div>
-                              {l.challengeMember.length}명이 챌린지에 참여중
-                            </div>
-                          </CardTitle>
-                        </CardBox>
-                      </Slide>
-                    );
-                  })}
-              </SliderContainer>
-            </>
-          )}
+          <SliderContainer
+            ref={slideRef}
+            onMouseDown={onDragStart}
+            onMouseMove={onDragMove}
+            onMouseUp={onDragEnd}
+            onMouseLeave={onDragEnd}
+          >
+            {hot_list.popular &&
+              hot_list.popular.map((l, idx) => {
+                return (
+                  <Slide key={idx}>
+                    <CardBox
+                      onClick={() =>
+                        history.push(`/challenge/${l.challengeId}/intro`)
+                      }
+                    >
+                      <div>
+                        <img src={l.challengeImgUrl} alt="" />
+                      </div>
+                      <CardTitle>
+                        <div>
+                          {l.challengeTitle.length > 10
+                            ? `${l.challengeTitle.substring(0, 10)}...`
+                            : l.challengeTitle}
+                        </div>
+                        <div>
+                          {l.challengeMember.length}명이 챌린지에 참여중
+                        </div>
+                      </CardTitle>
+                    </CardBox>
+                  </Slide>
+                );
+              })}
+          </SliderContainer>
         </CardBox2>
       </MobileBox>
     </>
@@ -368,11 +291,15 @@ const CardBox = styled.div`
     padding-bottom: 5px;
     font-size: 13px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     div {
       img {
         border-radius: 10px;
-        width: 5.39vh;
-        height: 5.39vh;
+        width: 8.39vh;
+        height: 8.39vh;
         margin-top: 10px;
       }
     }
@@ -432,6 +359,7 @@ const CardTitle = styled.div`
   ${({ theme }) => theme.device.desktop} {
     height: auto;
     font-size: 12px;
+    padding-top: 13px;
     div:nth-child(2) {
       font-size: 10px;
     }

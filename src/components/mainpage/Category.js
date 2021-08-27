@@ -12,7 +12,7 @@ import Right from "../../assets/images/icons/arrow/right.svg";
 
 const Category = (props) => {
   const dispatch = useDispatch();
-  const main_list = useSelector((state) => state.main);
+  const main_list = useSelector((state) => state.main.guestmain);
 
   const [category, setCategory] = useState("livinghabits");
 
@@ -38,10 +38,10 @@ const Category = (props) => {
 
   const is_login = getCookie("token") ? true : false;
 
-  const start = main_list.usermain[category]?.map(
+  const start = main_list[category]?.map(
     (list) => list.challengeStartDate?.split("T")[0]
   );
-  const end = main_list.usermain[category]?.map(
+  const end = main_list[category]?.map(
     (list) => list.challengeEndDate?.split("T")[0]
   );
 
@@ -55,24 +55,6 @@ const Category = (props) => {
     _month: end_month,
     _date: end_date,
   } = changeForm(end);
-
-  const GuestStart = main_list.guestmain[category]?.map(
-    (list) => list.challengeStartDate?.split("T")[0]
-  );
-  const GuestEnd = main_list.guestmain[category]?.map(
-    (list) => list.challengeEndDate?.split("T")[0]
-  );
-  const {
-    _year: GuestStart_year,
-    _month: GuestStart_month,
-    _date: GuestStart_date,
-  } = changeForm(GuestStart);
-
-  const {
-    _year: GuestEnd_year,
-    _month: GuestEnd_month,
-    _date: GuestEnd_date,
-  } = changeForm(GuestEnd);
 
   // slider
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -110,7 +92,6 @@ const Category = (props) => {
           style={{
             paddingTop: "20px",
             paddingBottom: "24px",
-            fontSize: "32px",
             fontWeight: "bold",
           }}
         >
@@ -147,101 +128,50 @@ const Category = (props) => {
         </TagBox>
         <ViewAll onClick={searchAll}>전체보기</ViewAll>
         <CardBox2>
-          {is_login ? (
-            <>
-              {main_list &&
-                main_list.usermain[category]?.map((l, idx) => {
-                  return (
-                    <div key={l.challengeId}>
-                      <Card
-                        width="15vw"
-                        height="auto"
-                        title={l.challengeTitle}
-                        date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
+          {main_list &&
+            main_list[category]?.map((l, idx) => {
+              return (
+                <div key={l.challengeId}>
+                  <Card
+                    width="15vw"
+                    height="auto"
+                    title={l.challengeTitle}
+                    date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                        onClick={() =>
-                          history.push(`/challenge/${l.challengeId}/intro`)
-                        }
+                    onClick={() =>
+                      history.push(`/challenge/${l.challengeId}/intro`)
+                    }
+                  >
+                    <CardImg>
+                      <Image
+                        width="14.8vw"
+                        height="14.81vh"
+                        src={l.challengeImgUrl}
+                        alt="challenge"
+                      />
+                    </CardImg>
+                    <TagContainer>
+                      <Tag
+                        fontWeight="500"
+                        bg="lightGray"
+                        color="black"
+                        padding="8px 15px"
                       >
-                        <CardImg>
-                          <Image
-                            width="14.8vw"
-                            height="14.81vh"
-                            src={l.challengeImgUrl}
-                            alt="challenge"
-                          />
-                        </CardImg>
-                        <TagContainer>
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 15px"
-                          >
-                            {l.tag && l.tag}
-                          </Tag>
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 15px"
-                          >
-                            {l.challengeMember.length}/10명
-                          </Tag>
-                        </TagContainer>
-                      </Card>
-                    </div>
-                  );
-                })}
-            </>
-          ) : (
-            <>
-              {main_list.guestmain[category] &&
-                main_list.guestmain[category].map((l, idx) => {
-                  return (
-                    <div key={l.challengeId}>
-                      <Card
-                        width="15vw"
-                        height="auto"
-                        title={l.challengeTitle}
-                        date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
-                        ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
-                        key={idx}
-                        onClick={() =>
-                          history.push(`/challenge/${l.challengeId}/intro`)
-                        }
+                        {l.tag && l.tag}
+                      </Tag>
+                      <Tag
+                        fontWeight="500"
+                        bg="lightGray"
+                        color="black"
+                        padding="8px 15px"
                       >
-                        <Image
-                          width="14.83vw"
-                          height="14.81vh"
-                          src={l.challengeImgUrl}
-                          alt="challenge"
-                        />
-
-                        <TagContainer>
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 20px"
-                          >
-                            {l.tag && l.tag}
-                          </Tag>
-                          <Tag
-                            fontWeight="500"
-                            bg="lightGray"
-                            color="black"
-                            padding="8px 20px"
-                          >
-                            {l.challengeMember.length}/10명
-                          </Tag>
-                        </TagContainer>
-                      </Card>
-                    </div>
-                  );
-                })}
-            </>
-          )}
+                        {l.challengeMember.length}/10명
+                      </Tag>
+                    </TagContainer>
+                  </Card>
+                </div>
+              );
+            })}
         </CardBox2>
       </Contain>
       {/* Mobile */}
@@ -295,119 +225,60 @@ const Category = (props) => {
           </Tag>
         </TagBox>
         <CardBox2>
-          {is_login ? (
-            <>
-              <SliderContainer
-                onMouseOver={() => setIsFlowing(false)}
-                onMouseOut={() => setIsFlowing(true)}
-                ref={slideRef}
-                onMouseDown={onDragStart}
-                onMouseMove={onDragMove}
-                onMouseUp={onDragEnd}
-                onMouseLeave={onDragEnd}
-              >
-                {main_list.usermain[category] &&
-                  main_list.usermain[category].map((l, idx) => {
-                    return (
-                      <div key={l.challengeId}>
-                        <Slide>
-                          <Card
-                            width="55vw"
-                            height="auto"
-                            title={l.challengeTitle}
-                            date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
+          <SliderContainer
+            onMouseOver={() => setIsFlowing(false)}
+            onMouseOut={() => setIsFlowing(true)}
+            ref={slideRef}
+            onMouseDown={onDragStart}
+            onMouseMove={onDragMove}
+            onMouseUp={onDragEnd}
+            onMouseLeave={onDragEnd}
+          >
+            {main_list[category] &&
+              main_list[category].map((l, idx) => {
+                return (
+                  <div key={l.challengeId}>
+                    <Slide>
+                      <Card
+                        width="55vw"
+                        height="auto"
+                        title={l.challengeTitle}
+                        date={`${start_year[idx]}.${start_month[idx]}.${start_date[idx]} -
                         ${end_year[idx]}.${end_month[idx]}.${end_date[idx]}`}
-                            onClick={() =>
-                              history.push(`/challenge/${l.challengeId}/intro`)
-                            }
+                        onClick={() =>
+                          history.push(`/challenge/${l.challengeId}/intro`)
+                        }
+                      >
+                        <Image
+                          width="54.5vw"
+                          height="33.33vw"
+                          src={l.challengeImgUrl}
+                          alt="challenge"
+                        />
+                        <TagContainer>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 10px"
                           >
-                            <Image
-                              width="54.5vw"
-                              height="33.33vw"
-                              src={l.challengeImgUrl}
-                              alt="challenge"
-                            />
-                            <TagContainer>
-                              <Tag
-                                fontWeight="500"
-                                bg="lightGray"
-                                color="black"
-                                padding="8px 10px"
-                              >
-                                {l.tag && l.tag}
-                              </Tag>
-                              <Tag
-                                fontWeight="500"
-                                bg="lightGray"
-                                color="black"
-                                padding="8px 10px"
-                              >
-                                {l.challengeMember.length}/10명
-                              </Tag>
-                            </TagContainer>
-                          </Card>
-                        </Slide>
-                      </div>
-                    );
-                  })}
-              </SliderContainer>
-            </>
-          ) : (
-            <>
-              <SliderContainer
-                onMouseOver={() => setIsFlowing(false)}
-                onMouseOut={() => setIsFlowing(true)}
-                ref={slideRef}
-                onMouseDown={onDragStart}
-                onMouseMove={onDragMove}
-                onMouseUp={onDragEnd}
-                onMouseLeave={onDragEnd}
-              >
-                {main_list.guestmain[category] &&
-                  main_list.guestmain[category].map((l, idx) => {
-                    return (
-                      <Slide key={l.challengeId}>
-                        <Card
-                          width="55vw"
-                          height="auto"
-                          title={l.challengeTitle}
-                          date={`${GuestStart_year[idx]}.${GuestStart_month[idx]}.${GuestStart_date[idx]} -
-                        ${GuestEnd_year[idx]}.${GuestEnd_month[idx]}.${GuestEnd_date[idx]}`}
-                          onClick={() =>
-                            history.push(`/challenge/${l.challengeId}/intro`)
-                          }
-                        >
-                          <Image
-                            width="54.5vw"
-                            height="33.33vw"
-                            src={l.challengeImgUrl}
-                            alt="challenge"
-                          />
-                          <TagContainer>
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 10px"
-                            >
-                              {l.tag && l.tag}
-                            </Tag>
-                            <Tag
-                              fontWeight="500"
-                              bg="lightGray"
-                              color="black"
-                              padding="8px 10px"
-                            >
-                              {l.challengeMember.length}/10명
-                            </Tag>
-                          </TagContainer>
-                        </Card>
-                      </Slide>
-                    );
-                  })}
-              </SliderContainer>
-            </>
-          )}
+                            {l.tag && l.tag}
+                          </Tag>
+                          <Tag
+                            fontWeight="500"
+                            bg="lightGray"
+                            color="black"
+                            padding="8px 10px"
+                          >
+                            {l.challengeMember.length}/10명
+                          </Tag>
+                        </TagContainer>
+                      </Card>
+                    </Slide>
+                  </div>
+                );
+              })}
+          </SliderContainer>
         </CardBox2>
       </MobileBox>
     </>
@@ -506,6 +377,9 @@ const Contain = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     display: none;
   }
+  ${({ theme }) => theme.device.desktop} {
+    font-size: 24px;
+  }
 `;
 
 const TagBox = styled.div`
@@ -549,6 +423,10 @@ const ViewAll = styled.span`
   color: #a9a9a9;
   cursor: pointer;
   ${({ theme }) => theme.device.tablet} {
+    font-size: 14px;
+    padding-left: 40vw;
+  }
+  ${({ theme }) => theme.device.desktop} {
     font-size: 14px;
     padding-left: 40vw;
   }

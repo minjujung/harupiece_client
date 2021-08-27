@@ -16,11 +16,7 @@ const Main = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (getCookie("token")) {
-      dispatch(MainCreators.userLoadDB());
-    } else {
-      dispatch(MainCreators.guestLoadDB());
-    }
+    dispatch(MainCreators.guestLoadDB());
   }, []);
 
   const is_login = getCookie("token") ? true : false;
