@@ -249,7 +249,7 @@ const Slide = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     width: 42%;
     border-radius: 10px;
-    padding-left: 15px;
+    margin-left: 30px;
     padding-right: 0px;
   }
 `;
@@ -418,6 +418,10 @@ const CardTitle = styled.div`
     justify-content: center;
     align-items: flex-start;
     padding: 1.22vh 0 1.39vh 0vw;
+    font-size: 15px;
+    div:nth-child(2) {
+      font-size: 14px;
+    }
   }
   ${({ theme }) => theme.device.desktopLg} {
     height: auto;
@@ -444,17 +448,12 @@ const CardTitle = styled.div`
 const CardBox2 = styled.div`
   height: 34vh;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
   padding-top: 1.6vh;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    height: auto;
     padding: 0px;
   }
 `;
