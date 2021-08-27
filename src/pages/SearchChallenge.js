@@ -8,7 +8,7 @@ import { MainCreators as searchAll } from "../redux/modules/main";
 function SearchChallenge(props) {
   const dispatch = useDispatch();
   // 검색 키워드
-  const searchList = useSelector((state) => state.main);
+  const searchList = useSelector((state) => state.main.search);
 
   useEffect(() => {
     dispatch(searchAll.searchFilterDB(searchState));
@@ -93,7 +93,7 @@ function SearchChallenge(props) {
   };
 
   // 챌린지 기간
-  const date = searchList.search?.map((list) => {
+  const date = searchList?.map((list) => {
     let dateObj = {};
     dateObj.id = list.challengeId;
     dateObj.startDate = list.challengeStartDate.split("T")[0];
@@ -265,8 +265,8 @@ function SearchChallenge(props) {
         <CategoryFilter onClick={filter}>선택된 조건 검색하기</CategoryFilter>
       </CategoryContainer>
       <BoxContainer>
-        {searchList.search &&
-          searchList.search.map((l, idx) => {
+        {searchList &&
+          searchList.map((l, idx) => {
             //카테고리 이름 한글로 변경
             let category = "";
             if (l.categoryName === "EXERCISE") {

@@ -2,21 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Tag } from "../../elements";
-import { getCookie } from "../../shared/Cookie";
 import left from "../../assets/images/icons/arrow/left.svg";
 import Right from "../../assets/images/icons/arrow/right.svg";
 import { history } from "../../redux/configureStore";
 
-const TOTAL_SLIDES = 1;
+const TOTAL_SLIDES = 4;
 
 const MainSlider = (props) => {
-  const is_login = getCookie("token") ? true : false;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFlowing, setIsFlowing] = useState(true);
   const slideRef = useRef(null);
 
-  const main_list = useSelector((state) => state.main);
-
+  const main_list = useSelector((state) => state.main.guestmain.slider);
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
       setCurrentSlide(0);
@@ -44,7 +41,7 @@ const MainSlider = (props) => {
         setCurrentSlide(currentSlide + 1);
       }, 5000);
     }
-    if (currentSlide === 3) {
+    if (currentSlide === 5) {
       setCurrentSlide(0);
     }
     return () => clearTimeout(intervalId);
@@ -81,67 +78,50 @@ const MainSlider = (props) => {
           onMouseUp={onDragEnd}
           onMouseLeave={onDragEnd}
         >
-          {is_login ? (
-            <>
-              {main_list.usermain.slider?.map((l, idx) => {
-                return (
-                  <Slide key={idx}>
-                    <SliderBox
-                      style={{
-                        backgroundImage: `url(${l.challengeImgUrl})`,
-                      }}
-                      onClick={() =>
-                        history.push(`/challenge/${l.challengeId}/intro`)
-                      }
-                    >
-                      <TagBox>
-                        <Tag bg="none" color="white">
-                          {l.tag}
-                        </Tag>
-                        <Tag bg="none" color="white">
-                          #{l.categoryName}
-                        </Tag>
-                      </TagBox>
-                      <TitleBox>
-                        <div>{l.challengeTitle}</div>
-                      </TitleBox>
-                      <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
-                    </SliderBox>
-                  </Slide>
-                );
-              })}
-            </>
-          ) : (
-            <>
-              {main_list.guestmain.slider?.map((l, idx) => {
-                return (
-                  <Slide key={idx}>
-                    <SliderBox
-                      style={{
-                        backgroundImage: `url(${l.challengeImgUrl})`,
-                      }}
-                      onClick={() =>
-                        history.push(`/challenge/${l.challengeId}/intro`)
-                      }
-                    >
-                      <TagBox>
-                        <Tag bg="none" color="white">
-                          {l.tag}
-                        </Tag>
-                        <Tag bg="none" color="white">
-                          #{l.categoryName}
-                        </Tag>
-                      </TagBox>
-                      <TitleBox>
-                        <div>{l.challengeTitle}</div>
-                      </TitleBox>
-                      <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
-                    </SliderBox>
-                  </Slide>
-                );
-              })}
-            </>
-          )}
+          {main_list?.map((l, idx) => {
+            if (l.categoryName.includes("advertisement")) {
+              return (
+                <Slide key={idx}>
+                  <SliderBox
+                    style={{
+                      backgroundImage: `url(${l.challengeImgUrl})`,
+                    }}
+                    onClick={() => {
+                      const link =
+                        "https://docs.google.com/forms/d/e/1FAIpQLSeH4gVIXJabcI4CPQ89dffbu2MfPT__nGQr_VL7sG-J2ALGTQ/viewform";
+                      window.open(link, "");
+                    }}
+                  ></SliderBox>
+                </Slide>
+              );
+            } else {
+              return (
+                <Slide key={idx}>
+                  <SliderBox
+                    style={{
+                      backgroundImage: `url(${l.challengeImgUrl})`,
+                    }}
+                    onClick={() =>
+                      history.push(`/challenge/${l.challengeId}/intro`)
+                    }
+                  >
+                    <TagBox>
+                      <Tag bg="none" color="white">
+                        {l.tag}
+                      </Tag>
+                      <Tag bg="none" color="white">
+                        #{l.categoryName}
+                      </Tag>
+                    </TagBox>
+                    <TitleBox>
+                      <div>{l.challengeTitle}</div>
+                    </TitleBox>
+                    <SubTitleBox>하루조각과 시작해요!</SubTitleBox>
+                  </SliderBox>
+                </Slide>
+              );
+            }
+          })}
         </SliderContainer>
         <PrevBtn onClick={prevSlide}>
           <img style={{ width: "50%" }} src={left} alt="" />

@@ -124,7 +124,6 @@ export const ChallengeCreateApis = {
 // 메인 화면
 export const MainApis = {
   guestMain: () => instance.get(`/api/guest/main`),
-  userMain: () => instance.get(`/api/member/main`),
   search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
   searchFilter: (categoryName, period, progress) =>
     instance.get(`/api/guest/search/${categoryName}/${period}/${progress}/1`),

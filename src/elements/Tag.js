@@ -41,7 +41,7 @@ const TagFrame = styled.div`
     font-size: 14px;
   }
   ${({ theme }) => theme.device.desktop} {
-    font-size: 14px;
+    font-size: 13px;
   }
   ${({ theme }) => theme.device.tablet} {
     font-size: 12px;
