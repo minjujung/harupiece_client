@@ -97,8 +97,12 @@ const ChallengeDetail = (props) => {
     match: { path, url, params },
   } = props;
 
+  const challengeMemberId = challenge.challengeMember.map(
+    (member) => member.memberId
+  );
+
   const openChat = () => {
-    if (!challenge.challengeMember.includes(user_info.memberId)) {
+    if (!challengeMemberId.includes(user_info.memberId)) {
       setTimeout(
         () =>
           window.alert("챌린지에 참여하는 사람만 채팅방 입장이 가능합니다!"),
@@ -133,7 +137,10 @@ const ChallengeDetail = (props) => {
                 <Title>{challenge.challengeTitle}</Title>
                 <TotalNum>
                   참여 {challenge.challengeMember.length}명 | 진행률{" "}
-                  {progressPercent * 100} %
+                  {progressPercent * 100 > 100
+                    ? "100"
+                    : `${progressPercent * 100}`}{" "}
+                  %
                 </TotalNum>
               </TitleContainer>
             </Banner>
