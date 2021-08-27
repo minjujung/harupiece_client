@@ -61,7 +61,18 @@ const guestLoadDB = () => {
           challengeTitle: "광고",
           tag: "광고",
         };
-        res.data.slider.push(adver, adver2);
+
+        const adver3 = {
+          categoryName: "advertisement2",
+          challengeEndDate: "2021-09-05T23:59:57",
+          challengeId: 998,
+          challengeImgUrl: "https://i.ibb.co/wSVFsrC/banner-07-min.png",
+          challengeMember: [],
+          challengeStartDate: "2021-08-30T00:00:00",
+          challengeTitle: "광고",
+          tag: "광고",
+        };
+        res.data.slider.push(adver, adver2, adver3);
         dispatch(guestLoad(res.data));
       })
       .catch((err) => {
