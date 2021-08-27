@@ -26,6 +26,7 @@ import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
+import Loader from "./Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
         </Helmet>
         <Container>
           <Header />
+          <Route exact path="/loader" component={Loader} />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/home" component={Main} />
           <Route exact path="/grade" component={GradePage} />
