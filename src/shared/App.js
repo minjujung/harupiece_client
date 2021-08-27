@@ -15,6 +15,7 @@ import Signup from "../pages/Signup";
 import Main from "../pages/Main";
 import Mypage from "../pages/Mypage";
 import SearchChallenge from "../pages/SearchChallenge";
+import GradePage from "../pages/GradePage";
 
 import { userCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -25,6 +26,7 @@ import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +45,7 @@ function App() {
         </Helmet>
         <Container>
           <Header />
+          <Route exact path="/grade" component={GradePage} />
           <Route exact path="/landing" component={LandingPage} />
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
