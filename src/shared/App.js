@@ -15,6 +15,7 @@ import Signup from "../pages/Signup";
 import Main from "../pages/Main";
 import Mypage from "../pages/Mypage";
 import SearchChallenge from "../pages/SearchChallenge";
+import GradePage from "../pages/GradePage";
 
 import { userCreators } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
@@ -25,7 +26,7 @@ import GlobalStyle from "./GlobalStyle";
 import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
-import GradePage from "../pages/GradePage";
+
 
 function App() {
   const dispatch = useDispatch();
