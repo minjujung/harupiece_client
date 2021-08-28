@@ -38,7 +38,6 @@ const Header = () => {
 
   // search state
   const [q, setQ] = useState("");
-  console.log(q);
 
   const onCheckEnter = (e) => {
     if (e.key === "Enter") {

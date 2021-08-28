@@ -22,6 +22,7 @@ const Chat = ({ id, setOpen }) => {
   // 소켓 통신 객체
   const sock = new SockJS("https://api.harupiece.com/chatting");
   const ws = Stomp.over(sock);
+  ws.debug = null;
 
   const token = getCookie("token");
 

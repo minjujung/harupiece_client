@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import _ from "lodash";
-
 import green from "../../assets/images/level/green.svg";
 import ChatInfinityScroll from "./ChatInfinityScroll";
 import { Image } from "../../elements";
@@ -19,19 +17,6 @@ const MessageList = ({ challengeId }) => {
   const [prevHeight, setPrevHeight] = useState(null);
   // 스크롤 대상(제일 마지막 메세지)
   const scrollTo = useRef();
-
-  // 스크롤 자동으로 맨마지막 채팅까지 내려가게 하기
-  // const scrollToBottom = () => {
-  //   if (window.innerWidth <= 200) {
-  //     return;
-  //   }
-  //   const { scrollHeight, clientHeight } = scrollTo?.current;
-  //   scrollTo.current.scrollTop = scrollHeight - clientHeight;
-  //   scrollTo.current?.scrollIntoView({ behavior: "smooth" });
-  // };
-  // useEffect(() => {
-
-  // }, []);
 
   useEffect(() => {
     if (prevHeight) {

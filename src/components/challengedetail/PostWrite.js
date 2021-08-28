@@ -150,24 +150,11 @@ const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
             onChange={writeText}
           />
         </InputContainer>
-        {/* <CreateBtn
-          onClick={createPost}
-          disabled={
-            !shotInput.current?.files[0] || shotText === "" ? true : false
-          }
-        >
-          인증 올리기
-        </CreateBtn> */}
         <BtnContainer>
           <PreviewBtn htmlFor="shot" again>
             인증샷 수정하기
           </PreviewBtn>
-          <Button
-            width="25.10vw"
-            padding="16px 0"
-            // margin="0 0 0 4.44vw"
-            _onClick={createPost}
-          >
+          <Button width="25.10vw" padding="16px 0" _onClick={createPost}>
             인증글 올리기
           </Button>
         </BtnContainer>
