@@ -36,12 +36,7 @@ const InfinityScroll = (props) => {
     return () => scrollTo.current?.removeEventListener("scroll", handleScroll);
   }, [is_next, loading, handleScroll, scrollTo]);
 
-  return (
-    <>
-      {/* {is_next && <Spinner />} */}
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 InfinityScroll.defaultProps = {
