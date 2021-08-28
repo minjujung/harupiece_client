@@ -32,6 +32,7 @@ const InfinityScroll = (props) => {
       scrollTo.current?.removeEventListener("scroll", handleScroll);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => scrollTo.current?.removeEventListener("scroll", handleScroll);
   }, [is_next, loading, handleScroll, scrollTo]);
 
