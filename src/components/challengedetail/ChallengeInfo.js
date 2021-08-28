@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { RadioButtonUnchecked, NotInterested, Link } from "@material-ui/icons";
 import { Image, Tag } from "../../elements/index";
 
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import Toast from "../../elements/Toast";
@@ -15,14 +16,22 @@ const ChallengeInfo = (props) => {
 
   const challengeId = props.match.params.id;
 
+  // challenge상세 내용 불러오기
+  useEffect(() => {
+    if (!challengeId) {
+      return;
+    }
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
+  }, [challengeId]);
+
   const [toastAlert, setToastAlert] = useState(false);
   const urlRef = useRef();
 
-  // useEffect(() => {
-  //   if (toastAlert) {
-  //     setTimeout(() => setToastAlert(false), 1000);
-  //   }
-  // }, [toastAlert]);
+  useEffect(() => {
+    if (toastAlert) {
+      setTimeout(() => setToastAlert(false), 1000);
+    }
+  }, [toastAlert]);
 
   //현재 페이지 url 복사
   const copy = (e) => {
@@ -33,14 +42,6 @@ const ChallengeInfo = (props) => {
     e.target.focus();
     setToastAlert(true);
   };
-
-  // challenge상세 내용 불러오기
-  useEffect(() => {
-    if (!challengeId) {
-      return;
-    }
-    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  }, []);
 
   //카테고리 이름 한글로 변경
   let category = "";
@@ -65,7 +66,7 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <Noti>매일 인증샷을 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
+        <Noti>인증샷을 하나도 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
         <Title>
           {toastAlert && <Toast msg="url 복사 완료!" />}
           <h3>기본정보</h3>
@@ -153,7 +154,7 @@ const ChallengeInfo = (props) => {
   );
 };
 
-export default ChallengeInfo;
+export default withRouter(ChallengeInfo);
 
 const ChallengeDesc = styled.section`
   width: 49.48vw;

@@ -29,7 +29,6 @@ const initialState = {
 
 const getMyInfoDB = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loading(true));
     MypageApis.getMyInfo()
       .then((res) => {
         consoleLogger("point history 요청 후 응답", res);
@@ -123,7 +122,7 @@ const editMyProfileDB = (content) => {
             profileImg: levelProfile.profileImage,
           };
           dispatch(userCreators.setUser(new_user_info));
-          dispatch(getMyInfoDB());
+          setTimeout(() => dispatch(getMyInfoDB()), 250);
         })
         .catch((error) => {
           if (error.response?.data?.message) {
@@ -163,7 +162,7 @@ const editMyProfileDB = (content) => {
             profileImg: new_post.profileImage,
           };
           dispatch(userCreators.setUser(new_user_info));
-          dispatch(getMyInfoDB());
+          setTimeout(() => dispatch(getMyInfoDB()), 250);
         })
         .catch((error) => {
           if (error.response?.data?.message) {
@@ -226,7 +225,7 @@ const editMyProfileDB = (content) => {
                 profileImg: newProFile.profileImage,
               };
               dispatch(userCreators.setUser(new_user_info));
-              dispatch(getMyInfoDB());
+              setTimeout(() => dispatch(getMyInfoDB()), 250);
             })
             .catch((error) => {
               if (error.response?.data?.message) {
@@ -335,6 +334,7 @@ const actionCreators = {
   changePasswordDB,
   setPreview,
   getPointDB,
+  loading,
 };
 
 export { actionCreators };

@@ -10,9 +10,9 @@ import { changeForm } from "./ChallengesInProgress";
 function UpcomingChallenge(props) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   const my_info = useSelector(
     (state) => state.mypage.myInfo.mypageProceedResponseDto

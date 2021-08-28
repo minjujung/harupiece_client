@@ -12,6 +12,7 @@ const Image = ({
   post,
   mobileMaxHeight,
   mypage,
+  no_cursor,
   onClick,
   maxHeight,
   src,
@@ -29,6 +30,7 @@ const Image = ({
     marbleBorder,
     post,
     mypage,
+    no_cursor,
   };
   return <ImageFrame {...styles} src={src} alt={alt} onClick={onClick} />;
 };
@@ -45,6 +47,7 @@ Image.defaultProps = {
   chatClose: false,
   post: false,
   mypage: false,
+  no_cursor: false,
   onClick: () => {},
   alt: "",
   src: "",
@@ -65,7 +68,7 @@ const ImageFrame = styled.img`
     props.chatClose ? `position:absolute; top: 1.3vh; right: 1.04vw;` : null};
   padding: 0;
   object-fit: fill;
-  cursor: pointer;
+  ${(props) => (props.no_cursor ? null : "cursor: pointer")};
   ${(props) => (props.post ? `object-fit: cover` : null)};
 
   ${(props) => (props.maxHeight ? `max-height: ${props.maxHeight}` : null)};

@@ -104,6 +104,7 @@ const Category = (props) => {
             onClick={ChangeTag}
             padding="10px"
             fontWeight="500"
+            pointer
           >
             #습관챌린지
           </Tag>
@@ -113,6 +114,7 @@ const Category = (props) => {
             bg={category === "nodrinknosmoke" ? "mainOrange" : "lightGray"}
             padding="10px"
             fontWeight="500"
+            pointer
           >
             #금연&금주
           </Tag>
@@ -122,6 +124,7 @@ const Category = (props) => {
             onClick={ChangeTag}
             padding="10px"
             fontWeight="500"
+            pointer
           >
             #운동
           </Tag>

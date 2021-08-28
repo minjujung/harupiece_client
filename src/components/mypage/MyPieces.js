@@ -11,9 +11,9 @@ function MyPieces(props) {
   const user_info = useSelector((state) => state.user.userInfo);
   const mypageInfo = useSelector((state) => state.mypage.myInfo);
 
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   const [show, setShow] = useState(false);
 

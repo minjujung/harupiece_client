@@ -12,9 +12,9 @@ import { actionCreators as myInfo } from "../../redux/modules/mypage";
 function MyPassword() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   return (
     <Container>

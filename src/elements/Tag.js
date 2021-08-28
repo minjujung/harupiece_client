@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const Tag = ({ children, bg, color, padding, onClick, border, fontWeight }) => {
-  const styles = { bg, color, padding, border, fontWeight };
+const Tag = ({
+  children,
+  bg,
+  color,
+  padding,
+  onClick,
+  border,
+  fontWeight,
+  pointer,
+}) => {
+  const styles = { bg, color, padding, border, fontWeight, pointer };
   return (
     <TagFrame onClick={onClick} {...styles}>
       {children}
@@ -15,6 +24,7 @@ Tag.defaultProps = {
   bg: false,
   color: false,
   padding: false,
+  pointer: false,
   onClick: () => {},
   border: "1px solid white",
   fontWeight: "",
@@ -23,7 +33,8 @@ Tag.defaultProps = {
 export default Tag;
 
 const TagFrame = styled.div`
-  /* cursor: pointer; */
+  ${(props) => (props.pointer ? "  cursor: pointer;" : null)}
+
   border: ${(props) => props.border};
   background-color: ${(props) =>
     props.bg ? props.theme.colors[props.bg] : props.theme.colors.lightGray};

@@ -7,7 +7,7 @@ import AWS from "aws-sdk";
 import { MainCreators } from "./main";
 import { userCreators } from "./user";
 
-const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
+const GET_CHALLENGE_DETAIL = "GET_CHALLNENGE_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
 const LOADING = "LOADING";
 
@@ -343,6 +343,7 @@ const actionCreator = {
   giveupChallengeDB,
   takeInPartChallengeDB,
   editChallengeDB,
+  loading,
 };
 
 export { actionCreator };

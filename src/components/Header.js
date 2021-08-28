@@ -262,6 +262,7 @@ const SDialogContent = styled.div`
 const LogoBox = styled.div`
   width: 10vw;
   margin-left: 9.7vw;
+  cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
     display: none;
   }
