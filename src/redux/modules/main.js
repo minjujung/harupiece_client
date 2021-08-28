@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { MainApis } from "../../shared/api";
+import { consoleLogger } from "../configureStore";
 
 // action
 const G_LOAD = "main/G_LOAD";
@@ -41,7 +42,7 @@ const guestLoadDB = () => {
     MainApis.guestMain()
       .then((res) => {
         const adver = {
-          categoryName: "advertisement",
+          categoryName: "advertisement1",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 999,
           challengeImgUrl: "https://i.ibb.co/XXJxC97/banner-gift-min.png",
@@ -54,7 +55,7 @@ const guestLoadDB = () => {
         };
 
         const adver2 = {
-          categoryName: "advertisement",
+          categoryName: "advertisement2",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 998,
           challengeImgUrl: "https://i.ibb.co/WGRCfTM/banner-survey-min.png",
@@ -81,7 +82,7 @@ const guestLoadDB = () => {
         dispatch(guestLoad(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };
@@ -89,14 +90,13 @@ const guestLoadDB = () => {
 // 키워드 검색
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
-    console.log(q);
     const encode = encodeURIComponent(q);
     MainApis.search(encode)
       .then((res) => {
         dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };
@@ -161,7 +161,7 @@ const searchFilterDB = (content) => {
         dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };

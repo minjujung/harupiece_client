@@ -33,12 +33,12 @@ const ChallengeMember = (props) => {
       <Section>
         <h1>참가자</h1>
         <MemberList>
-          {memberList.map((member) => {
+          {memberList.map((member, idx) => {
             if (member.profileImg) {
               return (
                 // 이미지 엑박 뜨는 경우 default 이미지 띄우도록 onError 함수 선언
                 <ProfileImg
-                  key={member.memberId}
+                  key={idx}
                   src={member.profileImg}
                   onError={(e) =>
                     e.target.setAttribute("src", `${levelData[9].imageUrl}`)
@@ -47,7 +47,7 @@ const ChallengeMember = (props) => {
                 />
               );
             } else {
-              return <Circle key={member.memberId}></Circle>;
+              return <Circle key={idx}></Circle>;
             }
           })}
           <p onClick={showMembers}>함께하는 친구들을 확인해 보아요😉 click!</p>

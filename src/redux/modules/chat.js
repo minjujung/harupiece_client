@@ -82,7 +82,7 @@ const getMessagesDB =
 
         dispatch(setChatInfo(res.data.chatMessages, new_paging));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => consoleLogger(error));
   };
 
 export default handleActions(

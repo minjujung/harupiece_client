@@ -143,7 +143,7 @@ function Mypage(props) {
                     margin="0 3.23vw 0 2.08vw"
                     _onClick={convertEditMode}
                   >
-                    프로필 수정하기
+                    내정보 수정하기
                   </Button>
                 </MediaBtn>
               </>

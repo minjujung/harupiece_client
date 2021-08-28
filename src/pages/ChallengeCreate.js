@@ -219,11 +219,12 @@ function ChallengeCreate(props) {
         <Guid>
           <Image
             width="32.81vw"
-            height="65vh"
+            height="30.26vw"
             margin="0  2.92vh 0 0 "
             borderRadius="16px"
             src={guideline}
             alt="guideline"
+            no_cursor
           />
         </Guid>
       </LeftContainer>
@@ -379,6 +380,7 @@ const Guid = styled.div`
 const Title = styled.div`
   width: 100%;
   height: 4.81vh;
+  margin-bottom: 30px;
   & > h2 {
     font-size: 36px;
     font-weight: 700;

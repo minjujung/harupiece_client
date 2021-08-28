@@ -7,6 +7,7 @@ const Loader = (props) => {
   return (
     <Container>
       <Loading src={levelData[9].imageUrl} alt="loaderMarble" />
+      <Ment>로딩중...</Ment>
     </Container>
   );
 };
@@ -15,8 +16,9 @@ export default Loader;
 
 const Container = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 70vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -35,4 +37,11 @@ const Loading = styled.img`
   height: 200px;
   animation: ${rotate_image} 2s linear infinite;
   transform-origin: 50% 50%;
+`;
+
+const Ment = styled.p`
+  font-size: 32px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.gray};
+  margin-top: 20px;
 `;

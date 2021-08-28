@@ -6,7 +6,6 @@ import { history } from "../redux/configureStore";
 import { MainCreators as searchAll } from "../redux/modules/main";
 
 function SearchChallenge(props) {
-  console.log(props.match.params.searchWords);
   const keyWord = props.match.params.searchWords;
   const dispatch = useDispatch();
   // 검색 키워드
@@ -33,10 +32,10 @@ function SearchChallenge(props) {
   });
 
   useEffect(() => {
-    if (keyWord) {
-      dispatch(searchAll.searchDB(keyWord));
-    } else {
+    if (keyWord === "all") {
       dispatch(searchAll.searchFilterDB(searchState));
+    } else {
+      dispatch(searchAll.searchDB(keyWord));
     }
   }, [dispatch, keyWord, searchState]);
 

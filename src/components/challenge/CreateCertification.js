@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../../redux/modules/challengeCreate";
 import { Image } from "../../elements/";
 import imageCompression from "browser-image-compression";
+import { consoleLogger } from "../../redux/configureStore";
 
 function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
         });
       };
     } catch (error) {
-      console.log(error);
+      consoleLogger("좋은 인증샷 에러", error);
     }
   };
 
@@ -63,7 +64,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
         });
       };
     } catch (error) {
-      console.log(error);
+      consoleLogger(error);
     }
   };
 

@@ -18,19 +18,6 @@ const MessageList = ({ challengeId }) => {
   // 스크롤 대상(제일 마지막 메세지)
   const scrollTo = useRef();
 
-  // 스크롤 자동으로 맨마지막 채팅까지 내려가게 하기
-  // const scrollToBottom = () => {
-  //   if (window.innerWidth <= 200) {
-  //     return;
-  //   }
-  //   const { scrollHeight, clientHeight } = scrollTo?.current;
-  //   scrollTo.current.scrollTop = scrollHeight - clientHeight;
-  //   scrollTo.current?.scrollIntoView({ behavior: "smooth" });
-  // };
-  // useEffect(() => {
-
-  // }, []);
-
   useEffect(() => {
     if (prevHeight) {
       scrollTo.current.scrollTop = scrollTo.current.scrollHeight - prevHeight;

@@ -79,7 +79,24 @@ const MainSlider = (props) => {
           onMouseLeave={onDragEnd}
         >
           {main_list?.map((l, idx) => {
-            if (l.categoryName.includes("advertisement")) {
+            if (l.categoryName === "advertisement1") {
+              return (
+                <Slide key={idx}>
+                  <SliderBox
+                    bg={
+                      intViewportWidth > 720
+                        ? `${l.challengeImgUrl}`
+                        : `${l.challengeMobileImgUrl}`
+                    }
+                    onClick={() => {
+                      const link =
+                        "https://little-viper-dae.notion.site/668eb2f485b3433a86ead0247b56d37d";
+                      window.open(link, "");
+                    }}
+                  ></SliderBox>
+                </Slide>
+              );
+            } else if (l.categoryName === "advertisement2") {
               return (
                 <Slide key={idx}>
                   <SliderBox
