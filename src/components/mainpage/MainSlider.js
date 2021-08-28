@@ -34,13 +34,11 @@ const MainSlider = (props) => {
     slideRef.current.style.transition = "all .5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
     let intervalId;
-    let intViewportWidth = window.innerWidth;
-    if (isFlowing && intViewportWidth > 720) {
-      //모바일에선 자동넘김 x
-      intervalId = setInterval(() => {
-        setCurrentSlide(currentSlide + 1);
-      }, 5000);
-    }
+
+    intervalId = setInterval(() => {
+      setCurrentSlide(currentSlide + 1);
+    }, 3000);
+
     if (currentSlide === 6) {
       setCurrentSlide(0);
     }
@@ -66,6 +64,8 @@ const MainSlider = (props) => {
     }
   };
 
+  let intViewportWidth = window.innerWidth;
+
   return (
     <>
       <Container>
@@ -83,9 +83,11 @@ const MainSlider = (props) => {
               return (
                 <Slide key={idx}>
                   <SliderBox
-                    style={{
-                      backgroundImage: `url(${l.challengeImgUrl})`,
-                    }}
+                    bg={
+                      intViewportWidth > 720
+                        ? `${l.challengeImgUrl}`
+                        : `${l.challengeMobileImgUrl}`
+                    }
                     onClick={() => {
                       const link =
                         "https://docs.google.com/forms/d/e/1FAIpQLSeH4gVIXJabcI4CPQ89dffbu2MfPT__nGQr_VL7sG-J2ALGTQ/viewform";
@@ -98,9 +100,11 @@ const MainSlider = (props) => {
               return (
                 <Slide key={idx}>
                   <SliderBox
-                    style={{
-                      backgroundImage: `url(${l.challengeImgUrl})`,
-                    }}
+                    bg={
+                      intViewportWidth > 720
+                        ? `${l.challengeImgUrl}`
+                        : `${l.challengeMobileImgUrl}`
+                    }
                     onClick={() => history.push("/grade")}
                   ></SliderBox>
                 </Slide>
@@ -153,7 +157,7 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    width: 90%;
     overflow-x: scroll;
     ::-webkit-scrollbar {
       display: none;
@@ -222,9 +226,9 @@ const Slide = styled.div`
   padding-right: 10px;
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
+    width: 100vw;
     border-radius: 10px;
-    margin-left: 10px;
+    padding: 0px;
     cursor: pointer;
   }
 `;
@@ -238,11 +242,12 @@ const SliderBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding-left: 100px;
+  background-image: url(${(props) => (props.bg ? props.bg : null)});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   ${({ theme }) => theme.device.mobileLg} {
-    width: 94vw;
+    width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
