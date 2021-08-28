@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Card, Image, Tag, TagContainer } from "../../elements";
 import { history } from "../../redux/configureStore";
-import { actionCreators as myInfo } from "../../redux/modules/mypage";
-import Loader from "../../shared/Loader";
 
 // 2021-08-07T23:59:59 형태를 2021, 8, 7의 형태로 바꿔주는 함수
 const changeForm = (dates) => {
@@ -28,14 +26,12 @@ function ChallengesInProgress(props) {
   //   dispatch(myInfo.getMyInfoDB());
   // }, []);
 
-  const dispatch = useDispatch();
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.myPageScheduledResponseDto?.challengeList
   );
   const my_info = useSelector(
     (state) => state.mypage.myInfo.myPageScheduledResponseDto
   );
-  const loading = useSelector((state) => state.mypage.is_loading);
 
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]

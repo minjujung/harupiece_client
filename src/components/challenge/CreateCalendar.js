@@ -97,7 +97,7 @@ function CreateCalendar({ challengeInfo, setChallengeInfo, id, oldDate }) {
             id="checkweek"
             type="checkbox"
             placeholder="주말 제외"
-            color="error"
+            color="default"
             onClick={checkedWeek}
             onChange={findCheck}
           />
@@ -150,7 +150,7 @@ const SubT = styled.p`
 const Holiday = styled.div`
   width: 15vw;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.lightGray};
   height: 40px;
   margin-bottom: 2.96vh;

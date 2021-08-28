@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Card, Image, Tag, TagContainer } from "../../elements";
 import { history } from "../../redux/configureStore";
-import { actionCreators as myInfo } from "../../redux/modules/mypage";
 import { changeForm } from "./ChallengesInProgress";
 
 function CompletedChallenge() {
-  const dispatch = useDispatch();
-
   // useEffect(() => {
   //   dispatch(myInfo.getMyInfoDB());
   // }, []);

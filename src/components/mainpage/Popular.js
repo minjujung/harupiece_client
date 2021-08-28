@@ -3,15 +3,12 @@ import styled from "styled-components";
 
 import { history } from "../../redux/configureStore";
 import { useSelector } from "react-redux";
-import { getCookie } from "../../shared/Cookie";
 
 const Popular = (props) => {
   const hot_list = useSelector((state) => state.main.guestmain);
 
-  const is_login = getCookie("token") ? true : false;
-
   // slider
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide] = useState(0);
   const slideRef = useRef(null);
 
   useEffect(() => {

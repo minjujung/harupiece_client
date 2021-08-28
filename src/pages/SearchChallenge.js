@@ -12,14 +12,6 @@ function SearchChallenge(props) {
   // 검색 키워드
   const searchList = useSelector((state) => state.main.search);
 
-  useEffect(() => {
-    if (keyWord === "ALL") {
-      dispatch(searchAll.searchFilterDB(searchState));
-    } else {
-      dispatch(searchAll.searchDB(keyWord));
-    }
-  }, []);
-
   const [searchState, setSearchState] = useState({
     passingTags: {
       categoryName: {
@@ -39,6 +31,14 @@ function SearchChallenge(props) {
       },
     },
   });
+
+  useEffect(() => {
+    if (keyWord === "ALL") {
+      dispatch(searchAll.searchFilterDB(searchState));
+    } else {
+      dispatch(searchAll.searchDB(keyWord));
+    }
+  }, [dispatch, keyWord, searchState]);
 
   const allFilterClickListener = (e, filterProp) => {
     let name = e.target.textContent;

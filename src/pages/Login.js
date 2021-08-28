@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -9,8 +9,6 @@ import { userCreators } from "../redux/modules/user";
 import Green from "../assets/images/level/green.svg";
 
 import { Button, Image } from "../elements";
-import { history } from "../redux/configureStore";
-import { getCookie } from "../shared/Cookie";
 
 const Login = (props) => {
   const dispatch = useDispatch();

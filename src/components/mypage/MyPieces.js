@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import levelData from "../../shared/level";
 
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as myInfo } from "../../redux/modules/mypage";
+import { useSelector } from "react-redux";
 import { Image } from "../../elements";
 
 function MyPieces(props) {
-  const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.userInfo);
   const mypageInfo = useSelector((state) => state.mypage.myInfo);
 

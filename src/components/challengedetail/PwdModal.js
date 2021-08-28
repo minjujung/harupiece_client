@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -9,12 +9,6 @@ import close from "../../assets/images/icons/close.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configureStore";
 import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
-import { actionCreator as chatActions } from "../../redux/modules/chat";
-
-// 소켓 통신
-import Stomp from "stompjs";
-import SockJS from "sockjs-client";
-import { getCookie } from "../../shared/Cookie";
 
 const PwdModal = (props) => {
   const { challengePassword, challengeId, challengeMemberId } = props;

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { Button, Image } from "../../elements";
+import { Image } from "../../elements";
 import close from "../../assets/images/icons/whiteClose.svg";
 import MessageWrite from "./MessageWrite";
 import MessageList from "./MessageList";
@@ -75,7 +75,7 @@ const Chat = ({ id, setOpen }) => {
     return () => {
       wsDisConnectUnsubscribe();
     };
-  }, []);
+  }, [dispatch, id]);
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
   const waitForConnection = (ws, callback) => {

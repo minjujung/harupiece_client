@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import _ from "lodash";
-
 import green from "../../assets/images/level/green.svg";
 import ChatInfinityScroll from "./ChatInfinityScroll";
 import { Image } from "../../elements";
@@ -40,7 +38,7 @@ const MessageList = ({ challengeId }) => {
     }
     scrollTo.current.scrollTop =
       scrollTo.current.scrollHeight - scrollTo.current.clientHeight;
-  }, [chatInfo.messages]);
+  }, [prevHeight, chatInfo.messages]);
 
   const callNext = () => {
     if (paging.next === false) {

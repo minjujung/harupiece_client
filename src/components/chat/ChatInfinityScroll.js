@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import _ from "lodash";
-import Spinner from "../Spinner";
 
 const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading, scrollTo, setPrevHeight } =
@@ -18,7 +17,7 @@ const InfinityScroll = (props) => {
     }
   }, 500);
 
-  const handleScroll = useCallback(_handleScroll, [loading]);
+  const handleScroll = useCallback(_handleScroll, [loading, _handleScroll]);
 
   useEffect(() => {
     //자료를 받아오는 loading 중에는 이벤트 발생하지 않도록
@@ -34,7 +33,7 @@ const InfinityScroll = (props) => {
     }
 
     return () => scrollTo.current?.removeEventListener("scroll", handleScroll);
-  }, [is_next, loading]);
+  }, [is_next, loading, handleScroll, scrollTo]);
 
   return (
     <>

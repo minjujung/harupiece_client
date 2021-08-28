@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import profileGreen from "../assets/images/icons/profileGreen.svg";
 import whiteClose from "../assets/images/icons/whiteClose.svg";
 import right from "../assets/images/icons/arrow/right.svg";
 import Image from "../elements/Image";

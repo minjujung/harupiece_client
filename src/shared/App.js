@@ -34,7 +34,7 @@ function App() {
     if (getCookie("token")) {
       dispatch(userCreators.loginCheckDB());
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
