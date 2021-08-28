@@ -42,8 +42,9 @@ const guestLoadDB = () => {
           categoryName: "advertisement",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 999,
-          challengeImgUrl:
-            "https://i.ibb.co/hCS9yRJ/Kakao-Talk-20210826-205854032-min.png",
+          challengeImgUrl: "https://i.ibb.co/XXJxC97/banner-gift-min.png",
+          challengeMobileImgUrl:
+            "https://i.ibb.co/T0hfYBS/banner-gift-m-min.png",
           challengeMember: [],
           challengeStartDate: "2021-08-30T00:00:00",
           challengeTitle: "광고",
@@ -54,25 +55,27 @@ const guestLoadDB = () => {
           categoryName: "advertisement",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 998,
-          challengeImgUrl:
-            "https://i.ibb.co/TrP1vNY/Kakao-Talk-20210826-205854163-min.png",
+          challengeImgUrl: "https://i.ibb.co/WGRCfTM/banner-survey-min.png",
+          challengeMobileImgUrl:
+            "https://i.ibb.co/Wz0gP2F/banner-survey-m-min.png",
           challengeMember: [],
           challengeStartDate: "2021-08-30T00:00:00",
           challengeTitle: "광고",
           tag: "광고",
         };
 
-        const adver3 = {
+        const grade = {
           categoryName: "information",
           challengeEndDate: "2021-09-05T23:59:57",
-          challengeId: 998,
-          challengeImgUrl: "https://i.ibb.co/wSVFsrC/banner-07-min.png",
+          challengeId: 997,
+          challengeImgUrl: "https://i.ibb.co/m4cggTk/banner-07-1-min.png",
+          challengeMobileImgUrl: "https://i.ibb.co/zHJfRpK/7-1-min.png",
           challengeMember: [],
           challengeStartDate: "2021-08-30T00:00:00",
           challengeTitle: "광고",
           tag: "광고",
         };
-        res.data.slider.push(adver, adver2, adver3);
+        res.data.slider.unshift(adver, adver2, grade);
         dispatch(guestLoad(res.data));
       })
       .catch((err) => {
