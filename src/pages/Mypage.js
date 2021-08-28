@@ -124,6 +124,7 @@ function Mypage(props) {
                       ? myInfoList.memberHistoryResponseDto.profileImage
                       : levelData[9].img
                   }
+                  no_cursor
                   alt="defaultProfile"
                 />
                 <UserInfo>

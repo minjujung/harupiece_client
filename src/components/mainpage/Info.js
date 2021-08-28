@@ -19,6 +19,10 @@ function Info() {
     history.push("/grade");
   };
 
+  const goToPiece = () => {
+    history.push("/mypage/pieces");
+  };
+
   return (
     <>
       <InfoContainer>
@@ -43,7 +47,7 @@ function Info() {
                   등급: {levelData[levelState] && levelData[levelState].level}
                 </p>
               </LeftBox>
-              <RightBox>
+              <RightBox onClick={goToPiece}>
                 <p>
                   <Image
                     width="1.5em"
@@ -144,6 +148,7 @@ const RightBox = styled.div`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.gray};
+  cursor: pointer;
   p {
     width: 100%;
     height: 100%;

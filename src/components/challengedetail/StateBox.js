@@ -17,6 +17,10 @@ const StateBox = (props) => {
     history.push("/grade");
   };
 
+  const goToPiece = () => {
+    history.push("/mypage/pieces");
+  };
+
   if (user_info?.memberId === null) {
     return (
       <StateContainer>
@@ -71,7 +75,7 @@ const StateBox = (props) => {
             />
           </LevelInfo>
 
-          <Completed>
+          <Completed onClick={goToPiece}>
             <p>
               <Image
                 width="1.25vw"
@@ -198,7 +202,7 @@ const Completed = styled.section`
   justify-content: center;
   align-items: center;
   flex: 1;
-
+  cursor: pointer;
   color: 2px solid ${({ theme }) => theme.colors.darkGray};
   p {
     display: flex;
