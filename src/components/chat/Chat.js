@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
 
 import { Image } from "../../elements";
@@ -27,7 +27,7 @@ const Chat = ({ id, setOpen }) => {
   const token = getCookie("token");
 
   //웹소켓 연결, 구독
-  const wsConnectSubscribe = () => {
+  const wsConnectSubscribe = useCallback(() => {
     const data = {
       type: "ENTER",
       roomId: id,
@@ -52,10 +52,10 @@ const Chat = ({ id, setOpen }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [dispatch, id, token, userInfo.nickname, userInfo.profileImg, ws]);
 
   // 연결해제, 구독해제;
-  const wsDisConnectUnsubscribe = () => {
+  const wsDisConnectUnsubscribe = useCallback(() => {
     try {
       ws.send("/pub/quit", { token }, {});
       ws.disconnect(
@@ -67,7 +67,7 @@ const Chat = ({ id, setOpen }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [token, ws]);
 
   //  렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
@@ -76,7 +76,7 @@ const Chat = ({ id, setOpen }) => {
     return () => {
       wsDisConnectUnsubscribe();
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, wsConnectSubscribe, wsDisConnectUnsubscribe]);
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
   const waitForConnection = (ws, callback) => {
