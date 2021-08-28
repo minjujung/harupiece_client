@@ -7,7 +7,6 @@ import { consoleLogger } from "../configureStore";
 const G_LOAD = "main/G_LOAD";
 const M_LOAD = "main/M_LOAD";
 const SEARCH = "SEARCH";
-// const SEARCHALL = "SEARCHALL";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 const LOADING = "LOADING";
@@ -102,7 +101,20 @@ const searchDB = (q) => {
   };
 };
 
-// 모든 검색 결과
+//전체 데이터 불러오기
+const allCategoryDB = (page) => {
+  return function (dispatch, getState, { history }) {
+    MainApis.allChallenge(page)
+      .then((res) => {
+        dispatch(search(res.data.challengeList));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 필터링
 const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
     let categoryName = "ALL";
@@ -201,6 +213,7 @@ const MainCreators = {
   deleteUserLoad,
   searchFilterDB,
   loading,
+  allCategoryDB,
 };
 
 export { MainCreators };
