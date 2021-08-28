@@ -212,6 +212,7 @@ const Header = () => {
                 width="50px"
                 height="50px"
                 borderRadius="0"
+                onClick={goToGrade}
               />
             </>
           )}
