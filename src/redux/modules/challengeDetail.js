@@ -50,6 +50,8 @@ const initialState = {
 const getChallengeDetailDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
+    // dispatch(loading(true));
+    console.log("챌린지 디테일");
     //챌린지 상세페이지에서 상세내용 불러오기
     ChallengeDetailApis.getDetail(challenge_id)
       .then((res) => {
@@ -154,25 +156,6 @@ const editChallengeDB =
           consoleLogger("좋은 예시 이미지 에러", error);
         });
     });
-  };
-
-// 관리자 권한으로 DB에 있는 어떤 챌린지든 제약 없이 삭제 하는 함수
-const adminChallengeDeleteDB =
-  (challenge_id) =>
-  (dispatch, getState, { history }) => {
-    ChallengeDetailApis.adminDeleteDetail(challenge_id)
-      .then((res) => {
-        consoleLogger("관리자권한 강제 삭제 요청 후 응답: ", res);
-        const challengeInfo = getState().challengeDetail.detail;
-        //메인화면에서 불러오는 challenge_list 삭제하는 action 다른 모듈에서 가져오기 => 일단은 이 모듈에서 구현
-        dispatch(
-          MainCreators.deleteUserLoad(challengeInfo.categoryName, challenge_id)
-        );
-
-        setTimeout(() => window.alert("관리자 권한 챌린지 삭제 완료!"), 300);
-        history.replace("/home");
-      })
-      .catch((error) => consoleLogger("관리자 권한 삭제 중 오류: " + error));
   };
 
 const challengeDeleteDB =
@@ -339,6 +322,7 @@ export default handleActions(
     [GET_CHALLENGE_DETAIL]: (state, action) =>
       produce(state, (draft) => {
         draft.detail = action.payload.challenge;
+        draft.is_loading = false;
       }),
 
     [EDIT_CHALLENGE]: (state, action) =>
@@ -357,7 +341,6 @@ export default handleActions(
 
 const actionCreator = {
   getChallengeDetailDB,
-  adminChallengeDeleteDB,
   challengeDeleteDB,
   giveupChallengeDB,
   takeInPartChallengeDB,

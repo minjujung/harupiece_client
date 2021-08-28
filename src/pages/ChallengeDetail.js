@@ -16,10 +16,12 @@ import { actionCreator as challengeDetailActions } from "../redux/modules/challe
 import { actionCreator as chatActions } from "../redux/modules/chat";
 import { Link, Route, Switch } from "react-router-dom";
 import Toast from "../elements/Toast";
+import Loader from "../shared/Loader";
 
 const ChallengeDetail = (props) => {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challengeDetail.detail);
+  const loading = useSelector((state) => state.challengeDetail.is_loading);
   const user_info = useSelector((state) => state.user.userInfo);
   const pathname = useSelector((state) => state.router.location.pathname);
 
@@ -115,113 +117,119 @@ const ChallengeDetail = (props) => {
   };
 
   return (
-    <DetailContainer>
-      {" "}
-      <Button
-        chat
-        width="80px"
-        height="80px"
-        bg="mainGreen"
-        borderRadius="50%"
-        _onClick={openChat}
-      >
-        <Image width="40px" height="32.76px" src={chat} alt="chatBtn" />
-      </Button>
-      {open ? <Chat id={challengeId} setOpen={setOpen} /> : null}
-      <Area>
-        <StateContainer>
-          {/* banner 랑 navbar */}
-          <ChallengeHeader>
-            <Banner bgImg={challenge.challengeImgUrl}>
-              <TitleContainer>
-                <Title>{challenge.challengeTitle}</Title>
-                <TotalNum>
-                  참여 {challenge.challengeMember.length}명 | 진행률{" "}
-                  {progressPercent * 100 > 100
-                    ? "100"
-                    : `${progressPercent * 100}`}{" "}
-                  %
-                </TotalNum>
-              </TitleContainer>
-            </Banner>
-            <NavBar>
-              {toastAlert && <Toast msg="url 복사 완료!" />}
-              <ul>
-                <Item selected={pathname.includes("/intro")}>
-                  <Link to={`${url}/intro`}>챌린지 소개</Link>
-                </Item>
-                <Item selected={pathname.includes("/post")}>
-                  <Link to={`${url}/post`}>인증목록</Link>
-                </Item>
-              </ul>
-              <ShareBtn onClick={copy}>
-                <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
-                공유하기
-                <textarea
-                  style={{
-                    position: "absolute",
-                    width: "0px",
-                    height: "0px",
-                    top: "0",
-                    left: "0",
-                    opacity: "0",
-                  }}
-                  ref={urlRef}
-                  value={window.location.href}
-                  readOnly
-                />
-              </ShareBtn>
-            </NavBar>
-          </ChallengeHeader>
-          <Switch>
-            <Route exact path={`${path}/intro`} component={ChallengeInfo} />
-            <Route exact path={`${path}/post`} component={ShotList} />
-          </Switch>
-        </StateContainer>
-        {/* 오른쪽 사용자 상태박스 & 버튼 */}
-        <RightNav>
-          <StateBox />
-          <Btns>
-            {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
-            {user_info?.memberId === challenge.memberId &&
-            today < challenge.challengeStartDate.split("T")[0] ? (
-              <MobilBtns half>
-                <Button
-                  width="100%"
-                  height="5.93vh"
-                  bg="white"
-                  color="mainGreen"
-                  border="lightGray"
-                  margin="0 0 1.48vh 0"
-                  _onClick={editChallenge}
-                >
-                  챌린지 수정하기
-                </Button>
-                <Button
-                  width="100%"
-                  height="5.93vh"
-                  margin="0 0 1.48vh 0"
-                  _onClick={deleteChallenge}
-                >
-                  {/* (챌린지 개설한 사용자) */}
-                  챌린지 없애기
-                </Button>
-              </MobilBtns>
-            ) : (
-              <MobilBtns>
-                <ConditionBtn
-                  {...challenge}
-                  today={today}
-                  challengeStartDate={
-                    challenge.challengeStartDate.split("T")[0]
-                  }
-                />
-              </MobilBtns>
-            )}
-          </Btns>
-        </RightNav>
-      </Area>
-    </DetailContainer>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <DetailContainer>
+          {" "}
+          <Button
+            chat
+            width="80px"
+            height="80px"
+            bg="mainGreen"
+            borderRadius="50%"
+            _onClick={openChat}
+          >
+            <Image width="40px" height="32.76px" src={chat} alt="chatBtn" />
+          </Button>
+          {open ? <Chat id={challengeId} setOpen={setOpen} /> : null}
+          <Area>
+            <StateContainer>
+              {/* banner 랑 navbar */}
+              <ChallengeHeader>
+                <Banner bgImg={challenge.challengeImgUrl}>
+                  <TitleContainer>
+                    <Title>{challenge.challengeTitle}</Title>
+                    <TotalNum>
+                      참여 {challenge.challengeMember.length}명 | 진행률{" "}
+                      {progressPercent * 100 > 100
+                        ? "100"
+                        : `${progressPercent * 100}`}{" "}
+                      %
+                    </TotalNum>
+                  </TitleContainer>
+                </Banner>
+                <NavBar>
+                  {toastAlert && <Toast msg="url 복사 완료!" />}
+                  <ul>
+                    <Item selected={pathname.includes("/intro")}>
+                      <Link to={`${url}/intro`}>챌린지 소개</Link>
+                    </Item>
+                    <Item selected={pathname.includes("/post")}>
+                      <Link to={`${url}/post`}>인증목록</Link>
+                    </Item>
+                  </ul>
+                  <ShareBtn onClick={copy}>
+                    <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
+                    공유하기
+                    <textarea
+                      style={{
+                        position: "absolute",
+                        width: "0px",
+                        height: "0px",
+                        top: "0",
+                        left: "0",
+                        opacity: "0",
+                      }}
+                      ref={urlRef}
+                      value={window.location.href}
+                      readOnly
+                    />
+                  </ShareBtn>
+                </NavBar>
+              </ChallengeHeader>
+              <Switch>
+                <Route exact path={`${path}/intro`} component={ChallengeInfo} />
+                <Route exact path={`${path}/post`} component={ShotList} />
+              </Switch>
+            </StateContainer>
+            {/* 오른쪽 사용자 상태박스 & 버튼 */}
+            <RightNav>
+              <StateBox />
+              <Btns>
+                {/* 챌린지 개설한 사용자의 memberId와 로그인한 유저의 memberId가 일치할 때 && 챌린지가 시작 전일 때 이 버튼 띄우기 */}
+                {user_info?.memberId === challenge.memberId &&
+                today < challenge.challengeStartDate.split("T")[0] ? (
+                  <MobilBtns half>
+                    <Button
+                      width="100%"
+                      height="5.93vh"
+                      bg="white"
+                      color="mainGreen"
+                      border="lightGray"
+                      margin="0 0 1.48vh 0"
+                      _onClick={editChallenge}
+                    >
+                      챌린지 수정하기
+                    </Button>
+                    <Button
+                      width="100%"
+                      height="5.93vh"
+                      margin="0 0 1.48vh 0"
+                      _onClick={deleteChallenge}
+                    >
+                      {/* (챌린지 개설한 사용자) */}
+                      챌린지 없애기
+                    </Button>
+                  </MobilBtns>
+                ) : (
+                  <MobilBtns>
+                    <ConditionBtn
+                      {...challenge}
+                      today={today}
+                      challengeStartDate={
+                        challenge.challengeStartDate.split("T")[0]
+                      }
+                    />
+                  </MobilBtns>
+                )}
+              </Btns>
+            </RightNav>
+          </Area>
+        </DetailContainer>
+      )}
+    </>
   );
 };
 

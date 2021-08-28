@@ -20,6 +20,7 @@ const ShotList = (props) => {
     if (!challengeId) {
       return;
     }
+    console.log("챌린지 인증샷");
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
     dispatch(postActions.getPostDB(challengeId));
