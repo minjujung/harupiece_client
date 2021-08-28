@@ -18,11 +18,11 @@ const ChallengeInfo = (props) => {
   const [toastAlert, setToastAlert] = useState(false);
   const urlRef = useRef();
 
-  useEffect(() => {
-    if (toastAlert) {
-      setTimeout(() => setToastAlert(false), 1000);
-    }
-  }, [toastAlert]);
+  // useEffect(() => {
+  //   if (toastAlert) {
+  //     setTimeout(() => setToastAlert(false), 1000);
+  //   }
+  // }, [toastAlert]);
 
   //현재 페이지 url 복사
   const copy = (e) => {
@@ -39,8 +39,9 @@ const ChallengeInfo = (props) => {
     if (!challengeId) {
       return;
     }
+    console.log("챌린지 소개");
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  }, [challengeId]);
+  }, []);
 
   //카테고리 이름 한글로 변경
   let category = "";

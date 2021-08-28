@@ -51,7 +51,7 @@ const guestLoadDB = () => {
         };
 
         const adver2 = {
-          categoryName: "advertisement2",
+          categoryName: "advertisement",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 998,
           challengeImgUrl:

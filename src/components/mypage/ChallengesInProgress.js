@@ -31,7 +31,9 @@ function ChallengesInProgress(props) {
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.myPageScheduledResponseDto?.challengeList
   );
-  const my_info = useSelector((state) => state.mypage.myInfo);
+  const my_info = useSelector(
+    (state) => state.mypage.myInfo.myPageScheduledResponseDto
+  );
 
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]

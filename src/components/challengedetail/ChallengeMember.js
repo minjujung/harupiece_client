@@ -47,7 +47,7 @@ const ChallengeMember = (props) => {
                 />
               );
             } else {
-              return <Circle></Circle>;
+              return <Circle key={member.memberId}></Circle>;
             }
           })}
           <p onClick={showMembers}>함께하는 친구들을 확인해 보아요😉 click!</p>

@@ -94,6 +94,17 @@ const MainSlider = (props) => {
                   ></SliderBox>
                 </Slide>
               );
+            } else if (l.categoryName === "information") {
+              return (
+                <Slide key={idx}>
+                  <SliderBox
+                    style={{
+                      backgroundImage: `url(${l.challengeImgUrl})`,
+                    }}
+                    onClick={() => history.push("/grade")}
+                  ></SliderBox>
+                </Slide>
+              );
             } else {
               return (
                 <Slide key={idx}>

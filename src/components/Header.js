@@ -50,6 +50,10 @@ const Header = () => {
     handleClose();
   };
 
+  const goToGrade = () => {
+    history.push("/grade");
+  };
+
   const search = () => {
     if (q === "") {
       alert("검색어를 입력해주세요");
@@ -189,6 +193,7 @@ const Header = () => {
                 height="50px"
                 borderRadius="50%"
                 post
+                onClick={goToGrade}
               />
             </>
           ) : (
@@ -207,6 +212,7 @@ const Header = () => {
                 width="50px"
                 height="50px"
                 borderRadius="0"
+                onClick={goToGrade}
               />
             </>
           )}
