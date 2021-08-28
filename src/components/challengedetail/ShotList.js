@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import InfinityScroll from "../../shared/InfinityScroll";
 import PostList from "./PostList";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator as challengeDetailActions } from "../../redux/modules/challengeDetail";
 import { actionCreator as postActions } from "../../redux/modules/post";
 
 const ShotList = (props) => {

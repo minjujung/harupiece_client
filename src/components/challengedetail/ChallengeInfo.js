@@ -22,7 +22,7 @@ const ChallengeInfo = (props) => {
       return;
     }
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
-  }, [challengeId]);
+  }, [dispatch, challengeId]);
 
   const [toastAlert, setToastAlert] = useState(false);
   const urlRef = useRef();

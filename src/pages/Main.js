@@ -20,7 +20,7 @@ const Main = (props) => {
   useEffect(() => {
     dispatch(MainCreators.loading(true));
     dispatch(MainCreators.guestLoadDB());
-  }, []);
+  }, [dispatch]);
 
   const is_login = getCookie("token") ? true : false;
 

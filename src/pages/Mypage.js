@@ -28,7 +28,7 @@ function Mypage(props) {
   useEffect(() => {
     dispatch(myInfo.loading(true));
     dispatch(myInfo.getMyInfoDB());
-  }, []);
+  }, [dispatch]);
 
   const levelState = parseInt(
     (myInfoList.memberHistoryResponseDto?.level - 1) / 5
