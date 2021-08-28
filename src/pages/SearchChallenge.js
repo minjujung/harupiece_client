@@ -33,10 +33,10 @@ function SearchChallenge(props) {
   });
 
   useEffect(() => {
-    if (keyWord === "ALL") {
-      dispatch(searchAll.searchFilterDB(searchState));
-    } else {
+    if (keyWord) {
       dispatch(searchAll.searchDB(keyWord));
+    } else {
+      dispatch(searchAll.searchFilterDB(searchState));
     }
   }, [dispatch, keyWord, searchState]);
 

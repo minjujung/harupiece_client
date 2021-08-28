@@ -17,7 +17,7 @@ const Category = (props) => {
 
   const searchAll = (e) => {
     e.preventDefault();
-    dispatch(searchActions.searchFilterDB());
+    dispatch(searchActions.allCategoryDB());
     history.push(`/search/all/1`);
   };
 
