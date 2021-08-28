@@ -47,7 +47,13 @@ const LandingPage = (props) => {
               가입하고 챌린지 참여하기
             </Button>
           </Ment>
-          <Image width="39.58vw" height="22.24vw" src={main} alt="mainpage" />
+          <Image
+            width="39.58vw"
+            height="22.24vw"
+            src={main}
+            alt="mainpage"
+            no_cursor
+          />
         </Desc>
       </MainSection>
       <MobildMain>
@@ -62,7 +68,13 @@ const LandingPage = (props) => {
           사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지
           <br />에 참여해서 당신의 조각들을 모아보세요.
         </p>
-        <Image width="39.58vw" height="auto" src={main} alt="mainpage" />
+        <Image
+          width="39.58vw"
+          height="auto"
+          src={main}
+          alt="mainpage"
+          no_cursor
+        />
         <Button
           width="91.11vw"
           padding="13px 2.45vw"

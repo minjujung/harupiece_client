@@ -42,7 +42,7 @@ const guestLoadDB = () => {
     MainApis.guestMain()
       .then((res) => {
         const adver = {
-          categoryName: "advertisement",
+          categoryName: "advertisement1",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 999,
           challengeImgUrl: "https://i.ibb.co/XXJxC97/banner-gift-min.png",
@@ -55,7 +55,7 @@ const guestLoadDB = () => {
         };
 
         const adver2 = {
-          categoryName: "advertisement",
+          categoryName: "advertisement2",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 998,
           challengeImgUrl: "https://i.ibb.co/WGRCfTM/banner-survey-min.png",
