@@ -110,7 +110,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h4`
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.ms};
   color: ${({ theme }) => theme.colors.black};
   margin: 1.39vh 0px 1.02vh 0;
   font-weight: bold;
@@ -118,10 +118,10 @@ const Title = styled.h4`
     display: none;
   }
   ${({ theme }) => theme.device.desktopLg} {
-    font-size: 18px;
+    font-size: 14px;
   }
   ${({ theme }) => theme.device.desktop} {
-    font-size: 14px;
+    font-size: 12px;
   }
   ${({ theme }) => theme.device.tablet} {
     display: none;
