@@ -36,7 +36,6 @@ function SearchChallenge(props) {
 
   const allFilterClickListener = (e, filterProp) => {
     let name = e.target.textContent;
-    console.log(name);
     if (name === "금연금주") {
       name = "NODRINKNOSMOKE";
     } else if (name === "운동") {

@@ -46,7 +46,6 @@ export const consoleLogger = (name, msg) => {
   if (process.env.NODE_ENV === "production") {
     return;
   }
-  console.log(name, msg);
 };
 
 const composeEnhancers =

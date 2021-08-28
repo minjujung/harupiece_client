@@ -99,7 +99,6 @@ function Mypage(props) {
     dispatch(myInfo.setPreview(""));
     history.push("/mypage/now");
   };
-  console.log(loading);
   return (
     <Container>
       <UserInfoContainer>
