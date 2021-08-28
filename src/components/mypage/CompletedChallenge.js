@@ -9,9 +9,9 @@ import { changeForm } from "./ChallengesInProgress";
 function CompletedChallenge() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.myPageEndResponseDto?.challengeList

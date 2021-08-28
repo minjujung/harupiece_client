@@ -12,6 +12,7 @@ import LinkIcon from "@material-ui/icons/Link";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
+import { actionCreator as postActions } from "../redux/modules/post";
 import { actionCreator as challengeDetailActions } from "../redux/modules/challengeDetail";
 import { actionCreator as chatActions } from "../redux/modules/chat";
 import { Link, Route, Switch } from "react-router-dom";
@@ -47,11 +48,20 @@ const ChallengeDetail = (props) => {
     setToastAlert(true);
   };
 
+  useEffect(() => {
+    if (!challengeId) {
+      return;
+    }
+    dispatch(challengeDetailActions.loading(true));
+    dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
+    dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
+    dispatch(postActions.getPostDB(challengeId));
+  }, [challengeId]);
   //challenge날짜수 계산
-  const start = challenge.challengeStartDate?.split("T")[0].split("-");
+  const start = challenge?.challengeStartDate?.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
 
-  const end = challenge.challengeEndDate?.split("T")[0].split("-");
+  const end = challenge?.challengeEndDate?.split("T")[0].split("-");
   const date2 = new Date(end[0], end[1][1] - 1, end[2]);
 
   const totalSecond = date2.getTime() - date1.getTime();

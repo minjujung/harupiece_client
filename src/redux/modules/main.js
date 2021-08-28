@@ -9,6 +9,7 @@ const SEARCH = "SEARCH";
 // const SEARCHALL = "SEARCHALL";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
+const LOADING = "LOADING";
 
 // action creator
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
@@ -24,6 +25,7 @@ const deleteUserLoad = createAction(
     challengeId,
   })
 );
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 // initialState
 
@@ -31,6 +33,7 @@ const initialState = {
   guestmain: [],
   usermain: [],
   search: [],
+  is_loading: false,
 };
 
 //유저가 로그인 안했을 때 메인에서 불러와야하는 것
@@ -153,6 +156,7 @@ export default handleActions(
     [G_LOAD]: (state, action) =>
       produce(state, (draft) => {
         draft.guestmain = action.payload.guestmain;
+        draft.is_loading = false;
       }),
     [ADD_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
@@ -175,6 +179,11 @@ export default handleActions(
           1
         );
       }),
+
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      }),
   },
   initialState
 );
@@ -187,6 +196,7 @@ const MainCreators = {
   addUserLoad,
   deleteUserLoad,
   searchFilterDB,
+  loading,
 };
 
 export { MainCreators };

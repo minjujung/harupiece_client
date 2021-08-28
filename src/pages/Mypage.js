@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import Spinner from "../components/Spinner";
 import ChallengesInProgress from "../components/mypage/ChallengesInProgress";
 import UpcomingChallenge from "../components/mypage/UpcomingChallenge";
 import CompletedChallenge from "../components/mypage/CompletedChallenge";
@@ -15,6 +14,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as myInfo } from "../redux/modules/mypage";
 import { Link, Route, Switch } from "react-router-dom";
 import levelData from "../shared/level";
+import Loader from "../shared/Loader";
 
 function Mypage(props) {
   const dispatch = useDispatch();
@@ -24,6 +24,11 @@ function Mypage(props) {
 
   // 프로필 preview 상태 값
   const preview = useSelector((state) => state.mypage.preview);
+
+  useEffect(() => {
+    dispatch(myInfo.loading(true));
+    dispatch(myInfo.getMyInfoDB());
+  }, []);
 
   const levelState = parseInt(
     (myInfoList.memberHistoryResponseDto?.level - 1) / 5
@@ -99,15 +104,15 @@ function Mypage(props) {
     dispatch(myInfo.setPreview(""));
     history.push("/mypage/now");
   };
-  console.log(loading);
+
   return (
-    <Container>
-      <UserInfoContainer>
-        {!editMode ? (
-          <>
-            {loading ? (
-              <Spinner />
-            ) : (
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <UserInfoContainer>
+            {!editMode ? (
               <>
                 <Image
                   width="9.69vw"
@@ -142,103 +147,114 @@ function Mypage(props) {
                   </Button>
                 </MediaBtn>
               </>
-            )}
-          </>
-        ) : (
-          <>
-            <EditProfile>
-              <Image
-                width="9.69vw"
-                height=" 9.69vw"
-                borderRadius="50%"
-                src={
-                  preview
-                    ? preview
-                    : myInfoList.memberHistoryResponseDto?.profileImage
-                }
-                alt="editProfile"
-              />
-              <Button width="56px" height="56px" borderRadius="50%" bg="white">
-                <label htmlFor="ex_file">
+            ) : (
+              <>
+                <EditProfile>
                   <Image
-                    width="27px"
-                    height="26px"
-                    src={greenCamera}
-                    alt="cameraBtn"
+                    width="9.69vw"
+                    height=" 9.69vw"
+                    borderRadius="50%"
+                    src={
+                      preview
+                        ? preview
+                        : myInfoList.memberHistoryResponseDto?.profileImage
+                    }
+                    alt="editProfile"
                   />
-                </label>
-              </Button>
-            </EditProfile>
-            <UserInfo>
-              <NickInput
-                type="text"
-                placeholder={newNickName}
-                maxLength="20"
-                onChange={(e) => setNewNickName(e.target.value)}
-                onSubmit={editComment}
+                  <Button
+                    width="56px"
+                    height="56px"
+                    borderRadius="50%"
+                    bg="white"
+                  >
+                    <label htmlFor="ex_file">
+                      <Image
+                        width="27px"
+                        height="26px"
+                        src={greenCamera}
+                        alt="cameraBtn"
+                      />
+                    </label>
+                  </Button>
+                </EditProfile>
+                <UserInfo>
+                  <NickInput
+                    type="text"
+                    placeholder={newNickName}
+                    maxLength="20"
+                    onChange={(e) => setNewNickName(e.target.value)}
+                    onSubmit={editComment}
+                  />
+                  님 <br />
+                  현재 등급은 {levelData[levelState]?.level} 입니다.
+                </UserInfo>
+                <input
+                  ref={fileInput}
+                  onChange={selectFile}
+                  type="file"
+                  id="ex_file"
+                  style={{ display: "none" }}
+                />
+                <MediaBtn>
+                  <LevelProfileBtn onClick={setLevelProfile}>
+                    등급 구슬을 프로필로 설정하기💎
+                  </LevelProfileBtn>
+                  <Button
+                    width="16.15vw"
+                    height="5.93vh"
+                    color="white"
+                    bg="mainGreen"
+                    margin="0 3.23vw 0 2.08vw"
+                    _onClick={editProfile}
+                  >
+                    프로필 저장하기
+                  </Button>
+                </MediaBtn>
+              </>
+            )}
+          </UserInfoContainer>
+          <ChallengeCategory>
+            {!editMode ? (
+              <>
+                <Item clicked={pathname.includes("/now") ? true : false}>
+                  <Link to={`${path}/now`}>진행예정 </Link>
+                </Item>
+                <Item clicked={pathname.includes("/upcoming") ? true : false}>
+                  <Link to={`${path}/upcoming`}>진행중</Link>
+                </Item>
+                <Item clicked={pathname.includes("/completed") ? true : false}>
+                  <Link to={`${path}/completed`}>완료</Link>
+                </Item>
+                <Item clicked={pathname.includes("/pieces") ? true : false}>
+                  <Link to={`${path}/pieces`}>조각</Link>
+                </Item>
+              </>
+            ) : (
+              <>
+                <Item2
+                  last
+                  clicked={pathname.includes("/password") ? true : false}
+                >
+                  <Link to={`${path}/password`}>비밀번호 변경</Link>
+                </Item2>
+              </>
+            )}
+          </ChallengeCategory>
+          <Section>
+            <Switch>
+              <Route path={`${path}/now`} component={ChallengesInProgress} />
+              <Route path={`${path}/upcoming`} component={UpcomingChallenge} />
+              <Route
+                path={`${path}/completed`}
+                component={CompletedChallenge}
               />
-              님 <br />
-              현재 등급은 {levelData[levelState]?.level} 입니다.
-            </UserInfo>
-            <input
-              ref={fileInput}
-              onChange={selectFile}
-              type="file"
-              id="ex_file"
-              style={{ display: "none" }}
-            />
-            <MediaBtn>
-              <LevelProfileBtn onClick={setLevelProfile}>
-                등급 구슬을 프로필로 설정하기💎
-              </LevelProfileBtn>
-              <Button
-                width="16.15vw"
-                height="5.93vh"
-                color="white"
-                bg="mainGreen"
-                margin="0 3.23vw 0 2.08vw"
-                _onClick={editProfile}
-              >
-                프로필 저장하기
-              </Button>
-            </MediaBtn>
-          </>
-        )}
-      </UserInfoContainer>
-      <ChallengeCategory>
-        {!editMode ? (
-          <>
-            <Item clicked={pathname.includes("/now") ? true : false}>
-              <Link to={`${path}/now`}>진행예정 </Link>
-            </Item>
-            <Item clicked={pathname.includes("/upcoming") ? true : false}>
-              <Link to={`${path}/upcoming`}>진행중</Link>
-            </Item>
-            <Item clicked={pathname.includes("/completed") ? true : false}>
-              <Link to={`${path}/completed`}>완료</Link>
-            </Item>
-            <Item clicked={pathname.includes("/pieces") ? true : false}>
-              <Link to={`${path}/pieces`}>조각</Link>
-            </Item>
-          </>
-        ) : (
-          <>
-            <Item2 last clicked={pathname.includes("/password") ? true : false}>
-              <Link to={`${path}/password`}>비밀번호 변경</Link>
-            </Item2>
-          </>
-        )}
-      </ChallengeCategory>
-      <Section>
-        <Switch>
-          <Route path={`${path}/now`} component={ChallengesInProgress} />
-          <Route path={`${path}/upcoming`} component={UpcomingChallenge} />
-          <Route path={`${path}/completed`} component={CompletedChallenge} />
-          <Route path={`${path}/pieces`} component={MyPieces} />
-          <Route path={`${path}/password`} component={MyPassword} />
-        </Switch>
-      </Section>
-    </Container>
+              <Route path={`${path}/pieces`} component={MyPieces} />
+              <Route path={`${path}/password`} component={MyPassword} />
+            </Switch>
+          </Section>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -437,8 +453,7 @@ const ChallengeCategory = styled.ul`
     }
     li {
       font-size: 16px;
-      width: 20.06vw;
-      min-width: 95px;
+      width: 22.9vw;
       padding: 0 7.92vw;
     }
   }

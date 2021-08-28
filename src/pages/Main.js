@@ -9,13 +9,16 @@ import Info from "../components/mainpage/Info";
 import { getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import { MainCreators } from "../redux/modules/main";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../elements";
+import Loader from "../shared/Loader";
 
 const Main = (props) => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.main.is_loading);
 
   useEffect(() => {
+    dispatch(MainCreators.loading(true));
     dispatch(MainCreators.guestLoadDB());
   }, []);
 
@@ -31,43 +34,47 @@ const Main = (props) => {
 
   return (
     <>
-      <Container>
-        <ContainerLeft>
-          <MainSlider />
-          <Category />
-        </ContainerLeft>
-        <ContainerRight>
-          <Info />
-          {is_login ? (
-            <>
-              <ButtonBox>
-                <Button
-                  width="16.15vw"
-                  height="6.27vh"
-                  margin="0px 0px 20px 0px"
-                  _onClick={goToCreate}
-                >
-                  챌린지등록하기+
-                </Button>
-              </ButtonBox>
-            </>
-          ) : (
-            <>
-              <ButtonBox>
-                <Button
-                  width="16.15vw"
-                  height="6.27vh"
-                  margin="0px 0px 20px 0px"
-                  _onClick={goToLogin}
-                >
-                  로그인 하기
-                </Button>
-              </ButtonBox>
-            </>
-          )}
-          <Popular />
-        </ContainerRight>
-      </Container>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <ContainerLeft>
+            <MainSlider />
+            <Category />
+          </ContainerLeft>
+          <ContainerRight>
+            <Info />
+            {is_login ? (
+              <>
+                <ButtonBox>
+                  <Button
+                    width="16.15vw"
+                    height="6.27vh"
+                    margin="0px 0px 20px 0px"
+                    _onClick={goToCreate}
+                  >
+                    챌린지등록하기+
+                  </Button>
+                </ButtonBox>
+              </>
+            ) : (
+              <>
+                <ButtonBox>
+                  <Button
+                    width="16.15vw"
+                    height="6.27vh"
+                    margin="0px 0px 20px 0px"
+                    _onClick={goToLogin}
+                  >
+                    로그인 하기
+                  </Button>
+                </ButtonBox>
+              </>
+            )}
+            <Popular />
+          </ContainerRight>
+        </Container>
+      )}
     </>
   );
 };

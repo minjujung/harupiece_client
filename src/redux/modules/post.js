@@ -110,8 +110,6 @@ const addPostDB =
       }),
     });
 
-    dispatch(loading(true));
-
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "onedaypiece-shot-image",
@@ -143,7 +141,7 @@ const addPostDB =
             memberId: user_info.memberId,
             nickname: user_info.nickname,
             profileImg: user_info.profileImg,
-            postingCount: 0,
+            postingCount: 1,
             memberResponseDto: [],
             postingApproval: true,
             postingModifyOk: true,
@@ -220,7 +218,6 @@ const editPostDB =
     };
 
     if (content.file === _post.postingImg) {
-      dispatch(loading(true));
       //사진이 전과 같을 때는 업로드 x
       PostApis.editPost(post_id, post)
         .then((res) => {
@@ -255,8 +252,6 @@ const editPostDB =
           IdentityPoolId: `${process.env.REACT_APP_AWS_KEY}`,
         }),
       });
-
-      dispatch(loading(true));
 
       const upload = new AWS.S3.ManagedUpload({
         params: {

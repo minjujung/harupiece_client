@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Button, Card, Image, Tag, TagContainer } from "../../elements";
 import { history } from "../../redux/configureStore";
 import { actionCreators as myInfo } from "../../redux/modules/mypage";
+import Loader from "../../shared/Loader";
 
 // 2021-08-07T23:59:59 형태를 2021, 8, 7의 형태로 바꿔주는 함수
 const changeForm = (dates) => {
@@ -23,9 +24,9 @@ const changeForm = (dates) => {
 };
 
 function ChallengesInProgress(props) {
-  useEffect(() => {
-    dispatch(myInfo.getMyInfoDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(myInfo.getMyInfoDB());
+  // }, []);
 
   const dispatch = useDispatch();
   const myChallengeList = useSelector(
@@ -34,6 +35,7 @@ function ChallengesInProgress(props) {
   const my_info = useSelector(
     (state) => state.mypage.myInfo.myPageScheduledResponseDto
   );
+  const loading = useSelector((state) => state.mypage.is_loading);
 
   const start = myChallengeList?.map(
     (list) => list.challengeStartDate.split("T")[0]
@@ -54,6 +56,10 @@ function ChallengesInProgress(props) {
   } = changeForm(end);
 
   return (
+    // <>
+    //   {loading ? (
+    //     <Loader />
+    //   ) : (
     <Container>
       {myChallengeList && myChallengeList.length !== 0 ? (
         <CardGrid>
@@ -107,7 +113,8 @@ function ChallengesInProgress(props) {
       ) : (
         <NoListMent>
           <p>
-            아직 참여중인 챌린지가 없어요!{/* 아직 진행중인 챌린지가 없어요! */}
+            아직 참여중인 챌린지가 없어요!
+            {/* 아직 진행중인 챌린지가 없어요! */}
             <br /> 새로운 챌린지를 찾아 볼까요?
           </p>
           <Button
@@ -122,6 +129,8 @@ function ChallengesInProgress(props) {
         </NoListMent>
       )}
     </Container>
+    //   )}
+    // </>
   );
 }
 

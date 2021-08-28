@@ -7,7 +7,7 @@ import AWS from "aws-sdk";
 import { MainCreators } from "./main";
 import { userCreators } from "./user";
 
-const GET_CHALLENGE_DETAIL = "GET_CHALLNENG_DETAIL";
+const GET_CHALLENGE_DETAIL = "GET_CHALLNENGE_DETAIL";
 const EDIT_CHALLENGE = "EDIT_CHALLENGE";
 const LOADING = "LOADING";
 
@@ -50,8 +50,6 @@ const initialState = {
 const getChallengeDetailDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
-    // dispatch(loading(true));
-    console.log("챌린지 디테일");
     //챌린지 상세페이지에서 상세내용 불러오기
     ChallengeDetailApis.getDetail(challenge_id)
       .then((res) => {
@@ -345,6 +343,7 @@ const actionCreator = {
   giveupChallengeDB,
   takeInPartChallengeDB,
   editChallengeDB,
+  loading,
 };
 
 export { actionCreator };

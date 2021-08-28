@@ -67,8 +67,9 @@ const MessageList = ({ challengeId }) => {
               <div key={msg.chatMessageId}>
                 <Sender me={user_info.nickname === msg.sender ? true : false}>
                   <Image
-                    width="24px"
-                    height="24px"
+                    width="28px"
+                    height="28px"
+                    borderRadius="50%"
                     src={msg.profileImg ? msg.profileImg : green}
                     alt="msgSender"
                   />
@@ -132,13 +133,10 @@ const Date = styled.p`
 `;
 
 const MsgFrame = styled.div`
-  /* margin-bottom: 1.76vh; */
   margin-bottom: 20px;
   ${({ theme }) => theme.device.mobileLg} {
     bottom: inherit;
-    margin-left: 10px;
-    margin-top: 25px;
-    margin-bottom: 6.67vw;
+    margin: 25px 0 6.67vw 0;
   }
 `;
 

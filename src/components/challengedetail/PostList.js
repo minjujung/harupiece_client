@@ -434,7 +434,7 @@ const DialogInfo = styled.div`
 `;
 
 const UserInfo = styled.div`
-  width: 8.85vw;
+  /* width: 8.85vw; */
   height: 7.4vh;
   display: flex;
   align-items: center;
@@ -498,6 +498,19 @@ const Post = styled.div`
     border: 2px solid ${({ theme }) => theme.colors.gray};
     font-size: ${({ theme }) => theme.fontSizes.md};
     padding: 0.94vw;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      margin-left: 30px;
+      width: 5px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: ${({ theme }) => theme.colors.gray};
+    }
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
