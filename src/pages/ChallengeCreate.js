@@ -32,7 +32,7 @@ function ChallengeCreate(props) {
     if (edit_mode) {
       dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     }
-  }, []);
+  }, [dispatch, challengeId, challenge_info, edit_mode]);
 
   const [challengeInfo, setChallengeInfo] = useState({
     categoryName: "",
@@ -390,8 +390,6 @@ const Title = styled.div`
     font-size: 24px;
   }
 `;
-
-
 
 const RightContainer = styled.div`
   width: 30.94vw;

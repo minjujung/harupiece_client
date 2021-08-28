@@ -25,7 +25,7 @@ const MessageList = ({ challengeId }) => {
     }
     scrollTo.current.scrollTop =
       scrollTo.current.scrollHeight - scrollTo.current.clientHeight;
-  }, [chatInfo.messages]);
+  }, [prevHeight, chatInfo.messages]);
 
   const callNext = () => {
     if (paging.next === false) {

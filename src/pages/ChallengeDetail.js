@@ -56,7 +56,7 @@ const ChallengeDetail = (props) => {
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
     dispatch(postActions.getPostDB(challengeId));
-  }, [challengeId]);
+  }, [dispatch, challengeId]);
   //challenge날짜수 계산
   const start = challenge?.challengeStartDate?.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1][1] - 1, start[2]);
@@ -106,7 +106,7 @@ const ChallengeDetail = (props) => {
   };
 
   const {
-    match: { path, url, params },
+    match: { path, url },
   } = props;
 
   const challengeMemberId = challenge.challengeMember.map(

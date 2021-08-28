@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,7 +7,6 @@ import { Button } from "../../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as passwordActions } from "../../redux/modules/mypage";
-import { actionCreators as myInfo } from "../../redux/modules/mypage";
 
 function MyPassword() {
   const dispatch = useDispatch();

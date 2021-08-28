@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { history } from "../../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { MainCreators as searchActions } from "../../redux/modules/main";
-import { getCookie } from "../../shared/Cookie";
 
 import { Tag, Card, Image, TagContainer } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
@@ -36,8 +35,6 @@ const Category = (props) => {
     }
   };
 
-  const is_login = getCookie("token") ? true : false;
-
   const start = main_list[category]?.map(
     (list) => list.challengeStartDate?.split("T")[0]
   );
@@ -57,8 +54,7 @@ const Category = (props) => {
   } = changeForm(end);
 
   // slider
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isFlowing, setIsFlowing] = useState(true);
+  const [currentSlide] = useState(0);
   const slideRef = useRef(null);
 
   useEffect(() => {
@@ -229,8 +225,6 @@ const Category = (props) => {
         </TagBox>
         <CardBox2>
           <SliderContainer
-            onMouseOver={() => setIsFlowing(false)}
-            onMouseOut={() => setIsFlowing(true)}
             ref={slideRef}
             onMouseDown={onDragStart}
             onMouseMove={onDragMove}

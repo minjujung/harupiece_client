@@ -22,7 +22,7 @@ function ChallengeCreate(props) {
 
   useEffect(() => {
     dispatch(challengeDetailActions.getChallengeDetailDB(challenge_id));
-  }, []);
+  }, [dispatch, challenge_id]);
 
   const [challengeInfo, setChallengeInfo] = useState({
     ...challenge_info,
@@ -78,7 +78,6 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengePassword: pwd });
     setOpen(false);
   };
-
 
   // 챌린지 설명
   const saveDesc = (e) => {
@@ -149,54 +148,49 @@ function ChallengeCreate(props) {
     <>
       <Container>
         <LeftContainer isBadge={badge}>
-        <MobileBadge>
-          <Button
-            width="100%"
-            height="11.11vw"
-            margin="6.67vw 0 4.44vw 0"
-            bg="white"
-            color="mainGreen"
-            border="mainGreen"
-            shadow
-            _onClick={openGuideLine}
-          >
-            <MobileText>
-              챌린지 가이드 라인
-            </MobileText>
-          </Button>
-          {gopen ? (
-            <MobileG>
-              <MobileClose>
-                <Image
-                chatClose
-                width="30px"
-                height="30px"
-                borderRadius="0"
-                src={greenclose}
-                onClick={closeGuideLine}
-                />
-              </MobileClose>
-              <MobileImage>
-                <img
-                src={guideline}
-                alt="guideline"
-                />
-              </MobileImage>
-            </MobileG>
-          ) :null}
-        </MobileBadge>
+          <MobileBadge>
+            <Button
+              width="100%"
+              height="11.11vw"
+              margin="6.67vw 0 4.44vw 0"
+              bg="white"
+              color="mainGreen"
+              border="mainGreen"
+              shadow
+              _onClick={openGuideLine}
+            >
+              <MobileText>챌린지 가이드 라인</MobileText>
+            </Button>
+            {gopen ? (
+              <MobileG>
+                <MobileClose>
+                  <Image
+                    chatClose
+                    width="30px"
+                    height="30px"
+                    borderRadius="0"
+                    src={greenclose}
+                    onClick={closeGuideLine}
+                  />
+                </MobileClose>
+                <MobileImage>
+                  <img src={guideline} alt="guideline" />
+                </MobileImage>
+              </MobileG>
+            ) : null}
+          </MobileBadge>
           <Title>
             <h2>챌린지 수정</h2>
           </Title>
           <Guid>
             <Image
-            width="32.81vw"
-            height="65vh"
-            margin="0  2.92vh 0 0 "
-            borderRadius="16px"
-            src={guideline}
-            alt="guideline"
-          />
+              width="32.81vw"
+              height="65vh"
+              margin="0  2.92vh 0 0 "
+              borderRadius="16px"
+              src={guideline}
+              alt="guideline"
+            />
           </Guid>
         </LeftContainer>
         <RightContainer>
@@ -337,7 +331,7 @@ const LeftContainer = styled.div`
 `;
 
 const Guid = styled.div`
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     img {
       display: none;
     }
@@ -353,13 +347,11 @@ const Title = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    margin-top : 11vw; /* 모바일 가이드 라인 변경면 없애기 */
+    margin-top: 11vw; /* 모바일 가이드 라인 변경면 없애기 */
     height: auto;
     font-size: 24px;
   }
 `;
-
-
 
 const InputLeftContainer = styled.div`
   flex-direction: column;
@@ -377,19 +369,17 @@ const InputRightContainer = styled.div`
 
 const MobileBadge = styled.div`
   display: none;
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     display: none; /* inherit 모바일 가이드 라인 변경해서 적용하기 */
     margin-left: 40vw;
   }
 `;
-const MobileText = styled.div`
-
-`;
+const MobileText = styled.div``;
 
 const MobileG = styled.div`
   position: absolute;
   z-index: 4;
-`
+`;
 
 const MobileImage = styled.div`
   position: relative;
@@ -405,7 +395,6 @@ const MobileClose = styled.div`
   z-index: 5;
   right: 160px;
   position: absolute;
-
 `;
 
 const BadgeText = styled.div`
@@ -567,7 +556,7 @@ const SelectContainer = styled.div`
       width: 30px;
       height: 30px;
       position: absolute;
-      margin-top:2vw;
+      margin-top: 2vw;
       pointer-events: none;
     }
   }
@@ -575,7 +564,7 @@ const SelectContainer = styled.div`
 
 const CategoryInfo = styled.div`
   height: 48px;
-  margin-bottom:4.39vh;
+  margin-bottom: 4.39vh;
   h4 {
     font-weight: bold;
     line-height: normal;
@@ -584,16 +573,16 @@ const CategoryInfo = styled.div`
     color: ${({ theme }) => theme.colors.mainGreen};
   }
 
-  ${({ theme }) => theme.device.mobileLg}{
+  ${({ theme }) => theme.device.mobileLg} {
     margin-bottom: 6.67vh;
     h4 {
-    font-weight: bold;
-    line-height: normal;
-    font-size: 24px;
-  }
-  p {
-    margin-top: 16px;
-  }
+      font-weight: bold;
+      line-height: normal;
+      font-size: 24px;
+    }
+    p {
+      margin-top: 16px;
+    }
   }
 `;
 

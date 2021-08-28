@@ -8,7 +8,6 @@ import close from "../assets/images/icons/close.svg";
 import login from "../assets/images/icons/login.svg";
 import myPage from "../assets/images/icons/profile.svg";
 import Search from "../assets/images/icons/search.svg";
-import profile from "../assets/images/logo/profile.png";
 import menu from "../assets/images/icons/menubar.svg";
 
 // modal
@@ -16,7 +15,6 @@ import Dialog from "@material-ui/core/Dialog";
 
 import { useDispatch, useSelector } from "react-redux";
 import { userCreators } from "../redux/modules/user";
-import { MainCreators as searchActions } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 import Sidebar from "./Sidebar";
@@ -156,7 +154,10 @@ const Header = () => {
                       height="18px"
                       borderRadius="0"
                       src={close}
-                      onClick={(() => setQ(""), handleClose)}
+                      onClick={() => {
+                        setQ("");
+                        handleClose();
+                      }}
                     />
                   </SearchRightBox>
                 </SearchBox>
