@@ -139,10 +139,10 @@ const addPostDB =
             ...new_post,
             postingId: res.data,
             memberId: user_info.memberId,
-            nickname: user_info.nickname,
+            nickName: user_info.nickname,
             profileImg: user_info.profileImg,
             postingCount: 1,
-            memberResponseDto: [],
+            memberResponseDto: [user_info.memberId],
             postingApproval: true,
             postingModifyOk: true,
           };
@@ -206,7 +206,7 @@ const addPostDB =
   };
 
 const editPostDB =
-  (post_id, content, challengeId) =>
+  (post_id, content, totalNumber) =>
   (dispatch, getState, { history }) => {
     const post_list = getState().post.list;
     const post_idx = post_list.findIndex((p) => p.postingId === post_id);
@@ -215,6 +215,7 @@ const editPostDB =
     const post = {
       postingContent: content.shotText,
       postingImg: content.file,
+      totalNumber,
     };
 
     if (content.file === _post.postingImg) {

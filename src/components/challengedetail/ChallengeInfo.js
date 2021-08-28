@@ -66,7 +66,7 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <Noti>매일 인증샷을 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
+        <Noti>인증샷을 하나도 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
         <Title>
           {toastAlert && <Toast msg="url 복사 완료!" />}
           <h3>기본정보</h3>

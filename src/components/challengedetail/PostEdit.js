@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as imageActions } from "../../redux/modules/image";
 import { actionCreator as postActions } from "../../redux/modules/post";
 import { Button, Image } from "../../elements";
+import { FavoriteRounded } from "@material-ui/icons";
 
 const PostEdit = (props) => {
   const {
@@ -18,12 +19,14 @@ const PostEdit = (props) => {
     postingModifyOk,
     challengeStatus,
     handleClose,
+    postingCount,
   } = props;
 
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.image.preview);
   const loading = useSelector((state) => state.post.is_loading);
   const user_info = useSelector((state) => state.user.userInfo);
+  const challengeInfo = useSelector((state) => state.challengeDetail.detail);
 
   const [shotText, setShotText] = useState(postingContent);
   const shotInput = useRef();
@@ -68,7 +71,11 @@ const PostEdit = (props) => {
       );
     } else {
       dispatch(
-        postActions.editPostDB(postingId, { file, shotText }, challengeId)
+        postActions.editPostDB(
+          postingId,
+          { file, shotText },
+          challengeInfo.challengeMember.length
+        )
       );
     }
 
@@ -76,6 +83,8 @@ const PostEdit = (props) => {
       props.handleClose();
     }
   };
+
+  let intViewportWidth = window.innerWidth;
 
   return (
     <>
@@ -95,12 +104,30 @@ const PostEdit = (props) => {
           <StatusFrame>
             <StatusBar>
               <Status width={`${postingCheckStatus}%`} />
+              <FavoriteRounded
+                style={
+                  intViewportWidth > 720
+                    ? {
+                        color: "#FF4532",
+                        width: "30px",
+                        height: "30px",
+                        marginLeft: "-10px",
+                      }
+                    : {
+                        color: "#FF4532",
+                        width: "25px",
+                        height: "25px",
+                        marginLeft: "-10px",
+                      }
+                }
+              />
             </StatusBar>
             <StatusInfo>
-              <span>인증상태</span>
-              <Percent>
-                {postingCheckStatus === 0 ? 0 : postingCheckStatus.toFixed(1)} %
-              </Percent>
+              <span>
+                {postingCount === 1
+                  ? "친구들의 응원을 기다려보아요^^"
+                  : `${postingCount} 명의 친구가 응원하고 있어요!`}
+              </span>
             </StatusInfo>
           </StatusFrame>
         ) : null}
@@ -189,33 +216,27 @@ const StatusBar = styled.div`
   height: 8px;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.lightGray};
-  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const Status = styled.div`
-  position: absolute;
-  background-color: ${({ theme }) => theme.colors.mainGreen};
+  background-color: #ffb8b1;
   width: ${(props) => props.width};
   height: 8px;
-  border-radius: 10px 0 0 10px;
-  top: 0;
-  left: 0;
+  border-radius: 10px;
+  transition: 1s;
 `;
 
 const StatusInfo = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.74vh;
+  text-align: center;
+  margin-top: 2vh;
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.gray};
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 13px;
   }
-`;
-
-const Percent = styled.span`
-  color: ${({ theme }) => theme.colors.mainGreen};
 `;
 
 const Post = styled.div`

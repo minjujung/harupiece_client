@@ -90,6 +90,7 @@ const guestLoadDB = () => {
 // 키워드 검색
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
+    console.log(q);
     const encode = encodeURIComponent(q);
     MainApis.search(encode)
       .then((res) => {

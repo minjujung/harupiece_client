@@ -83,11 +83,12 @@ const ChallengeDetail = (props) => {
   const progress = today.getTime() - date1.getTime();
   let progressDays = progress / 1000 / 60 / 60 / 24;
 
-  let progressPercent = (progressDays / totalDay).toFixed(2);
+  let progressPercent = progressDays / totalDay;
 
   if (progressDays < 0 || isNaN(progressPercent)) {
     progressPercent = 0;
   }
+  console.log(progressPercent * 100);
 
   today =
     leadingZeros(today.getFullYear(), 4) +
@@ -155,7 +156,7 @@ const ChallengeDetail = (props) => {
                       참여 {challenge.challengeMember.length}명 | 진행률{" "}
                       {progressPercent * 100 > 100
                         ? "100"
-                        : `${progressPercent * 100}`}{" "}
+                        : `${(progressPercent * 100).toFixed(0)}`}{" "}
                       %
                     </TotalNum>
                   </TitleContainer>

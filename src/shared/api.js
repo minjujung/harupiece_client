@@ -25,7 +25,6 @@ let refreshSubscribers = [];
 
 const onTokenRefreshed = (accessToken) => {
   refreshSubscribers.map((callback, idx) => {
-    console.log(idx + "번째 재요청 완료");
     return callback(accessToken);
   });
 };
@@ -66,7 +65,6 @@ instance.interceptors.response.use(
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);
 
-          console.log("토큰 재생성 완료!"); // 토큰 생성이 완료되면
           isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
 
           instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;

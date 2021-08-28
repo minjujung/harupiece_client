@@ -104,7 +104,6 @@ function Mypage(props) {
     dispatch(myInfo.setPreview(""));
     history.push("/mypage/now");
   };
-
   return (
     <>
       {loading ? (

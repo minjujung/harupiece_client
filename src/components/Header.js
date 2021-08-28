@@ -38,6 +38,7 @@ const Header = () => {
 
   // search state
   const [q, setQ] = useState("");
+  console.log(q);
 
   const onCheckEnter = (e) => {
     if (e.key === "Enter") {
@@ -58,7 +59,6 @@ const Header = () => {
     if (q === "") {
       alert("검색어를 입력해주세요");
     } else {
-      dispatch(searchActions.searchDB(q));
       history.push(`/search/${q}/1`);
       setQ("");
       handleClose();
