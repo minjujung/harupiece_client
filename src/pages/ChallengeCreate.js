@@ -391,19 +391,7 @@ const Title = styled.div`
   }
 `;
 
-const GuideLine = styled.div`
-  background-image: url("https://onedaypiece-shot-image.s3.ap-northeast-2.amazonaws.com/example.PNG");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 8px;
-  width: 32.81vw;
-  height: 53.79vh;
-  margin-right: 2.92vh;
-  ${({ theme }) => theme.device.mobileLg} {
-    display: none;
-  }
-`;
+
 
 const RightContainer = styled.div`
   width: 30.94vw;

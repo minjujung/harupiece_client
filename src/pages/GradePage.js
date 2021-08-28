@@ -27,9 +27,9 @@ const GradePage = (props) => {
                         <p>
                             챌린지에 <span>인증샷</span>을 올리면 1조각,
                             <br />
-                            챌린지를 <span>완료</span>하면 인증기간 X 50조각,
+                            챌린지를 <span>완료</span>하면 인증샷 수 X 50조각,
                             <br />
-                            <span>공식 챌린지</span>를 완료하면 인증기간 X 100조각을 모을 수 있어요.
+                            <span>공식 챌린지</span>를 완료하면 인증샷 수  X 100조각을 모을 수 있어요.
                         </p>
                     </Body>
                     <Tail>

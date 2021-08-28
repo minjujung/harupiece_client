@@ -345,7 +345,7 @@ const Guid = styled.div`
 `;
 
 const Title = styled.div`
-  width: 10.04vw;
+  width: 100%;
   height: 4.81vh;
   & > h2 {
     font-size: 36px;
@@ -359,16 +359,7 @@ const Title = styled.div`
   }
 `;
 
-const GuideLine = styled.div`
-  background-color: ${({ theme }) => theme.colors.lightGray};
-  border-radius: 8px;
-  width: 32.81vw;
-  height: 53.79vh;
-  margin-right: 2.92vh;
-  ${({ theme }) => theme.device.mobileLg} {
-    display: none;
-  }
-`;
+
 
 const InputLeftContainer = styled.div`
   flex-direction: column;
@@ -423,7 +414,7 @@ const BadgeText = styled.div`
   height: 100%;
   justify-content: space-between;
   align-items: center;
-  margin-left: 29px;
+  margin-left: 16px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     font-size: 15px;
@@ -465,13 +456,13 @@ const AllInputContainer = styled.div`
 
 const Input = styled.input`
   width: 15vw;
-  height: 3.7vh;
-  margin-top: 0.74vh;
+  height: 40px;
+  margin-top: 8px;
   margin-bottom: 2.96vh;
   background-color: ${({ theme }) => theme.colors.lightGray};
   font-size: ${({ theme }) => theme.fontSizes.ms};
   padding-left: 0.83vw;
-  padding-top: 1.01vh;
+  padding-top: 1.1vh;
   padding-bottom: 1.01vh;
   border-radius: 8px;
   :focus {
@@ -491,7 +482,7 @@ const Textarea = styled.textarea`
   width: 15vw;
   height: 12.59vh;
   resize: none;
-  margin-top: 0.74vh;
+  margin-top: 8px;
   padding-left: 0.83vw;
   padding-right: 0.83vw;
   padding-top: 1.01vh;
@@ -539,7 +530,7 @@ const SelectBox = styled.select`
   width: 100%; /* 원하는 너비설정 */
   height: 40px;
   padding-left: 0.83vw;
-  margin: 0.74vh 0 2.96vh 0;
+  margin: 8px 0 2.96vh 0;
   font-family: inherit; /* 폰트 상속 */
   font-size: ${({ theme }) => theme.fontSizes.ms};
   color: ${({ theme }) => theme.colors.darkGray};
@@ -567,7 +558,8 @@ const SelectContainer = styled.div`
     height: 15px;
     position: absolute;
     right: 16px;
-    top: 16px;
+    top: 22px;
+    pointer-events: none;
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
@@ -582,7 +574,8 @@ const SelectContainer = styled.div`
 `;
 
 const CategoryInfo = styled.div`
-  height: 8.9vh;
+  height: 48px;
+  margin-bottom:4.39vh;
   h4 {
     font-weight: bold;
     line-height: normal;
