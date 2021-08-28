@@ -150,6 +150,7 @@ const SubT = styled.p`
 const Holiday = styled.div`
   width: 15vw;
   display: flex;
+  justify-content:space-between;
   background-color: ${({ theme }) => theme.colors.lightGray};
   height: 40px;
   margin-bottom: 2.96vh;
