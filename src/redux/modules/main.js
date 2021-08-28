@@ -62,7 +62,7 @@ const guestLoadDB = () => {
           tag: "광고",
         };
 
-        const adver3 = {
+        const grade = {
           categoryName: "advertisement2",
           challengeEndDate: "2021-09-05T23:59:57",
           challengeId: 998,
@@ -72,7 +72,7 @@ const guestLoadDB = () => {
           challengeTitle: "광고",
           tag: "광고",
         };
-        res.data.slider.push(adver, adver2, adver3);
+        res.data.slider.push(adver, adver2, grade);
         dispatch(guestLoad(res.data));
       })
       .catch((err) => {
