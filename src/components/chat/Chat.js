@@ -6,7 +6,7 @@ import close from "../../assets/images/icons/whiteClose.svg";
 import MessageWrite from "./MessageWrite";
 import MessageList from "./MessageList";
 
-import { history } from "../../redux/configureStore";
+import { consoleLogger, history } from "../../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as chatActions } from "../../redux/modules/chat";
 import { getCookie } from "../../shared/Cookie";
@@ -50,7 +50,7 @@ const Chat = ({ id, setOpen }) => {
         );
       });
     } catch (error) {
-      console.log(error);
+      consoleLogger(error);
     }
   }, [dispatch, id, token, userInfo.nickname, userInfo.profileImg, ws]);
 
@@ -65,7 +65,7 @@ const Chat = ({ id, setOpen }) => {
         // { token }
       );
     } catch (error) {
-      console.log(error);
+      consoleLogger(error);
     }
   }, [token, ws]);
 
@@ -127,7 +127,7 @@ const Chat = ({ id, setOpen }) => {
         dispatch(chatActions.writeMessage(""));
       });
     } catch (error) {
-      console.log(`error: ${error.response.status}`);
+      consoleLogger(`error: ${error.response.status}`);
     }
   };
 

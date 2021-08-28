@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { MainApis } from "../../shared/api";
+import { consoleLogger } from "../configureStore";
 
 // action
 const G_LOAD = "main/G_LOAD";
@@ -82,7 +83,7 @@ const guestLoadDB = () => {
         dispatch(guestLoad(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };
@@ -90,14 +91,13 @@ const guestLoadDB = () => {
 // 키워드 검색
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
-    console.log(q);
     const encode = encodeURIComponent(q);
     MainApis.search(encode)
       .then((res) => {
         dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };
@@ -149,7 +149,7 @@ const searchFilterDB = (content) => {
         dispatch(search(res.data.challengeList));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };

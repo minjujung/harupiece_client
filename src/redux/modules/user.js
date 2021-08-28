@@ -69,7 +69,7 @@ const setLoginDB = ({ email, password }) => {
         history.replace("/home");
       })
       .catch((error) => {
-        console.log(error);
+        consoleLogger(error);
         if (error.response) {
           if (error.response.status === 401) {
             setTimeout(
@@ -110,7 +110,7 @@ const loginCheckDB = () => {
         dispatch(setUser(res.data.userInfo));
       })
       .catch((err) => {
-        console.log(err);
+        consoleLogger(err);
       });
   };
 };

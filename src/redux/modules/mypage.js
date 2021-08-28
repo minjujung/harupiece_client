@@ -53,7 +53,7 @@ const getMyInfoDB = () => {
         } else {
           history.goBack();
         }
-        console.log(error);
+        consoleLogger(error);
       });
   };
 };
@@ -83,7 +83,7 @@ const getPointDB = () => {
         } else {
           history.goBack();
         }
-        console.log(error);
+        consoleLogger(error);
       });
   };
 };
@@ -290,7 +290,7 @@ const changePasswordDB = (password) => {
             300
           );
         }
-        console.log(error);
+        consoleLogger(error);
       });
   };
 };
