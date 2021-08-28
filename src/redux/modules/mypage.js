@@ -104,7 +104,6 @@ const editMyProfileDB = (content) => {
     dispatch(loading(true));
 
     if (content.levelImage) {
-      console.log("파일은 없고 레벨이미지만 있을 때");
       const levelProfile = {
         nickname: content.newNickName,
         profileImage: content.levelImage,
@@ -276,7 +275,7 @@ const changePasswordDB = (password) => {
       .then((res) => {
         consoleLogger("비밀번호 변경 후 응답", res);
         setTimeout(() => window.alert("비밀번호 변경이 완료되었습니다!"), 300);
-        history.replace("/home");
+        history.replace("/mypage/password");
       })
       .catch((error) => {
         if (

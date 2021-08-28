@@ -39,7 +39,6 @@ const ChallengeInfo = (props) => {
     if (!challengeId) {
       return;
     }
-    console.log("챌린지 소개");
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
   }, []);
 

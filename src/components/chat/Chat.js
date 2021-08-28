@@ -43,7 +43,6 @@ const Chat = ({ id, setOpen }) => {
           `/sub/api/chat/rooms/${id}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
-            console.log(newMessage);
             dispatch(chatActions.getMessages(newMessage));
           },
           { token }
@@ -124,8 +123,6 @@ const Chat = ({ id, setOpen }) => {
       dispatch(chatActions.loading(false));
       waitForConnection(ws, function () {
         ws.send("/pub/talk", { token }, JSON.stringify(data));
-        console.log(ws.ws.readyState);
-        console.log(data);
         dispatch(chatActions.writeMessage(""));
       });
     } catch (error) {

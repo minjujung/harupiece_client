@@ -50,8 +50,6 @@ const initialState = {
 const getChallengeDetailDB =
   (challenge_id) =>
   (dispatch, getState, { history }) => {
-    // dispatch(loading(true));
-    console.log("챌린지 디테일");
     //챌린지 상세페이지에서 상세내용 불러오기
     ChallengeDetailApis.getDetail(challenge_id)
       .then((res) => {

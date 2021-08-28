@@ -18,7 +18,6 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const goodSelectFile = async (e) => {
     const reader = new FileReader();
     const goodFile = goodFileInput.current.files[0];
-    console.log(goodFile);
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 300,
@@ -28,7 +27,6 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
     }
     try {
       const compressedGoodFile = await imageCompression(goodFile, options);
-      console.log(compressedGoodFile);
       reader.readAsDataURL(compressedGoodFile);
 
       reader.onloadend = () => {
@@ -46,7 +44,6 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
   const badSelectFile = async (e) => {
     const reader = new FileReader();
     const badFile = badFileInput.current.files[0];
-    console.log(badFile);
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 300,
@@ -58,7 +55,6 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
     try {
       const compressedBadFile = await imageCompression(badFile, options);
       reader.readAsDataURL(compressedBadFile);
-      console.log(compressedBadFile);
       reader.onloadend = () => {
         dispatch(imageActions.setBadPreview(reader.result));
         setChallengeInfo({
