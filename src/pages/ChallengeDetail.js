@@ -88,7 +88,6 @@ const ChallengeDetail = (props) => {
   if (progressDays < 0 || isNaN(progressPercent)) {
     progressPercent = 0;
   }
-  console.log(progressPercent * 100);
 
   today =
     leadingZeros(today.getFullYear(), 4) +
