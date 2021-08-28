@@ -123,6 +123,7 @@ export const ChallengeCreateApis = {
 export const MainApis = {
   guestMain: () => instance.get(`/api/guest/main`),
   search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
+  allChallenge: (page) => instance.get(`/api/guest/challenges/1`),
   searchFilter: (categoryName, period, progress) =>
     instance.get(`/api/guest/search/${categoryName}/${period}/${progress}/1`),
 };
