@@ -17,6 +17,10 @@ const LandingPage = (props) => {
     history.push("/signup");
   };
 
+  const goToHome = () => {
+    history.push("/home");
+  };
+
   return (
     <Container>
       <MainSection>
@@ -150,12 +154,8 @@ const LandingPage = (props) => {
       </MobileChat>
       <IntroSection>
         <h1>나를 위한 조각을 모을 준비 되셨나요?</h1>
-        <Button
-          width="fit-content"
-          padding="0.73vw 2.45vw"
-          _onClick={goToSignUp}
-        >
-          가입하고 챌린지 참여하기
+        <Button width="fit-content" padding="0.73vw 2.45vw" _onClick={goToHome}>
+          홈페이지 둘러보기
         </Button>
       </IntroSection>
       <MobileIntroSection>
@@ -168,9 +168,9 @@ const LandingPage = (props) => {
           width="91.11vw"
           padding="13px 2.45vw"
           margin="0 5.56vw"
-          _onClick={goToSignUp}
+          _onClick={goToHome}
         >
-          가입하고 챌린지 참여하기
+          홈페이지 둘러보기
         </Button>
       </MobileIntroSection>
     </Container>
