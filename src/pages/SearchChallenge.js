@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Tag, Card, Image, TagContainer } from "../elements";
 import { history } from "../redux/configureStore";
-import { MainCreators as searchAll } from "../redux/modules/main";
+import { MainCreators as searchActions } from "../redux/modules/main";
 import InfinityScroll from "../shared/InfinityScroll";
 
 function SearchChallenge(props) {
+  // 검색 키워드
   const keyWord = props.match.params.searchWords;
   const dispatch = useDispatch();
-  // 검색 키워드
   const searchList = useSelector((state) => state.main.search);
+  const { paging, is_loading } = useSelector((state) => state.main);
 
   const [searchState, setSearchState] = useState({
     passingTags: {
@@ -32,13 +33,26 @@ function SearchChallenge(props) {
     },
   });
 
-  useEffect(() => {
-    if (!keyWord === "all") {
-      dispatch(searchAll.searchDB(keyWord));
-    } else if (keyWord === "") {
-      dispatch(searchAll.searchFilterDB());
+  const filteredCategory = useCallback(() => {
+    const collectedTrueKeys = {
+      categoryName: "",
+      tags: "",
+      challengeProgress: "",
+    };
+
+    const { categoryName, tags, progress } = searchState.passingTags;
+    for (let categoryKey in categoryName) {
+      if (categoryName[categoryKey])
+        collectedTrueKeys.categoryName = categoryKey;
     }
-  }, [dispatch, keyWord, searchState]);
+    for (let tagKey in tags) {
+      if (tags[tagKey]) collectedTrueKeys.tags = tagKey;
+    }
+    for (let progressKey in progress) {
+      if (progress[progressKey]) collectedTrueKeys.progress = progressKey;
+    }
+    return collectedTrueKeys;
+  }, [searchState.passingTags]);
 
   const allFilterClickListener = (e, filterProp) => {
     let name = e.target.textContent;
@@ -63,6 +77,7 @@ function SearchChallenge(props) {
     } else {
       name = e.target.textContent;
     }
+
     setSearchState({
       passingTags: {
         ...searchState.passingTags,
@@ -73,29 +88,13 @@ function SearchChallenge(props) {
     });
   };
 
-  const filteredCollected = () => {
-    const collectedTrueKeys = {
-      categoryName: "",
-      tags: "",
-      challengeProgress: "",
-    };
-    const { categoryName, tags, progress } = searchState.passingTags;
-    for (let categoryKey in categoryName) {
-      if (categoryName[categoryKey])
-        collectedTrueKeys.categoryName = categoryKey;
+  useEffect(() => {
+    if (keyWord === "all") {
+      dispatch(searchActions.searchFilterDB(filteredCategory()));
+    } else {
+      return dispatch(searchActions.searchDB(keyWord));
     }
-    for (let tagKey in tags) {
-      if (tags[tagKey]) collectedTrueKeys.tags = tagKey;
-    }
-    for (let progressKey in progress) {
-      if (progress[progressKey]) collectedTrueKeys.progress = progressKey;
-    }
-    return collectedTrueKeys;
-  };
-
-  const filter = () => {
-    dispatch(searchAll.searchFilterDB(filteredCollected()));
-  };
+  }, [dispatch, filteredCategory, keyWord, searchState]);
 
   // 챌린지 기간
   const date = searchList?.map((list) => {
@@ -115,6 +114,13 @@ function SearchChallenge(props) {
     return challengeDate;
   };
 
+  const callNext = () => {
+    if (paging.next === false) {
+      return;
+    }
+    dispatch(searchActions.searchFilterDB(filteredCategory()));
+  };
+
   return (
     <Container>
       <CategoryContainer>
@@ -131,7 +137,9 @@ function SearchChallenge(props) {
             <Tag
               fontWeight="500"
               border="none"
-              onClick={(e) => allFilterClickListener(e, "categoryName")}
+              onClick={(e) => {
+                allFilterClickListener(e, "categoryName");
+              }}
               bg={
                 searchState.passingTags.categoryName.NODRINKNOSMOKE === true
                   ? "mainGreen"
@@ -267,17 +275,20 @@ function SearchChallenge(props) {
             </Tag>
           </TagBox>
         </CategoryRightBox>
-        <CategoryFilter onClick={filter}>선택된 조건 검색하기</CategoryFilter>
       </CategoryContainer>
       <BoxContainer>
-        <InfinityScroll>
+        <InfinityScroll
+          callNext={callNext}
+          is_next={paging.next ? true : false}
+          loading={is_loading}
+        >
           {searchList &&
-            searchList.map((l, idx) => {
+            searchList.map((challengeLists) => {
               //카테고리 이름 한글로 변경
               let category = "";
-              if (l.categoryName === "EXERCISE") {
+              if (challengeLists.categoryName === "EXERCISE") {
                 category = "운동";
-              } else if (l.categoryName === "NODRINKNOSMOKE") {
+              } else if (challengeLists.categoryName === "NODRINKNOSMOKE") {
                 category = "금연 / 금주";
               } else {
                 category = "생활습관";
@@ -285,31 +296,32 @@ function SearchChallenge(props) {
 
               // progress 한글로 변경
               let progress = "";
-              if (l.challengeProgress === 1) {
+              if (challengeLists.challengeProgress === 1) {
                 progress = "진행 예정";
-              } else if (l.challengeProgress === 2) {
+              } else if (challengeLists.challengeProgress === 2) {
                 progress = "진행중";
               }
               return (
-                <>
+                <React.Fragment key={challengeLists.challengeId}>
                   <Card
                     width="100%"
                     height="auto"
                     padding="0 0 3vh 0"
-                    title={l.challengeTitle}
-                    key={idx}
-                    date={`${findDate(l.challengeId).startDate} - ${
-                      findDate(l.challengeId).endDate
-                    }`}
+                    title={challengeLists.challengeTitle}
+                    date={`${
+                      findDate(challengeLists.challengeId).startDate
+                    } - ${findDate(challengeLists.challengeId).endDate}`}
                     onClick={() =>
-                      history.push(`/challenge/${l.challengeId}/intro`)
+                      history.push(
+                        `/challenge/${challengeLists.challengeId}/intro`
+                      )
                     }
                   >
                     <CardImg>
                       <Image
                         width="16.04vw"
                         height="8.33vw"
-                        src={l.challengeImgUrl}
+                        src={challengeLists.challengeImgUrl}
                         alt="challenge"
                       />
                     </CardImg>
@@ -320,7 +332,7 @@ function SearchChallenge(props) {
                         color="black"
                         padding="8px 15px"
                       >
-                        {l.tag}
+                        {challengeLists.tag}
                       </Tag>
                       <Tag
                         fontWeight="500"
@@ -340,7 +352,7 @@ function SearchChallenge(props) {
                       </Tag>
                     </TagContainer>
                   </Card>
-                </>
+                </React.Fragment>
               );
             })}
         </InfinityScroll>
@@ -423,29 +435,6 @@ const CategoryRightBox = styled.div`
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 16px;
     padding-left: 12px;
-  }
-`;
-
-const CategoryFilter = styled.div`
-  width: 13.54vw;
-  height: 5.5vh;
-  background-color: ${({ theme }) => theme.colors.mainGreen};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: 700;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 32px;
-  cursor: pointer;
-  right: 32px;
-  ${({ theme }) => theme.device.mobileLg} {
-    width: 318px;
-    height: 33px;
-    bottom: 10px;
-    font-size: 17px;
   }
 `;
 

@@ -14,7 +14,7 @@ const LOADING = "LOADING";
 // action creator
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
-const search = createAction(SEARCH, (search) => ({ search }));
+const search = createAction(SEARCH, (search, paging) => ({ search, paging }));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -118,38 +118,10 @@ const searchDB = (q) => {
   };
 };
 
-//전체 데이터 불러오기
-const allCategoryDB = () => {
-  return function (dispatch, getState, { history }) {
-    const _paging = getState().post.paging;
-
-    if (_paging.page === false && _paging.next === false) {
-      return;
-    }
-
-    dispatch(loading(true));
-
-    MainApis.allChallenge(_paging.page)
-      .then((res) => {
-        let new_paging = {
-          page:
-            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
-          next: res.data.hasNext,
-          size: _paging.size,
-        };
-
-        dispatch(search(res.data.challengeList, new_paging));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
 // 필터링
-const searchFilterDB = (content) => {
+const searchFilterDB = (content, keyWord) => {
   return function (dispatch, getState, { history }) {
-    const _paging = getState().post.paging;
+    const _paging = getState().main.paging;
 
     if (_paging.page === false && _paging.next === false) {
       return;
@@ -157,9 +129,16 @@ const searchFilterDB = (content) => {
 
     dispatch(loading(true));
 
+    // let searchWords = "all";
     let categoryName = "ALL";
     let period = 0;
     let progress = 0;
+
+    // if (keyWord) {
+    //   searchWords = keyWord;
+    // } else {
+    //   return;
+    // }
 
     if (content) {
       if (content.tags === "1") {
@@ -193,10 +172,35 @@ const searchFilterDB = (content) => {
       }
     }
 
+    // const encodeSearchWords = encodeURIComponent(searchWords);
     const encodeCategoryName = encodeURIComponent(categoryName);
     const encodePeriod = encodeURIComponent(period);
     const encodeProgress = encodeURIComponent(progress);
+
+    if (
+      encodeCategoryName === "ALL" &&
+      encodePeriod === 0 &&
+      encodeProgress === 0
+    ) {
+      MainApis.allChallenge(_paging.page)
+        .then((res) => {
+          let new_paging = {
+            page:
+              res.data.postList?.length < _paging.size
+                ? false
+                : _paging.page + 1,
+            next: res.data.hasNext,
+            size: _paging.size,
+          };
+
+          dispatch(search(res.data.challengeList, new_paging));
+        })
+        .catch((err) => {
+          consoleLogger(err);
+        });
+    }
     MainApis.searchFilter(
+      // encodeSearchWords,
       encodeCategoryName,
       encodePeriod,
       encodeProgress,
@@ -233,7 +237,9 @@ export default handleActions(
       }),
     [SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        draft.search = action.payload.search;
+        draft.search.push(...action.payload.search);
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
       }),
     [DELETE_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
@@ -264,7 +270,7 @@ const MainCreators = {
   deleteUserLoad,
   searchFilterDB,
   loading,
-  allCategoryDB,
+  // allCategoryDB,
 };
 
 export { MainCreators };
