@@ -32,10 +32,10 @@ function SearchChallenge(props) {
   });
 
   useEffect(() => {
-    if (keyWord === "all") {
-      dispatch(searchAll.searchFilterDB(searchState));
-    } else {
+    if (!keyWord === "all") {
       dispatch(searchAll.searchDB(keyWord));
+    } else if (keyWord === "") {
+      dispatch(searchAll.searchFilterDB());
     }
   }, [dispatch, keyWord, searchState]);
 
@@ -436,6 +436,7 @@ const CategoryFilter = styled.div`
   align-items: center;
   position: absolute;
   bottom: 32px;
+  cursor: pointer;
   right: 32px;
   ${({ theme }) => theme.device.mobileLg} {
     width: 318px;
