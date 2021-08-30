@@ -467,10 +467,16 @@ const Item = styled.li`
   border-bottom: 4px solid
     ${(props) =>
       props.clicked ? props.theme.colors.mainGreen : props.theme.colors.gray};
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
+  cursor: pointer;
+  a {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
   ${({ theme }) => theme.device.desktopLg} {
     a {
       font-size: 18px;
@@ -490,9 +496,6 @@ const Item = styled.li`
   ${({ theme }) => theme.device.mobileLg} {
     a {
       font-size: ${({ theme }) => theme.fontSizes.sm};
-      display: flex;
-      justify-content: center;
-      width: 27.22vw;
     }
   }
 `;

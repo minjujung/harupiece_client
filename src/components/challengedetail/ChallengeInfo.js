@@ -196,7 +196,7 @@ const Section = styled.section`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 100%;
-    padding: 0 4.44vw;
+    padding: 0 4.44vw 5vw 4.44vw;
     margin: 0px;
     h3 {
       display: flex;

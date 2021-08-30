@@ -269,6 +269,9 @@ const MobildMain = styled.section`
       width: 100%;
       height: 50vw;
     }
+    button {
+      margin: 0;
+    }
   }
 `;
 
@@ -394,6 +397,8 @@ const ImageFrame = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 96.22vw;
+    margin-left: 0;
+    align-self: flex-end;
     overflow: hidden;
     img {
       margin-top: 40px;
