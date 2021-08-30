@@ -2,22 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { history } from "../../redux/configureStore";
-import { useSelector, useDispatch } from "react-redux";
-import { MainCreators as searchActions } from "../../redux/modules/main";
+import { useSelector } from "react-redux";
 
 import { Tag, Card, Image, TagContainer } from "../../elements";
 import { changeForm } from "../mypage/ChallengesInProgress";
 import Right from "../../assets/images/icons/arrow/right.svg";
 
 const Category = (props) => {
-  const dispatch = useDispatch();
   const main_list = useSelector((state) => state.main.guestmain);
 
   const [category, setCategory] = useState("livinghabits");
 
   const searchAll = (e) => {
     e.preventDefault();
-    dispatch(searchActions.allCategoryDB());
     history.push(`/search/all/1`);
   };
 
