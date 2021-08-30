@@ -145,6 +145,7 @@ const Header = () => {
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         onKeyPress={onCheckEnter}
+                        autoFocus
                       />
                     </label>
                   </SearchLeftBox>
