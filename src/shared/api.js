@@ -122,10 +122,13 @@ export const ChallengeCreateApis = {
 // 메인 화면
 export const MainApis = {
   guestMain: () => instance.get(`/api/guest/main`),
-  search: (searchWords) => instance.get(`/api/guest/search/${searchWords}/1`),
-  allChallenge: (page) => instance.get(`/api/guest/challenges/1`),
-  searchFilter: (categoryName, period, progress) =>
-    instance.get(`/api/guest/search/${categoryName}/${period}/${progress}/1`),
+  search: (searchWords, page) =>
+    instance.get(`/api/guest/search/${searchWords}/${page}`),
+  allChallenge: (page) => instance.get(`/api/guest/challenges/${page}`),
+  searchFilter: (categoryName, period, progress, page) =>
+    instance.get(
+      `/api/guest/search/${categoryName}/${period}/${progress}/${page}`
+    ),
 };
 
 // 인증샷 포스팅

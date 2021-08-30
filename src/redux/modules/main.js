@@ -33,6 +33,7 @@ const initialState = {
   guestmain: [],
   usermain: [],
   search: [],
+  paging: { page: 1, next: null, size: 8 },
   is_loading: false,
 };
 
@@ -90,10 +91,26 @@ const guestLoadDB = () => {
 // 키워드 검색
 const searchDB = (q) => {
   return function (dispatch, getState, { history }) {
+    const _paging = getState().post.paging;
+
+    if (_paging.page === false && _paging.next === false) {
+      return;
+    }
+
     const encode = encodeURIComponent(q);
-    MainApis.search(encode)
+
+    dispatch(loading(true));
+
+    MainApis.search(encode, _paging.page)
       .then((res) => {
-        dispatch(search(res.data.challengeList));
+        let new_paging = {
+          page:
+            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
+          next: res.data.hasNext,
+          size: _paging.size,
+        };
+
+        dispatch(search(res.data.challengeList, new_paging));
       })
       .catch((err) => {
         consoleLogger(err);
@@ -102,11 +119,26 @@ const searchDB = (q) => {
 };
 
 //전체 데이터 불러오기
-const allCategoryDB = (page) => {
+const allCategoryDB = () => {
   return function (dispatch, getState, { history }) {
-    MainApis.allChallenge(page)
+    const _paging = getState().post.paging;
+
+    if (_paging.page === false && _paging.next === false) {
+      return;
+    }
+
+    dispatch(loading(true));
+
+    MainApis.allChallenge(_paging.page)
       .then((res) => {
-        dispatch(search(res.data.challengeList));
+        let new_paging = {
+          page:
+            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
+          next: res.data.hasNext,
+          size: _paging.size,
+        };
+
+        dispatch(search(res.data.challengeList, new_paging));
       })
       .catch((err) => {
         console.log(err);
@@ -117,6 +149,14 @@ const allCategoryDB = (page) => {
 // 필터링
 const searchFilterDB = (content) => {
   return function (dispatch, getState, { history }) {
+    const _paging = getState().post.paging;
+
+    if (_paging.page === false && _paging.next === false) {
+      return;
+    }
+
+    dispatch(loading(true));
+
     let categoryName = "ALL";
     let period = 0;
     let progress = 0;
@@ -156,9 +196,20 @@ const searchFilterDB = (content) => {
     const encodeCategoryName = encodeURIComponent(categoryName);
     const encodePeriod = encodeURIComponent(period);
     const encodeProgress = encodeURIComponent(progress);
-    MainApis.searchFilter(encodeCategoryName, encodePeriod, encodeProgress)
+    MainApis.searchFilter(
+      encodeCategoryName,
+      encodePeriod,
+      encodeProgress,
+      _paging.page
+    )
       .then((res) => {
-        dispatch(search(res.data.challengeList));
+        let new_paging = {
+          page:
+            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
+          next: res.data.hasNext,
+          size: _paging.size,
+        };
+        dispatch(search(res.data.challengeList, new_paging));
       })
       .catch((err) => {
         consoleLogger(err);

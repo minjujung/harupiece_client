@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Tag, Card, Image, TagContainer } from "../elements";
 import { history } from "../redux/configureStore";
 import { MainCreators as searchAll } from "../redux/modules/main";
+import InfinityScroll from "../shared/InfinityScroll";
 
 function SearchChallenge(props) {
   const keyWord = props.match.params.searchWords;
@@ -269,78 +270,80 @@ function SearchChallenge(props) {
         <CategoryFilter onClick={filter}>선택된 조건 검색하기</CategoryFilter>
       </CategoryContainer>
       <BoxContainer>
-        {searchList &&
-          searchList.map((l, idx) => {
-            //카테고리 이름 한글로 변경
-            let category = "";
-            if (l.categoryName === "EXERCISE") {
-              category = "운동";
-            } else if (l.categoryName === "NODRINKNOSMOKE") {
-              category = "금연 / 금주";
-            } else {
-              category = "생활습관";
-            }
+        <InfinityScroll>
+          {searchList &&
+            searchList.map((l, idx) => {
+              //카테고리 이름 한글로 변경
+              let category = "";
+              if (l.categoryName === "EXERCISE") {
+                category = "운동";
+              } else if (l.categoryName === "NODRINKNOSMOKE") {
+                category = "금연 / 금주";
+              } else {
+                category = "생활습관";
+              }
 
-            // progress 한글로 변경
-            let progress = "";
-            if (l.challengeProgress === 1) {
-              progress = "진행 예정";
-            } else if (l.challengeProgress === 2) {
-              progress = "진행중";
-            }
-            return (
-              <>
-                <Card
-                  width="100%"
-                  height="auto"
-                  padding="0 0 3vh 0"
-                  title={l.challengeTitle}
-                  key={idx}
-                  date={`${findDate(l.challengeId).startDate} - ${
-                    findDate(l.challengeId).endDate
-                  }`}
-                  onClick={() =>
-                    history.push(`/challenge/${l.challengeId}/intro`)
-                  }
-                >
-                  <CardImg>
-                    <Image
-                      width="16.04vw"
-                      height="8.33vw"
-                      src={l.challengeImgUrl}
-                      alt="challenge"
-                    />
-                  </CardImg>
-                  <TagContainer>
-                    <Tag
-                      fontWeight="500"
-                      bg="lightGray"
-                      color="black"
-                      padding="8px 15px"
-                    >
-                      {l.tag}
-                    </Tag>
-                    <Tag
-                      fontWeight="500"
-                      bg="lightGray"
-                      color="black"
-                      padding="8px 10px"
-                    >
-                      {category}
-                    </Tag>
-                    <Tag
-                      fontWeight="500"
-                      bg="lightGray"
-                      color="black"
-                      padding="8px 10px"
-                    >
-                      {progress}
-                    </Tag>
-                  </TagContainer>
-                </Card>
-              </>
-            );
-          })}
+              // progress 한글로 변경
+              let progress = "";
+              if (l.challengeProgress === 1) {
+                progress = "진행 예정";
+              } else if (l.challengeProgress === 2) {
+                progress = "진행중";
+              }
+              return (
+                <>
+                  <Card
+                    width="100%"
+                    height="auto"
+                    padding="0 0 3vh 0"
+                    title={l.challengeTitle}
+                    key={idx}
+                    date={`${findDate(l.challengeId).startDate} - ${
+                      findDate(l.challengeId).endDate
+                    }`}
+                    onClick={() =>
+                      history.push(`/challenge/${l.challengeId}/intro`)
+                    }
+                  >
+                    <CardImg>
+                      <Image
+                        width="16.04vw"
+                        height="8.33vw"
+                        src={l.challengeImgUrl}
+                        alt="challenge"
+                      />
+                    </CardImg>
+                    <TagContainer>
+                      <Tag
+                        fontWeight="500"
+                        bg="lightGray"
+                        color="black"
+                        padding="8px 15px"
+                      >
+                        {l.tag}
+                      </Tag>
+                      <Tag
+                        fontWeight="500"
+                        bg="lightGray"
+                        color="black"
+                        padding="8px 10px"
+                      >
+                        {category}
+                      </Tag>
+                      <Tag
+                        fontWeight="500"
+                        bg="lightGray"
+                        color="black"
+                        padding="8px 10px"
+                      >
+                        {progress}
+                      </Tag>
+                    </TagContainer>
+                  </Card>
+                </>
+              );
+            })}
+        </InfinityScroll>
       </BoxContainer>
     </Container>
   );
