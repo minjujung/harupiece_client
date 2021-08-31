@@ -186,7 +186,7 @@ const searchFilterDB = (content, keyWord) => {
         .then((res) => {
           let new_paging = {
             page:
-              res.data.postList?.length < _paging.size
+              res.data.challengeList?.length < _paging.size
                 ? false
                 : _paging.page + 1,
             next: res.data.hasNext,
@@ -209,7 +209,9 @@ const searchFilterDB = (content, keyWord) => {
       .then((res) => {
         let new_paging = {
           page:
-            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
+            res.data.challengeList?.length < _paging.size
+              ? false
+              : _paging.page + 1,
           next: res.data.hasNext,
           size: _paging.size,
         };
@@ -237,7 +239,9 @@ export default handleActions(
       }),
     [SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        draft.search.push(...action.payload.search);
+        action.payload.search.length < action.payload.paging.size
+          ? (draft.search = action.payload.search)
+          : draft.search.push(...action.payload.search);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),
