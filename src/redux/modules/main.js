@@ -88,106 +88,79 @@ const guestLoadDB = () => {
   };
 };
 
-// 키워드 검색
-const searchDB = (q) => {
-  return function (dispatch, getState, { history }) {
-    const _paging = getState().post.paging;
-
-    if (_paging.page === false && _paging.next === false) {
-      return;
-    }
-
-    const encode = encodeURIComponent(q);
-
-    dispatch(loading(true));
-
-    MainApis.search(encode, _paging.page)
-      .then((res) => {
-        let new_paging = {
-          page:
-            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
-          next: res.data.hasNext,
-          size: _paging.size,
-        };
-
-        dispatch(search(res.data.challengeList, new_paging));
-      })
-      .catch((err) => {
-        consoleLogger(err);
-      });
-  };
-};
-
 // 필터링
 const searchFilterDB = (content, keyWord) => {
   return function (dispatch, getState, { history }) {
     const _paging = getState().main.paging;
 
-    if (_paging.page === false && _paging.next === false) {
-      return;
-    }
-
     dispatch(loading(true));
 
-    // let searchWords = "all";
+    let searchWords = "ALL";
     let categoryName = "ALL";
     let period = 0;
     let progress = 0;
+    let page = 1;
 
-    // if (keyWord) {
-    //   searchWords = keyWord;
-    // } else {
-    //   return;
-    // }
-
-    if (content) {
-      if (content.tags === "1") {
-        period = 1;
-      } else if (content.tags === "2") {
-        period = 2;
-      } else if (content.tags === "3") {
-        period = 3;
-      } else if (content.tags === "4") {
-        period = 4;
-      } else {
-        period = 0;
-      }
-
-      if (content.categoryName === "NODRINKNOSMOKE") {
-        categoryName = "NODRINKNOSMOKE";
-      } else if (content.categoryName === "EXERCISE") {
-        categoryName = "EXERCISE";
-      } else if (content.categoryName === "LIVINGHABITS") {
-        categoryName = "LIVINGHABITS";
-      } else {
-        categoryName = "ALL";
-      }
-
-      if (content.progress === "1") {
-        progress = 1;
-      } else if (content.progress === "2") {
-        progress = 2;
-      } else {
-        progress = 0;
-      }
+    if (keyWord !== "ALL" && keyWord !== undefined) {
+      searchWords = keyWord;
+    } else {
+      searchWords = "ALL";
     }
 
-    // const encodeSearchWords = encodeURIComponent(searchWords);
+    if (content.categoryName === "NODRINKNOSMOKE") {
+      categoryName = "NODRINKNOSMOKE";
+    } else if (content.categoryName === "EXERCISE") {
+      categoryName = "EXERCISE";
+    } else if (content.categoryName === "LIVINGHABITS") {
+      categoryName = "LIVINGHABITS";
+    } else {
+      categoryName = "ALL";
+    }
+
+    if (content.tags === "1") {
+      period = 1;
+    } else if (content.tags === "2") {
+      period = 2;
+    } else if (content.tags === "3") {
+      period = 3;
+    } else if (content.tags === "4") {
+      period = 4;
+    } else {
+      period = 0;
+    }
+
+    if (content.progress === "1") {
+      progress = 1;
+    } else if (content.progress === "2") {
+      progress = 2;
+    } else {
+      progress = 0;
+    }
+
+    if (_paging.page && _paging.next === true) {
+      page = _paging.page;
+    } else if (_paging.next === false || _paging.next === null) {
+      page = 1;
+    }
+
+    const encodeSearchWords = encodeURIComponent(searchWords);
     const encodeCategoryName = encodeURIComponent(categoryName);
-    const encodePeriod = encodeURIComponent(period);
-    const encodeProgress = encodeURIComponent(progress);
 
     if (
+      encodeSearchWords === "ALL" &&
       encodeCategoryName === "ALL" &&
-      encodePeriod === 0 &&
-      encodeProgress === 0
+      period === 0 &&
+      progress === 0 &&
+      page === 1
     ) {
-      MainApis.allChallenge(_paging.page)
+      MainApis.allChallenge(page)
         .then((res) => {
+          console.log(res);
+          console.log(res.config);
           let new_paging = {
             page:
-              res.data.postList?.length < _paging.size
-                ? false
+              res.data.challengeList?.length < _paging.size
+                ? 1
                 : _paging.page + 1,
             next: res.data.hasNext,
             size: _paging.size,
@@ -198,26 +171,30 @@ const searchFilterDB = (content, keyWord) => {
         .catch((err) => {
           consoleLogger(err);
         });
+    } else {
+      MainApis.searchFilter(
+        encodeSearchWords,
+        encodeCategoryName,
+        period,
+        progress,
+        page
+      )
+        .then((res) => {
+          console.log(res);
+          let new_paging = {
+            page:
+              res.data.challengeList?.length < _paging.size
+                ? 1
+                : _paging.page + 1,
+            next: res.data.hasNext,
+            size: _paging.size,
+          };
+          dispatch(search(res.data.challengeList, new_paging));
+        })
+        .catch((err) => {
+          consoleLogger(err);
+        });
     }
-    MainApis.searchFilter(
-      // encodeSearchWords,
-      encodeCategoryName,
-      encodePeriod,
-      encodeProgress,
-      _paging.page
-    )
-      .then((res) => {
-        let new_paging = {
-          page:
-            res.data.postList?.length < _paging.size ? false : _paging.page + 1,
-          next: res.data.hasNext,
-          size: _paging.size,
-        };
-        dispatch(search(res.data.challengeList, new_paging));
-      })
-      .catch((err) => {
-        consoleLogger(err);
-      });
   };
 };
 
@@ -237,7 +214,15 @@ export default handleActions(
       }),
     [SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        draft.search.push(...action.payload.search);
+        const challengeSize = action.payload.search.length;
+        const payloadSize = action.payload.paging.size;
+        // const payloadPage = action.payload.paging.page;
+        if (challengeSize < payloadSize) {
+          draft.search = action.payload.search;
+        } else {
+          draft.search.push(...action.payload.search);
+        }
+
         draft.paging = action.payload.paging;
         draft.is_loading = false;
       }),
@@ -265,7 +250,6 @@ const MainCreators = {
   guestLoadDB,
   userLoad,
   guestLoad,
-  searchDB,
   addUserLoad,
   deleteUserLoad,
   searchFilterDB,

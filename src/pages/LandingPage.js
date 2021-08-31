@@ -31,7 +31,7 @@ const LandingPage = (props) => {
         </h1>
         <Desc>
           <Ment>
-            <p>
+            <p style={{ cursor: "default" }}>
               매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
               <br />
               사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지에 참여해서

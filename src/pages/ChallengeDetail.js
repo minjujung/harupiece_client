@@ -52,7 +52,6 @@ const ChallengeDetail = (props) => {
     if (!challengeId) {
       return;
     }
-    console.log("hello");
     dispatch(challengeDetailActions.loading(true));
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
@@ -392,6 +391,7 @@ const Title = styled.h1`
   font-weight: bold;
   margin-bottom: 2.5%;
   text-align: center;
+  cursor: default;
   ${({ theme }) => theme.device.desktopLg} {
     font-size: 32px;
   }
@@ -411,6 +411,7 @@ const TotalNum = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
+  cursor: default;
   ${({ theme }) => theme.device.desktopLg} {
     font-size: 18px;
   }

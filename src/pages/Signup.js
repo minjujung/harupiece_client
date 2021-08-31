@@ -23,9 +23,9 @@ const Signup = (props) => {
     <React.Fragment>
       <Container>
         <div>
-          <Image width="162px" height="155px" src={Green} />
+          <Image no_cursor width="162px" height="155px" src={Green} />
         </div>
-        <p>매일 달성하는 나만의 하루 조각</p>
+        <p style={{ cursor: "default" }}  >매일 달성하는 나만의 하루 조각</p>
         <Formik
           initialValues={{
             email: "",

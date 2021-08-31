@@ -101,6 +101,7 @@ const Section = styled.section`
 
 const NoListMent = styled.p`
   margin-top: 3.7vh;
+  cursor: default;
   font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;

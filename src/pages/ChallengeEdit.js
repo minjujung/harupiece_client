@@ -180,7 +180,7 @@ function ChallengeCreate(props) {
             ) : null}
           </MobileBadge>
           <Title>
-            <h2>챌린지 수정</h2>
+            <h2 style={{ cursor: "default" }} >챌린지 수정</h2>
           </Title>
           <Guid>
             <Image
@@ -399,6 +399,7 @@ const MobileClose = styled.div`
 
 const BadgeText = styled.div`
   display: flex;
+  cursor: default;
   width: 27.66vw;
   height: 100%;
   justify-content: space-between;
@@ -456,6 +457,9 @@ const Input = styled.input`
   border-radius: 8px;
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
+  }
+  ::placeholder{
+    color: ${({ theme }) => theme.colors.darkGray};
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;

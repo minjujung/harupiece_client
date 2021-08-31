@@ -13,6 +13,7 @@ const InfinityScroll = (props) => {
 
     if (scrollTo.current.scrollTop === 0) {
       setPrevHeight(scrollTo.current.scrollHeight);
+      console.log(scrollTo.current.scrollHeight);
       callNext();
     }
   }, 500);

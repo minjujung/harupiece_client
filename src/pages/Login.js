@@ -13,27 +13,13 @@ import { Button, Image } from "../elements";
 const Login = (props) => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (getCookie("token")) {
-  //     setTimeout(
-  //       () =>
-  //         window.alert(
-  //           "이미 로그인이 되어있어요! 메인화면에서 챌린지를 둘러보세요^^"
-  //         ),
-  //       300
-  //     );
-  //     history.push("/");
-  //     return;
-  //   }
-  // }, []);
-
   return (
     <React.Fragment>
       <Container>
         <div>
-          <Image width="162px" height="155px" src={Green} />
+          <Image no_cursor width="162px" height="155px" src={Green} />
         </div>
-        <p>로그인</p>
+        <p style={{ cursor: "default" }} >로그인</p>
         <Formik
           initialValues={{
             email: "",
