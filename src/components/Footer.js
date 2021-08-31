@@ -49,7 +49,7 @@ const Footer = (props) => {
               </Item>
               <Item
                 onClick={() => {
-                  const link = "https://github.com/OneDayPiece/client";
+                  const link = "https://github.com/OneDayPiece";
                   window.open(link, "");
                 }}
               >
@@ -84,9 +84,9 @@ const FooterBox = styled.div`
   background-color: white;
   bottom: 0;
   z-index: 10;
-  ${({ theme }) => theme.device.mobileLg} {
+  /* ${({ theme }) => theme.device.mobileLg} {
     margin-bottom: 40px;
-  }
+  } */
 `;
 
 const LeftBox = styled.div`
