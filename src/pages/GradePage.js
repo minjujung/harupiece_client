@@ -19,12 +19,12 @@ const GradePage = (props) => {
       <PieceSection>
         <TextSection>
           <Head>
-            <p>
+            <p style={{ cursor: "default" }}  >
               하루 조각<span>챌린지에 참여해서 조각을 모아보세요.</span>
             </p>
           </Head>
           <Body>
-            <p>
+            <p style={{ cursor: "default" }}  >
               챌린지에 <span>인증샷</span>을 올리면 1조각,
               <br />
               챌린지를 <span>완료</span>하면 인증샷 수 X 50조각,
@@ -34,7 +34,7 @@ const GradePage = (props) => {
             </p>
           </Body>
           <Tail>
-            <p>
+            <p style={{ cursor: "default" }}  >
               * 인증샷을 올리고 다른 참가자의 50%가 인증해야 1조각을 모을 수
               있습니다.
               <br />* 10일동안 진행하는 일반챌린지를 인증샷을 올려서 완료하면 총
@@ -49,12 +49,12 @@ const GradePage = (props) => {
       <GradeSection>
         <TextSection>
           <Head>
-            <p>
+            <p style={{ cursor: "default" }}  >
               구슬 등급<span>모은 조각의 갯수에 따라 구슬등급이 달라져요.</span>
             </p>
           </Head>
           <Body>
-            <p>
+            <p style={{ cursor: "default" }} >
               조각 100개를 모으면 YELLOW 등급이,
               <br />
               조각 200개를 모으면 ORANGE 등급이 될 수 있어요.

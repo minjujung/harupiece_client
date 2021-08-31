@@ -50,21 +50,21 @@ function MyPieces(props) {
     <Container>
       <PointGrid>
         <InfoBox mainGreen>
-          <p>나의 하루조각 등급은?</p>
+          <p style={{ cursor: "default" }} >나의 하루조각 등급은?</p>
           <strong>
             {userLevel}({mypageInfo.memberHistoryResponseDto?.rank}위)
           </strong>
         </InfoBox>
         <InfoBox>
-          <p>하루조각 총 개수</p>
+          <p style={{ cursor: "default" }} >하루조각 총 개수</p>
           <strong>{user_info.point}개</strong>
         </InfoBox>
         <InfoBox>
-          <p>다음 등급까지 필요 개수</p>
+          <p style={{ cursor: "default" }} >다음 등급까지 필요 개수</p>
           <strong> {levelState - user_info.point}개</strong>
         </InfoBox>
         <InfoBox>
-          <p>내가 모은 구슬</p>
+          <p style={{ cursor: "default" }} >내가 모은 구슬</p>
           <MarbleList>
             {levelArray.map((idx) => (
               <Image
@@ -83,7 +83,7 @@ function MyPieces(props) {
       </PointGrid>
       <PointHistory>
         <Header>
-          <h2>조각 히스토리</h2>
+          <h2 style={{ cursor: "default" }} >조각 히스토리</h2>
           <button onClick={() => setShow(!show)}>
             {show ? "접어두기" : "펼치기"}
           </button>
@@ -285,6 +285,7 @@ const NoPointMent = styled.p`
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;
+  cursor: default;
   ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
     height: 25vh;

@@ -141,6 +141,7 @@ const UserStatus = styled.p`
   padding: 7%;
   font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: normal;
+  cursor: default;
   ${(props) =>
     props.goodUser
       ? `border-bottom: 2px solid ${props.theme.colors.lightGray};`

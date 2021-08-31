@@ -69,7 +69,7 @@ const ChallengeInfo = (props) => {
         <Noti>인증샷을 하나도 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
         <Title>
           {toastAlert && <Toast msg="url 복사 완료!" />}
-          <h3>기본정보</h3>
+          <h3 style={{ cursor: "default" }} >기본정보</h3>
           <ShareBtn onClick={copy}>
             <Link style={{ transform: "rotate(-45deg)" }} /> 챌린지 공유하기
             <textarea
@@ -138,7 +138,7 @@ const ChallengeInfo = (props) => {
             </PostFrame>
           </MobileFrame>
         </Example>
-        <h3>소개글</h3>
+        <h3 style={{ cursor: "default" }} >소개글</h3>
         <Desc>{challenge.challengeContent}</Desc>
         <TagFrame>
           <Tag bg="mainGreen" color="white">
@@ -209,6 +209,7 @@ const Section = styled.section`
 
 const Noti = styled.p`
   width: fit-content;
+  cursor: default;
   background-color: ${({ theme }) => theme.colors.mainOrange};
   color: white;
   font-weight: bold;
@@ -338,6 +339,7 @@ const ExTitle = styled.h4`
   height: 2em;
   display: flex;
   align-items: center;
+  cursor: default;
   color: ${(props) =>
     props.good ? props.theme.colors.mainGreen : props.theme.colors.mainOrange};
   font-weight: bold;
@@ -363,6 +365,7 @@ const Desc = styled.p`
   margin-bottom: 1.2em;
   line-height: normal;
   white-space: pre-wrap;
+  cursor: default;
 `;
 
 const TagFrame = styled.div`

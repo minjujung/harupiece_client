@@ -141,6 +141,7 @@ const SubT = styled.p`
   font-weight: 400;
   color: ${({ theme }) => theme.colors.darkGray};
   margin-bottom: 8px;
+  cursor: default;
   ${({ theme }) => theme.device.mobileLg} {
     font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 0px;
