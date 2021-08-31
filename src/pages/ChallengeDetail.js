@@ -52,11 +52,13 @@ const ChallengeDetail = (props) => {
     if (!challengeId) {
       return;
     }
+    console.log("hello");
     dispatch(challengeDetailActions.loading(true));
     dispatch(challengeDetailActions.getChallengeDetailDB(challengeId));
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
     dispatch(postActions.getPostDB(challengeId));
   }, [dispatch, challengeId]);
+
   //challenge날짜수 계산
   const start = challenge?.challengeStartDate?.split("T")[0].split("-");
   const date1 = new Date(start[0], start[1], start[2]);

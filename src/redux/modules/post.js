@@ -2,17 +2,19 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
 import { consoleLogger } from "../configureStore";
+import { actionCreator as challengeDetailActions } from "./challengeDetail";
 import { actionCreator as imageActions } from "./image";
 import { PostApis } from "../../shared/api";
 
 import AWS from "aws-sdk";
+import challengeDetail from "./challengeDetail";
 
 const RESET_POST = "RESET_POST";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
-const LOADING = "LOADING";
+const POST_LOADING = "POST_LOADING";
 
 const resetPost = createAction(RESET_POST, (post_list, paging) => ({
   post_list,
@@ -31,7 +33,9 @@ const editPost = createAction(EDIT_POST, (post_id, new_post) => ({
   new_post,
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const postLoading = createAction(POST_LOADING, (is_loading) => ({
+  is_loading,
+}));
 
 const initialState = {
   list: [
@@ -67,7 +71,7 @@ const getPostDB =
       return;
     }
 
-    dispatch(loading(true));
+    dispatch(postLoading(true));
 
     PostApis.getPost(_paging.page, challengeId)
       .then((res) => {
@@ -392,7 +396,7 @@ export default handleActions(
         draft.list.splice(idx, 1);
       }),
 
-    [LOADING]: (state, action) =>
+    [POST_LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
