@@ -15,7 +15,7 @@ const Category = (props) => {
 
   const searchAll = (e) => {
     e.preventDefault();
-    history.push(`/search/all/1`);
+    history.push(`/search/ALL/1`);
   };
 
   const ChangeTag = (e) => {
