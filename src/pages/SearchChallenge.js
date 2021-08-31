@@ -455,6 +455,7 @@ const TagBox = styled.div`
   display: flex;
   font-size: 16px;
   padding: 10px 0;
+  cursor: pointer;
 `;
 
 const BoxContainer = styled.div`

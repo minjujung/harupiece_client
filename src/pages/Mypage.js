@@ -308,6 +308,7 @@ const UserInfo = styled.p`
   color: ${({ theme }) => theme.colors.white};
   line-height: normal;
   font-size: 38px;
+  cursor: default;
   strong {
     font-weight: bold;
   }

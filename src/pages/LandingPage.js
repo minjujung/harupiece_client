@@ -24,14 +24,14 @@ const LandingPage = (props) => {
   return (
     <Container>
       <MainSection>
-        <h1>
+        <h1 style={{ cursor: "default" }}  >
           당신의 건강 챌린지를 도와주는 서비스
           <br />
           하루조각
         </h1>
         <Desc>
           <Ment>
-            <p>
+            <p style={{ cursor: "default" }}  >
               매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
               <br />
               사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지에 참여해서
@@ -57,12 +57,12 @@ const LandingPage = (props) => {
         </Desc>
       </MainSection>
       <MobildMain>
-        <h1>
+        <h1 style={{ cursor: "default" }}  >
           당신의 건강 챌린지를 도와주는 서비스
           <br />
           하루조각
         </h1>
-        <p>
+        <p style={{ cursor: "default" }}  >
           매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
           <br />
           사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지
@@ -89,8 +89,10 @@ const LandingPage = (props) => {
       </Down>
       <ChallengeSection>
         <MentFrame>
-          <h1>건강한 습관을 만들 챌린지에 참여해보세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }} >
+            건강한 습관을 만들 챌린지에 참여해보세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >
             습관챌린지, 금연&금주, 운동 중 원하는 챌린지를 찾아보세요.
             <br />
             원하는 챌린지가 없다면 새로 챌린지를 개설하여
@@ -105,8 +107,10 @@ const LandingPage = (props) => {
       <PostSection>
         <img src={post} alt="post"></img>
         <MentFrame>
-          <h1>다른 사람들의 인증샷을 보고 응원해주세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }} >
+            다른 사람들의 인증샷을 보고 응원해주세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >
             습관을 만들기 어렵다고 느낀 적 있으신가요? <br />
             다른 사람들과 함께 챌린지를 진행하고 인증샷을 남기며
             <br />
@@ -116,8 +120,10 @@ const LandingPage = (props) => {
       </PostSection>
       <MobilePost>
         <MentFrame>
-          <h1>다른 사람들의 인증샷을 보고 응원해주세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }}>
+            다른 사람들의 인증샷을 보고 응원해주세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >
             습관을 만들기 어렵다고 느낀 적 있으신가요? <br />
             다른 사람들과 함께 챌린지를 진행하고 인증샷을 남기며
             <br />
@@ -128,8 +134,10 @@ const LandingPage = (props) => {
       </MobilePost>
       <PiecesSection>
         <MentFrame>
-          <h1>챌린지를 완료해서 조각을 모아보세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }} >
+            챌린지를 완료해서 조각을 모아보세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >
             챌린지에 인증샷을 올리면 1조각,
             <br />
             챌린지를 완료하면 인증기간 X 50조각,
@@ -147,8 +155,10 @@ const LandingPage = (props) => {
       <ChatSection>
         <img src={chat} alt="chat" />
         <MentFrame>
-          <h1>실시간 채팅을 통해 더 깊게 소통해보세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }}  >
+            실시간 채팅을 통해 더 깊게 소통해보세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >
             같은 챌린지를 진행하는 사람과 챌린지를 하면서 느낀 점이나 고민을
             <br /> 공유해보세요. 팁을 얻게 될지도 몰라요.{" "}
           </p>
@@ -156,8 +166,10 @@ const LandingPage = (props) => {
       </ChatSection>
       <MobileChat>
         <MentFrame>
-          <h1>실시간 채팅을 통해 더 깊게 소통해보세요.</h1>
-          <p>
+          <h1 style={{ cursor: "default" }}  >
+            실시간 채팅을 통해 더 깊게 소통해보세요.
+          </h1>
+          <p style={{ cursor: "default" }}  >  
             같은 챌린지를 진행하는 사람과 챌린지를 하면서 느낀 점이나 고민을
             공유해보세요. 팁을 얻게 될지도 몰라요.{" "}
           </p>
@@ -165,13 +177,15 @@ const LandingPage = (props) => {
         <img src={mobileChat} alt="mobileChat" />
       </MobileChat>
       <IntroSection>
-        <h1>나를 위한 조각을 모을 준비 되셨나요?</h1>
+        <h1 style={{ cursor: "default" }}  >
+          나를 위한 조각을 모을 준비 되셨나요?
+        </h1>
         <Button width="fit-content" padding="0.73vw 2.45vw" _onClick={goToHome}>
           홈페이지 둘러보기
         </Button>
       </IntroSection>
       <MobileIntroSection>
-        <h1>
+        <h1 style={{ cursor: "default" }}  >
           나를 위한 조각을 모을 준비,
           <br />
           되셨나요?

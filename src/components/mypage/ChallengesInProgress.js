@@ -179,6 +179,7 @@ const NoListMent = styled.div`
   color: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   line-height: normal;
+  cursor: default;
   p {
     margin-bottom: 10%;
     line-height: 2.5;
