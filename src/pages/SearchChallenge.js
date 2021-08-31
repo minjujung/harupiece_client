@@ -89,10 +89,12 @@ function SearchChallenge(props) {
   };
 
   useEffect(() => {
-    if (keyWord === "all") {
-      dispatch(searchActions.searchFilterDB(filteredCategory()));
+    if (keyWord === "ALL") {
+      dispatch(searchActions.searchFilterDB(filteredCategory(), keyWord));
     } else {
-      return dispatch(searchActions.searchDB(keyWord));
+      return dispatch(
+        searchActions.searchFilterDB(filteredCategory(), keyWord)
+      );
     }
   }, [dispatch, filteredCategory, keyWord, searchState]);
 
