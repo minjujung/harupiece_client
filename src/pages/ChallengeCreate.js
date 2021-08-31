@@ -496,6 +496,9 @@ const Input = styled.input`
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
+  ::placeholder{
+    color: ${({ theme }) => theme.colors.darkGray};
+  }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 6.875vh;
