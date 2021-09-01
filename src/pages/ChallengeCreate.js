@@ -576,7 +576,7 @@ const SelectBox = styled.select`
     width: 100%;
     height: 6.875vh;
     font-size: 24px;
-    top: 25%;
+    margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
   }
@@ -599,7 +599,7 @@ const SelectContainer = styled.div`
       width: 30px;
       height: 30px;
       position: absolute;
-      margin-top: 2vw;
+      top: 25%;
       pointer-events: none;
     }
   }
