@@ -342,6 +342,7 @@ const Guid = styled.div`
 const Title = styled.div`
   width: 100%;
   height: 4.81vh;
+  margin-bottom: 30px;
   & > h2 {
     font-size: 36px;
     font-weight: 700;
