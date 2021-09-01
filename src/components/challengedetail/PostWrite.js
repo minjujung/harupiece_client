@@ -9,6 +9,8 @@ import Button from "../../elements/Button";
 import { Image } from "../../elements";
 import camera from "../../assets/images/icons/camera.svg";
 import close from "../../assets/images/icons/close.svg";
+import imageCompression from "browser-image-compression";
+import { consoleLogger } from "../../redux/configureStore";
 
 const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
   const dispatch = useDispatch();
@@ -35,19 +37,27 @@ const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
   };
 
   //프리뷰 보여주기
-  const selectFile = () => {
+  const selectFile = async (e) => {
     const reader = new FileReader();
     const file = shotInput.current.files[0];
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+    };
 
     if (!file) {
       return;
     }
+    try {
+      const compressedFile = await imageCompression(file, options);
+      reader.readAsDataURL(compressedFile);
 
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      dispatch(imageActions.setPreview(reader.result));
-    };
+      reader.onloadend = () => {
+        dispatch(imageActions.setPreview(reader.result));
+      };
+    } catch (error) {
+      consoleLogger("인증샷 업로드 에러", error);
+    }
   };
 
   //인증샷 post게시하면서 이미지도 업로드
