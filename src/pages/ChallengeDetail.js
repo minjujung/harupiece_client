@@ -57,12 +57,13 @@ const ChallengeDetail = (props) => {
     dispatch(postActions.resetPost([], { page: 1, next: null, size: 6 }));
     dispatch(postActions.getPostDB(challengeId));
   }, [dispatch, challengeId]);
+
   //challenge날짜수 계산
   const start = challenge?.challengeStartDate?.split("T")[0].split("-");
-  const date1 = new Date(start[0], start[1][1] - 1, start[2]);
+  const date1 = new Date(start[0], start[1], start[2]);
 
   const end = challenge?.challengeEndDate?.split("T")[0].split("-");
-  const date2 = new Date(end[0], end[1][1] - 1, end[2]);
+  const date2 = new Date(end[0], end[1], end[2]);
 
   const totalSecond = date2.getTime() - date1.getTime();
   const totalDay = totalSecond / 1000 / 60 / 60 / 24;
@@ -80,9 +81,13 @@ const ChallengeDetail = (props) => {
   };
 
   let today = new Date();
-  const progress = today.getTime() - date1.getTime();
+  const now = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    today.getDate()
+  );
+  const progress = now.getTime() - date1.getTime();
   let progressDays = progress / 1000 / 60 / 60 / 24;
-
   let progressPercent = progressDays / totalDay;
 
   if (progressDays < 0 || isNaN(progressPercent)) {
@@ -95,7 +100,6 @@ const ChallengeDetail = (props) => {
     leadingZeros(today.getMonth() + 1, 2) +
     "-" +
     leadingZeros(today.getDate(), 2);
-
   //사용자가 자기가 만든 챌린지 수정 => 챌린지 시작전에만 수정 가능
   const editChallenge = () => {
     history.push(`/${challenge.challengeId}/edit`);
@@ -323,7 +327,7 @@ const Btns = styled.div`
     height: 11vh;
     flex-direction: row;
     position: fixed;
-    z-index: 15;
+    z-index: 50;
     top: auto;
     bottom: 0;
     right: 0;

@@ -236,7 +236,7 @@ const PostList = (props) => {
                 <StatusInfo>
                   <span>
                     {list[clicked]?.postingCount === 1
-                      ? "친구들의 응원을 기다려보아요^^"
+                      ? "우와 오늘도 실천하시다니 대단해요^^"
                       : `${list[clicked]?.postingCount} 명의 친구가 응원하고 있어요!`}
                   </span>
                 </StatusInfo>

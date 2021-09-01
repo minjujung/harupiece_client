@@ -110,8 +110,7 @@ const ConditionBtn = (props) => {
         color="mainGreen"
         fontsize="md"
       >
-        챌린지 시작이후에는
-        <br /> 신청이 어려워요😂
+        이미 시작한 챌린지에요😂
       </Button>
     );
   } else if (challengeProgress === 3) {

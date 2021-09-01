@@ -528,7 +528,7 @@ const Textarea = styled.textarea`
     sans-serif;
   ::placeholder {
     font-size: ${({ theme }) => theme.fontSizes.ms};
-    color: ${({ theme }) => theme.colors.darkGray};
+    color: ${({ theme }) => theme.colors.gray};
     font-weight: 400;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",

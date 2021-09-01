@@ -169,7 +169,7 @@ export default Chat;
 const Container = styled.div`
   height: 100%;
   position: relative;
-  z-index: 100;
+  background-color: white;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 100%;
@@ -177,12 +177,12 @@ const Container = styled.div`
       position: fixed;
       right: 32px;
       bottom: 14.38vh;
-      z-index: 10;
     }
   }
 `;
 
 const ChatBox = styled.div`
+  width: 331px;
   height: 59.26%;
   overflow: hidden;
   position: fixed;
@@ -202,7 +202,6 @@ const ChatBox = styled.div`
 `;
 
 const Header = styled.div`
-  /* width: 16.15vw; */
   min-width: 331px;
   height: 4.44vh;
   object-fit: cover;

@@ -27,6 +27,7 @@ import theme from "./theme";
 import favicon from "../assets/images/logo/favicon.svg";
 import LandingPage from "../pages/LandingPage";
 import Loader from "./Loader";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <ConnectedRouter history={history}>
+        <ScrollToTop />
         <Helmet>
           <link rel="icon" href={favicon} />
         </Helmet>

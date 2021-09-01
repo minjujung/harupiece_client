@@ -21,7 +21,7 @@ const StateBox = (props) => {
     history.push("/mypage/pieces");
   };
 
-  if (user_info?.memberId === null) {
+  if (user_info === null) {
     return (
       <StateContainer>
         <UserStatus>

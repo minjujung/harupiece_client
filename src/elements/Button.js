@@ -95,6 +95,6 @@ const ElButton = styled.button`
 
   ${({ theme }) => theme.device.mobileLg} {
     font-size: 17px;
-    ${(props) => (props.chat ? `right: 4.44vw;` : null)}
+    ${(props) => (props.chat ? `right: 4.44vw; z-index: 15;` : null)}
   }
 `;

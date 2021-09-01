@@ -18,14 +18,17 @@ const MessageList = ({ challengeId }) => {
   // 스크롤 대상(제일 마지막 메세지)
   const scrollTo = useRef();
 
+  //message의 변화만 추적해야함!! []안에 prevHeight넣으면 안됨!
   useEffect(() => {
     if (prevHeight) {
       scrollTo.current.scrollTop = scrollTo.current.scrollHeight - prevHeight;
+      console.log(prevHeight, scrollTo.current.scrollHeight);
       return setPrevHeight(null);
+    } else {
+      scrollTo.current.scrollTop =
+        scrollTo.current.scrollHeight - scrollTo.current.clientHeight;
     }
-    scrollTo.current.scrollTop =
-      scrollTo.current.scrollHeight - scrollTo.current.clientHeight;
-  }, [prevHeight, chatInfo.messages]);
+  }, [chatInfo.messages]);
 
   const callNext = () => {
     if (paging.next === false) {

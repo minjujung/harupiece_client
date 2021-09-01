@@ -24,14 +24,14 @@ const LandingPage = (props) => {
   return (
     <Container>
       <MainSection>
-        <h1 style={{ cursor: "default" }}  >
-          당신의 건강 챌린지를 도와주는 서비스
+        <h1>
+          당신의 건강한 습관을 위한 페이스 메이커
           <br />
           하루조각
         </h1>
         <Desc>
           <Ment>
-            <p style={{ cursor: "default" }}  >
+            <p style={{ cursor: "default" }}>
               매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
               <br />
               사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지에 참여해서
@@ -57,16 +57,17 @@ const LandingPage = (props) => {
         </Desc>
       </MainSection>
       <MobildMain>
-        <h1 style={{ cursor: "default" }}  >
-          당신의 건강 챌린지를 도와주는 서비스
+        <h1>
+          당신의 건강한 습관을 위한 페이스
           <br />
-          하루조각
+          메이커 하루조각
         </h1>
-        <p style={{ cursor: "default" }}  >
-          매일 스트레칭하기, 물 2L 마시기, 영양제 먹기 ...
+        <p>
+          하루에 30분 걷기, 물 2L 마시기 같은 간단한 챌린지부터
           <br />
-          사소하지만 우리의 건강을 챙겨줄 수 있는 챌린지
-          <br />에 참여해서 당신의 조각들을 모아보세요.
+          금연하기, 금주하기 같은 혼자만의 의지로 힘든 챌린지까지
+          <br />
+          조각을 모으면서 건강한 습관을 함께 만들어 보세요.
         </p>
         <Image
           width="39.58vw"
@@ -89,15 +90,13 @@ const LandingPage = (props) => {
       </Down>
       <ChallengeSection>
         <MentFrame>
-          <h1 style={{ cursor: "default" }} >
-            건강한 습관을 만들 챌린지에 참여해보세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >
-            습관챌린지, 금연&금주, 운동 중 원하는 챌린지를 찾아보세요.
+          <h1>좋은 습관 만들기를 위한 챌린지에 참여해 보세요.</h1>
+          <p>
+            생활, 금연, 금주, 운동 중 원하는 습관 만들기 챌린지를 찾아 보세요.
             <br />
-            원하는 챌린지가 없다면 새로 챌린지를 개설하여
+            원하는 챌린지가 없나요? 그렇다면 직접 챌린지를 개설하여
             <br />
-            함께 할 사람들을 모아보세요!{" "}
+            진행해 볼 수도 있어요!
           </p>
         </MentFrame>
         <ImageFrame>
@@ -107,47 +106,49 @@ const LandingPage = (props) => {
       <PostSection>
         <img src={post} alt="post"></img>
         <MentFrame>
-          <h1 style={{ cursor: "default" }} >
-            다른 사람들의 인증샷을 보고 응원해주세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >
-            습관을 만들기 어렵다고 느낀 적 있으신가요? <br />
-            다른 사람들과 함께 챌린지를 진행하고 인증샷을 남기며
+          <h1>다른 사람들의 인증샷을 보고 응원해주세요.</h1>
+          <p>
+            혼자하는 도전이 지치셨나요? <br />
+            이제는 혼자가 아닌 여럿이서 함께 도전해 보세요.
             <br />
-            인증버튼을 눌러보세요. 습관이 재밌어질 거에요!{" "}
+            함께 챌린지를 진행하고, 인증을 남겨 서로를 응원하다 보면
+            <br />
+            습관 만들기, 더욱 재밌어질 거예요!
           </p>
         </MentFrame>
       </PostSection>
       <MobilePost>
         <MentFrame>
-          <h1 style={{ cursor: "default" }}>
-            다른 사람들의 인증샷을 보고 응원해주세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >
-            습관을 만들기 어렵다고 느낀 적 있으신가요? <br />
-            다른 사람들과 함께 챌린지를 진행하고 인증샷을 남기며
+          <h1>다른 사람들의 인증샷을 보고 응원해주세요.</h1>
+          <p>
+            혼자하는 도전이 지치셨나요? <br />
+            이제는 혼자가 아닌 여럿이서 함께 도전해 보세요.
             <br />
-            인증버튼을 눌러보세요. 습관이 재밌어질 거에요!{" "}
+            함께 챌린지를 진행하고, 인증을 남겨 서로를 응원하다 보면
+            <br />
+            습관 만들기, 더욱 재밌어질 거예요!
           </p>
         </MentFrame>
         <img src={mobilePost} alt="mobilePost"></img>
       </MobilePost>
       <PiecesSection>
         <MentFrame>
-          <h1 style={{ cursor: "default" }} >
-            챌린지를 완료해서 조각을 모아보세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >
-            챌린지에 인증샷을 올리면 1조각,
+          <h1>챌린지를 완주해서 조각을 모아 보세요.</h1>
+          <p>
+            챌린지에 일일 인증샷을 올리면 1 조각을,
             <br />
-            챌린지를 완료하면 인증기간 X 50조각,
+            챌린지를 완주하면 인증한 기간 X 50 조각을,
             <br />
-            공식 챌린지를 완료하면 인증기간 X 100조각을 모을 수 있어요.
+            하루조각 공식 챌린지를 완주하면 인증한 기간 X 100 조각을 모을 수
+            있어요.
             <br />
-            <span>
+            열심히 모은 조각이 무엇이 될지 궁금하지 않으세요?
+            <br />
+            하루조각에서 확인해 볼 수 있어요!
+            {/* <span>
               *인증샷을 올리고 다른 참가자의 50%가 응원해야 1조각을 모을 수
               있습니다.
-            </span>
+            </span> */}
           </p>
         </MentFrame>
         <img src={pieces} alt="pieces" />
@@ -155,40 +156,39 @@ const LandingPage = (props) => {
       <ChatSection>
         <img src={chat} alt="chat" />
         <MentFrame>
-          <h1 style={{ cursor: "default" }}  >
-            실시간 채팅을 통해 더 깊게 소통해보세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >
-            같은 챌린지를 진행하는 사람과 챌린지를 하면서 느낀 점이나 고민을
-            <br /> 공유해보세요. 팁을 얻게 될지도 몰라요.{" "}
+          <h1>실시간 채팅을 통해 더 가까이 소통해 보세요.</h1>
+          <p>
+            함께 챌린지를 진행하는 사람들과 챌린지를 하며 느낀점이나 고민을
+            공유해 보세요.
+            <br /> 흔들렸던 의지는 다잡아지고, 좋은 습관에 한 발짝 더 가까워질
+            거예요.
+            <br /> 혹시 몰라요. 의외의 팁을 얻을 수도?
           </p>
         </MentFrame>
       </ChatSection>
       <MobileChat>
         <MentFrame>
-          <h1 style={{ cursor: "default" }}  >
-            실시간 채팅을 통해 더 깊게 소통해보세요.
-          </h1>
-          <p style={{ cursor: "default" }}  >  
-            같은 챌린지를 진행하는 사람과 챌린지를 하면서 느낀 점이나 고민을
-            공유해보세요. 팁을 얻게 될지도 몰라요.{" "}
+          <h1>실시간 채팅을 통해 더 가까이 소통해 보세요.</h1>
+          <p>
+            함께 챌린지를 진행하는 사람들과 챌린지를 하며 느낀점이나 고민을
+            공유해 보세요. 흔들렸던 의지는 다잡아지고, 좋은 습관에 한 발짝 더
+            가까워질 거예요.
+            <br /> 혹시 몰라요. 의외의 팁을 얻을 수도?
           </p>
         </MentFrame>
         <img src={mobileChat} alt="mobileChat" />
       </MobileChat>
       <IntroSection>
-        <h1 style={{ cursor: "default" }}  >
-          나를 위한 조각을 모을 준비 되셨나요?
-        </h1>
+        <h1>나를 위한 조각, 모을 준비 되셨나요?</h1>
         <Button width="fit-content" padding="0.73vw 2.45vw" _onClick={goToHome}>
           홈페이지 둘러보기
         </Button>
       </IntroSection>
       <MobileIntroSection>
-        <h1 style={{ cursor: "default" }}  >
-          나를 위한 조각을 모을 준비,
+        <h1>
+          나를 위한 조각,
           <br />
-          되셨나요?
+          모을 준비 되셨나요?
         </h1>
         <Button
           width="91.11vw"
@@ -283,6 +283,9 @@ const MobildMain = styled.section`
       width: 100%;
       height: 50vw;
     }
+    button {
+      margin: 0;
+    }
   }
 `;
 
@@ -348,7 +351,7 @@ const MentFrame = styled.div`
   display: flex;
   flex-direction: column;
   h1 {
-    font-size: 36px;
+    font-size: 30px;
     line-height: 120%;
     margin-bottom: 1.25vw;
     font-weight: 500;
@@ -408,6 +411,8 @@ const ImageFrame = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 96.22vw;
+    margin-left: 0;
+    align-self: flex-end;
     overflow: hidden;
     img {
       margin-top: 40px;
