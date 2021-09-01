@@ -44,14 +44,12 @@ const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
       maxSizeMB: 1,
       maxWidthOrHeight: 300,
     };
-
     if (!file) {
       return;
     }
     try {
       const compressedFile = await imageCompression(file, options);
       reader.readAsDataURL(compressedFile);
-
       reader.onloadend = () => {
         dispatch(imageActions.setPreview(reader.result));
       };
@@ -61,15 +59,33 @@ const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
   };
 
   //인증샷 post게시하면서 이미지도 업로드
-  const createPost = () => {
+  const createPost = async (e) => {
+    const reader = new FileReader();
     const file = shotInput.current.files[0];
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+    };
     if (!file || !shotText) {
       setTimeout(() => window.alert("인증샷과 게시글 모두 작성해주세요!"), 300);
       return;
     }
-    dispatch(
-      postActions.addPostDB({ file, shotText }, challengeId, totalNumber)
-    );
+    try {
+      const compressedFile = await imageCompression(file, options);
+      reader.readAsDataURL(compressedFile);
+      reader.onloadend = () => {
+        dispatch(
+          postActions.addPostDB(
+            { compressedFile, shotText },
+            challengeId,
+            totalNumber
+          )
+        );
+      };
+    } catch (error) {
+      consoleLogger("인증샷 업로드 에러", error);
+    }
+
     setShotText("");
     handleClose();
   };
