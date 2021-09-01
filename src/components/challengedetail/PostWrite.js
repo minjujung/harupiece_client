@@ -67,6 +67,7 @@ const PostWrite = ({ challengeId, challengeHoliday, totalNumber }) => {
       setTimeout(() => window.alert("인증샷과 게시글 모두 작성해주세요!"), 300);
       return;
     }
+
     dispatch(
       postActions.addPostDB({ file, shotText }, challengeId, totalNumber)
     );
