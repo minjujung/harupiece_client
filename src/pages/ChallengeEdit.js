@@ -351,7 +351,7 @@ const Title = styled.div`
     width: 100%;
     margin-top: 11vw; /* 모바일 가이드 라인 변경면 없애기 */
     height: auto;
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 
@@ -466,7 +466,7 @@ const Input = styled.input`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 6.875vh;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
@@ -505,9 +505,9 @@ const Textarea = styled.textarea`
     height: 20vh;
     margin-top: 16px;
     padding: 1.48vh 4.44vw;
-    font-size: 24px;
+    font-size: 20px;
     ::placeholder {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 `;
@@ -538,7 +538,7 @@ const SelectBox = styled.select`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 6.875vh;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
@@ -584,7 +584,7 @@ const CategoryInfo = styled.div`
     h4 {
       font-weight: bold;
       line-height: normal;
-      font-size: 24px;
+      font-size: 20px;
     }
     p {
       margin-top: 16px;

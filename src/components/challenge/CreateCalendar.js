@@ -171,7 +171,7 @@ const Holiday = styled.div`
     margin-bottom: 5.18vh;
     padding: 1.48vh 0 1.48vh 4.44vw;
     & > P {
-      font-size: 24px;
+      font-size: 20px;
       padding-top: 0.41vh;
     }
   }
@@ -202,12 +202,12 @@ const SDatePicker = styled(DatePicker)`
   ${({ theme }) => theme.device.mobileLg} {
     width: 91.11vw;
     height: 6.875vh;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw;
     ::placeholder {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 `;
