@@ -7,6 +7,7 @@ import { consoleLogger } from "../configureStore";
 const G_LOAD = "main/G_LOAD";
 const M_LOAD = "main/M_LOAD";
 const SEARCH = "SEARCH";
+const RESETSEARCH = "RESETSEARCH";
 const ADD_M_LOAD = "main/ADD_M_LOAD";
 const DELETE_M_LOAD = "main/DELETE_M_LOAD";
 const LOADING = "LOADING";
@@ -15,6 +16,10 @@ const LOADING = "LOADING";
 const guestLoad = createAction(G_LOAD, (guestmain) => ({ guestmain }));
 const userLoad = createAction(M_LOAD, (usermain) => ({ usermain }));
 const search = createAction(SEARCH, (search, paging) => ({ search, paging }));
+const resetSearch = createAction(RESETSEARCH, (search, paging) => ({
+  search,
+  paging,
+}));
 //로그인한 유저가 챌린지를 추가했을 때
 const addUserLoad = createAction(ADD_M_LOAD, (challenge) => ({ challenge }));
 //로그인한 유저가 챌린지를 삭제했을 때
@@ -150,17 +155,14 @@ const searchFilterDB = (content, keyWord) => {
       encodeSearchWords === "ALL" &&
       encodeCategoryName === "ALL" &&
       period === 0 &&
-      progress === 0 &&
-      page === 1
+      progress === 0
     ) {
       MainApis.allChallenge(page)
         .then((res) => {
-          console.log(res);
-          console.log(res.config);
           let new_paging = {
             page:
               res.data.challengeList?.length < _paging.size
-                ? 1
+                ? false
                 : _paging.page + 1,
             next: res.data.hasNext,
             size: _paging.size,
@@ -180,11 +182,10 @@ const searchFilterDB = (content, keyWord) => {
         page
       )
         .then((res) => {
-          console.log(res);
           let new_paging = {
             page:
               res.data.challengeList?.length < _paging.size
-                ? 1
+                ? false
                 : _paging.page + 1,
             next: res.data.hasNext,
             size: _paging.size,
@@ -214,17 +215,14 @@ export default handleActions(
       }),
     [SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        const challengeSize = action.payload.search.length;
-        const payloadSize = action.payload.paging.size;
-        // const payloadPage = action.payload.paging.page;
-        if (challengeSize < payloadSize) {
-          draft.search = action.payload.search;
-        } else {
-          draft.search.push(...action.payload.search);
-        }
-
+        draft.search.push(...action.payload.search);
         draft.paging = action.payload.paging;
         draft.is_loading = false;
+      }),
+    [RESETSEARCH]: (state, action) =>
+      produce(state, (draft) => {
+        draft.search = action.payload.search;
+        draft.paging = action.payload.paging;
       }),
     [DELETE_M_LOAD]: (state, action) =>
       produce(state, (draft) => {
@@ -254,6 +252,7 @@ const MainCreators = {
   deleteUserLoad,
   searchFilterDB,
   loading,
+  resetSearch,
   // allCategoryDB,
 };
 

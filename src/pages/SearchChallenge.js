@@ -86,6 +86,7 @@ function SearchChallenge(props) {
         },
       },
     });
+    dispatch(searchActions.resetSearch([], { page: 1, next: null, size: 8 }));
   };
 
   useEffect(() => {
