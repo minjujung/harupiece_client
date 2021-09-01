@@ -211,7 +211,7 @@
   position: absolute;
   padding: 0;
   border: none;
-  z-index: 1;
+  z-index: 999;
   height: 32px;
   width: 32px;
   text-indent: -999em;
