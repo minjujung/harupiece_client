@@ -42,7 +42,7 @@ function CreateCertification({ challengeInfo, setChallengeInfo, id }) {
     }
   };
 
-  const badSelectFile = async (e) => {
+  const badSelectFile = async () => {
     const reader = new FileReader();
     const badFile = badFileInput.current.files[0];
     const options = {
