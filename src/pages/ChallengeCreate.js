@@ -281,7 +281,7 @@ function ChallengeCreate(props) {
               <SelectContainer>
                 <img src={Down} alt="down" />
                 <SelectBox id="isPwd" onChange={choosePublic}>
-                  <option value="CATEGORY">비밀번호 설정</option>
+                  <option value="CATEGORY">공개여부 설정</option>
                   <option value="PUBLIC">공개</option>
                   <option value="PRIVATE">비공개</option>
                 </SelectBox>
