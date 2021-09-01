@@ -2,7 +2,6 @@ import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 
 const instance = axios.create({
-  // baseURL: "http://54.180.141.39/",
   baseURL: "https://api.harupiece.com/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
