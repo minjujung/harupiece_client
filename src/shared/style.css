@@ -109,7 +109,7 @@
 
 .react-datepicker-popper {
   z-index: 1;
-  transform: translate3d(67.72vw, 13.9vw, 0px) !important;
+  transform: translate3d(67.72vw, 11.3vw, 0px) !important;
 }
 
 @media screen and (min-width: 360px) and (max-width: 720px) {
