@@ -159,7 +159,7 @@ const ImageBtn = styled.button`
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 6.875vh;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 16px;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
