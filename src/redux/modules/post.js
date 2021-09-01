@@ -113,12 +113,11 @@ const addPostDB =
         IdentityPoolId: `${process.env.REACT_APP_AWS_KEY}`,
       }),
     });
-
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "onedaypiece-shot-image",
         Key: `${user_info.nickname}` + date + ".jpg",
-        Body: post.file,
+        Body: post.compressedFile,
       },
     });
     const promise = upload.promise();
