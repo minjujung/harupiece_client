@@ -59,7 +59,13 @@ const Footer = (props) => {
                   style={{ width: "34px", height: "34px" }}
                 />
               </Item>
-              <Item>
+              <Item
+                onClick={() => {
+                  const link =
+                    "https://www.notion.so/fe1d19c624bc4746b505b50e03b396b8";
+                  window.open(link, "");
+                }}
+              >
                 <img
                   src={notion}
                   alt="notion"
@@ -84,9 +90,6 @@ const FooterBox = styled.div`
   background-color: white;
   bottom: 0;
   z-index: 10;
-  /* ${({ theme }) => theme.device.mobileLg} {
-    margin-bottom: 40px;
-  } */
 `;
 
 const LeftBox = styled.div`

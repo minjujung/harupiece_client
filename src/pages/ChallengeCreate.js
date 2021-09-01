@@ -214,7 +214,7 @@ function ChallengeCreate(props) {
           ) : null}
         </MobileBadge>
         <Title>
-          <h2 style={{ cursor: "default" }} >챌린지 개설</h2>
+          <h2 style={{ cursor: "default" }}>챌린지 개설</h2>
         </Title>
         <Guid>
           <Image
@@ -497,7 +497,7 @@ const Input = styled.input`
   :focus {
     border: 2px solid ${({ theme }) => theme.colors.mainGreen};
   }
-  ::placeholder{
+  ::placeholder {
     color: ${({ theme }) => theme.colors.darkGray};
   }
   ${({ theme }) => theme.device.mobileLg} {
@@ -576,7 +576,7 @@ const SelectBox = styled.select`
     width: 100%;
     height: 6.875vh;
     font-size: 24px;
-    margin-top: 16px;
+    top: 25%;
     margin-bottom: 5.18vh;
     padding: 1.48vh 4.44vw 1.48vh 4.44vw;
   }
@@ -637,7 +637,7 @@ const MobilBadge = styled.div`
     z-index: 15;
     top: auto;
     bottom: 14.375vh;
-    
+
     display: flex;
     align-items: center;
     padding: 0 4.44vw 0 4.44vw;
