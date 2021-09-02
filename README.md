@@ -19,7 +19,6 @@ Front-end 김태현 정민주 편원준
 Back-end 김선용 김진태 박연우 최왕규   
 Dedigner 안지혜 유수빈   
 
-***
 ## 주요기능
 
 ### 랜딩 페이지
@@ -37,7 +36,6 @@ Dedigner 안지혜 유수빈
 ### 챌린지 검색하기
 <img src="https://i.ibb.co/SRF4MGV/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
 
-***
 
 ### 트러블 슈팅
 
