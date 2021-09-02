@@ -21,6 +21,33 @@ Dedigner 안지혜 유수빈
 
 ***
 
+### 트러블 슈팅
+
+#### 검색
+
+처음 검색 기능을 구현할 당시 전체 챌린지가 매우 적어 서버로부터 모든 챌린지를 불러온 뒤 프론트에서 눌려진 태그에 맞게 필터링 해주는 함수를 구현
+```javascript
+const multiPropsFilter = (challenges, filters) => {
+    const filterKeys = Object.keys(filters); 
+    return challenges.search.filter((challenge) => {
+      return filterKeys.every((key) => {
+        if (!filters[key].length) return true;
+        if (Array.isArray(challenge[key])) {
+          return challenge[key].some((keyEle) => filters[key].includes(keyEle)); 
+        }
+        return filters[key].includes(challenge[key]);
+      });
+    });
+  };
+
+  const searchProducts = () => {
+    const filteredProducts = multiPropsFilter(searchList, filteredCollected());
+    return filteredProducts?.filter((product) => {
+      return product;
+    });
+  };
+```
+
 📚 [백엔드 Repository]()
 
 📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
