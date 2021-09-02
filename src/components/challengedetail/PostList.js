@@ -1,0 +1,552 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import Dialog from "@material-ui/core/Dialog";
+import PostEdit from "./PostEdit";
+import { Button, Image } from "../../elements";
+import close from "../../assets/images/icons/close.svg";
+
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreator as imageActions } from "../../redux/modules/image";
+import { actionCreator as postActions } from "../../redux/modules/post";
+import { FavoriteRounded } from "@material-ui/icons";
+
+const PostList = (props) => {
+  const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.userInfo);
+
+  const { list, totalNumber, challengeId, challengeStatus, challengeMember } =
+    props;
+
+  const challengeMemberId = challengeMember.map((member) => member.memberId);
+  const [open, setOpen] = useState(false);
+  const [clicked, setClicked] = useState("");
+  const [edit, setEdit] = useState(false);
+
+  //오늘 날짜를 특정 날짜와 비교하기 위해 형태 변경해주는 함수
+  const leadingZeros = (n, digits) => {
+    let zero = "";
+    n = n.toString();
+
+    if (n.length < digits) {
+      for (let i = 0; i < digits - n.length; i++) zero += "0";
+    }
+    return zero + n;
+  };
+
+  let today = new Date();
+
+  // 2021-07-06 이런 형태로 만들어줌
+  today =
+    leadingZeros(today.getFullYear(), 4) +
+    "-" +
+    leadingZeros(today.getMonth() + 1, 2) +
+    "-" +
+    leadingZeros(today.getDate(), 2);
+
+  //인증샷 클릭시 인증샷 상세페이지 modal 열기
+  const handleClickOpen = (id) => {
+    setClicked(list.findIndex((l) => l.postingId === id));
+    setOpen(true);
+  };
+
+  // modal창 닫기,
+  const handleClose = () => {
+    setOpen(false);
+    //수정버전으로 모달 바뀌고 닫길 때 다시 상세보기 모달로 되게끔 edit 상태 초기화
+    setTimeout(() => setEdit(false), 300);
+    // 수정하려고 사진 바꿨다가 모달 끄면 다시 전 사진으로 초기화
+    setTimeout(() => dispatch(imageActions.setPreview(null)), 400);
+  };
+
+  //인증 버튼 눌렀을 때
+  const check = () => {
+    setTimeout(
+      () =>
+        window.alert(
+          `한번 인증을 확인하시면 취소할 수 없어요! ${list[clicked]?.nickName}의 인증샷을 인정해 주시겠어요?`
+        ),
+      300
+    );
+
+    dispatch(postActions.clickCheckDB(list[clicked]?.postingId, totalNumber));
+    if (
+      (parseInt(list[clicked]?.postingCount) / (parseInt(totalNumber) - 1)) *
+        100 ===
+      50
+    ) {
+      //point조각수 총 날짜 * 50 넘겨줘서 유저정보중 point 부분 수정
+      // dispatch(userActions.editUserDB(totalDay * 50))
+      setTimeout(
+        () =>
+          window.alert(
+            `${user_info.nickname}님의 응원으로 ${list[clicked]?.nickName}이 1 조각을 획득하셨어요!!`
+          ),
+        300
+      );
+    }
+  };
+
+  let postingCheckStatus = 0;
+  if (list[clicked]?.postingCount === 0 || totalNumber === 0) {
+    postingCheckStatus = 0;
+  } else if (totalNumber === 1) {
+    postingCheckStatus = 100;
+  } else {
+    postingCheckStatus =
+      (parseInt(list[clicked]?.postingCount) / parseInt(totalNumber)) * 100;
+  }
+
+  //modal안의 component만 편집형태로 바꾸기
+  const editPost = () => {
+    if (postingCheckStatus >= 50 && challengeMember.length > 2) {
+      setTimeout(
+        () =>
+          window.alert(
+            "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+          ),
+        300
+      );
+
+      return;
+    }
+    setEdit(true);
+  };
+
+  //post 삭제
+  const deletePost = () => {
+    if (postingCheckStatus >= 50 && challengeMember.length > 2) {
+      setTimeout(
+        () =>
+          window.alert(
+            "인증 확인이 50% 이상 진행된 게시물은 수정이나 삭제가 안돼요!"
+          ),
+        300
+      );
+      return;
+    }
+    if (
+      list[clicked]?.postingModifyOk &&
+      list[clicked]?.memberId === user_info.memberId
+    ) {
+      dispatch(postActions.deletePostDB(list[clicked]?.postingId));
+      setOpen(false);
+    }
+  };
+
+  let intViewportWidth = window.innerWidth;
+
+  return (
+    <>
+      {list.map((l, idx) => (
+        <ImageList key={l.postingId}>
+          <Image
+            post
+            width="15.83vw"
+            height="28.15vh"
+            borderRadius="12px"
+            src={l.postingImg}
+            onClick={() => handleClickOpen(l.postingId)}
+            alt="vegan_post"
+          />
+        </ImageList>
+      ))}
+
+      <Dialog
+        open={open}
+        maxWidth={false}
+        onClose={handleClose}
+        disableScrollLock={true}
+        aria-labelledby="form-dialog-title"
+        PaperProps={
+          intViewportWidth > 720
+            ? {
+                style: {
+                  width: "36.56vw",
+                  height: "auto",
+                  padding: "1.46vw",
+                  borderRadius: "0.6em ",
+                  overflowY: "hidden",
+                },
+              }
+            : {
+                style: {
+                  width: "91.11vw",
+                  minHeight: "38.37%",
+                  // height: "54.38%",
+                  padding: "2.22vw",
+                  borderRadius: "16px",
+                },
+              }
+        }
+      >
+        {edit && list[clicked] ? (
+          <PostEdit
+            {...list[clicked]}
+            handleClose={handleClose}
+            challengeId={challengeId}
+            postingCheckStatus={postingCheckStatus}
+            challengeStatus={challengeStatus}
+          />
+        ) : (
+          <>
+            {" "}
+            <div>
+              <DialogInfo>
+                <UserInfo>
+                  <Image
+                    width="4.17vw"
+                    height="4.17vw"
+                    borderRadius="50%"
+                    margin="0 16px 0 0"
+                    src={list[clicked]?.profileImg}
+                    alt="profile"
+                  />{" "}
+                  {list[clicked]?.nickName}
+                </UserInfo>
+                <Image
+                  src={close}
+                  alt="closeBtn"
+                  onClick={handleClose}
+                  width={window.innerWidth < 720 ? "18px" : "1.46vw"}
+                  height={window.innerWidth < 720 ? "18px" : "1.46vw"}
+                  borderRadius="0"
+                />
+              </DialogInfo>
+              <StatusFrame>
+                <StatusBar>
+                  <Status width={`${postingCheckStatus}%`} />
+                  <FavoriteRounded
+                    style={
+                      intViewportWidth > 720
+                        ? {
+                            color: "#FF4532",
+                            width: "30px",
+                            height: "30px",
+                            marginLeft: "-10px",
+                          }
+                        : {
+                            color: "#FF4532",
+                            width: "25px",
+                            height: "25px",
+                            marginLeft: "-10px",
+                          }
+                    }
+                  />
+                </StatusBar>
+                <StatusInfo>
+                  <span>
+                    {list[clicked]?.postingCount === 1
+                      ? "우와 오늘도 실천하시다니 대단해요^^"
+                      : `${list[clicked]?.postingCount} 명의 친구가 응원하고 있어요!`}
+                  </span>
+                </StatusInfo>
+              </StatusFrame>
+            </div>
+            <Post>
+              <Image
+                width="15.89vw"
+                height="28.24vh"
+                borderRadius="16px"
+                src={list[clicked]?.postingImg}
+                alt="clicked_img"
+              />
+              <p>{list[clicked]?.postingContent}</p>
+            </Post>
+            <BtnFrame>
+              {list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
+                <MeBtn>
+                  <Button
+                    borderRadius="8px"
+                    width="100%"
+                    height="5.93vh"
+                    border="mainGreen"
+                    bg="white"
+                    margin={
+                      window.innerWidth <= 720 ? "0 2.22vw 0 0" : "0 1.67vw 0 0"
+                    }
+                    color="mainGreen"
+                    _onClick={deletePost}
+                  >
+                    삭제하기
+                  </Button>
+                  <Button
+                    borderRadius="8px"
+                    width="100%"
+                    height="5.93vh"
+                    _onClick={editPost}
+                  >
+                    인증샷 수정
+                  </Button>
+                </MeBtn>
+              ) : null}
+              {!list[clicked]?.postingModifyOk &&
+              list[clicked]?.memberId === user_info.memberId ? (
+                <Button
+                  borderRadius="16px"
+                  width="100%"
+                  height="5.93vh"
+                  border="white"
+                  bg="white"
+                  margin="4.07vh 0 0 0"
+                  color="mainGreen"
+                >
+                  인증샷을 올린 당일에만 수정과 삭제가 가능합니다!
+                </Button>
+              ) : null}
+              <CertifiCheckBtn
+                challengeStatus={challengeStatus}
+                challengeMemberId={challengeMemberId}
+                postingMember={list[clicked]?.memberId}
+                loginUser={user_info.memberId}
+                checkedMembers={list[clicked]?.memberResponseDto}
+                today={today}
+                postingCreatedAt={list[clicked]?.createdAt}
+                check={check}
+              />
+            </BtnFrame>
+          </>
+        )}
+      </Dialog>
+    </>
+  );
+};
+
+const CertifiCheckBtn = (props) => {
+  const {
+    challengeStatus,
+    challengeMemberId,
+    postingMember,
+    loginUser,
+    checkedMembers,
+    today,
+    postingCreatedAt,
+    check,
+  } = props;
+  if (challengeStatus === 2) {
+    if (challengeMemberId.includes(loginUser)) {
+      if (
+        postingCreatedAt?.split("T")[0] < today &&
+        postingMember !== loginUser
+      ) {
+        return (
+          <Button
+            borderRadius="16px"
+            width="100%"
+            height="5.93vh"
+            border="white"
+            bg="white"
+            margin="4.07vh 0 0 0"
+            color="mainGreen"
+          >
+            응원이 끝난 게시물 입니다. <br /> 오늘 올라온 인증 게시물들을 확인해
+            주세요😆
+          </Button>
+        );
+      } else {
+        if (
+          checkedMembers?.includes(loginUser) &&
+          postingMember !== loginUser
+        ) {
+          return (
+            <Button
+              borderRadius="16px"
+              width="100%"
+              height="5.93vh"
+              border="white"
+              bg="white"
+              margin="4.07vh 0 0 0"
+              color="mainGreen"
+            >
+              이미 응원해주신 게시물이에요😊
+            </Button>
+          );
+        } else if (postingMember !== loginUser) {
+          return (
+            <Button
+              width="100%"
+              height="5.93vh"
+              margin="4.07vh 0 0 0"
+              _onClick={check}
+            >
+              응원 하기!
+            </Button>
+          );
+        } else {
+          return null;
+        }
+      }
+    } else {
+      return (
+        <Button
+          borderRadius="16px"
+          width="100%"
+          height="5.93vh"
+          border="white"
+          bg="white"
+          margin="4.07vh 0 0 0"
+          color="mainGreen"
+        >
+          챌린지에 참여한 사람만 응원 버튼을 누를 수 있어요!
+        </Button>
+      );
+    }
+  } else {
+    return (
+      <Button
+        borderRadius="16px"
+        width="100%"
+        height="5.93vh"
+        border="white"
+        bg="white"
+        margin="4.07vh 0 0 0"
+        color="mainGreen"
+      >
+        이미 종료된 챌린지 입니다!
+      </Button>
+    );
+  }
+};
+
+export default PostList;
+
+const ImageList = styled.article`
+  display: flex;
+  width: 15.83vw;
+  height: 28.15vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin-bottom: 200px;
+  }
+`;
+
+const DialogInfo = styled.div`
+  width: 100%;
+  height: 7.4vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: bold;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 64px;
+  }
+`;
+
+const UserInfo = styled.div`
+  height: 7.4vh;
+  display: flex;
+  align-items: center;
+  ${({ theme }) => theme.device.mobileLg} {
+    height: 64px;
+    font-size: 18px;
+    img {
+      width: 42px;
+      height: 42px;
+    }
+  }
+`;
+
+const StatusFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.33vh;
+  ${({ theme }) => theme.device.mobileLg} {
+    margin-top: 4.44%;
+  }
+`;
+
+const StatusBar = styled.div`
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  display: flex;
+  align-items: center;
+`;
+
+const Status = styled.div`
+  background-color: #ffb8b1;
+  width: ${(props) => props.width};
+  height: 8px;
+  border-radius: 10px;
+  transition: 1s;
+`;
+
+const StatusInfo = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 2vh;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.gray};
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: 13px;
+  }
+`;
+
+const Post = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 33px;
+  p {
+    width: 15.89vw;
+    height: 28.24vh;
+    white-space: pre-wrap;
+    line-height: normal;
+    border-radius: 16px;
+    border: 2px solid ${({ theme }) => theme.colors.gray};
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    padding: 0.94vw;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      margin-left: 30px;
+      width: 5px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: ${({ theme }) => theme.colors.gray};
+    }
+  }
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    height: 21.88vh;
+    margin-top: 32px;
+    p {
+      flex: 1;
+      width: 37.89vw;
+      height: 37.89vw;
+      padding: 4.44vw;
+      margin-left: 2.22vw;
+      font-size: ${({ theme }) => theme.fontSizes.xs};
+    }
+    img {
+      height: 37.89vw;
+      width: 37.89vw;
+    }
+  }
+`;
+
+const MeBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 2.29vw;
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+const BtnFrame = styled.div`
+  ${({ theme }) => theme.device.mobileLg} {
+    width: 100%;
+    button {
+      font-size: 13px;
+      margin-top: 16px;
+    }
+  }
+`;
