@@ -43,7 +43,7 @@ Dedigner 안지혜 유수빈
 ## 🛠주요기능
 
 ### 랜딩 페이지
-<img src="https://i.ibb.co/J7HfZ5z/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="landingPage"></img><br/>
+<img src="https://i.ibb.co/J7HfZ5z/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="landingPage"></img><br/>
 
 ### 챌린지 개설하기
 <img src="https://i.ibb.co/Qrpv0zV/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="CreateChallenge"></img><br/>
