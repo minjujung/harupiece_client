@@ -19,6 +19,8 @@ Front-end 김태현 정민주 편원준
 Back-end 김선용 김진태 박연우 최왕규   
 Dedigner 안지혜 유수빈   
 
+***
+
 📚 [백엔드 Repository]()
 
 📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
