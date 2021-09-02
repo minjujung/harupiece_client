@@ -60,7 +60,7 @@ Dedigner 안지혜 유수빈
 
 ## 🚀트러블 슈팅
 
-#### 🔍검색
+### 🔍검색
 
 처음 검색 기능을 구현할 당시 전체 챌린지가 매우 적었기에
 
@@ -136,19 +136,10 @@ const allFilterClickListener = (e, filterProp) => {
       name = "EXERCISE";
     } else if (name === "생활챌린지") {
       name = "LIVINGHABITS";
-    } else if (name === "1주") {
-      name = 1;
-    } else if (name === "2주") {
-      name = 2;
-    } else if (name === "3주") {
-      name = 3;
-    } else if (name === "4주 이상") {
-      name = 4;
-    } else if (name === "진행 예정") {
-      name = 1;
-    } else if (name === "진행중") {
-      name = 2;
-    } else {
+    } 
+      ...
+      
+      else {
       name = e.target.textContent;
     }
 
@@ -174,19 +165,13 @@ const allFilterClickListener = (e, filterProp) => {
 ```
 useEffect을 활용하여 태그를 눌러 상태값이 바뀔때마다 바로 api를 호출시키는 방식으로 해결
 
-#### 🍪refresh token
+### 🍪refresh token
 
 로그인시 받아오는 accessToken이 만료되었을때 같이 받아온 refreshToken을 서버에 전송하고 
 
 새로운 accessToken과 refreshToken을 가져와 쿠키에 저장하는 방식을 구현
 
 ```javascript
-
-instance.interceptors.request.use(function (config) {
-  const accessToken = getCookie("token");
-  config.headers.common["Authorization"] = ` Bearer ${accessToken}`;
-  return config;
-});
 
 instance.interceptors.response.use((response) => {
   return response;
@@ -231,16 +216,6 @@ instance.interceptors.response.use((response) => {
 
 ```javascript
 
-const getAccessToken = () => {
-  const accessToken = getCookie("token");
-  return accessToken;
-};
-
-const getRefreshToken = () => {
-  const refreshToken = getCookie("refreshToken");
-  return refreshToken;
-};
-
 let isTokenRefreshing = false;
 let refreshSubscribers = [];
 
@@ -254,18 +229,7 @@ const addRefreshSubscriber = (callback) => {
   refreshSubscribers.push(callback);
 };
 
-instance.interceptors.request.use(
-  (config) => {
-    const token = getAccessToken();
-    if (token) {
-      config.headers["Authorization"] = ` Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+...
 
 instance.interceptors.response.use(
   (res) => {
@@ -310,13 +274,6 @@ instance.interceptors.response.use(
     return Promise.reject(err);
   }
 );
-
-const refreshTokens = () => {
-  return instance.post("/api/member/reissue", {
-    refreshToken: getRefreshToken(),
-    accessToken: getAccessToken(),
-  });
-};
 ``` 
 1 & 2. 여러 종류의 api를 동시 호출하여 발생한 에러들을 
 
@@ -328,7 +285,7 @@ let refreshSubscribers = []; 안에 담아두고 차례로 실행시킴으로
 
 3. 로그인시 발생하는 401 에러는 if (originalConfig.url !== "api/member/login" && err.response)으로 예외 처리함
 
-#### 채팅 무한스크롤
+### 채팅 무한스크롤
 ```javascript
 const test = () => {
 test
