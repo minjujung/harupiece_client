@@ -30,7 +30,6 @@
 ### 👨‍👨‍👧‍👧 팀원   
 Front-end 김태현 정민주 편원준   
 Dedigner 안지혜 유수빈     
-Dedigner 안지혜 유수빈   
 
 ### 🧱 Architecure
 
