@@ -66,10 +66,10 @@ const ChallengeInfo = (props) => {
   return (
     <ChallengeDesc>
       <Section>
-        <Noti>인증샷을 하나도 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
+        <Noti>인증샷을 첫날에 올리지 않으면 챌린지에서 제외돼요🙄</Noti>
         <Title>
           {toastAlert && <Toast msg="url 복사 완료!" />}
-          <h3 style={{ cursor: "default" }} >기본정보</h3>
+          <h3 style={{ cursor: "default" }}>기본정보</h3>
           <ShareBtn onClick={copy}>
             <Link style={{ transform: "rotate(-45deg)" }} /> 챌린지 공유하기
             <textarea
@@ -138,7 +138,7 @@ const ChallengeInfo = (props) => {
             </PostFrame>
           </MobileFrame>
         </Example>
-        <h3 style={{ cursor: "default" }} >소개글</h3>
+        <h3 style={{ cursor: "default" }}>소개글</h3>
         <Desc>{challenge.challengeContent}</Desc>
         <TagFrame>
           <Tag bg="mainGreen" color="white">
@@ -215,7 +215,7 @@ const Noti = styled.p`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.md};
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   border-radius: 8px;
   ${({ theme }) => theme.device.desktopLg} {
     font-size: 18px;
