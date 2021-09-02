@@ -1,4 +1,4 @@
-# Harupiece🌙
+# 💎Harupiece💎
 
 건강 챌린지 플랫폼, 하루조각
 
