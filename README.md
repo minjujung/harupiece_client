@@ -29,8 +29,13 @@
 
 ### 👨‍👨‍👧‍👧 팀원   
 Front-end 김태현 정민주 편원준   
-
+Dedigner 안지혜 유수빈     
 Dedigner 안지혜 유수빈   
+
+### 🧱 Architecure
+
+![image](https://user-images.githubusercontent.com/84018317/131858377-24e979ac-399e-4455-8bf3-9ede3fbec046.png)
+
 
 ## 🛠주요기능
 
