@@ -44,7 +44,10 @@ Dedigner 안지혜 유수빈
 #### 검색
 
 처음 검색 기능을 구현할 당시 전체 챌린지가 매우 적어 서버로부터 모든 챌린지를 불러온 뒤 프론트에서 눌려진 태그에 맞게 필터링 해주는 함수를 구현
+
 ```javascript
+
+// 서버로부터 받아오는 challenges와 사용자가 누른 태그 값 filters를 비교하는 함수
 const multiPropsFilter = (challenges, filters) => {
     const filterKeys = Object.keys(filters); 
     return challenges.search.filter((challenge) => {
@@ -65,6 +68,90 @@ const multiPropsFilter = (challenges, filters) => {
     });
   };
 ```
+
+하지만 점점 챌린지가 많아질수록 서버로부터 전체 데이터를 받아오는게 비효율적이라고 판단하에 태그를 누른 뒤 검색 버튼을 누를때 해당 데이터를 서버로부터 호출하는 방식으로 변경 시도
+
+```javascript
+
+// 사용자가 누른 태그 값을 collectedTrueKeys에 담아 서버로 전송
+ const collectedTrueKeys = {
+      categoryName: "",
+      tags: "",
+      challengeProgress: "",
+    };
+    const { categoryName, tags, progress } = searchState.passingTags;
+    for (let categoryKey in categoryName) {
+      if (categoryName[categoryKey])
+        collectedTrueKeys.categoryName = categoryKey;
+    }
+    for (let tagKey in tags) {
+      if (tags[tagKey]) collectedTrueKeys.tags = tagKey;
+    }
+    for (let progressKey in progress) {
+      if (progress[progressKey]) collectedTrueKeys.progress = progressKey;
+    }
+    return collectedTrueKeys;
+  };
+
+  const filter = () => {
+    dispatch(searchAll.searchFilterDB(filteredCollected()));
+  };
+```
+
+만들면서도 태그를 누를때 바로 해당 데이터를 호출하는 방식이 더 편하지않을까했었는데 아니나 다를까 유저 피드백으로 들어와서 바로 수정 시도
+
+```javascript
+
+const allFilterClickListener = (e, filterProp) => {
+    let name = e.target.textContent;
+    if (name === "금연금주") {
+      name = "NODRINKNOSMOKE";
+    } else if (name === "운동") {
+      name = "EXERCISE";
+    } else if (name === "생활챌린지") {
+      name = "LIVINGHABITS";
+    } else if (name === "1주") {
+      name = 1;
+    } else if (name === "2주") {
+      name = 2;
+    } else if (name === "3주") {
+      name = 3;
+    } else if (name === "4주 이상") {
+      name = 4;
+    } else if (name === "진행 예정") {
+      name = 1;
+    } else if (name === "진행중") {
+      name = 2;
+    } else {
+      name = e.target.textContent;
+    }
+
+    setSearchState({
+      passingTags: {
+        ...searchState.passingTags,
+        [filterProp]: {
+          [name]: !searchState.passingTags[filterProp][name],
+        },
+      },
+    });
+  };
+```
+기존에는 검색하기 버튼을 통해 api를 호출했으나 태그의 상태값을 바꾸는 함수(allFilterClickListener)안에서 실행시키려하니 태그의 상태값이 변하기전에 api를 호출해서 실패
+
+```javascript
+
+useEffect(() => {
+    if (keyWord === "ALL") {
+      dispatch(searchActions.searchFilterDB(filteredCategory(), keyWord));
+    } else {
+      return dispatch(
+        searchActions.searchFilterDB(filteredCategory(), keyWord)
+      );
+    }
+  }, [dispatch, filteredCategory, keyWord, searchState]);
+```
+useEffect을 활용하여 태그를 눌러 상태값이 바뀔때마다 바로 api를 호출시키는 방식으로 해결
+
 
 📚 [백엔드 Repository]()
 
