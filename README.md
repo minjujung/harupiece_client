@@ -49,31 +49,39 @@
 
 ### 👨‍👨‍👧‍👧 팀원
 
-Front-end: 김태현 정민주 편원준  
+Front-end: 김태현 정민주 편원준
+
 Back-end: 김선용 김진태 박연우 최왕규
+
 Dedigner: 안지혜 유수빈
 
-📺 [유튜브 링크]()
+📺 [유튜브 링크](https://www.youtube.com/watch?v=96SBoeTCTw4)
 
 📚 [백엔드 Repository](https://github.com/OneDayPiece/server)
 
 📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
 
-<<<<<<< HEAD
----
-=======
 ## 🛠주요기능
+
 ### 랜딩 페이지
+
 <img src="https://i.ibb.co/J7HfZ5z/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="landingPage"></img><br/>
+
 ### 챌린지 개설하기
+
 <img src="https://i.ibb.co/Qrpv0zV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CreateChallenge"></img><br/>
+
 ### 챌린지 참여하기
+
 <img src="https://i.ibb.co/LkvyvfG/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="JoinChallenge"></img><br/>
+
 ### 챌린지 인증하기
+
 <img src="https://i.ibb.co/cy8QrXs/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CertificationChallenge"></img><br/>
+
 ### 챌린지 검색하기
+
 <img src="https://i.ibb.co/SRF4MGV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="SearchChallenge"></img><br/>
->>>>>>> 20a6c3ef4b69b64ee24faddbb6f2777e4fb54c48
 
 ## 🚀트러블 슈팅
 
@@ -276,7 +284,7 @@ let refreshSubscribers = []; 안에 담아두고 차례로 실행시킴으로
 에러가 난 api 요청을 하나만 처리 실행하고 accessToken을 교체한 뒤
 나머지 api 요청을 실행하는것으로 해결 3. 로그인시 발생하는 401 에러는 if (originalConfig.url !== "api/member/login" && err.response)으로 예외 처리함
 
-### 채팅 무한스크롤
+### 👩🏻 채팅 무한스크롤
 
 ```javascript
 //ChatInfinityScroll.js
