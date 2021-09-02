@@ -46,16 +46,16 @@ Dedigner 안지혜 유수빈
 <img src="https://i.ibb.co/J7HfZ5z/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="landingPage"></img><br/>
 
 ### 챌린지 개설하기
-<img src="https://i.ibb.co/Qrpv0zV/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="CreateChallenge"></img><br/>
+<img src="https://i.ibb.co/Qrpv0zV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CreateChallenge"></img><br/>
 
 ### 챌린지 참여하기
-<img src="https://i.ibb.co/LkvyvfG/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="JoinChallenge"></img><br/>
+<img src="https://i.ibb.co/LkvyvfG/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="JoinChallenge"></img><br/>
 
 ### 챌린지 인증하기
-<img src="https://i.ibb.co/cy8QrXs/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="CertificationChallenge"></img><br/>
+<img src="https://i.ibb.co/cy8QrXs/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CertificationChallenge"></img><br/>
 
 ### 챌린지 검색하기
-<img src="https://i.ibb.co/SRF4MGV/image.gif" width="550px" height="400px" title="px(픽셀) 크기 설정" alt="SearchChallenge"></img><br/>
+<img src="https://i.ibb.co/SRF4MGV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="SearchChallenge"></img><br/>
 
 
 ## 🚀트러블 슈팅
