@@ -59,7 +59,21 @@ Dedigner: 안지혜 유수빈
 
 📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
 
+<<<<<<< HEAD
 ---
+=======
+## 🛠주요기능
+### 랜딩 페이지
+<img src="https://i.ibb.co/J7HfZ5z/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="landingPage"></img><br/>
+### 챌린지 개설하기
+<img src="https://i.ibb.co/Qrpv0zV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CreateChallenge"></img><br/>
+### 챌린지 참여하기
+<img src="https://i.ibb.co/LkvyvfG/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="JoinChallenge"></img><br/>
+### 챌린지 인증하기
+<img src="https://i.ibb.co/cy8QrXs/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="CertificationChallenge"></img><br/>
+### 챌린지 검색하기
+<img src="https://i.ibb.co/SRF4MGV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="SearchChallenge"></img><br/>
+>>>>>>> 20a6c3ef4b69b64ee24faddbb6f2777e4fb54c48
 
 ## 🚀트러블 슈팅
 
