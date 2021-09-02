@@ -4,7 +4,7 @@
 
 💎 [하루조각 구경하기](https://harupiece.com/)
 
-개요
+## 개요
 
 프로젝트 기간   
 2021.07.23~2021.08.28
@@ -24,6 +24,18 @@ Dedigner 안지혜 유수빈
 
 ### 랜딩 페이지
 <img src="https://i.ibb.co/J7HfZ5z/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+### 챌린지 개설하기
+<img src="https://i.ibb.co/Qrpv0zV/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+### 챌린지 참여하기
+<img src="https://i.ibb.co/LkvyvfG/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+### 챌린지 인증하기
+<img src="https://i.ibb.co/cy8QrXs/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+### 챌린지 검색하기
+<img src="https://i.ibb.co/SRF4MGV/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
 
 ***
 
