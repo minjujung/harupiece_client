@@ -31,6 +31,10 @@
 Front-end 김태현 정민주 편원준   
 Dedigner 안지혜 유수빈     
 
+### 📚 [백엔드 Repository]()
+
+📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
+
 ### 🧱 Architecure
 
 ![image](https://user-images.githubusercontent.com/84018317/131858377-24e979ac-399e-4455-8bf3-9ede3fbec046.png)
@@ -324,6 +328,8 @@ let refreshSubscribers = []; 안에 담아두고 차례로 실행시킴으로
 
 3. 로그인시 발생하는 401 에러는 if (originalConfig.url !== "api/member/login" && err.response)으로 예외 처리함
 
-📚 [백엔드 Repository]()
-
-📝 [팀 노션](https://pinnate-whimsey-d2c.notion.site/b4cb15aad252413c9cad64877dba3719)
+#### 채팅 무한스크롤
+```javascript
+const test = () => {
+test
+```
