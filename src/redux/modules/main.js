@@ -253,7 +253,6 @@ const MainCreators = {
   searchFilterDB,
   loading,
   resetSearch,
-  // allCategoryDB,
 };
 
 export { MainCreators };

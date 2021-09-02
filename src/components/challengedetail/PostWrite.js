@@ -330,7 +330,6 @@ const TextInput = styled.textarea`
     height: 25.14%;
     margin-left: 0;
     margin-top: 16px;
-    /* min-height: 18.15%; */
     ::placeholder {
       font-weight: bold;
       font-size: 16px;

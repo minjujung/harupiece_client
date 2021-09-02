@@ -64,14 +64,14 @@ instance.interceptors.response.use(
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);
 
-          isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
+          isTokenRefreshing = false;
 
           instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;
           originalConfig.headers.Authorization = `Bearer ${accessToken}`;
 
-          onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
-          refreshSubscribers = []; // 요청 배열 초기화
-          return instance(originalConfig); // 첫 요청 다시 요청
+          onTokenRefreshed(accessToken);
+          refreshSubscribers = [];
+          return instance(originalConfig);
         }
         const retryOriginalRequest = new Promise((resolve) => {
           addRefreshSubscriber((accessToken) => {

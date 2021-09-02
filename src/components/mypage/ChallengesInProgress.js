@@ -21,11 +21,7 @@ const changeForm = (dates) => {
   return { _year, _month, _date };
 };
 
-function ChallengesInProgress(props) {
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
-
+function ChallengesInProgress() {
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.myPageScheduledResponseDto?.challengeList
   );
@@ -52,10 +48,6 @@ function ChallengesInProgress(props) {
   } = changeForm(end);
 
   return (
-    // <>
-    //   {loading ? (
-    //     <Loader />
-    //   ) : (
     <Container>
       {myChallengeList && myChallengeList.length !== 0 ? (
         <CardGrid>
@@ -125,8 +117,6 @@ function ChallengesInProgress(props) {
         </NoListMent>
       )}
     </Container>
-    //   )}
-    // </>
   );
 }
 
@@ -147,14 +137,11 @@ const CardGrid = styled.div`
   display: grid;
   gap: 1.04vw;
   grid-template-columns: repeat(4, 16.04vw);
-  /* grid-template-rows: repeat(1, 34.64vh);
-  grid-auto-rows: 34.64vh; */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     gap: 3.13vh;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    /* grid-auto-rows: 53.36vh; */
   }
 `;
 

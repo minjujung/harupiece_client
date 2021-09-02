@@ -149,7 +149,7 @@ const MobileBox = styled.div`
 
 const SliderContainer = styled.div`
   width: 100%;
-  display: flex; //이미지들을 가로로 나열합니다.
+  display: flex;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100vw;
     height: 30vh;

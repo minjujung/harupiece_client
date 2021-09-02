@@ -223,7 +223,6 @@ const Header = styled.div`
     h1 {
       width: 100%;
       height: 5vh;
-      /* height: 8.89vw; */
     }
   }
 `;

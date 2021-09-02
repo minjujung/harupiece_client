@@ -81,7 +81,6 @@ const PwdModal = (props) => {
         height="5.93vh"
         bg="mainGreen"
         color="white"
-        // padding="21px 64px"
         border="lightGray"
         margin="0 0 20px 0"
         _onClick={takePartIn}

@@ -299,19 +299,6 @@ const takeInPartChallengeDB =
         ) {
           setTimeout(() => window.alert(error.response?.data?.message), 400);
         }
-        // if (
-        //   window.confirm(
-        //     "챌린지 신청에 실패했어요ㅜㅜ 메인화면으로 돌아가도 될까요?"
-        //   )
-        // ) {
-        //   history.push("/");
-        // } else {
-        //   history.goBack();
-        // }
-        // consoleLogger(
-        //   "참여신청 버튼이나 신청하기(비밀번호 있는 경우) 버튼 누른 경우: " +
-        //     error
-        // );
       });
   };
 

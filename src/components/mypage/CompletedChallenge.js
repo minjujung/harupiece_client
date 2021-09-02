@@ -6,10 +6,6 @@ import { history } from "../../redux/configureStore";
 import { changeForm } from "./ChallengesInProgress";
 
 function CompletedChallenge() {
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
-
   const myChallengeList = useSelector(
     (state) => state.mypage.myInfo.myPageEndResponseDto?.challengeList
   );

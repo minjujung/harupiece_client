@@ -9,10 +9,6 @@ function MyPieces(props) {
   const user_info = useSelector((state) => state.user.userInfo);
   const mypageInfo = useSelector((state) => state.mypage.myInfo);
 
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
-
   const [show, setShow] = useState(false);
 
   const userLevel = user_info.memberLevel;
@@ -34,37 +30,30 @@ function MyPieces(props) {
     levelState = (((userLevel - 1) % 5) + 1) * (levelDivided5 * 100) + 7500;
   }
 
-  // const levelDataIdx = parseInt((userLevel - 1) / 5);
-
   // 사용자의 level에 맞게 구슬 보여주기 위한 함수
   const levelArray = Array.from({ length: levelDivided5 }, (item, idx) => {
     return idx;
   });
 
-  //에시 구슬 모음
-  // const levelArray = Array.from({ length: 5 }, (item, idx) => {
-  //   return idx;
-  // });
-
   return (
     <Container>
       <PointGrid>
         <InfoBox mainGreen>
-          <p style={{ cursor: "default" }} >나의 하루조각 등급은?</p>
+          <p style={{ cursor: "default" }}>나의 하루조각 등급은?</p>
           <strong>
             {userLevel}({mypageInfo.memberHistoryResponseDto?.rank}위)
           </strong>
         </InfoBox>
         <InfoBox>
-          <p style={{ cursor: "default" }} >하루조각 총 개수</p>
+          <p style={{ cursor: "default" }}>하루조각 총 개수</p>
           <strong>{user_info.point}개</strong>
         </InfoBox>
         <InfoBox>
-          <p style={{ cursor: "default" }} >다음 등급까지 필요 개수</p>
+          <p style={{ cursor: "default" }}>다음 등급까지 필요 개수</p>
           <strong> {levelState - user_info.point}개</strong>
         </InfoBox>
         <InfoBox>
-          <p style={{ cursor: "default" }} >내가 모은 구슬</p>
+          <p style={{ cursor: "default" }}>내가 모은 구슬</p>
           <MarbleList>
             {levelArray.map((idx) => (
               <Image
@@ -83,7 +72,7 @@ function MyPieces(props) {
       </PointGrid>
       <PointHistory>
         <Header>
-          <h2 style={{ cursor: "default" }} >조각 히스토리</h2>
+          <h2 style={{ cursor: "default" }}>조각 히스토리</h2>
           <button onClick={() => setShow(!show)}>
             {show ? "접어두기" : "펼치기"}
           </button>
@@ -178,7 +167,6 @@ const InfoBox = styled.div`
   }
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
-    /* height: 13.52vh; */
     max-height: 173px;
     p {
       text-align: center;
@@ -302,7 +290,6 @@ const NoPointMent = styled.p`
 const HistoryBox = styled.div`
   width: 100%;
   height: auto;
-  /* display: grid; */
   grid-template-rows: repeat(1, 5.55vh);
   grid-auto-rows: 5.55vh;
   gap: 1.48vh;

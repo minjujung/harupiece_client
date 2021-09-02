@@ -11,10 +11,6 @@ import { actionCreators as passwordActions } from "../../redux/modules/mypage";
 function MyPassword() {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
-
   return (
     <Container>
       <ChangePwd>

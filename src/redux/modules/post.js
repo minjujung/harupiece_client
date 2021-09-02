@@ -2,12 +2,10 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
 import { consoleLogger } from "../configureStore";
-import { actionCreator as challengeDetailActions } from "./challengeDetail";
 import { actionCreator as imageActions } from "./image";
 import { PostApis } from "../../shared/api";
 
 import AWS from "aws-sdk";
-import challengeDetail from "./challengeDetail";
 
 const RESET_POST = "RESET_POST";
 const SET_POST = "SET_POST";
@@ -158,17 +156,6 @@ const addPostDB =
           dispatch(imageActions.setPreview(null));
         })
         .catch((error) => {
-          //   if (
-          //     window.confirm(
-          //       "인증샷 등록에 문제가 있습니다ㅜㅜ 메인화면으로 돌아가도 될까요?"
-          //     )
-          //   ) {
-          //     history.push("/");
-          //   } else {
-          //     history.goBack();
-          //   }
-          //   consoleLogger("인증샷 추가 요청했을 때: ", error);
-          // });
           if (
             error.response?.data?.message ===
             "이미 인증된 게시글은 삭제할 수 없습니다."
@@ -192,20 +179,6 @@ const addPostDB =
           consoleLogger("새로운 인증샷 추가할 때: ", error);
         });
     });
-    // .catch((error) => {
-    //   if (
-    //     error.response?.data?.message ===
-    //     "이미 인증된 게시글은 삭제할 수 없습니다."
-    //   ) {
-    //     window.alert("인증상태가 50% 이상이 된 게시물은 삭제가 안됩니다😁");
-    //   } else if (
-    //     error.response?.data?.message ===
-    //     "동일한 챌린지에는 한번의 인증글만 작성할 수 있습니다."
-    //   ) {
-    //     window.alert("인증샷은 하루에 한번만 게시할 수 있어요!");
-    //   }
-    //   consoleLogger("새로운 인증샷 추가할 때: ", error);
-    // });
   };
 
 const editPostDB =
@@ -308,11 +281,6 @@ const deletePostDB =
         setTimeout(() => window.alert("삭제 완료!"), 300);
       })
       .catch((error) => {
-        // if (error) {
-        //   history.push("/");
-        // } else {
-        //   history.goBack();
-        // }
         consoleLogger("인증샷 삭제 했을 때: ", error);
       });
   };

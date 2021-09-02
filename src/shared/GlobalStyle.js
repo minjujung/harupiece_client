@@ -8,15 +8,7 @@ ${reset};
     box-sizing: border-box;
 }
 
-html {
-    /* overflow-y: auto; */
-    /* overflow-x: hidden; */ // 검색창에서 검색 클릭시 아래 컨텐츠들이 가려짐
-  }
-
-
 body {
-    /* padding-top: 5em;
-    padding-bottom:50px; */
     font-family: "Noto Sans CJK KR";
     padding: 114px 0px 0px 0px;
     height: 100%

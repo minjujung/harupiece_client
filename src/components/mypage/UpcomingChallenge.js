@@ -7,9 +7,6 @@ import { useSelector } from "react-redux";
 import { changeForm } from "./ChallengesInProgress";
 
 function UpcomingChallenge(props) {
-  // useEffect(() => {
-  //   dispatch(myInfo.getMyInfoDB());
-  // }, []);
 
   const my_info = useSelector(
     (state) => state.mypage.myInfo.mypageProceedResponseDto
@@ -124,7 +121,6 @@ const CardGrid = styled.div`
   display: grid;
   gap: 1.04vw;
   grid-template-columns: repeat(4, 16.04vw);
-  /* grid-template-rows: repeat(1, 34.63vh); */
 
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;

@@ -92,7 +92,6 @@ const CardBox = styled.div`
   border-top: none;
   cursor: pointer;
   ${({ theme }) => theme.device.mobileLg} {
-    /* width: ${(props) => (props.search ? "41.67vw" : "91.11vw")}; */
     height: ${(props) => (props.height ? props.height : "auto")};
   }
 `;
@@ -100,7 +99,6 @@ const CardBox = styled.div`
 const Container = styled.div`
   margin: 0 1.77vw 0 1.51vw;
   ${({ theme }) => theme.device.mobileLg} {
-    /* width: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: center;

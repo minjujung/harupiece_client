@@ -423,7 +423,6 @@ const InputRightContainer = styled.div`
 const AllInputContainer = styled.div`
   display: flex;
   width: 30.93vw;
-  /* height: 53.79vh; */
   margin-top: 5vh;
   ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
   ${({ theme }) => theme.device.mobileLg} {

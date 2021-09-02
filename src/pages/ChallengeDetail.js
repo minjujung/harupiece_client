@@ -355,7 +355,6 @@ const MobilBtns = styled.div`
 const RightNav = styled.div`
   width: 16.15vw;
   position: relative;
-  /* left: 50.52vw; */
   grid-area: nav;
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;

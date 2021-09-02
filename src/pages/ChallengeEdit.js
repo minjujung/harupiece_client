@@ -84,10 +84,6 @@ function ChallengeCreate(props) {
     setChallengeInfo({ ...challengeInfo, challengeContent: e.target.value });
   };
 
-  // 챌린지  수정 전 날짜
-  // const oldDate = `${challenge_info.challengeStartDate.split("T")[0]} ~
-  // ${challenge_info.challengeEndDate.split("T")[0]}`;
-
   // 챌린지 수정
   const editChallenge = () => {
     if (challengeInfo.challengeStartDate === "") {
@@ -313,7 +309,6 @@ const Container = styled.div`
   width: 100%;
   margin-top: 3.02vw;
   justify-content: center;
-  /* padding: 0 16.66vw 23.24vh 16.66vw; */
   ${({ theme }) => theme.device.mobileLg} {
     display: flex;
     flex-direction: column;
@@ -437,7 +432,6 @@ const RightContainer = styled.div`
 const AllInputContainer = styled.div`
   display: flex;
   width: 30.93vw;
-  /* height: 53.79vh; */
   margin-top: 5vh;
   ${(props) => (!props.isBadge ? "margin-bottom: 7.4vh;" : null)}
   ${({ theme }) => theme.device.mobileLg} {

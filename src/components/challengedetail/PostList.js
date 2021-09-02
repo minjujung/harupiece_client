@@ -434,7 +434,6 @@ const DialogInfo = styled.div`
 `;
 
 const UserInfo = styled.div`
-  /* width: 8.85vw; */
   height: 7.4vh;
   display: flex;
   align-items: center;

@@ -168,7 +168,6 @@ const Sidebar = ({ width, height, children, xPosition, toggleMenu }) => {
           </>
         ) : (
           <>
-            {" "}
             <Menu onClick={goToLogin}>
               로그인
               <Image

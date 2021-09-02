@@ -81,11 +81,6 @@ export default WelcomeModal;
 const Container = styled.div`
   width: 100%;
   text-align: center;
-  /* & > img {
-    position: absolute;
-    top: 19px;
-    left: 25.84vw;
-  } */
 `;
 
 const CloseImg = styled.img`

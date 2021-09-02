@@ -7,7 +7,6 @@ import { MainCreators as searchActions } from "../redux/modules/main";
 import InfinityScroll from "../shared/InfinityScroll";
 
 function SearchChallenge(props) {
-  // 검색 키워드
   const keyWord = props.match.params.searchWords;
   const dispatch = useDispatch();
   const searchList = useSelector((state) => state.main.search);
@@ -365,23 +364,6 @@ function SearchChallenge(props) {
 }
 
 const Container = styled.div`
-  /* width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 21.5vh;
-  padding-bottom: 42.5vh;*/
-  /* ${({ theme }) => theme.device.mobileLg} {
-    width: 100vw;
-    height: 100vh;
-    padding: 0px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
   width: 100%;
   height: 100%;
   display: flex;
@@ -397,18 +379,12 @@ const Container = styled.div`
 const CategoryContainer = styled.div`
   width: 66.67vw;
   height: 10.83vw;
-  /* height: 100vh; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 8px;
   position: relative;
-  /* ${({ theme }) => theme.device.mobileLg} {
-    width: 100%;
-    height: 155px;
-    font-size: 16px;
-  } */
   ${({ theme }) => theme.device.mobileLg} {
     width: 100%;
     height: 250px;
@@ -469,20 +445,6 @@ const BoxContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   padding-top: 8.33vh;
-  /* ${({ theme }) => theme.device.mobileLg} {
-    display: grid;
-    padding-top: 10vh;
-    grid-template-columns: repeat(1, 91vw);
-    grid-template-rows: repeat(2, 1fr);
-    width: 100vw;
-    height: 100vh;
-    grid-row-gap: 40px;
-    overflow: scroll;
-    margin-bottom: 5vh;
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  } */
   ${({ theme }) => theme.device.mobileLg} {
     display: grid;
     padding: 15vw 4.44vw 0 4.44vw;
