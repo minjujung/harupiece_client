@@ -206,12 +206,12 @@ instance.interceptors.response.use(
           const { accessToken, refreshToken } = rs.data;
           setCookie("token", accessToken);
           setCookie("refreshToken", refreshToken);
-          isTokenRefreshing = false; // 토큰 생성중 상태를 fasle로 바꿔주고
+          isTokenRefreshing = false;
           instance.defaults.headers.common.Authorization = ` Bearer ${accessToken}`;
           originalConfig.headers.Authorization = `Bearer ${accessToken}`;
-          onTokenRefreshed(accessToken); // 첫 요청이 아닌 다른 쌓여있던 요청 다시 요청보내기
-          refreshSubscribers = []; // 요청 배열 초기화
-          return instance(originalConfig); // 첫 요청 다시 요청
+          onTokenRefreshed(accessToken);
+          refreshSubscribers = []; 
+          return instance(originalConfig);
         }
         const retryOriginalRequest = new Promise((resolve) => {
           addRefreshSubscriber((accessToken) => {
@@ -234,6 +234,8 @@ let refreshSubscribers = []; 안에 담아두고 차례로 실행시킴으로
 에러가 난 api 요청을 하나만 처리 실행하고 accessToken을 교체한 뒤
 나머지 api 요청을 실행하는것으로 해결
 3. 로그인시 발생하는 401 에러는 if (originalConfig.url !== "api/member/login" && err.response)으로 예외 처리함
+
+
 ### 채팅 무한스크롤
 ```javascript
 const test = () => {
