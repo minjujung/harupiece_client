@@ -1,16 +1,10 @@
 # Harupiece🌙
-
 건강 챌린지 플랫폼, 하루조각
-
 💎 [하루조각 구경하기](https://harupiece.com/)
-
-## 📋개요
-
 ## 하루조각 소개  
 * 코로나 때문에 늘 지쳐있고 체력과 건강을 생각해서 뭔가는 해야 할 것 같은데 의지가 안 생기는 경우가 대부분이죠 ??   
 *  __" 어떻게 하면 스트래스는 덜 받으면서 , 즐겁게 , 건강한 습관을 만들 수 있을까?"__ 하고 기획한 것이 바로 바로 !! 
 * __건강챌린지 플랫폼 하루조각입니다!!__
-
 ### ✨ 챌린지를 통해 원하는 목표에 한 발자국 더 다가갈 수 있습니다
 > 자신이 원하는 목표에 맞는 챌린지를 신청하고 응원 하면 목표 달성이 쉬워집니다
 ### 📅 기간을 설정하고 원하는 챌린지를 만들수 있습니다
@@ -33,7 +27,9 @@
 ### AWS : <img alt="Amazon S3" src ="https://img.shields.io/badge/Amazon S3-569A31.svg?&style=for-the-appveyor&logo=Amazon S3&logoColor=white"/>
 ### Front : <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-appveyor&logo=React&logoColor=white"/> , <img alt="Redux" src ="https://img.shields.io/badge/Redux-764ABC.svg?&style=for-the-appveyor&logo=Redux&logoColor=white"/> , <img alt="styled-components" src ="https://img.shields.io/badge/styled_components-DB7093.svg?&style=for-the-appveyor&logo=styled-components&logoColor=white"/> , <img alt="axios" src ="https://img.shields.io/badge/axios-764ABC.svg?&style=for-the-appveyor&logo=axios&logoColor=white"/>   
 
-팀원   
+### 👨‍👨‍👧‍👧 팀원   
+Front-end 김태현 정민주 편원준   
+Dedigner 안지혜 유수빈     
 Front-end 김태현 정민주 편원준   
 Back-end 김선용 김진태 박연우 최왕규   
 Dedigner 안지혜 유수빈   
