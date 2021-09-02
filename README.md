@@ -20,6 +20,12 @@ Back-end 김선용 김진태 박연우 최왕규
 Dedigner 안지혜 유수빈   
 
 ***
+## 주요기능
+
+### 랜딩 페이지
+<img src="https://i.ibb.co/J7HfZ5z/image.gif" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+
+***
 
 ### 트러블 슈팅
 
