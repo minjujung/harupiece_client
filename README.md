@@ -53,8 +53,6 @@ Dedigner 안지혜 유수빈
 ### 챌린지 검색하기
 <img src="https://i.ibb.co/SRF4MGV/image.gif" width="" height="400px" title="px(픽셀) 크기 설정" alt="SearchChallenge"></img><br/>
 
-***
-
 ## 🚀트러블 슈팅
 
 ### 🔍검색
