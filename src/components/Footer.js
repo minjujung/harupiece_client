@@ -49,7 +49,7 @@ const Footer = (props) => {
               </Item>
               <Item
                 onClick={() => {
-                  const link = "https://github.com/OneDayPiece";
+                  const link = "https://github.com/Harupiece";
                   window.open(link, "");
                 }}
               >

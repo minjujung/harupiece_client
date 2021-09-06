@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ConditionBtn from "../components/challengedetail/ConditionBtn";
@@ -30,7 +30,6 @@ const ChallengeDetail = (props) => {
 
   const [open, setOpen] = useState(false);
   const [toastAlert, setToastAlert] = useState(false);
-  const urlRef = useRef();
 
   useEffect(() => {
     if (toastAlert) {
@@ -39,12 +38,13 @@ const ChallengeDetail = (props) => {
   }, [toastAlert]);
 
   //현재 페이지 url 복사
-  const copy = (e) => {
-    if (!document.queryCommandSupported("copy")) {
-      return alert("복사 기능이 지원되지 않는 브라우저입니다.");
+  const copy = () => {
+    if (!navigator.clipboard) {
+      // Clipboard API not available
+      window.alert("복사 기능을 지원하지 않는 브라우저 입니다😂");
+      return;
     }
-    navigator.clipboard.writeText(urlRef.current.value);
-    e.target.focus();
+    navigator.clipboard.writeText(window.location.href);
     setToastAlert(true);
   };
 
@@ -177,19 +177,6 @@ const ChallengeDetail = (props) => {
                   <ShareBtn onClick={copy}>
                     <LinkIcon style={{ transform: "rotate(-45deg)" }} /> 챌린지
                     공유하기
-                    <textarea
-                      style={{
-                        position: "absolute",
-                        width: "0px",
-                        height: "0px",
-                        top: "0",
-                        left: "0",
-                        opacity: "0",
-                      }}
-                      ref={urlRef}
-                      value={window.location.href}
-                      readOnly
-                    />
                   </ShareBtn>
                 </NavBar>
               </ChallengeHeader>
