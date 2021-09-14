@@ -296,7 +296,6 @@ const _handleScroll = _.throttle(() => {
 
   if (scrollTo.current.scrollTop === 0) {
     setPrevHeight(scrollTo.current.scrollHeight);
-    console.log(scrollTo.current.scrollHeight);
     callNext();
   }
 }, 500);
@@ -305,7 +304,6 @@ const _handleScroll = _.throttle(() => {
 useEffect(() => {
   if (prevHeight) {
     scrollTo.current.scrollTop = scrollTo.current.scrollHeight - prevHeight;
-    console.log(prevHeight, scrollTo.current.scrollHeight);
     return setPrevHeight(null);
   } else {
     scrollTo.current.scrollTop =
